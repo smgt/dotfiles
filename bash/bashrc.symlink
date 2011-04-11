@@ -1,9 +1,12 @@
-export BASH=$HOME/.dotfiles
+export DOTFILES=$HOME/.dotfiles
 
 export PROJECTS=~/Development
 
 # source every .bash file in this rep
-for config_file ($BASH/**/*.bash) source $config_file
+for config_file in $DOTFILES/**/*.bash
+  do
+    source $config_file
+  done
 
 if [[ -a ~/.localrc ]]
 then
