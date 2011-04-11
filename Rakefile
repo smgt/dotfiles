@@ -5,7 +5,8 @@ namespace :install do
   desc "Install my fav gems"
   task :gems do
     %w(boom earthquake).each do |gem|
-      `gem install #{gem}`
+      puts "Trying to install #{gem}"
+      puts `gem install #{gem}`
     end
   end
 end
