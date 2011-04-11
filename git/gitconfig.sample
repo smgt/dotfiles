@@ -1,13 +1,13 @@
 [user]
-        name = Simon Gate
-        email = your@example.com
+  name = Simon Gate
+  email = your@example.com
 
 [alias]
-        co = checkout
-        promote = !$BASH/bin/git-promote
-        wtf     = !$BASH/bin/git-wtf
-        rank-contributers = !$BASH/bin/git-rank-contributers
-        count   = !git shortlog -sn
+  co = checkout
+  promote = !$BASH/bin/git-promote
+  wtf     = !$BASH/bin/git-wtf
+  rank-contributers = !$BASH/bin/git-rank-contributers
+  count   = !git shortlog -sn
 	st = status
 	ci = commit
 	br = branch
@@ -35,17 +35,17 @@
 	untracked = cyan
 
 [core]
-        excludesfile = ~/.gitignore
-        editor = mvim
+  excludesfile = ~/.gitignore
+  editor = mvim
 
 [apply]
-        whitespace = nowarn
+  whitespace = nowarn
 
 [github]
-        user = simon
+  user = simon
 
 [mergetool]
-        keepBackup = false
+  keepBackup = false
 
 [difftool "Kaleidoscope"]
 	cmd = ksdiff-wrapper git \"$LOCAL\" \"$REMOTE\"
