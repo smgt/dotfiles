@@ -1,0 +1,1 @@
+alias flushdns="dscacheutil -flushcache"

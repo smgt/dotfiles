@@ -1,0 +1,63 @@
+#!/usr/bin/env ruby
+
+require "rubygems"
+
+begin
+    require 'cloudapp_api'
+rescue LoadError
+    puts "You need to install cloudapp_api: gem install cloudapp_api"
+      exit!(1)
+end
+
+config_file = "#{ENV['HOME']}/.cloudapp"
+unless File.exist?(config_file)
+   puts "You need to type your email and password (one per line) into "+
+   "`~/.cloudapp`"
+  exit!(1)
+end
+
+email,password = File.read(config_file).split("\n")
+
+def clipboard(t)
+  puts "Copied #{t} to clipboard..."
+  `echo '#{t}' | tr -d "\n" | pbcopy`
+end
+
+def get_url(id)
+  list = CloudApp::Item.all(:per_page => 10)
+  url = list[id.to_i].url
+end
+
+CloudApp.authenticate(email,password)
+
+def is_file?(file)
+  if file.nil?
+    return false
+  else
+    return File.exists?(file)
+  end
+end
+
+if ARGV[0] == "hello"
+  puts "Hello..."
+elsif is_file?(ARGV[0])
+  puts "Uploading #{ARGV[0]}..."
+  begin
+    url = CloudApp::Item.create(:upload, {:file => ARGV[0]}).url
+  rescue
+    if !CloudApp::Account.find.subscribed
+      puts "ERROR: Something went wrong, maby you have uploaded to many files for today (max 10 files/day)."
+    else
+      puts "ERROR: Something went wrong."
+    end
+    exit 0
+  end
+  clipboard(url)
+elsif ARGV[0] =~ /^\d$/
+  clipboard(get_url(ARGV[0]))
+else
+  list = CloudApp::Item.all(:per_page => 10)
+  list.each_with_index do |item,i|
+    puts "#{i}: #{item.name}" + "\n" 
+  end
+end
