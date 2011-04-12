@@ -1,0 +1,1 @@
+download_script.php?src_id=14237: call delete('/Users/simon/.vim/doc/checksyntax.txt')|call delete('/Users/simon/.vim/plugin/checksyntax.vim')|call delete('/Users/simon/.vim/autoload/checksyntax.vim')
