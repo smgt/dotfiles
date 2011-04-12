@@ -71,18 +71,18 @@ On_IPurple='\[\033[10;95m\]'  # Purple
 On_ICyan='\[\033[0;106m\]'    # Cyan
 On_IWhite='\[\033[0;107m\]'   # White
 
-function gitcolor() {
-
+function gitcolor {
+  # @todo: Make this work with variables!!
   if [ "$(__git_ps1 '%s')" = "master" ]
   then
-    gc="${IYellow}$(__git_ps1 '(%s)')${Color_Off}"
+    gc="\033[0;93m$(__git_ps1 ' (%s)')"
   elif [ "$(__git_ps1 '%s')" = "production" ]
   then
-    gc="${Red}$(__git_ps1 '(%s)')${Color_Off}"
+    gc="\033[0;31m$(__git_ps1 ' (%s)')"
   else
-    gc="${IGreen}$(__git_ps1 '(%s)')${Color_Off}"
+    gc="\033[0;92m$(__git_ps1 ' (%s)')"
   fi
-  #echo -e $gc
+  echo -en $gc
 }
 
-export PS1="${IGreen}\h${IBlue} \w $(gitcolor) ${IGreen}\$${Color_Off} "
+export PS1="${IGreen}\h${IBlue} \w\$(gitcolor) ${IGreen}\$${Color_Off} "
