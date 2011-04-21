@@ -1,5 +1,7 @@
 let mapleader=","
 
+set term=builtin_ansi
+
 " 256 colors in terminal
 set t_Co=256
 
