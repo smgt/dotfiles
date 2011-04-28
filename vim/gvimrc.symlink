@@ -41,24 +41,10 @@ augroup FileExplorer
   au!
 augroup END
 
-let g:NERDTreeHijackNetrw = 0
-
 " If the parameter is a directory, cd into it
 function s:CdIfDirectory(directory)
   if isdirectory(a:directory)
     call ChangeDirectory(a:directory)
-  endif
-endfunction
-
-" NERDTree utility function
-function s:UpdateNERDTree(stay)
-  if exists("t:NERDTreeBufName")
-    if bufwinnr(t:NERDTreeBufName) != -1
-      NERDTree
-      if !a:stay
-        wincmd p
-      end
-    endif
   endif
 endfunction
 
