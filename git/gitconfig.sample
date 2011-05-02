@@ -3,7 +3,6 @@
   email = your@example.com
 
 [alias]
-  co = checkout
   promote = !$BASH/bin/git-promote
   wtf     = !$BASH/bin/git-wtf
   rank-contributers = !$BASH/bin/git-rank-contributers
@@ -14,6 +13,9 @@
 	co = checkout
 	df = diff
 	lg = log -p
+  up = !$DOTFILES/bin/git-up
+  reup = !$DOTFILES/bin/git-up
+  co = checkout
 
 [color]
 	ui = auto
@@ -55,3 +57,6 @@
 
 [diff]
 	tool = Kaleidoscope
+
+[push]
+  default = current
