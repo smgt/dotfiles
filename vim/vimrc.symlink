@@ -108,6 +108,8 @@ set modelines=10
 
 " Default color scheme
 colors molokai
+"set background=dark
+"colorscheme solarized
 
 " Include user's local vim config
 if filereadable(expand("~/.vimrc.local"))
