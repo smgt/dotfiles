@@ -53,6 +53,10 @@ if has("autocmd")
     \| exe "normal g'\"" | endif
 endif
 
+" Highlight row when wider than 80 characters
+" highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+" match OverLength /\%81v.\+/
+
 function s:setupWrapping()
   set wrap
   set wm=2
