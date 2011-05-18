@@ -82,7 +82,7 @@ directory_name(){
   echo "%{$fg_bold[cyan]%}%1/%\/%{$reset_color%}"
 }
 
-  export PROMPT=$'\n%{$fg_bold[green]%}%m $(directory_name) $(project_name_color)$(git_dirty)$(need_push)\n› '
+  export PROMPT=$'\n%{$fg_bold[green]%}%n@%m $(directory_name) $(project_name_color)$(git_dirty)$(need_push)\n› '
 set_prompt () {
   export RPROMPT="%{$fg_bold[grey]%}$(todo)%{$reset_color%}"
 }
