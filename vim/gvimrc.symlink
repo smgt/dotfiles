@@ -4,8 +4,8 @@ if has("gui_macvim")
   set fuoptions=maxhorz,maxvert
 
   " Command-T for CommandT
-  macmenu &File.New\ Tab key=<nop>
-  map <D-t> :CommandT<CR>
+  " macmenu &File.New\ Tab key=<nop>
+  " map <D-t> :CommandT<CR>
 
   " Command-Shift-F for Ack
   macmenu Window.Toggle\ Full\ Screen\ Mode key=<nop>
@@ -16,15 +16,22 @@ if has("gui_macvim")
 
   " Command-/ to toggle comments
   map <D-/> <plug>NERDCommenterToggle<CR>
+
 endif
 
 " Start without the toolbar
 set guioptions-=T
 
+" Start without the scrollbars
+set guioptions-=r
+
 " Default gui color scheme
 " color molokai
 set background=dark
 colorscheme solarized
+
+" Set default font
+set guifont=DejaVu\ Sans\ Mono:h11
 
 " ConqueTerm wrapper
 function StartTerm()
