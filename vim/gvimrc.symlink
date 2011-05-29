@@ -19,11 +19,8 @@ if has("gui_macvim")
 
 endif
 
-" Start without the toolbar
-set guioptions-=T
-
-" Start without the scrollbars
-set guioptions-=r
+" Remove all gui
+set guioptions=
 
 " Default gui color scheme
 " color molokai
