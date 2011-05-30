@@ -22,3 +22,4 @@ alias mt="mvim --remote-tab"
 alias grep="grep --color"
 alias -g biggu=/Volumes/Biggu
 alias _=sudo
+alias vim="mvim -v"
