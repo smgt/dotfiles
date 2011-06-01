@@ -23,9 +23,9 @@ endif
 set guioptions=
 
 " Default gui color scheme
-" color molokai
-set background=dark
-colorscheme solarized
+color molokai
+"set background=dark
+"colorscheme solarized
 
 " Set default font
 set guifont=DejaVu\ Sans\ Mono:h11
