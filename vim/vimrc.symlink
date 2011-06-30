@@ -139,6 +139,8 @@ noremap   <Right>  <NOP>
 set modeline
 set modelines=10
 
+set showtabline=0
+
 " Default color scheme
 colors molokai
 "set background=dark
