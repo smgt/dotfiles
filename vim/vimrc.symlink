@@ -63,8 +63,8 @@ map <Leader>z :ZoomWin<CR>
 " CTags
 map <Leader>rt :!ctags --extra=+f -R *<CR><CR>
 
-" BufExplorer
-map <Leader>o :BufExplorer<CR>
+" MiniBufExplorer
+map <Leader>o :MiniBufExplorer<CR>
 
 " Remember last location in file
 if has("autocmd")
