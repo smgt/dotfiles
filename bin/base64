@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby -w
+
+require 'base64'
+
+begin
+  if !ARGV.first.nil? && File.exist?(ARGV.first)
+    puts Base64.encode64(File.read(ARGV.first))
+  end
+end
