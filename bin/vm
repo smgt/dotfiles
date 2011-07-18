@@ -2,8 +2,41 @@
 # A script to start vritualbox vm's headless easier
 # Author: Simon Gate <smgt@buno.se>
 
+help() 
+{
+  echo "$0 [action] [vm]"
+}
+
+#if [ -z "$2" ];then
+  #help
+  #echo "You need to specify a virtual box"
+#else
+  #exit 0
+#fi
+
 if [ -z "$1" ];then
-  echo "You need to specify a virtual box"
-else
-  VBoxManage startvm $1 --type headless
+  help
+  echo "You need to specify a action"
+  exit 0 
 fi
+
+case "$1" in
+  "pause" )
+    VBoxManage controlvm $2 pause
+    ;;
+  "resume" )
+    VBoxManage controlvm $2 resume
+    ;;
+  "start" )
+    VBoxManage startvm $2 --type headless
+    ;;
+  "stop" )
+    VBoxManage controlvm $2 poweroff
+    ;;
+  "savestate" )
+    VBoxManage controlvm $2 savestate
+    ;;
+  "info" )
+    VBoxManage list runningvms
+    ;;
+esac
