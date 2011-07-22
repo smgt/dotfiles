@@ -83,7 +83,7 @@ function bash_command_prompt {
     GIT_COLORED="\[${BIGreen}\]$(__git_ps1 ' (%s)')"
   fi
 
-  export PS1="\[${IGreen}\]\h\[${IBlue}\] \w${GIT_COLORED} \[${IGreen}\]\$\[${Color_Off}\] "
+  export PS1="\[${IGreen}\]\h\[${IBlue}\] \w \[${IGreen}\]\$\[${Color_Off}\] "
 }
 
 PROMPT_COMMAND=bash_command_prompt
