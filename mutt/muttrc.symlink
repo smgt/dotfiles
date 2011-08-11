@@ -1,0 +1,49 @@
+
+# User information
+set from = "Simon <simon@flattr.com>"
+set realname = "Simon G." 
+source "~/.mutt-accounts"
+
+# Connection
+set imap_keepalive = 900 # don't disconnect to often from the imap server
+set mail_check = 30 # check new mails every 30s
+set imap_check_subscribed # update subscribed folders
+set smtp_url = "smtp://mail.flattr.net:587"   # smtp server
+
+# Folders
+set sort = 'threads'                          # order the messages in threads
+set sort_aux = 'last-date-received'           # show latest received mail first
+set spoolfile=imaps://mail.flattr.net/INBOX   # where to check for new mails
+set folder=imaps://mail.flattr.net            # base path of all the folders
+set record="+Sent Messages"                   # name of send messages folder
+set mbox="+Archive"                           # archive file, or all mails. whatever.
+set postponed="+Drafts"                       # drafts folder
+#set trash = "+Trash"                          # don't purge deleted messages to nowhere, move them to trash first
+
+# Remove headers
+ignore "X-Spam-Checker-Version:" 
+ignore "X-Spam-Level:"
+ignore "X-Spam-Status:"
+
+# Mutt behaviour
+set editor="vim"                # use vim as editor when composing emails
+set move = no                   # don't ask me when moving mails
+set noconfirmappend             # don't ask me if i want to append to mailboxes
+set delete=ask-yes              # ask before purging deleted messages
+set copy=yes                    # always save a copy of outgoing messages
+set edit_headers                # let me edit the message header when composing
+
+# Macros
+macro index \Ca "s+Archive\r"
+macro index G "<imap-fetch-mail>"
+
+# Aliases
+alias per Per Thulin <per@flattr.com>
+alias joel Joel Hansson <joel@flattr.com>
+alias peter Peter Sunde Kolmisoppi <peter@flattr.com>
+alias linus Linus Olsson <linus@flattr.com>
+alias pelle Pelle Wessman <pelle@flattr.com>
+alias maria Maria Runesson <maria@flattr.com>
+alias marie Marie Axelsson <maria@flattr.com>
+alias niklas Niklas Femerstrand <niklas@flattr.com>
+alias leif Leif Högberg <leif@flattr.com>
