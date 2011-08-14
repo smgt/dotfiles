@@ -63,6 +63,9 @@ map <Leader>z :ZoomWin<CR>
 
 " CTags
 map <Leader>rt :!ctags --extra=+f -R *<CR><CR>
+let Tlist_Ctags_Cmd="/usr/local/bin/ctags"
+let g:tagbar_ctags_bin="/usr/local/bin/ctags"
+map <Leader>l :TagbarToggle<CR>
 
 " MiniBufExplorer
 map <Leader>o :MiniBufExplorer<CR>
