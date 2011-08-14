@@ -18,7 +18,8 @@ set shiftwidth=2
 set expandtab
 
 " If php, use the php stuffs
-autocmd FileType php set noexpandtab tabstop=4 shiftwidth=4 softtabstop=4 autoindent smartindent
+"autocmd FileType php set noexpandtab tabstop=4 shiftwidth=4 softtabstop=4 autoindent smartindent
+
 "set list listchars=tab:\ \ ,trail:·
 
 " Searching
@@ -92,7 +93,7 @@ au FileType make                                     set noexpandtab
 au FileType python                                   set noexpandtab
 
 " Thorfile, Rakefile and Gemfile are Ruby
-au BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,config.ru}    set ft=ruby
+au BufRead,BufNewFile {Vagrantfile,Gemfile,Rakefile,Thorfile,config.ru}    set ft=ruby
 
 " md, markdown, and mk are markdown and define buffer-local preview
 au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} call s:setupMarkup()
