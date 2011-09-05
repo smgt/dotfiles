@@ -1,4 +1,8 @@
-export VIM=`which mvim`
+if [ -f =mvim ];then
+  export VIM==mvim
+else
+  export VIM==vim
+fi
 
 function vim() {
   if [ -f ".lvimrc" ]; then
