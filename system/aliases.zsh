@@ -15,9 +15,15 @@ else
 fi
 
 alias flushdns="dscacheutil -flushcache"
-alias taskpaper="vim ~/Dropbox/todo.taskpaper"
-alias task="taskpaper"
-
 alias grep="grep --color"
 alias -g biggu=/Volumes/Biggu
-alias _=sudo
+
+# Basic directory operations
+alias ....='cd ../../..'
+alias ...='cd ../..'
+alias ..='cd ..'
+
+alias -- -='cd -'
+
+# # Super user
+alias _='sudo'

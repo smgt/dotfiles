@@ -15,9 +15,14 @@ else
 fi
 
 alias flushdns="dscacheutil -flushcache"
-alias taskpaper="vim ~/Dropbox/todo.taskpaper"
-alias task="taskpaper"
-alias m="mvim"
-alias mt="mvim --remote-tab"
 alias grep="grep --color"
-alias _=sudo
+
+# Basic directory operations
+alias ....='cd ../../..'
+alias ...='cd ../..'
+alias ..='cd ..'
+
+alias -- -='cd -'
+
+# # Super user
+alias _='sudo'
