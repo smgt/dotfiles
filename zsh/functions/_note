@@ -1,0 +1,2 @@
+#compdef note
+_files -W ~/Dropbox/Notes -/
