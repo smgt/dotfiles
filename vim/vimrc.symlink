@@ -149,6 +149,8 @@ set modelines=10
 
 set showtabline=1
 
+set clipboard=unnamed
+
 " Default color scheme
 colors molokai
 "set background=dark
