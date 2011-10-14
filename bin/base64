@@ -4,6 +4,10 @@ require 'base64'
 
 begin
   if !ARGV.first.nil? && File.exist?(ARGV.first)
-    puts Base64.encode64(File.read(ARGV.first))
+    puts Base64.strict_encode64(File.read(ARGV.first))
+  elsif !ARGV.first.nil?
+    puts Base64.strict_encode64(ARGV.first)
+  else
+    puts "Usage: base64 [string|file]"
   end
 end
