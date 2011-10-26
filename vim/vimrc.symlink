@@ -1,3 +1,6 @@
+call pathogen#infect()
+call pathogen#helptags()
+
 let mapleader=","
 
 set term=builtin_ansi
@@ -49,26 +52,16 @@ endif
 " Turn off visual bell
 set visualbell t_vb=
 
-" NERDTree configuration
-let NERDTreeIgnore=['\.rbc$', '\~$']
-map <Leader>n :NERDTreeToggle<CR>
-
 " Command-T configuration
 let g:CommandTMaxHeight=30
 
 map <Leader>p :CommandT<CR>
 
 " ZoomWin configuration
-map <Leader>z :ZoomWin<CR>
+" map <Leader>z :ZoomWin<CR>
 
 " CTags
 map <Leader>rt :!ctags --extra=+f -R *<CR><CR>
-let Tlist_Ctags_Cmd="/usr/local/bin/ctags"
-let g:tagbar_ctags_bin="/usr/local/bin/ctags"
-map <Leader>l :TagbarToggle<CR>
-
-" MiniBufExplorer
-map <Leader>o :MiniBufExplorer<CR>
 
 " Remember last location in file
 if has("autocmd")
