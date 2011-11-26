@@ -150,6 +150,15 @@ colors molokai2
 "set background=dark
 "colorscheme solarized
 
+" Gist settings
+let g:gist_clip_command = 'pbcopy'
+let g:gist_detect_filetype = 1
+
+" Highlight the 81 character background
+:set textwidth=80
+:set colorcolumn=+1
+:hi ColorColumn guibg=#403d3d
+
 " Include user's local vim config
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
