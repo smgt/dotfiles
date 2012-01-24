@@ -128,7 +128,7 @@ hi Visual     guibg=#403D3D
 " }}}
 " Invisible character colors {{{
 highlight NonText    guifg=#444444 guibg=bg
-highlight SpecialKey guifg=#444444 guibg=bg
+highlight SpecialKey guifg=#3b3b3b guibg=bg
 " }}}
 
 " Support for 256-color terminals {{{

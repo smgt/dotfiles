@@ -80,7 +80,8 @@ hi SignColumn      guifg=#A6E22E guibg=#232526
 hi SpecialChar     guifg=#F92672               gui=bold
 hi SpecialComment  guifg=#465457               gui=bold
 hi Special         guifg=#66D9EF guibg=bg      gui=italic
-hi SpecialKey      guifg=#888A85               gui=italic
+"hi SpecialKey      guifg=#888A85               gui=italic
+hi SpecialKey      guifg=#666666 gui=italic
 if has("spell")
     hi SpellBad    guisp=#FF0000 gui=undercurl
     hi SpellCap    guisp=#7070F0 gui=undercurl
