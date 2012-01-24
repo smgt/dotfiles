@@ -18,6 +18,11 @@ then
   source ~/.localrc
 fi
 
+if [[ -a ~/.nvm/nvm.sh ]]
+then
+  source ~/.nvm/nvm.sh ]]
+fi
+
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -U compinit
 compinit
