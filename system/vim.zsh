@@ -1,22 +1,22 @@
 if [ -f =mvim ];then
-  export VIM==mvim
+  export VIM_BIN==mvim
 else
-  export VIM==vim
+  export VIM_BIN==vim
 fi
 
 function vim() {
   if [ -f ".lvimrc" ]; then
-    $VIM -v -S .lvimrc $*
+    $VIM_BIN -v -S .lvimrc $*
   else
-    $VIM -v $*
+    $VIM_BIN -v $*
   fi
 }
 
 function mvim() {
   if [ -f ".lvimrc" ]; then
-    $VIM -S .lvimrc $*
+    $VIM_BIN -S .lvimrc $*
   else
-    $VIM $*
+    $VIM_BIN $*
   fi
 }
 

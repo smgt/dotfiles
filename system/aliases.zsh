@@ -27,3 +27,6 @@ alias -- -='cd -'
 
 # # Super user
 alias _='sudo'
+
+## Mutt in english
+alias mutt="LANG=en_US mutt"
