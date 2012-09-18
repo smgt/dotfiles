@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby
+
+require "rubygems"
+require "redcarpet"
+require "pygments.rb"
+
+class SyntaxRenderer < Redcarpet::Render::HTML
+  def block_code(code, language)
+    if language && !language.empty?
+      Pygments.highlight(code, :formatter => 'html', :lexar => language)
+    else
+      "<pre><code>#{code}</code></pre>"
+    end
+  end
+end
+
+renderer = SyntaxRenderer.new(
+                :with_toc_data => true,
+                :hard_wrap => true,
+                :xhtml => true
+            )
+
+
+markdown = Redcarpet::Markdown.new(renderer,
+            :autolink => true,
+            :space_after_headers => true,
+            :tables => true,
+            :fenced_code_blocks => true
+           )
+
+begin
+  if ARGV[0].nil? || File.exists?(ARGV[0])
+    puts markdown.render(ARGF.read)
+  else
+    puts markdown.render(ARGV.join("\n"))
+  end
+  exit 0
+end
