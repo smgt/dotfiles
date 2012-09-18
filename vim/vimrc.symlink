@@ -10,9 +10,17 @@ set t_Co=256
 
 set nocompatible
 
+" Show line number in front of each line
 set number
+
+" Show line and column number of the cursor position
 set ruler
+
+" Syntax highlighting
 syntax on
+
+" Location of tags file
+set tags=./.git/tags;
 
 " Whitespace stuff
 set nowrap
@@ -22,8 +30,6 @@ set expandtab
 
 " If php, use the php stuffs
 "autocmd FileType php set noexpandtab tabstop=4 shiftwidth=4 softtabstop=4 autoindent smartindent
-
-"set list listchars=tab:\ \ ,trail:·
 
 " Searching
 set hlsearch
@@ -49,19 +55,17 @@ if has('statusline')
   set statusline+=\ [%{getcwd()}]
   set statusline+=%=%-14.(Line:\ %l\ of\ %L\ [%p%%]\ -\ Col:\ %c%V%)
 endif
+
 " Turn off visual bell
 set visualbell t_vb=
 
 " Command-T configuration
 "let g:CommandTMaxHeight=30
-
 map <Leader>p :CommandT<CR>
-
-" Ctrl P configuration
-" let g:ctrlp_map = '<Leader>p'
 
 " ZoomWin configuration
 map <Leader>z :ZoomWin<CR>
+
 
 " Taglist
 map <Leader>o :Tlist<CR>
@@ -69,7 +73,7 @@ let tlist_php_settings = 'php;c:class;f:function'
 let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
 
 " CTags
-" map <Leader>rt :!ctags --extra=+f -R *<CR><CR>
+map <Leader>rt :!ctags --extra=+f -R *<CR><CR>
 
 " Remember last location in file
 if has("autocmd")
@@ -81,28 +85,28 @@ endif
 " highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 " match OverLength /\%81v.\+/
 
-function s:setupWrapping()
-  set wrap
-  set wm=2
-  set textwidth=72
-endfunction
+" function s:setupWrapping()
+"   set wrap
+"   set wm=2
+"   set textwidth=72
+" endfunction
 
-function s:setupMarkup()
-  call s:setupWrapping()
-  map <buffer> <Leader>p :Mm <CR>
-endfunction
+" function s:setupMarkup()
+"   call s:setupWrapping()
+"   map <buffer> <Leader>p :Mm <CR>
+" endfunction
 
-" make and python use real tabs
+" make use real tabs
 au FileType make set noexpandtab
-au FileType python set noexpandtab
+"au FileType python set noexpandtab
 
 " Thorfile, Rakefile and Gemfile are Ruby
 au BufRead,BufNewFile {Vagrantfile,Gemfile,Rakefile,Thorfile,config.ru} set ft=ruby
 
 " md, markdown, and mk are markdown and define buffer-local preview
-au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} call s:setupMarkup()
+" au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} call s:setupMarkup()
 
-au BufRead,BufNewFile *.txt call s:setupWrapping()
+" au BufRead,BufNewFile *.txt call s:setupWrapping()
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -122,10 +126,10 @@ map <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
 " Command mode: Ctrl+P
 cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 
-" Unimpaired configuration
 " Bubble single lines
 nmap <C-k> [e
 nmap <C-j> ]e
+
 " Bubble multiple lines
 vmap <C-k> [egv
 vmap <C-j> ]egv
@@ -140,6 +144,9 @@ noremap   <Down>   <NOP>
 noremap   <Left>   <NOP>
 noremap   <Right>  <NOP>
 
+" <Ctrl-l> redraws the screen and removes any search highlighting.
+nnoremap <silent> <C-l> :nohl<CR><C-l>
+
 " Map keys to change tabs
 noremap <C-p> :tabnext<CR>
 noremap <C-o> :tabprev<CR>
@@ -150,7 +157,8 @@ set modelines=10
 
 set showtabline=1
 
-set clipboard=unnamed
+" Yank into OSX clipboard
+"set clipboard=unnamed
 
 " Default color scheme
 colors molokai2
@@ -163,15 +171,15 @@ let g:gist_clip_command = 'pbcopy'
 let g:gist_detect_filetype = 1
 
 " Highlight the 81 character background
-set textwidth=80
-set colorcolumn=+1
-hi ColorColumn guibg=#403d3d
+"set textwidth=80
+"set colorcolumn=+1
+"hi ColorColumn guibg=#403d3d
 
 " Show special characters
 set list
 set listchars=tab:▷\ ,trail:✖
 
 " Include user's local vim config
-if filereadable(expand("~/.vimrc.local"))
-  source ~/.vimrc.local
-endif
+"if filereadable(expand("~/.vimrc.local"))
+"  source ~/.vimrc.local
+"endif
