@@ -1,3 +1,6 @@
+# Emacs shortcuts
+bindkey -e
+
 # shortcut to this dotfiles path is $DOTFILES
 export DOTFILES=$HOME/.dotfiles
 
@@ -25,4 +28,5 @@ fi
 
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -U compinit
+
 compinit
