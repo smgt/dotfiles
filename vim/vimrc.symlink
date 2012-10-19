@@ -49,8 +49,8 @@ set wildignore+=*.o,*.obj,.git,*.rbc,*.min.js,.rsync_cache
 " Status bar
 set laststatus=2
 if has('statusline')
-  set statusline=%<%f\ 
-  set statusline+=%w%h%m%r 
+  set statusline=%<%f\
+  set statusline+=%w%h%m%r
   set statusline+=%{fugitive#statusline()}
   set statusline+=\ [%{getcwd()}]
   set statusline+=%=%-14.(Line:\ %l\ of\ %L\ [%p%%]\ -\ Col:\ %c%V%)
@@ -183,3 +183,9 @@ set listchars=tab:▷\ ,trail:✖
 "if filereadable(expand("~/.vimrc.local"))
 "  source ~/.vimrc.local
 "endif
+
+" Remove trailing whitespace
+" autocmd BufWritePre * :%s/\s\+$//e
+
+" Show error list in Syntactic
+let g:syntastic_auto_loc_list=1
