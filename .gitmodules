@@ -16,3 +16,6 @@
 [submodule "vim/vim.symlink/bundle/ragtag"]
 	path = vim/vim.symlink/bundle/ragtag
 	url = git://github.com/tpope/vim-ragtag.git
+[submodule "vim/vim.symlink/bundle/taglist.vim"]
+	path = vim/vim.symlink/bundle/taglist.vim
+	url = git://github.com/vim-scripts/taglist.vim.git
