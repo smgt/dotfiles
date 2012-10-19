@@ -13,3 +13,6 @@
 [submodule "vim/vim.symlink/bundle/phpfolding"]
 	path = vim/vim.symlink/bundle/phpfolding
 	url = git://github.com/vim-scripts/phpfolding.vim.git
+[submodule "vim/vim.symlink/bundle/ragtag"]
+	path = vim/vim.symlink/bundle/ragtag
+	url = git://github.com/tpope/vim-ragtag.git
