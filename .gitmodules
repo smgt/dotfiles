@@ -10,3 +10,6 @@
 [submodule "vim/vim.symlink/bundle/supertab"]
 	path = vim/vim.symlink/bundle/supertab
 	url = git://github.com/ervandew/supertab.git
+[submodule "vim/vim.symlink/bundle/phpfolding"]
+	path = vim/vim.symlink/bundle/phpfolding
+	url = git://github.com/vim-scripts/phpfolding.vim.git
