@@ -1,0 +1,23 @@
+#!/bin/sh
+
+__tmux_cmus() {
+  #cmus-remote returns EXIT_FAILURE/EXIT_SUCCESS depending on whether or not cmus is running.
+  if cmus-remote -Q > /dev/null 2>&1; then
+    cmus_status=$(cmus-remote -Q| grep "status" | cut -d ' ' -f 2)
+    cmus_artist=$(cmus-remote -Q | grep -m 1 "artist" | cut -d ' ' -f 3-)
+    cmus_title=$(cmus-remote -Q | grep "tag title" | cut -d ' ' -f 3-)
+    #The lines below works fine. Just uncomment them and add them
+    # in np below if you want the track number or album name.
+    #cmus_tracknumber=$(echo $cmus_data | grep "tracknumber" | cut -d ' ' -f 3)
+    cmus_album=$(cmus-remote -Q | egrep "^tag album " | cut -d ' ' -f 3-)
+
+
+    if [ "$cmus_status" == "playing" ]; then
+      echo "♫ ${cmus_artist} ⡇"
+    fi
+  fi
+}
+
+__tmux_cmus
+
+exit 0
