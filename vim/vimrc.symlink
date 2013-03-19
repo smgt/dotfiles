@@ -191,3 +191,5 @@ set listchars=tab:▷\ ,trail:✖
 
 " Show error list in Syntactic
 let g:syntastic_auto_loc_list=1
+let g:syntastic_error_symbol='🔥'
+let g:syntastic_warning_symbol='💩'
