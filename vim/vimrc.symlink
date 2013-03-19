@@ -21,7 +21,7 @@ set ruler
 syntax on
 
 " Location of tags file
-set tags=./.git/tags;
+set tags=./.git/tags,./tags,tags;
 
 " Whitespace stuff
 set nowrap
