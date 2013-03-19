@@ -3,7 +3,8 @@ call pathogen#helptags()
 
 let mapleader=","
 
-set term=builtin_ansi
+"set term=builtin_ansi
+set term=screen-256color
 
 " 256 colors in terminal
 set t_Co=256
