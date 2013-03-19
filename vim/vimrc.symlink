@@ -162,7 +162,8 @@ set showtabline=1
 "set clipboard=unnamed
 
 " Default color scheme
-colors molokai2
+"colors molokai2
+colors Tomorrow-Night
 "colors mustang
 "set background=dark
 "colorscheme solarized
