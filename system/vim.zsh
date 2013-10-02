@@ -1,4 +1,4 @@
-if [ -f =mvim ];then
+if (( $+command[mvim] ));then
   export VIM_BIN==mvim
 else
   export VIM_BIN==vim
