@@ -1,0 +1,51 @@
+
+# fastest possible way to check if repo is dirty
+prompt_smgt_git_dirty () {
+  # check if we're in a git repo
+  command git rev-parse --is-inside-work-tree &>/dev/null || return
+  # check if it's dirty
+  command git diff --quiet --ignore-submodules HEAD &>/dev/null
+
+  (($? == 1)) && echo '*'
+}
+
+prompt_smgt_preexec () {
+  # shows the current dir and executed command in the title when a process is active
+  printf "\e]0;$PWD:t: $2\a"
+}
+
+prompt_smgt_precmd () {
+  vcs_info
+  RPROMPT="%F{green}$vcs_info_msg_0_%F{red}$(prompt_smgt_git_dirty)%f"
+}
+
+prompt_smgt_setup () {
+
+  prompt_opts=(cr subst percent)
+
+  autoload -Uz add-zsh-hook
+  autoload -Uz vcs_info
+
+  add-zsh-hook precmd prompt_smgt_precmd
+  add-zsh-hook preexec prompt_smgt_preexec
+
+  zstyle ':vcs_info:*' enable git
+  zstyle ':vcs_info:git*' formats ' %b'
+  zstyle ':vcs_info:git*' actionformats ' %b|%a'
+
+  if [ $UID -eq 0 ]; then
+    prompt_smgt_username="%F{red}%n%f "
+  else
+    prompt_smgt_username=""
+  fi
+
+  # show username@host if logged in through SSH
+  if [[ "$SSH_CONNECTION" != '' ]]; then
+    prompt_smgt_username='%F{green}%n%f@%F{yellow}%m%f '
+  fi
+
+  PROMPT='$prompt_smgt_username%F{magenta}%B%~%b%f %(?.%F{magenta}.%F{red})❯%f '
+
+}
+
+prompt_smgt_setup "$@"

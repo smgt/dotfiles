@@ -3,6 +3,7 @@ if [ -x /usr/libexec/path_helper ]; then
 	eval `/usr/libexec/path_helper -s`
 fi
 
+
 # Emacs shortcuts
 bindkey -e
 
@@ -16,8 +17,8 @@ export PROJECTS=~/Development
 for config_file ($DOTFILES/**/*.zsh) source $config_file
 
 # Load the theme
-export ZSH_THEME="smg"
-source "$DOTFILES/zsh/themes/$ZSH_THEME.zsh-theme"
+# export ZSH_THEME="smg"
+# source "$DOTFILES/zsh/themes/$ZSH_THEME.zsh-theme"
 
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
@@ -32,6 +33,8 @@ then
 fi
 
 # initialize autocomplete here, otherwise functions won't be loaded
-autoload -U compinit
+autoload -U promptinit && promptinit
+autoload colors && colors
+autoload -U compinit && compinit
 
-compinit
+prompt smgt
