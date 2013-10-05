@@ -46,3 +46,6 @@
 [submodule "vim/vim.symlink/bundle/taglist"]
 	path = vim/vim.symlink/bundle/taglist
 	url = https://github.com/vim-scripts/taglist.vim.git
+[submodule "vim/vim.symlink/bundle/tcomment"]
+	path = vim/vim.symlink/bundle/tcomment
+	url = https://github.com/tomtom/tcomment_vim.git
