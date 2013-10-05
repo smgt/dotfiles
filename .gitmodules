@@ -43,3 +43,6 @@
 [submodule "vim/vim.symlink/bundle/tabular"]
 	path = vim/vim.symlink/bundle/tabular
 	url = https://github.com/godlygeek/tabular.git
+[submodule "vim/vim.symlink/bundle/taglist"]
+	path = vim/vim.symlink/bundle/taglist
+	url = https://github.com/vim-scripts/taglist.vim.git
