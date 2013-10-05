@@ -28,3 +28,9 @@
 [submodule "vim/vim.symlink/bundle/showmarks"]
 	path = vim/vim.symlink/bundle/showmarks
 	url = git://github.com/vim-scripts/ShowMarks.git
+[submodule "vim/vim.symlink/bundle/vim-fugitive"]
+	path = vim/vim.symlink/bundle/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule "vim/vim.symlink/bundle/gist-vim"]
+	path = vim/vim.symlink/bundle/gist-vim
+	url = https://github.com/mattn/gist-vim.git
