@@ -23,6 +23,7 @@
   Plugin 'ervandew/supertab'
   Plugin 'gregsexton/gitv'
   Plugin 'tomtom/tcomment_vim'
+  Plugin 'rizzatti/dash.vim'
 
 
   " plugin from http://vim-scripts.org/vim/scripts.html
