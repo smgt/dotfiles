@@ -3,18 +3,22 @@ if [ -x /usr/libexec/path_helper ]; then
 	eval `/usr/libexec/path_helper -s`
 fi
 
+plugins=(bundler z)
 
 # Emacs shortcuts
 bindkey -e
 
 # shortcut to this dotfiles path is $DOTFILES
 export DOTFILES=$HOME/.dotfiles
+export ZSH=$DOTFILES/zsh
 
 # your project folder that we can `c [tab]` to
 export PROJECTS=~/Development
 
 # source every .zsh file in this rep
-for config_file ($DOTFILES/**/*.zsh) source $config_file
+for config_file ($DOTFILES/zsh/*.zsh) do
+  source $config_file
+done
 
 # Load the theme
 # export ZSH_THEME="smg"
@@ -27,14 +31,18 @@ then
   source ~/.localrc
 fi
 
-if [[ -a ~/.nvm/nvm.sh ]]
-then
-  source ~/.nvm/nvm.sh ]]
-fi
-
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -U promptinit && promptinit
 autoload colors && colors
 autoload -U compinit && compinit
 
 prompt smgt
+
+# Load all of the plugins that were defined in ~/.zshrc
+for plugin ($plugins); do
+  if [ -f $ZSH_CUSTOM/plugins/$plugin/$plugin.plugin.zsh ]; then
+    source $ZSH_CUSTOM/plugins/$plugin/$plugin.plugin.zsh
+  elif [ -f $ZSH/plugins/$plugin/$plugin.plugin.zsh ]; then
+    source $ZSH/plugins/$plugin/$plugin.plugin.zsh
+  fi
+done
