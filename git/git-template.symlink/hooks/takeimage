@@ -1,12 +1,1 @@
-#!/bin/bash
-
-branch=$(git branch 2>/dev/null | grep '*' | sed 's/\* //')
-repo=$(git config --get repository.name)
-
-if [ -z "$repo" ];then
-  repo=$(basename $(pwd))
-fi
-
-date=$(date +'%Y%m%d%H%M%S')
-
-imagesnap -q ~/Pictures/git-images/$date-$repo-$branch.jpg
+/Users/simon/.dotfiles/bin/takeimage
