@@ -1,9 +1,9 @@
 # system-wide environment settings for zsh(1)
 if [ -x /usr/libexec/path_helper ]; then
-	eval `/usr/libexec/path_helper -s`
+  eval `/usr/libexec/path_helper -s`
 fi
 
-plugins=(bundler z)
+plugins=(bundler z docker fleetctl)
 
 # Emacs shortcuts
 bindkey -e
@@ -14,6 +14,34 @@ export ZSH=$DOTFILES/zsh
 
 # your project folder that we can `c [tab]` to
 export PROJECTS=~/Development
+
+source $DOTFILES/zsh/antigen/antigen.zsh
+
+# Antigen
+# Bundles from oh-my-zsh
+antigen bundles <<EOBUNDLES
+# oh-my-zsh plugins
+git
+git-extras
+extract
+bundler
+docker
+extract
+tmux
+vagrant
+command-not-found
+gem
+node
+nvm
+rbenv
+osx
+
+# other plugins
+zsh-users/zsh-syntax-highlighting
+Tarrasch/zsh-bd
+EOBUNDLES
+
+antigen apply
 
 # source every .zsh file in this rep
 for config_file ($DOTFILES/zsh/*.zsh) do
@@ -31,6 +59,8 @@ then
   source ~/.localrc
 fi
 
+export LC_CTYPE=en_US.UTF-8
+
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -U promptinit && promptinit
 autoload colors && colors
@@ -46,3 +76,5 @@ for plugin ($plugins); do
     source $ZSH/plugins/$plugin/$plugin.plugin.zsh
   fi
 done
+
+#type fortune &> /dev/null && echo && fortune|lolcat && echo
