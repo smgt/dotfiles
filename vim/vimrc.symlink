@@ -24,16 +24,26 @@
   Plugin 'gregsexton/gitv'
   Plugin 'tomtom/tcomment_vim'
   Plugin 'rizzatti/dash.vim'
+  Plugin 'bling/vim-airline'
+  Plugin 'thoughtbot/vim-rspec'
+  "Plugin 'jgdavey/tslime.vim'
+  "Plugin 'tpope/vim-dispatch'
+  "Plugin 'Shougo/unite.vim'
+  "Plugin 'skalnik/vim-vroom'
+  Plugin 'benmills/vimux'
+  Plugin 'scrooloose/nerdtree'
+  Plugin 'szw/vim-tags'
 
 
   " plugin from http://vim-scripts.org/vim/scripts.html
   "Plugin 'L9'
   Plugin 'ZoomWin'
-  "Plugin 'ShowMarks'
   Plugin 'taglist.vim'
 
+  Plugin 'kien/ctrlp.vim'
+
   " Git plugin not hosted on GitHub
-  Plugin 'git://git.wincent.com/command-t.git'
+  " Plugin 'git://git.wincent.com/command-t.git'
   " git repos on your local machine (i.e. when working on your own plugin)
   "Plugin 'file:///home/gmarik/path/to/plugin'
   " The sparkup vim script is in a subdirectory of this repo called vim.
@@ -121,7 +131,10 @@ set visualbell t_vb=
 
 " Command-T configuration
 "let g:CommandTMaxHeight=30
-map <Leader>p :CommandT<CR>
+" map <Leader>p :CommandT<CR>
+let g:ctrlp_map = '<Leader>p'
+map <Leader>b :CtrlPBuffer<CR>
+map <Leader>l :CtrlPLine<CR>
 
 " ZoomWin configuration
 map <Leader>z :ZoomWin<CR>
@@ -129,7 +142,7 @@ map <Leader>z :ZoomWin<CR>
 
 " Taglist
 map <Leader>o :Tlist<CR>
-let tlist_php_settings = 'php;c:class;f:function'
+let tlist_php_settings = 'm;module;php;c:class;f:function'
 let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
 
 " CTags
@@ -252,3 +265,36 @@ set listchars=tab:▷\ ,trail:✖
 let g:syntastic_auto_loc_list=1
 let g:syntastic_error_symbol='🔥'
 let g:syntastic_warning_symbol='💩'
+
+" Populate airline special fonts
+let g:airline_powerline_fonts = 1
+
+" Configure vim-rspec
+" let g:rspec_command = 'call Send_to_Tmux("bundle exec rspec {spec}\n")'
+" let g:rspec_command = 'Dispatch bundle exec rspec {spec}'
+" map <Leader>r :call RunCurrentSpecFile()<CR>
+
+" Dash
+nmap <silent> <leader>d <Plug>DashSearch
+
+" Prompt for a command to run
+map <Leader>vp :VimuxPromptCommand<CR>
+
+" VIMUX
+" Run last command executed by RunVimTmuxCommand
+map <Leader>vl :VimuxRunLastCommand<CR>
+
+" Inspect runner pane
+map <Leader>vi :VimuxInspectRunner<CR>
+
+" Close all other tmux panes in current window
+map <Leader>vx :VimuxCloseRunner<CR>
+
+" Interrupt any command running in the runner pane
+map rs :VimuxInterruptRunner<CR>
+
+" Run the current file with rspec
+map <Leader>rf :call VimuxRunCommand("clear; bundle exec rspec " . bufname("%") )<CR>
+
+" Run rspec test closes to the cursor
+map <Leader>rl :call VimuxRunCommand("clear; bundle exec rspec " . bufname("%") . ":" . line("."))<CR>

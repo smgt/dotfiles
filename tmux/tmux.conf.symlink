@@ -13,7 +13,8 @@ set-option -g status-fg colour8
 
 set-option -g status-left ' #[bold]⣿ #S#[default] ⡇'
 #set-option -g status-right '#[bold]#(~/.dotfiles/tmux/right.sh) ◀ #(date +"%H:%m") ◀ #(whoami) ◀ #H#[default] '
-set-option -g status-right '#[fg=colour8 bg=colour214 bold] #(~/.dotfiles/tmux/geo-weather.sh) #(~/.dotfiles/tmux/battery) #(~/.dotfiles/tmux/cmus)#(date +"%H:%M") '
+#set-option -g status-right '#[fg=colour8 bg=colour214 bold] #(~/.dotfiles/tmux/geo-weather.sh) #(~/.dotfiles/tmux/battery) #(~/.dotfiles/tmux/cmus)#(date +"%H:%M") '
+set-option -g status-right '#[fg=#666666 bg=#aaaaaa] #(~/.dotfiles/tmux/battery) #[fg=#aaaaaa bg=#666666] #(cat ~/.pomo_stat) #[fg=#666666 bg=#aaaaaa] #(date +"%H:%M") '
 
 set-option -g status-interval 15
 set-option -g status-right-length 80
@@ -60,3 +61,13 @@ set-option -g default-command "reattach-to-user-namespace -l zsh"
 
 # Only resize the current window if there is several clients with different screen size connected
 setw -g aggressive-resize on
+
+# Set the current working directory based on the current pane's current
+# working directory (if set; if not, use the pane's starting directory)
+# when creating # new windows and splits.
+bind-key c new-window -c '#{pane_current_path}'
+bind-key '"' split-window -c '#{pane_current_path}'
+bind-key % split-window -h -c '#{pane_current_path}'
+
+# Open the new session in the current directory
+bind-key S command-prompt "new-session -A -c '#{pane_current_path}' -s '%%'"
