@@ -1,9 +1,12 @@
   set nocompatible              " be iMproved, required
   filetype off                  " required
 
-  " set the runtime path to include Vundle and initialize
-  set rtp+=~/.vim/bundle/Vundle.vim
-  call vundle#begin()
+" Vundle config
+let g:vundle_default_git_proto = 'git'
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
   " alternatively, pass a path where Vundle should install plugins
   "call vundle#begin('~/some/path/here')
 
@@ -27,12 +30,18 @@
   Plugin 'bling/vim-airline'
   Plugin 'thoughtbot/vim-rspec'
   "Plugin 'jgdavey/tslime.vim'
-  "Plugin 'tpope/vim-dispatch'
+  Plugin 'tpope/vim-dispatch'
   "Plugin 'Shougo/unite.vim'
   "Plugin 'skalnik/vim-vroom'
   Plugin 'benmills/vimux'
   Plugin 'scrooloose/nerdtree'
-  Plugin 'szw/vim-tags'
+  "Plugin 'szw/vim-tags'
+  Plugin 'vim-ruby/vim-ruby'
+  Plugin 'tpope/vim-projectionist'
+  "Plugin 'tpope/vim-rake'
+  Plugin 'tpope/vim-rbenv'
+  Plugin 'tpope/vim-bundler'
+  Bundle 'christoomey/vim-tmux-navigator'
 
 
   " plugin from http://vim-scripts.org/vim/scripts.html
@@ -52,15 +61,15 @@
   " Avoid a name conflict with L9
   "Plugin 'user/L9', {'name': 'newL9'}
 
-  " All of your Plugins must be added before the following line
-  call vundle#end()            " required
-  filetype plugin indent on    " required
-  " To ignore plugin indent changes, instead use:
-  "filetype plugin on
-  "
-  " Brief help
-  " :PluginList       - lists configured plugins
-  " :PluginInstall    - installs plugins; append `!` to update or just
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just
 ":PluginUpdate
 " :PluginSearch foo - searches for foo; append `!` to refresh local cache
 " :PluginClean      - confirms removal of unused plugins; append `!` to
@@ -200,8 +209,8 @@ map <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
 cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 
 " Bubble single lines
-nmap <C-k> [e
-nmap <C-j> ]e
+"nmap <C-k> [e
+"nmap <C-j> ]e
 
 " Bubble multiple lines
 vmap <C-k> [egv
@@ -235,6 +244,7 @@ set showtabline=1
 
 " Default color scheme
 "colors molokai2
+"colors Tomorrow-Night
 colors Tomorrow-Night
 "colors mustang
 "set background=dark
@@ -293,8 +303,30 @@ map <Leader>vx :VimuxCloseRunner<CR>
 " Interrupt any command running in the runner pane
 map rs :VimuxInterruptRunner<CR>
 
+"map <Leader>rx :!"tmux new-window -t $_SNAME -n vim -d vim"
+
+command! -nargs=1 Execute
+      \ | execute ':execute '.<q-args>
+      \ | execute ':redraw!'
+
 " Run the current file with rspec
-map <Leader>rf :call VimuxRunCommand("clear; bundle exec rspec " . bufname("%") )<CR>
+"map <Leader>rf :call VimuxRunCommand("clear; bundle exec rspec " . bufname("%") )<CR>
+map <Leader>rf :Execute "silent !tmxc test \"cd $(pwd);clear;bundle exec rspec " . bufname("%") . "\""<CR>
 
 " Run rspec test closes to the cursor
-map <Leader>rl :call VimuxRunCommand("clear; bundle exec rspec " . bufname("%") . ":" . line("."))<CR>
+"map <Leader>rl :call VimuxRunCommand("clear; bundle exec rspec " . bufname("%") . ":" . line("."))<CR>
+map <Leader>rl :Execute "silent !tmxc test \"cd $(pwd);clear;bundle exec rspec " . bufname("%") . ":" . line(".") ."\""<CR>
+
+" Configure vim-ruby
+let g:ruby_indent_access_modifier_style = 'outdent'
+
+" tmux will only forward escape sequences to the terminal if surrounded by a DCS sequence
+" http://sourceforge.net/mailarchive/forum.php?thread_name=AANLkTinkbdoZ8eNR1X2UobLTeww1jFrvfJxTMfKSq-L%2B%40mail.gmail.com&forum_name=tmux-users
+
+if exists('$TMUX')
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
