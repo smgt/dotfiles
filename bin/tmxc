@@ -1,0 +1,13 @@
+#!/bin/sh
+
+if [[ -z "$1" ]]; then
+    echo "Specify session name as the first argument"
+    exit
+fi
+
+if [[ -z "${*:2}" ]]; then
+    echo "Specify command as the second argument"
+    exit
+fi
+
+tmux send-keys -t $1 C-z "${*:2}" Enter
