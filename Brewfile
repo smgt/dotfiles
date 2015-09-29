@@ -27,6 +27,7 @@ brew 'jq'
 
 brew 'wget', args: ['enable-iri']
 
+brew 'reattach-to-user-namespace'
 brew 'tmux'
 brew 'vim', args: ['override-system-vi']
 
