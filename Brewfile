@@ -2,6 +2,7 @@
 tap 'caskroom/cask'
 tap 'goles/battery'
 tap 'homebrew/bundle'
+tap 'caskroom/fonts'
 
 brew 'coreutils'
 brew 'moreutils'
@@ -74,3 +75,6 @@ cask 'fantastical'
 cask 'dropbox'
 cask 'istat-menus'
 cask 'the-unarchiver'
+
+# Fonts
+cask 'font-hack'
