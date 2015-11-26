@@ -41,6 +41,8 @@ call vundle#begin()
   "Plugin 'tpope/vim-rake'
   Plugin 'tpope/vim-rbenv'
   Plugin 'tpope/vim-bundler'
+  Plugin 'ekalinin/Dockerfile.vim'
+  Plugin 'fatih/vim-go'
   Bundle 'christoomey/vim-tmux-navigator'
 
 
@@ -243,9 +245,9 @@ set showtabline=1
 "set clipboard=unnamed
 
 " Default color scheme
-"colors molokai2
+colors molokai2
 "colors Tomorrow-Night
-colors Tomorrow-Night
+"colors Tomorrow-Night
 "colors mustang
 "set background=dark
 "colorscheme solarized
