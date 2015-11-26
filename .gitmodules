@@ -1,6 +1,6 @@
 [submodule "zsh/antigen"]
 	path = zsh/antigen
-	url = git@github.com:zsh-users/antigen.git
+	url = https://github.com/zsh-users/antigen.git
 [submodule "vim/vim.symlink/bundle/Vundle.vim"]
 	path = vim/vim.symlink/bundle/Vundle.vim
-	url = git@github.com:VundleVim/Vundle.vim.git
+	url = https://github.com/VundleVim/Vundle.vim.git
