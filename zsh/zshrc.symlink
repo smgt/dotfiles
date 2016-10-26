@@ -3,7 +3,7 @@ if [ -x /usr/libexec/path_helper ]; then
   eval `/usr/libexec/path_helper -s`
 fi
 
-plugins=(apparix fleetctl)
+plugins=(apparix fleetctl docker-machine)
 
 # vim shortcuts
 bindkey -v
@@ -32,14 +32,15 @@ git-extras
 extract
 bundler
 docker
+docker-compose
+knife
 extract
 tmux
 vagrant
-command-not-found
-gem
 node
 nvm
-#rbenv
+command-not-found
+gem
 osx
 
 # other plugins
@@ -87,3 +88,6 @@ for plugin ($plugins); do
 done
 
 #type fortune &> /dev/null && echo && fortune|lolcat && echo
+
+# added by travis gem
+[ -f /Users/simon/.travis/travis.sh ] && source /Users/simon/.travis/travis.sh
