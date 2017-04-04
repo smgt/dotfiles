@@ -3,3 +3,4 @@
 tags
 vim/vim.symlink/bundle
 .kitchen
+.rvm

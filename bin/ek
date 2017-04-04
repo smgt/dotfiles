@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+echo -e '\033[33;40m'"$CHEF_ORG"'\033[0m'
+
+rvm use 2.4.0 do knife $@ -c $HOME/.chef/ecraft-knife.rb

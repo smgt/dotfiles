@@ -22,7 +22,7 @@ call vundle#begin()
   Plugin 'tpope/vim-unimpaired'
   Plugin 'tpope/vim-fugitive'
   "Plugin 'godlygeek/tabular'
-  Plugin 'scrooloose/syntastic'
+  "Plugin 'scrooloose/syntastic'
   Plugin 'ervandew/supertab'
   Plugin 'gregsexton/gitv'
   Plugin 'tomtom/tcomment_vim'
@@ -43,6 +43,7 @@ call vundle#begin()
   Plugin 'tpope/vim-bundler'
   Plugin 'ekalinin/Dockerfile.vim'
   Plugin 'fatih/vim-go'
+  Plugin 'elixir-lang/vim-elixir'
   Bundle 'christoomey/vim-tmux-navigator'
 
 
@@ -84,7 +85,9 @@ set fileformat=unix
 let mapleader=","
 
 "set term=builtin_ansi
-set term=screen-256color
+if !has('nvim')
+  set term=screen-256color
+endif
 
 " 256 colors in terminal
 set t_Co=256
@@ -111,6 +114,8 @@ set expandtab
 
 " If php, use the php stuffs
 "autocmd FileType php set noexpandtab tabstop=4 shiftwidth=4 softtabstop=4 autoindent smartindent
+
+autocmd FileType go set listchars=tab:\ \ ,trail:✖
 
 " Searching
 set hlsearch
@@ -143,7 +148,8 @@ set visualbell t_vb=
 " Command-T configuration
 "let g:CommandTMaxHeight=30
 " map <Leader>p :CommandT<CR>
-let g:ctrlp_map = '<Leader>p'
+let g:ctrlp_map = '<Leader>]'
+map <Leader>p :CtrlP .<CR>
 map <Leader>b :CtrlPBuffer<CR>
 map <Leader>l :CtrlPLine<CR>
 
@@ -263,7 +269,7 @@ let g:gist_detect_filetype = 1
 
 " Show special characters
 set list
-set listchars=tab:▷\ ,trail:✖
+set listchars=tab:⇝\ ,trail:✖
 
 " Include user's local vim config
 "if filereadable(expand("~/.vimrc.local"))
@@ -277,6 +283,7 @@ set listchars=tab:▷\ ,trail:✖
 let g:syntastic_auto_loc_list=1
 let g:syntastic_error_symbol='🔥'
 let g:syntastic_warning_symbol='💩'
+let g:syntastic_ruby_checkers = ["mri", "rubocop"]
 
 " Populate airline special fonts
 let g:airline_powerline_fonts = 1

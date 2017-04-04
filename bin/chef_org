@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ $CHEF_ORG ];then
+  echo "$CHEF_ORG"
+else
+  echo '🔴 '
+fi
+

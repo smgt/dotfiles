@@ -1,0 +1,53 @@
+#!/usr/bin/env zsh
+
+while getopts ":n" opt; do
+  case $opt in
+    n)
+      should_notify=1
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      ;;
+  esac
+done
+
+# Shift all arguments away from $@
+shift $((OPTIND-1))
+
+kitchen_test_notification() {
+  local _title='Kitchen CI'
+  local _subtitle="Testing suite $2"
+  local _msg_success="✅ SUCCESS"
+  local _msg_failure="🔴 FAILURE"
+  local _msg=''
+  local _command="/usr/local/bin/terminal-notifier"
+  local _activate="com.googlecode.iterm2"
+  if [ $1 = 'success' ];then
+    _msg=$_msg_success
+  else
+    _msg=$_msg_failure
+  fi
+  if ! hash $_command &> /dev/null; then
+    $($_command -title $_title -subtitle $_subtitle -message $_msg -activate $_activate &> /dev/null)
+  fi
+  if hash "push" &> /dev/null; then
+    if [ $should_notify ]; then
+      $(which push) "${_title} ${_subtitle}: ${_msg}"
+    fi
+  fi
+}
+
+ki() {
+  kitchen $@
+  local _kitchen_exit_status=$?
+  if [[ $1 = 'verify' || $1 = 'test' || $1 = 'converge' ]]; then
+    if [ $_kitchen_exit_status -gt 0 ]; then
+      kitchen_test_notification "fail" $2
+    else
+      kitchen_test_notification "success" $2
+    fi
+  fi
+  exit _kitchen_exit_status
+}
+
+ki "$@"

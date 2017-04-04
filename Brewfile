@@ -10,6 +10,7 @@ brew 'findutils'
 brew 'gnu-sed', args: ['default-names']
 
 brew 'grc'
+brew 'readline'
 
 # Languages
 brew 'r'
