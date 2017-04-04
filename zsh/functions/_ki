@@ -1,0 +1,46 @@
+#compdef ki
+
+_ki() {
+  local curcontext="$curcontext" state line
+  typeset -A opt_args
+
+  _arguments '1: :->cmds'\
+             '2: :->args'
+
+  case $state in
+    cmds)
+      _kitchen_commands
+      ;;
+    args)
+      case $line[1] in
+        converge|create|destroy|diagnose|list|setup|test|verify)
+          compadd 'all'
+          _kitchen_instances
+          ;;
+        login)
+          _kitchen_instances
+          ;;
+      esac
+      ;;
+  esac
+}
+
+_kitchen_commands() {
+  local commands
+
+  commands=("${(@f)$(_call_program commands $service help | sed -n 's/^  kitchen \([[:alpha:]]*\) [ [].*# \(.*\)$/\1:\2/p')}")
+  _describe -t commands 'kitchen commands' commands
+}
+
+_kitchen_instances() {
+  if [[ $_kitchen_instances_cache_dir != $PWD ]]; then
+    unset _kitchen_instances_cache
+  fi
+  if [[ ${+_kitchen_instances_cache} -eq 0 ]]; then
+    _kitchen_instances_cache=(${(f)"$(_call_program instances $service list -b 2>/dev/null)"})
+    _kitchen_instances_cache_dir=$PWD
+  fi
+  _wanted instances expl 'instance' compadd -a _kitchen_instances_cache
+}
+
+_ki "$@"

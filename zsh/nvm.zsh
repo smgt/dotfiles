@@ -1,3 +1,2 @@
-if [[ -e ~/.nvm/nvm.sh ]];then
-  . ~/.nvm/nvm.sh
-fi
+export NVM_DIR="$HOME/.nvm"
+. "/usr/local/opt/nvm/nvm.sh"

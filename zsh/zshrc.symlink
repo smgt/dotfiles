@@ -91,3 +91,5 @@ done
 
 # added by travis gem
 [ -f /Users/simon/.travis/travis.sh ] && source /Users/simon/.travis/travis.sh
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

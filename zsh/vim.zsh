@@ -6,9 +6,9 @@ fi
 
 function vim() {
   if [ -f ".lvimrc" ]; then
-    $VIM_BIN -v -S .lvimrc $*
+    $VIM_BIN -S .lvimrc $*
   else
-    $VIM_BIN -v $*
+    $VIM_BIN $*
   fi
 }
 
