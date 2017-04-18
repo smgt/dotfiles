@@ -1,5 +1,22 @@
 #!/usr/bin/env bash
 
-echo -e '\033[33;40m'"$CHEF_ORG"'\033[0m'
+_chef_command="/opt/chefdk/bin/chef"
 
-rvm use 2.4.0 do knife $@ -c $HOME/.chef/ecraft-knife.rb
+if [ -z $CHEF_ORG ]; then
+  echo -e '\033[31mYou need to set $CHEF_ORG to use this command\033[0m'
+  exit 1
+fi
+
+if [ -z $CHEF_KNIFE_CONFIG ]; then
+  echo -e '\033[31mYou need to set $CHEF_KNIFE_CONFIG and point it to your universal knife.rb config\033[0m'
+  exit 1
+fi
+
+if ! type $_chef_command &> /dev/null; then
+  echo -e '\033[31mYou need to install chefdk, "brew cask install chefdk"\033[0m'
+  exit 1
+fi
+
+eval "$($_chef_command shell-init bash)"
+
+knife $@ -c $CHEF_KNIFE_CONFIG
