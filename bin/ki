@@ -22,13 +22,14 @@ kitchen_test_notification() {
   local _msg=''
   local _command="/usr/local/bin/terminal-notifier"
   local _activate="com.googlecode.iterm2"
+  echo $_subtitle
   if [ $1 = 'success' ];then
-    _msg=$_msg_success
+    local _msg=$_msg_success
   else
-    _msg=$_msg_failure
+    local _msg=$_msg_failure
   fi
-  if ! hash $_command &> /dev/null; then
-    $($_command -title $_title -subtitle $_subtitle -message $_msg -activate $_activate &> /dev/null)
+  if hash $_command &> /dev/null; then
+    $($_command -title "${_title}" -subtitle "${_subtitle}" -message "${_msg}" -activate "${_activate}" &> /dev/null)
   fi
   if hash "push" &> /dev/null; then
     if [ $should_notify ]; then
@@ -38,16 +39,22 @@ kitchen_test_notification() {
 }
 
 ki() {
-  bundle exec kitchen $@
+  local arguments=( "$@" )
+  if [[ "${arguments[0]}" =~ ^co?n?v?e?g?e?$ ]];then
+    arguments[0]='converge'
+  elif [[ "${arguments[0]}" =~ ^ve?r?i?f?y?$ ]];then
+    arguments[0]='verify'
+  fi
+  bundle exec kitchen ${arguments[@]}
   local _kitchen_exit_status=$?
-  if [[ $1 ~= '^ve?r?i?f?y?$' || $1 = 'test' || $1 = 'converge' ]]; then
-    if [ $_kitchen_exit_status -gt 0 ]; then
-      kitchen_test_notification "fail" $2
+  if [[ "${arguments[0]}" = 'verify' || ${arguments[0]} -eq 'test' || ${arguments[0]} -eq 'converge' ]]; then
+    if [ "${_kitchen_exit_status}" -gt 0 ]; then
+      kitchen_test_notification "fail" "${arguments[1]}"
     else
-      kitchen_test_notification "success" $2
+      kitchen_test_notification "success" "${arguments[1]}"
     fi
   fi
   exit $_kitchen_exit_status
 }
 
-ki "$@"
+ki $@
