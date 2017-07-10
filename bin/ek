@@ -19,4 +19,5 @@ fi
 
 eval "$($_chef_command shell-init bash)"
 
-knife $@ -c $CHEF_KNIFE_CONFIG
+# echo "${@}"
+knife "${@}" -c $CHEF_KNIFE_CONFIG
