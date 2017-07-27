@@ -1,19 +1,9 @@
 require 'rake'
 
-# install gems: boom, earthquake
-namespace :install do
-  desc "Install my fav gems"
-  task :gems do
-    %w(boom).each do |gem|
-      puts "Trying to install #{gem}"
-      puts `gem install #{gem}`
-    end
-  end
-end
-
-
 desc "Hook our dotfiles into system-standard positions."
 task :install do
+  sh 'git submodule update --init'
+
   linkables = Dir.glob('*/**{.symlink}')
 
   skip_all = false
