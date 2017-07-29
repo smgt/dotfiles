@@ -23,7 +23,6 @@ brew 'rbenv-bundler'
 brew 'rbenv-default-gems'
 brew 'rbenv-gemset'
 
-brew 'jsl'
 brew 'jq'
 
 brew 'wget', args: ['enable-iri']
