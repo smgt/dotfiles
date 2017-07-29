@@ -54,8 +54,6 @@ brew 'htop-osx'
 brew 'nmap'
 
 # Casks
-cask 'adobe-reader'
-cask 'flash-player'
 cask 'crosspack-avr'
 cask 'teensy'
 cask 'handbrake'
