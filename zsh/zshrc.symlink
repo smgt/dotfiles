@@ -3,7 +3,7 @@ if [ -x /usr/libexec/path_helper ]; then
   eval `/usr/libexec/path_helper -s`
 fi
 
-plugins=(apparix fleetctl docker-machine)
+plugins=(apparix docker-machine)
 
 # vim shortcuts
 bindkey -v
@@ -16,9 +16,8 @@ export ZSH=$DOTFILES/zsh
 
 export EDITOR=vim
 
-
 # your project folder that we can `c [tab]` to
-export PROJECTS=~/Development
+export PROJECTS=~/Code
 
 source $DOTFILES/zsh/antigen/antigen.zsh
 
