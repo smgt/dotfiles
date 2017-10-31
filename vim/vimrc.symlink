@@ -7,62 +7,43 @@ let g:vundle_default_git_proto = 'git'
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-  " alternatively, pass a path where Vundle should install plugins
-  "call vundle#begin('~/some/path/here')
-
-  " let Vundle manage Vundle, required
-  " Plugin 'gmarik/Vundle.vim'
-
-  " The following are examples of different formats supported.
-  " Keep Plugin commands between vundle#begin/end.
-  " plugin on GitHub repo
-  " Plugin 'ervandew/ag'
-  Plugin 'rking/ag.vim'
   Plugin 'tpope/vim-surround'
   Plugin 'tpope/vim-unimpaired'
-  Plugin 'tpope/vim-fugitive'
-  "Plugin 'godlygeek/tabular'
-  "Plugin 'scrooloose/syntastic'
   Plugin 'ervandew/supertab'
-  Plugin 'gregsexton/gitv'
   Plugin 'tomtom/tcomment_vim'
-  "Plugin 'rizzatti/dash.vim'
-  Plugin 'bling/vim-airline'
-  Plugin 'thoughtbot/vim-rspec'
-  "Plugin 'jgdavey/tslime.vim'
-  Plugin 'tpope/vim-dispatch'
-  "Plugin 'Shougo/unite.vim'
-  "Plugin 'skalnik/vim-vroom'
-  Plugin 'benmills/vimux'
+
+  " Git and file plugins
+  Plugin 'tpope/vim-fugitive'
+  Plugin 'gregsexton/gitv'
   Plugin 'scrooloose/nerdtree'
-  "Plugin 'szw/vim-tags'
+
+  " Statusbar
+  " Plugin 'bling/vim-airline'
+
+  " Ruby
+  Plugin 'thoughtbot/vim-rspec'
   Plugin 'vim-ruby/vim-ruby'
-  Plugin 'tpope/vim-projectionist'
-  "Plugin 'tpope/vim-rake'
   Plugin 'tpope/vim-rbenv'
   Plugin 'tpope/vim-bundler'
-  Plugin 'ekalinin/Dockerfile.vim'
+
+  " Go
   Plugin 'fatih/vim-go'
+
+  " Elixir
   Plugin 'elixir-lang/vim-elixir'
+
+  " Docker
+  Plugin 'ekalinin/Dockerfile.vim'
+
+  " Utility
+  Plugin 'tpope/vim-projectionist'
+  Plugin 'jpalardy/vim-slime'
+  Plugin 'w0rp/ale'
   Bundle 'christoomey/vim-tmux-navigator'
-
-
-  " plugin from http://vim-scripts.org/vim/scripts.html
-  "Plugin 'L9'
   Plugin 'ZoomWin'
   Plugin 'taglist.vim'
-
   Plugin 'kien/ctrlp.vim'
-
-  " Git plugin not hosted on GitHub
-  " Plugin 'git://git.wincent.com/command-t.git'
-  " git repos on your local machine (i.e. when working on your own plugin)
-  "Plugin 'file:///home/gmarik/path/to/plugin'
-  " The sparkup vim script is in a subdirectory of this repo called vim.
-  " Pass the path to set the runtimepath properly.
-  "Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-  " Avoid a name conflict with L9
-  "Plugin 'user/L9', {'name': 'newL9'}
+  Plugin 'mileszs/ack.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
