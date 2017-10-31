@@ -1,1 +1,1 @@
-[ -f "$(type rbenv > /dev/null)" ] && export PATH="$HOME/.rbenv/shims:$PATH"
+[ -f "$(type rbenv)" ] && export PATH="$HOME/.rbenv/shims:$PATH"
