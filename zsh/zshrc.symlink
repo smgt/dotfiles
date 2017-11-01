@@ -3,7 +3,7 @@ if [ -x /usr/libexec/path_helper ]; then
   eval `/usr/libexec/path_helper -s`
 fi
 
-plugins=(apparix docker-machine)
+plugins=()
 
 # vim shortcuts
 bindkey -v
@@ -29,22 +29,22 @@ aws
 git
 git-extras
 extract
-bundler
+# bundler
 docker
 docker-compose
-knife
-extract
+#knife
+#extract
 tmux
 vagrant
 node
 nvm
 command-not-found
 gem
-osx
+#osx
 
 # other plugins
 zsh-users/zsh-syntax-highlighting
-Tarrasch/zsh-bd
+#Tarrasch/zsh-bd
 EOBUNDLES
 
 antigen apply
