@@ -1,0 +1,74 @@
+Xft.dpi: 192
+Xft.lcdfilter: lcddefault
+Xft.autohint: 0
+Xft.hintstyle: hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+
+URxvt.transparent: true
+URxvt.shading: 10
+URxvt.font: xft:Hack-Regular:pixelsize=20,xft:FontAwesome
+URxvt.boldFont: xft:Hack-Bold:pixelsize=20:weight=bold,xft:FontAwesome
+URxvt.italicFont: xff:Hack-Italic:pixelsize=20:slant=italic,xft:FontAwesome
+URxvt.letterSpace: -1
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+URxvt.iso14755: False
+URxvt.perl-ext-common: default,clipboard
+
+! Set terminal padding
+URxvt.internalBorder: 15
+
+
+! Base16 Unikitty
+! Scheme: Josh W Lewis (@joshwlewis)
+
+! URxvt*tintColor:                      color
+! URxvt*fadeColor:                      color
+
+URxvt*background:                     #2e2a31
+URxvt*foreground:                     #c3c2c4
+URxvt*cursorColor:                    #c3c2c4
+
+! URxvt*colorBD:                        color
+! URxvt*colorIT:                        color
+! URxvt*colorUL:                        color
+! URxvt*colorRV:                        color
+! URxvt*underlineColor:                 color
+URxvt*scrollColor:                    #c3c2c4
+! URxvt*troughColor:                    color
+URxvt*highlightColor:                 #69666b
+URxvt*highlightTextColor:             #a5a3a6
+! URxvt*cursorColor2:                   color
+! URxvt*pointerColor:                   color
+! URxvt*pointerColor2:                  color
+! URxvt*borderColor:                    color
+! URxvt*tab-bg:                         colour
+! URxvt*tab-fg:                         colour
+! URxvt*tabbar-bg:                      colour
+! URxvt*tabbar-fg:                      colour
+
+URxvt*color0:                         #2e2a31
+URxvt*color1:                         #d8137f
+URxvt*color2:                         #17ad98
+URxvt*color3:                         #dc8a0e
+URxvt*color4:                         #7864fa
+URxvt*color5:                         #b33ce8
+URxvt*color6:                         #149bda
+URxvt*color7:                         #c3c2c4
+URxvt*color8:                         #878589
+URxvt*color9:                         #d8137f
+URxvt*color10:                        #17ad98
+URxvt*color11:                        #dc8a0e
+URxvt*color12:                        #7864fa
+URxvt*color13:                        #b33ce8
+URxvt*color14:                        #149bda
+URxvt*color15:                        #ffffff
+
+! 256 color space
+URxvt*color16:                        #d65407
+URxvt*color17:                        #d41acd
+URxvt*color18:                        #4b484e
+URxvt*color19:                        #69666b
+URxvt*color20:                        #a5a3a6
+URxvt*color21:                        #e1e0e1
