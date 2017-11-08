@@ -232,7 +232,8 @@ set showtabline=1
 "set clipboard=unnamed
 
 " Default color scheme
-colors molokai2
+" colors molokai2
+colors base16-unikitty-dark
 "colors Tomorrow-Night
 "colors Tomorrow-Night
 "colors mustang
