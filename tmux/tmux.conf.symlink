@@ -7,12 +7,12 @@ unbind C-b
 bind C-a send-prefix
 
 # Setup 'v' to begin selection as in Vim
-bind-key -t vi-copy v begin-selection
-bind-key -t vi-copy y copy-pipe "reattach-to-user-namespace pbcopy"
+#bind-key -t vi-copy v begin-selection
+#bind-key -t vi-copy y copy-pipe "reattach-to-user-namespace pbcopy"
 
 # Update default binding of `Enter` to also use copy-pipe
-unbind -t vi-copy Enter
-bind-key -t vi-copy Enter copy-pipe "reattach-to-user-namespace pbcopy"
+#unbind -t vi-copy Enter
+#bind-key -t vi-copy Enter copy-pipe "reattach-to-user-namespace pbcopy"
 
 # set status bar
 #set-option -g status-utf8 on
@@ -23,7 +23,7 @@ set-option -g status-left ' #[bold]⣿ #S#[default] ⡇'
 #set-option -g status-right '#[bold]#(~/.dotfiles/tmux/right.sh) ◀ #(date +"%H:%m") ◀ #(whoami) ◀ #H#[default] '
 #set-option -g status-right '#[fg=colour8 bg=colour214 bold] #(~/.dotfiles/tmux/geo-weather.sh) #(~/.dotfiles/tmux/battery) #(~/.dotfiles/tmux/cmus)#(date +"%H:%M") '
 #set-option -g status-right '#[fg=#666666 bg=#aaaaaa] #(~/.dotfiles/tmux/battery) #[fg=#aaaaaa bg=#666666] #(cat ~/.pomo_stat) #[fg=#666666 bg=#aaaaaa] #(date +"%H:%M") '
-set-option -g status-right ' #[fg=#666666 bg=#aaaaaa] #(cat ~/.thyme-tmux) #[fg=#aaaaaa bg=#666666] #(~/.dotfiles/bin/keyboard_layout) #[fg=#666666 bg=#aaaaaa] #(/usr/local/bin/battery -t -p -g "" -m "" -w "")#[fg=#666666 bg=#aaaaaa] #[fg=#aaaaaa bg=#666666] #(date +"%d/%m %H:%M") '
+set-option -g status-right ' #[fg=#aaaaaa bg=#666666] #(date +"%d/%m %H:%M") '
 
 set-option -g status-interval 1
 set-option -g status-right-length 80
@@ -66,7 +66,7 @@ bind ^A select-pane -t :.+
 set -g default-terminal "screen-256color"
 
 # Copy/Paste in tmux
-set-option -g default-command "reattach-to-user-namespace -l zsh"
+set-option -g default-command "$HOME/.dotfiles/bin/safe-reattach-to-user-namespace -l zsh"
 
 # Only resize the current window if there is several clients with different screen size connected
 setw -g aggressive-resize on
