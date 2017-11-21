@@ -1,0 +1,48 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+  echo "Usage: $0 [file] [category]"
+  echo "  You need to supply a file"
+  exit 1
+fi
+
+if [ ! -e "$1" ]; then
+  echo "Error: $1 is not a file."
+  exit 1
+fi
+
+
+if [ -z "$2" ]; then
+  echo "Usage: $0 [file] [category]"
+  echo "  You need to supply a category"
+  exit 1
+fi
+
+file_path=$1
+category='other'
+
+case $2 in
+  book*)
+    category='books'
+    ;;
+  kid*)
+    category='kids'
+    ;;
+  movie*)
+    category='movies'
+    ;;
+  music)
+    category='music'
+    ;;
+  other)
+    category='other'
+    ;;
+  serie*)
+    category='series'
+    ;;
+  *)
+    echo "Not a valid category, available categories: books, kids, movies, music, other, series"
+    exit 1
+esac
+
+scp "$1" 10.68.14.11:/mnt/biggu/torrent/watch/$category
