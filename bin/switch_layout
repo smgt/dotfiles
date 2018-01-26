@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+current_layout=$(setxkbmap -query | grep layout | awk '{print $2}')
+
+if [ "$current_layout" == "us" ];then
+  setxkbmap se
+fi
+
+if [ "$current_layout" == "se" ];then
+  setxkbmap us
+fi
