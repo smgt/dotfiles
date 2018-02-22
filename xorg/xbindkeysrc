@@ -1,14 +1,23 @@
-"pactl set-sink-volume @DEFAULT_SINK@ -10%"
+"pactl set-sink-mute @DEFAULT_SINK@ false;pactl set-sink-volume @DEFAULT_SINK@ -10%"
   XF86AudioLowerVolume
-"pactl set-sink-volume @DEFAULT_SINK@ +10%"
+
+"pactl set-sink-mute @DEFAULT_SINK@ false;pactl set-sink-volume @DEFAULT_SINK@ +10%"
   XF86AudioRaiseVolume
+
+"pactl set-sink-mute @DEFAULT_SINK@ toggle"
+    XF86AudioMute
+
 "xbacklight -dec 5"
   XF86MonBrightnessDown
+
 "xbacklight -inc 5"
   XF86MonBrightnessUp
+
 "playerctl play-pause"
   XF86AudioPlay
+
 "playerctl next"
   XF86AudioNext
+
 "playerctl previous"
   XF86AudioPrev
