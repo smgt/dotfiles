@@ -1,0 +1,4 @@
+polybar/config;.config/polybar/config
+xorg/xinitrc.symlink;.xinitrc
+xorg/xsession.symlink;.xsession
+xorg/Xresources.symlink;.Xresources

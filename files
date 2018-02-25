@@ -1,0 +1,12 @@
+jslint/jslint.symlink;.jslint
+git/git-template.symlink;.git-template
+git/gitignore.symlink;.gitignore
+ruby/pryrc.symlink;.pryrc
+ruby/irbrc.symlink;.irbrc
+ruby/gemrc.symlink;.gemrc
+zsh/zshrc.symlink;.zshrc
+tmux/tmux.conf.symlink;.tmux.conf
+vim/vimrc.symlink;.vimrc
+vim/gvimrc.symlink;.gvimrc
+vim/vim.symlink;.vim
+ctags/ctags.symlink;.ctags
