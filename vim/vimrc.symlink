@@ -43,7 +43,9 @@ call vundle#begin()
   Plugin 'ZoomWin'
   Plugin 'taglist.vim'
   Plugin 'kien/ctrlp.vim'
-  Plugin 'mileszs/ack.vim'
+  "Plugin 'mileszs/ack.vim'
+  Plugin 'rking/ag.vim'
+  Plugin 'Chun-Yang/vim-action-ag'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -232,8 +234,8 @@ set showtabline=1
 "set clipboard=unnamed
 
 " Default color scheme
-" colors molokai2
-colors base16-unikitty-dark
+colors molokai2
+"colors base16-unikitty-dark
 "colors Tomorrow-Night
 "colors Tomorrow-Night
 "colors mustang
