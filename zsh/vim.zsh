@@ -23,3 +23,7 @@ function mvim() {
 alias m="mvim"
 alias mt="mvim --remote-tab"
 alias v="vim"
+
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
