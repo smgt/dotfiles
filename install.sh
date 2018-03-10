@@ -37,7 +37,8 @@ function ask_remove() {
   read -p "  - File/directory already exists, remove $1 (y/n)? " answer
   case ${answer:0:1} in
     y|Y )
-      rm -rf $1
+      #rm -rf $1
+      mv $1 $1.bak
       ;;
     * )
       ;;
