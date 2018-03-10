@@ -50,11 +50,20 @@ function install_file() {
   if [ ! -e $source ];then
     return
   fi
+  if [ -s $target ];then
+    if [[ $(realpath $target) =~ $HOME/.dotfiles ]];then
+      echo "Skipping ${source} -> ${target}, already linked."
+      return
+    fi
+  fi
   if [ -e $target ];then
     ask_remove $target
   fi
   if [ ! -e $target ];then
     echo "  $source -> $target"
+    if [ ! -d $(dirname $target) ];then
+      mkdir -p $(dirname $target)
+    fi
     ln -s $source $target
   fi
 }

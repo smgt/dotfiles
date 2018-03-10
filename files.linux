@@ -1,4 +1,6 @@
-polybar/config;.config/polybar/config
+xorg/polybar/config;.config/polybar/config
+xorg/polybar/launch.sh;.config/polybar/launch.sh
+xorg/i3/config;.config/i3/config
 xorg/xinitrc.symlink;.xinitrc
 xorg/xsession.symlink;.xsession
 xorg/Xresources.symlink;.Xresources
