@@ -47,6 +47,9 @@ call vundle#begin()
   Plugin 'rking/ag.vim'
   Plugin 'Chun-Yang/vim-action-ag'
 
+  " Themes
+  Plugin 'liuchengxu/space-vim-dark'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -234,11 +237,12 @@ set showtabline=1
 "set clipboard=unnamed
 
 " Default color scheme
-colors molokai2
+"colors molokai2
 "colors base16-unikitty-dark
 "colors Tomorrow-Night
 "colors Tomorrow-Night
 "colors mustang
+colors space-vim-dark
 "set background=dark
 "colorscheme solarized
 

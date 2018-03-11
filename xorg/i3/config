@@ -167,3 +167,8 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh &
 # bar {
 #   status_command polybar example
 # }
+
+client.focused         #d75f87  #d75f87  #181818  #d75f87
+client.unfocused         #181818  #181818  #315858  #181818
+client.focused_inactive     #181818  #181818  #2c2e2f  #181818
+client.urgent #383a3b #00ccff #ee0000 #181818
