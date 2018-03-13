@@ -92,3 +92,6 @@ if [ -f files.$OS ];then
     install_file $from_path $to_path
   done
 fi
+
+echo "Installing vim plugins"
+vim -u NONE +PluginInstall +qall
