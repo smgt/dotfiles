@@ -6,3 +6,4 @@ xorg/rofi/purple.rasi;.config/rofi/purple.rasi
 xorg/xinitrc.symlink;.xinitrc
 xorg/xsession.symlink;.xsession
 xorg/Xresources.symlink;.Xresources
+xorg/xbindkeysrc;.xbindkeysrc
