@@ -55,5 +55,7 @@ urxvtd -q -f &
 compton --config /home/simon/.compton.conf &
  ~/.fehbg &
 dunst &
-dropbox &
+if type dropbox > /dev/null 2>&1;then
+  dropbox &
+fi
 exec i3
