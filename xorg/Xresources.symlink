@@ -23,42 +23,58 @@ URxvt.internalBorder: 15
 ! Colors
 *.boldMode: true
 *.colorBDMode: false
-!*.colorBD: cyan
-!
-! ! Base16 Eighties
-#define col1 #292b2e
-#define col2 #ee3333
-#define col3 #20ad80
-#define col4 #dd75dd
-#define col5 #875faf
-#define col6 #d75f87
-#define col7 #4f97d7
-#define col8 #ececec
 
-*.foreground:   #33ccee
-*.background:   rgba:2900/2b00/2e00/dede
-*.cursorColor:  col8
-*.cursorBlink: true
+! Base16 Eighties
+! Scheme: Chris Kempson (http://chriskempson.com)
 
-*.color0:       rgba:2900/2b00/2e00/dede
-*.color1:       col2
-*.color2:       col3
-*.color3:       col4
-*.color4:       col5
-*.color5:       col6
-*.color6:       col7
-*.color7:       col8
-*.color8:       rgba:2900/2b00/2e00/dede
-*.color9:       col2
-*.color10:      col3
-*.color11:      col4
-*.color12:      col5
-*.color13:      col6
-*.color14:      col7
-*.color15:      col8
-! *.color16:      base09
-! *.color17:      base0F
-! *.color18:      base01
-! *.color19:      base02
-! *.color20:      base04
-! *.color21: base06
+#define base00 #2d2d2d
+#define base01 #393939
+#define base02 #515151
+#define base03 #747369
+#define base04 #a09f93
+#define base05 #d3d0c8
+#define base06 #e8e6df
+#define base07 #f2f0ec
+#define base08 #f2777a
+#define base09 #f99157
+#define base0A #ffcc66
+#define base0B #99cc99
+#define base0C #66cccc
+#define base0D #6699cc
+#define base0E #cc99cc
+#define base0F #d27b53
+
+*foreground:   base05
+#ifdef background_opacity
+*background:   [background_opacity]base00
+#else
+*background:   base00
+#endif
+*cursorColor:  base05
+
+*color0:       base00
+*color1:       base08
+*color2:       base0B
+*color3:       base0A
+*color4:       base0D
+*color5:       base0E
+*color6:       base0C
+*color7:       base05
+
+*color8:       base03
+*color9:       base08
+*color10:      base0B
+*color11:      base0A
+*color12:      base0D
+*color13:      base0E
+*color14:      base0C
+*color15:      base07
+
+! Note: colors beyond 15 might not be loaded (e.g., xterm, urxvt),
+! use 'shell' template to set these if necessary
+*color16:      base09
+*color17:      base0F
+*color18:      base01
+*color19:      base02
+*color20:      base04
+*color21: base06
