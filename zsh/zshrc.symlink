@@ -19,36 +19,6 @@ export EDITOR=vim
 # your project folder that we can `c [tab]` to
 export PROJECTS=~/Code
 
-source $DOTFILES/zsh/antigen/antigen.zsh
-
-# Antigen
-# Bundles from oh-my-zsh
-antigen bundles <<EOBUNDLES
-# oh-my-zsh plugins
-aws
-git
-git-extras
-extract
-# bundler
-docker
-docker-compose
-#knife
-#extract
-tmux
-vagrant
-node
-nvm
-command-not-found
-gem
-#osx
-
-# other plugins
-zsh-users/zsh-syntax-highlighting
-#Tarrasch/zsh-bd
-EOBUNDLES
-
-antigen apply
-
 # source every .zsh file in this rep
 for config_file ($DOTFILES/zsh/*.zsh) do
   source $config_file
