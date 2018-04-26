@@ -1,3 +1,32 @@
 #!/usr/bin/env sh
 
-osascript -e 'tell application "ScreenSaverEngine" to activate'
+player=0
+screenshot=0
+
+if [ $(command -v scrot) ] && [ $(command -v mogrify) ];then
+  screenshot=1
+fi
+
+if [ $(command -v playerctl) ] && [ $(playerctl status) == "Playing" ];then
+  player=1
+fi
+
+if [ $player -eq 1 ];then
+  playerctl pause
+fi
+
+if [ $screenshot -eq 1 ];then
+  #if ! [ -f /tmp/screen_locked.png ];then
+    # Take a screenshot
+    scrot /tmp/screen_locked.png
+    # Pixellate it 10x
+    mogrify -scale 10% -scale 1000% /tmp/screen_locked.png
+  #fi
+  i3lock -i /tmp/screen_locked.png -n
+else
+  i3lock --color 000000 -n
+fi
+
+if [ $player -eq 1 ];then
+  playerctl play
+fi
