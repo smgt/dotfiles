@@ -19,7 +19,6 @@ fi
 
 alias flushdns="dscacheutil -flushcache"
 alias grep="grep --color"
-alias -g biggu=/Volumes/Biggu
 
 # Basic directory operations
 alias ....='cd ../../..'
@@ -49,3 +48,29 @@ alias gw='git wtf'
 #   # syntax is way
 #
 alias kv='kitchen verify "$*" && terminal-notifier -title "Kitchen CI" -message "Tests OK" || terminal-notifier -title "Kitchen CI" -message "Tests FAILED"'
+alias tmux="TERM=screen-256color-bce tmux"
+if (( $+command[mvim] ));then
+  export VIM_BIN==mvim
+else
+  export VIM_BIN==vim
+fi
+
+function vim() {
+  if [ -f ".lvimrc" ]; then
+    $VIM_BIN -S .lvimrc $*
+  else
+    $VIM_BIN $*
+  fi
+}
+
+function mvim() {
+  if [ -f ".lvimrc" ]; then
+    $VIM_BIN -S .lvimrc $*
+  else
+    $VIM_BIN $*
+  fi
+}
+
+alias m="mvim"
+alias mt="mvim --remote-tab"
+alias v="vim"

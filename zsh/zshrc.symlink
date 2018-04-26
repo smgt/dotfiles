@@ -8,8 +8,8 @@ plugins=()
 # shortcut to this dotfiles path is $DOTFILES
 export DOTFILES=$HOME/.dotfiles
 export ZSH=$DOTFILES/zsh
-
 export EDITOR=vim
+
 
 # source every .zsh file in this rep
 for config_file ($DOTFILES/zsh/*.zsh) do
@@ -32,21 +32,11 @@ autoload -U compinit && compinit
 
 # vim shortcuts
 bindkey -v
-# Remove the vim mode timeout
-export KEYTIMEOUT=1
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd v edit-command-line
 
 prompt smgt
-
-# Load all of the plugins that were defined in ~/.zshrc
-for plugin ($plugins); do
-  if [ -f $ZSH_CUSTOM/plugins/$plugin/$plugin.plugin.zsh ]; then
-    source $ZSH_CUSTOM/plugins/$plugin/$plugin.plugin.zsh
-  elif [ -f $ZSH/plugins/$plugin/$plugin.plugin.zsh ]; then
-    source $ZSH/plugins/$plugin/$plugin.plugin.zsh
-  fi
-done
-
-#type fortune &> /dev/null && echo && fortune|lolcat && echo
 
 # added by travis gem
 [ -f /Users/simon/.travis/travis.sh ] && source /Users/simon/.travis/travis.sh

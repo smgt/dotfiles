@@ -15,6 +15,7 @@ HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 
+export KEYTIMEOUT=1
 setopt NO_BG_NICE # don't nice background tasks
 setopt NO_HUP
 setopt NO_LIST_BEEP
@@ -42,7 +43,7 @@ bindkey '^[^[[D' beginning-of-line # ESC + arrow left
 bindkey '^[^[[C' end-of-line # ESC + arrow right
 bindkey '^[[3~' delete-char
 bindkey '^[^N' newtab
-bindkey '^?' backward-delete-char
-bindkey '^R' history-incremental-search-backward
-bindkey "^[[A" history-search-backward
-bindkey "^[[B" history-search-forward
+# bindkey '^?' backward-delete-char
+#bindkey '^R' history-incremental-search-backward
+#bindkey "^[[A" history-search-backward
+#bindkey "^[[B" history-search-forward

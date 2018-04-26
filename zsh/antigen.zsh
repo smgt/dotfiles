@@ -21,6 +21,7 @@ if [ -f $HOME/.antigen/antigen.zsh ];then
   antigen bundle command-not-found
   antigen bundle gem
   antigen bundle pip
+  antigen bundle ssh-agent
 
   # other plugins
   antigen bundle zsh-users/zsh-syntax-highlighting
