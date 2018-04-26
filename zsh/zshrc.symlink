@@ -5,28 +5,16 @@ fi
 
 plugins=()
 
-# vim shortcuts
-bindkey -v
-# Remove the vim mode timeout
-export KEYTIMEOUT=1
-
 # shortcut to this dotfiles path is $DOTFILES
 export DOTFILES=$HOME/.dotfiles
 export ZSH=$DOTFILES/zsh
 
 export EDITOR=vim
 
-# your project folder that we can `c [tab]` to
-export PROJECTS=~/Code
-
 # source every .zsh file in this rep
 for config_file ($DOTFILES/zsh/*.zsh) do
   source $config_file
 done
-
-# Load the theme
-# export ZSH_THEME="smg"
-# source "$DOTFILES/zsh/themes/$ZSH_THEME.zsh-theme"
 
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
@@ -41,9 +29,11 @@ export LC_CTYPE=en_US.UTF-8
 autoload -U promptinit && promptinit
 autoload colors && colors
 autoload -U compinit && compinit
-autoload -z edit-command-line
-zle -N edit-command-line
-bindkey -M vicmd v edit-command-line
+
+# vim shortcuts
+bindkey -v
+# Remove the vim mode timeout
+export KEYTIMEOUT=1
 
 prompt smgt
 
@@ -62,3 +52,4 @@ done
 [ -f /Users/simon/.travis/travis.sh ] && source /Users/simon/.travis/travis.sh
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+source $DOTFILES/zsh/aliases.zsh
