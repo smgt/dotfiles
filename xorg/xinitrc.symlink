@@ -1,9 +1,10 @@
 #!/bin/sh
 
+sysresources=/etc/X11/xinit/.Xresources
 userresources=$HOME/.Xresources
+localresource=$HOME/.Xresources.local
 usermodmap=$HOME/.Xmodmap
 bindkeys=$HOME/.xbindkeys
-sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
 xbindkeys=$HOME/.xbindkeysrc
 
@@ -19,6 +20,10 @@ fi
 
 if [ -f "$userresources" ]; then
     xrdb -merge "$userresources"
+fi
+
+if [ -f "$localresource" ]; then
+    xrdb -merge "$localresource"
 fi
 
 if [ -f "$usermodmap" ]; then
@@ -62,4 +67,4 @@ dunst &
 if type dropbox > /dev/null 2>&1;then
   dropbox &
 fi
-exec i3
+exec ssh-agent i3
