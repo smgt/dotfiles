@@ -37,8 +37,8 @@ setopt HIST_REDUCE_BLANKS
 
 zle -N newtab
 
-bindkey '^[OD' backward-word # Ctrl+arrow left
-bindkey '^[OC' forward-word # Ctrl + arrow right
+#bindkey '^[OD' backward-word # Ctrl+arrow left
+#bindkey '^[OC' forward-word # Ctrl + arrow right
 bindkey '^[^[[D' beginning-of-line # ESC + arrow left
 bindkey '^[^[[C' end-of-line # ESC + arrow right
 bindkey '^[[3~' delete-char

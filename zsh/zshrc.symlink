@@ -6,7 +6,7 @@ fi
 plugins=()
 
 # vim shortcuts
-bindkey -v
+bindkey -e
 
 # shortcut to this dotfiles path is $DOTFILES
 export DOTFILES=$HOME/.dotfiles
@@ -33,7 +33,8 @@ autoload colors && colors
 autoload -U compinit && compinit
 autoload -U edit-command-line
 zle -N edit-command-line
-bindkey -M vicmd v edit-command-line
+#bindkey -M vicmd v edit-command-line
+bindkey '^X^E' edit-command-line
 
 prompt smgt
 
