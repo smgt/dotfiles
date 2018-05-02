@@ -4,3 +4,5 @@ begin
 rescue LoadError
   puts 'no awesome_print :('
 end
+
+Pry.config.color = true
