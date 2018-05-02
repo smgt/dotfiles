@@ -49,6 +49,7 @@ alias gw='git wtf'
 #
 alias kv='kitchen verify "$*" && terminal-notifier -title "Kitchen CI" -message "Tests OK" || terminal-notifier -title "Kitchen CI" -message "Tests FAILED"'
 alias tmux="TERM=screen-256color-bce tmux"
+
 if (( $+command[mvim] ));then
   export VIM_BIN==mvim
 else

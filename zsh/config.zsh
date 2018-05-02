@@ -43,7 +43,7 @@ bindkey '^[^[[D' beginning-of-line # ESC + arrow left
 bindkey '^[^[[C' end-of-line # ESC + arrow right
 bindkey '^[[3~' delete-char
 bindkey '^[^N' newtab
-# bindkey '^?' backward-delete-char
+#bindkey '^?' backward-delete-char
 #bindkey '^R' history-incremental-search-backward
 #bindkey "^[[A" history-search-backward
 #bindkey "^[[B" history-search-forward

@@ -5,11 +5,13 @@ fi
 
 plugins=()
 
+# vim shortcuts
+bindkey -v
+
 # shortcut to this dotfiles path is $DOTFILES
 export DOTFILES=$HOME/.dotfiles
 export ZSH=$DOTFILES/zsh
 export EDITOR=vim
-
 
 # source every .zsh file in this rep
 for config_file ($DOTFILES/zsh/*.zsh) do
@@ -29,17 +31,10 @@ export LC_CTYPE=en_US.UTF-8
 autoload -U promptinit && promptinit
 autoload colors && colors
 autoload -U compinit && compinit
-
-# vim shortcuts
-bindkey -v
 autoload -U edit-command-line
 zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
 
 prompt smgt
 
-# added by travis gem
-[ -f /Users/simon/.travis/travis.sh ] && source /Users/simon/.travis/travis.sh
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-source $DOTFILES/zsh/aliases.zsh
+#source $DOTFILES/zsh/aliases.zsh
