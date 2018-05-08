@@ -1,0 +1,77 @@
+#!/bin/bash
+
+configdir="$HOME/.ssh-tunnel"
+piddir="/tmp/ssh-tunnel"
+shopt -s nullglob
+
+if [ ! $1 ];then
+  echo "Usage: ssh-tunnel"
+  echo "ssh-tunnel [tunnel name]"
+  exit 0
+fi
+
+function get_pid() {
+  if [ -f ${piddir}/$1 ];then
+    local pid_file=${piddir}/$1
+    local pid=$(cat $pid_file)
+  fi
+  echo -n "$pid"
+}
+
+function running_pid() {
+  local command=$(ps -p $1 -o command=)
+  if [[ -z "${command}" ]];then
+    echo -n 'no'
+  else
+    echo -n 'yes'
+  fi
+}
+
+if [ $1 == 'active' ];then
+  for pid_file in ${piddir}/*;do
+    pid=$(cat ${pid_file})
+    command=$(ps -p $pid -o command=)
+    if [[ -z "${command}" ]];then
+      rm $pid_file
+    else
+      echo $(basename $pid_file)
+      echo " $command"
+    fi
+  done
+  exit 0
+fi
+
+if [ $1 == 'close' ];then
+  if [[ -z $2 ]];then
+    'specify tunnel name'
+  fi
+  pid=$(get_pid $2)
+  if [[ -z $pid ]];then
+    echo "Tunnel not running."
+  else
+    rm $piddir/$2
+    kill $pid
+  fi
+  exit 0
+fi
+
+if test -f ${configdir}/$1; then
+  . ${configdir}/$1
+else
+  echo "Missing configuration for ${1}"
+  exit 1
+fi
+
+if [ ! -d ${piddir} ];then
+  mkdir ${piddir}
+fi
+
+command="ssh -N -L ${local_port}:${host}:${remote_port} -l ${ssh_user} -i ${key_file} -o ExitOnForwardFailure=yes -o TCPKeepAlive=yes -o ServerAliveInterval=60 ${proxy_host}"
+#echo $command
+$command & ssh_tunnel_pid=$!
+ssh_tunnel_started=$(running_pid $ssh_tunnel_pid)
+if [ $ssh_tunnel_started == 'yes' ];then
+  echo $ssh_tunnel_pid > ${piddir}/$1
+else
+  echo 'failed to start tunnel'
+fi
