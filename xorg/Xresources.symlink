@@ -19,6 +19,8 @@ URxvt.perl-ext-common: default,clipboard,resize-font
 ! Set terminal padding
 URxvt.internalBorder: 15
 
+! Disable printing of console when pressing PrintScreen
+URxvt.print-pipe: "cat > /dev/null"
 
 ! Colors
 *.boldMode: true
