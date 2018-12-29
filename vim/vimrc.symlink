@@ -42,8 +42,9 @@ call vundle#begin()
   Bundle 'christoomey/vim-tmux-navigator'
   Plugin 'ZoomWin'
   Plugin 'taglist.vim'
-  Plugin 'kien/ctrlp.vim'
+  "Plugin 'kien/ctrlp.vim'
   "Plugin 'mileszs/ack.vim'
+  Plugin 'junegunn/fzf.vim'
   Plugin 'rking/ag.vim'
   Plugin 'Chun-Yang/vim-action-ag'
 
@@ -135,10 +136,10 @@ set visualbell t_vb=
 "let g:CommandTMaxHeight=30
 " map <Leader>p :CommandT<CR>
 let g:ctrlp_map = '<Leader>]'
-map <Leader>p :CtrlP .<CR>
-map <Leader>b :CtrlPBuffer<CR>
-map <Leader>l :CtrlPLine<CR>
-map <Leader>t :CtrlPTag<CR>
+map <Leader>p :Files<CR>
+map <Leader>b :Buffers<CR>
+map <Leader>l :Lines<CR>
+map <Leader>t :Tags<CR>
 
 " ZoomWin configuration
 map <Leader>z :ZoomWin<CR>
