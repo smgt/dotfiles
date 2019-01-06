@@ -31,19 +31,11 @@ margin-bottom = 5
 monitor = ${env:MONITOR:DP2-1}
 width = 100%
 height = 40
-offset-x = 5%
-offset-y = 2%
 bottom = false
-line-size = 2
+padding = 0
 
 background = ${color.bg}
 foreground = ${color.fg}
-
-border-size = 3
-border-color = ${color.bg}
-
-;module-margin-left = 1
-;module-margin-right = 1
 
 font-0 = Roboto Mono for Powerline:size=12;1
 font-1 = Font Awesome 5 Free:size=12:style=solid;0
@@ -261,13 +253,15 @@ label-muted =
 [module/pulseaudio]
 type = internal/pulseaudio
 
-label-volume =
-label-volume-padding-right = 1
+label-volume = %percentage%%
 format-volume = <label-volume>
+format-volume-padding= ${format.padding}
 
 label-muted = 
-label-muted-padding-right = 1
 format-muted = <label-muted>
+format-muted-padding= ${format.padding}
 
 [settings]
 screenchange-reload = true
+
+; vim:ft=dosini
