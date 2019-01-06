@@ -56,7 +56,7 @@ if [ -f $HOME/.xinitrc.local ];then
   source $HOME/.xinitrc.local
 fi
 
-urxvtd -q -f &
+#urxvtd -q -f &
 compton --config /home/simon/.compton.conf &
 ~/.fehbg &
 dunst &
