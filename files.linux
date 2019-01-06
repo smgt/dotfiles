@@ -7,3 +7,4 @@ xorg/xinitrc.symlink;.xinitrc
 xorg/xsession.symlink;.xsession
 xorg/Xresources.symlink;.Xresources
 xorg/xbindkeysrc;.xbindkeysrc
+xorg/termite/config;.config/termite/config
