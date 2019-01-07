@@ -44,26 +44,15 @@ fi
 #  unset f
 # fi
 
-if [ $hostname == 'sugarsnap' ];then
-  export GDK_SCALE=2
-  export GDK_DPI_SCALE=0.5
-  export QT_AUTO_SCREEN_SCALE_FACTOR=1
-  sleep 1
-  xrandr --output DP-0 --mode 3840x2160 --dpi 168
+if [ -f $HOME/.xinitrc.local ];then
+  source $HOME/.xinitrc.local
 fi
 
-if [ $hostname == 'cucumber' ];then
-  export GDK_SCALE=2
-  export GDK_DPI_SCALE=0.5
-  export QT_AUTO_SCREEN_SCALE_FACTOR=1
-fi
+export TERM=xterm-color
 
-
-#xrdb -merge "${HOME}/.Xresources" &
-#i3
-urxvtd -q -f &
+#urxvtd -q -f &
 compton --config /home/simon/.compton.conf &
- ~/.fehbg &
+~/.fehbg &
 dunst &
 type dropbox > /dev/null 2>&1 && { dropbox & }
 type xss-lock >/dev/null 2>&1 && { xss-lock -- $HOME/.dotfiles/bin/lock & }

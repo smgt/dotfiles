@@ -75,7 +75,3 @@ function mvim() {
 alias m="mvim"
 alias mt="mvim --remote-tab"
 alias v="vim"
-
-if [[ $(type bat) ]];then
-  alias cat='bat'
-fi
