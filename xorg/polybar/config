@@ -129,9 +129,10 @@ format-margin=0
 label-focused-foreground = ${color.purple}
 label-focused-background = ${color.focused}
 
-label-unfocused-foreground = ${color.unfocused}
-label-visible-foreground = ${color.bg}
-label-urgent-foreground = ${color.urgent]
+label-unfocused-foreground = ${color.purple}
+label-visible-foreground = ${color.blue}
+label-urgent-foreground = ${color.bg}
+label-urgent-background = ${color.red}
 
 label-focused-underline = ${color.purple}
 label-urgent-underline = ${color.urgent}
