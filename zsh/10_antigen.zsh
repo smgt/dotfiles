@@ -7,7 +7,7 @@ if [ -f $HOME/.antigen/antigen.zsh ];then
   # Antigen
   # Bundles from oh-my-zsh
   antigen use oh-my-zsh
-  antigen bundle aws
+  #antigen bundle aws
   antigen bundle git
   antigen bundle git-extras
   antigen bundle extract
