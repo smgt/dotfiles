@@ -6,6 +6,12 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
   OS=osx
 fi
 
+if hash X; then
+  XORG=yes
+else
+  XORG=no
+fi
+
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 POSITIONAL=()
