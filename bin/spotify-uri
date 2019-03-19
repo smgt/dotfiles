@@ -1,0 +1,10 @@
+#!/bin/sh
+
+URI=$1
+if [ -z $URI ];then
+  echo "Error no URI supplied"
+  exit 1
+else
+  #dbus-send --print-reply --session --type=method_call --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.OpenUri "string:$URI"
+  dbus-send --session --type=method_call --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.OpenUri "string:$URI"
+fi
