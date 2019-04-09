@@ -103,6 +103,8 @@ set expandtab
 "autocmd FileType php set noexpandtab tabstop=4 shiftwidth=4 softtabstop=4 autoindent smartindent
 
 autocmd FileType go set listchars=tab:\ \ ,trail:✖
+let g:go_fmt_command = "goimports"
+
 
 " Searching
 set hlsearch
