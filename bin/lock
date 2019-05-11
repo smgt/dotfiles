@@ -1,10 +1,17 @@
 #!/bin/env bash
 
+set -e
+
 DISPLAY_RE="([0-9]+)x([0-9]+)\\+([0-9]+)\\+([0-9]+)"
 IMAGE_RE="([0-9]+)x([0-9]+)"
-screenshot=0
-OUTPUT_IMAGE="/tmp/i3lock.png"
+#screenshot=0
+#OUTPUT_IMAGE="/tmp/i3lock.png"
 CACHE_FOLDER="/tmp/wallpapers"
+#WALLPAPER_TYPE_DEFAULT="screenshot"
+
+if [ -f "$HOME/.lockrc" ];then
+  source "$HOME/.lockrc"
+fi
 
 if ! [ -d ${CACHE_FOLDER} ];then
   mkdir ${CACHE_FOLDER}
@@ -14,6 +21,7 @@ for i in "$@"
 do
   case $i in
     -w=*|--wallpaper=*)
+      WALLPAPER_TYPE="file"
       WALLPAPER_PATH="${i#*=}"
       if [ ! -e "$WALLPAPER_PATH" ];then
         echo 'Wallpaper file not found'
@@ -25,79 +33,120 @@ do
       MUSIC="YES"
       shift # past argument with no value
       ;;
+    --wallpaper-dir=*)
+      WALLPAPER_TYPE="dir"
+      WALLPAPER_DIR="${i#*=}"
+      shift
+      ;;
+    --screenshot)
+      WALLPAPER_TYPE="screenshot"
+      shift
+      ;;
     *)
       # unknown option
       ;;
   esac
 done
 
+if [[ -n ${lock_type} ]];then
+  WALLPAPER_TYPE=${lock_type}
+  if [[ -n "${lock_dir}" ]];then
+    WALLPAPER_DIR="${lock_dir}"
+  fi
+fi
+
+if [ "$WALLPAPER_TYPE" == "screenshot" ];then
+  if [ "$(command -v scrot)" ] && [ "$(command -v mogrify)" ];then
+    # Take a screenshot
+    TMP_FILE="/tmp/screenshot.png"
+    scrot $TMP_FILE
+    # Pixellate it 10x
+    mogrify -scale 10% -scale 1000% $TMP_FILE
+    WALLPAPER_PATH=$TMP_FILE
+  fi
+fi
+
+if [ "$WALLPAPER_TYPE" == "earthview" ];then
+  if [ "$EARTHVIEW_ID" != "--earthview" ];then
+    earthview_url="https://www.gstatic.com/prettyearth/assets/full/${EARTHVIEW_ID}.jpg"
+  else
+    earthview_url=$(curl -s https://raw.githubusercontent.com/limhenry/earthview/master/earthview.json | jq -r '.[].image' | shuf -n1)
+  fi
+  WALLPAPER_PATH="/tmp/earthview.jpg"
+  if curl -s -f -o $WALLPAPER_PATH "$earthview_url";then
+    echo "Failed to download ${earthview_url}"
+    exit 1
+  fi
+fi
+
+if [ "$WALLPAPER_TYPE" == "dir" ];then
+  if [ -d "$WALLPAPER_DIR" ];then
+    WALLPAPER_PATH=$(shuf -n1 <(for f in "$WALLPAPER_DIR"/*.{png,jpg};do
+      if [ -f "$f" ];then
+        echo "$f"
+      fi
+    done))
+  else
+    WALLPAPER_PATH=$(shuf -n1 <(for f in $WALLPAPER_DIR;do
+      echo "$f"
+    done))
+  fi
+
+fi
+
 # Control the player
-if [ $(command -v playerctl) ];then
+if command -v playerctl > /dev/null;then
   MUSIC_CMD="YES"
 else
   MUSIC_CMD="NO"
 fi
 
-if [ "${MUSIC_CMD}" == "YES" ] && [ "${MUSIC}" == "YES" ] && [ $(playerctl status) == "Playing" ];then
+if [ "${MUSIC_CMD}" == "YES" ] && [ "${MUSIC}" == "YES" ] && [ "$(playerctl status)" == "Playing" ];then
   playerctl pause
   MUSIC_PAUSED="YES"
 fi
 
-if [ -z "$WALLPAPER_PATH" ];then
-  if [ $(command -v scrot) ] && [ $(command -v mogrify) ];then
-    # Take a screenshot
-    scrot $OUTPUT_IMAGE
-    # Pixellate it 10x
-    mogrify -scale 10% -scale 1000% $OUTPUT_IMAGE
-    i3lock -i $OUTPUT_IMAGE -n
-  else
-    i3lock --color 000000 -n
-  fi
-else
-  MD5_BKG_IMG=$(md5sum $WALLPAPER_PATH| cut -c 1-10)
-  MD5_SCREEN_CONFIG=$(xrandr | md5sum - | cut -c 1-32)
-  LOCK_IMAGE_INFO=`identify $WALLPAPER_PATH`
-  [[ $LOCK_IMAGE_INFO =~ $IMAGE_RE ]]
-  IMAGE_WIDTH=${BASH_REMATCH[1]}
-  IMAGE_HEIGHT=${BASH_REMATCH[2]}
-  OUTPUT_IMG_WIDTH=0 # Decide size to cover all screens
-  OUTPUT_IMG_HEIGHT=0 # Decide size to cover all screens
-  OUTPUT_IMG="$CACHE_FOLDER""$MD5_SCREEN_CONFIG"."$MD5_BKG_IMG".png
+MD5_BKG_IMG=$(md5sum "$WALLPAPER_PATH"| cut -c 1-10)
+MD5_SCREEN_CONFIG=$(xrandr | md5sum - | cut -c 1-32)
+LOCK_IMAGE_INFO=$(identify "$WALLPAPER_PATH")
+[[ $LOCK_IMAGE_INFO =~ $IMAGE_RE ]]
+# IMAGE_WIDTH=${BASH_REMATCH[1]}
+# IMAGE_HEIGHT=${BASH_REMATCH[2]}
+OUTPUT_IMG_WIDTH=0 # Decide size to cover all screens
+OUTPUT_IMG_HEIGHT=0 # Decide size to cover all screens
+OUTPUT_IMG="$CACHE_FOLDER""$MD5_SCREEN_CONFIG"."$MD5_BKG_IMG".png
 
-  #Execute xrandr to get information about the monitors:
-  while read LINE
-  do
-    #If we are reading the line that contains the position information:
-    if [[ $LINE =~ $DISPLAY_RE ]]; then
-      #Extract information and append some parameters to the ones that will be given to ImageMagick:
-      SCREEN_WIDTH=${BASH_REMATCH[1]}
-      SCREEN_HEIGHT=${BASH_REMATCH[2]}
-      SCREEN_X=${BASH_REMATCH[3]}
-      SCREEN_Y=${BASH_REMATCH[4]}
+#Execute xrandr to get information about the monitors:
+while read -r LINE
+do
+  #If we are reading the line that contains the position information:
+  if [[ $LINE =~ $DISPLAY_RE ]]; then
+    #Extract information and append some parameters to the ones that will be given to ImageMagick:
+    SCREEN_WIDTH=${BASH_REMATCH[1]}
+    SCREEN_HEIGHT=${BASH_REMATCH[2]}
+    SCREEN_X=${BASH_REMATCH[3]}
+    SCREEN_Y=${BASH_REMATCH[4]}
 
-      CACHE_IMG="$CACHE_FOLDER""$SCREEN_WIDTH"x"$SCREEN_HEIGHT"."$MD5_BKG_IMG".png
+    CACHE_IMG="$CACHE_FOLDER""$SCREEN_WIDTH"x"$SCREEN_HEIGHT"."$MD5_BKG_IMG".png
 
-      if [ ! -e "$CACHE_IMG" ];then
-        eval convert '$WALLPAPER_PATH' '-resize' '${SCREEN_WIDTH}X${SCREEN_HEIGHT}^' '-gravity' 'Center' '-crop' '${SCREEN_WIDTH}X${SCREEN_HEIGHT}+0+0' '+repage' '$CACHE_IMG'
-      fi
-      if (( $OUTPUT_IMG_WIDTH < $SCREEN_WIDTH+$SCREEN_X )); then OUTPUT_IMG_WIDTH=$(($SCREEN_WIDTH+$SCREEN_X)); fi;
-      if (( $OUTPUT_IMG_HEIGHT < $SCREEN_HEIGHT+$SCREEN_Y )); then OUTPUT_IMG_HEIGHT=$(( $SCREEN_HEIGHT+$SCREEN_Y )); fi;
-      PARAMS="$PARAMS $CACHE_IMG -geometry +$SCREEN_X+$SCREEN_Y -composite "
+    if [ ! -e "$CACHE_IMG" ];then
+      eval convert '$WALLPAPER_PATH' '-resize' '${SCREEN_WIDTH}X${SCREEN_HEIGHT}^' '-gravity' 'Center' '-crop' '${SCREEN_WIDTH}X${SCREEN_HEIGHT}+0+0' '+repage' '$CACHE_IMG'
     fi
-  done <<<"`xrandr`"
-
-  if [ ! -e $OUTPUT_IMG ]
-  then
-    eval convert -size ${OUTPUT_IMG_WIDTH}x${OUTPUT_IMG_HEIGHT} 'xc:black' $OUTPUT_IMG
-    eval convert $OUTPUT_IMG $PARAMS $OUTPUT_IMG
+    if (( OUTPUT_IMG_WIDTH < SCREEN_WIDTH+SCREEN_X )); then OUTPUT_IMG_WIDTH=$((SCREEN_WIDTH+SCREEN_X)); fi;
+    if (( OUTPUT_IMG_HEIGHT < SCREEN_HEIGHT+SCREEN_Y )); then OUTPUT_IMG_HEIGHT=$(( SCREEN_HEIGHT+SCREEN_Y )); fi;
+    PARAMS="$PARAMS $CACHE_IMG -geometry +$SCREEN_X+$SCREEN_Y -composite "
   fi
-  #feh $OUTPUT_IMG
+done <<<"$(xrandr)"
 
-  i3lock -i ${OUTPUT_IMG} -n
+if [ ! -e "$OUTPUT_IMG" ]
+then
+  eval convert -size ${OUTPUT_IMG_WIDTH}x${OUTPUT_IMG_HEIGHT} 'xc:black' "$OUTPUT_IMG"
+  eval convert "$OUTPUT_IMG" "$PARAMS" "$OUTPUT_IMG"
 fi
 
+i3lock -i "${OUTPUT_IMG}" -n
+#feh "${OUTPUT_IMG}"
 
-#if [ ${MUSIC_CONTROL} -eq 1 ] && [ ${MUSIC} == 'YES' ] && [ $(playerctl status) == "Paused" ];then
 if [ "${MUSIC_PAUSED}" == "YES" ];then
   playerctl play
 fi
