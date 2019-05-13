@@ -17,20 +17,19 @@ call vundle#begin()
   Plugin 'gregsexton/gitv'
   Plugin 'scrooloose/nerdtree'
 
-  " Statusbar
-  " Plugin 'bling/vim-airline'
+  Plugin 'sheerun/vim-polyglot'
 
   " Ruby
   Plugin 'thoughtbot/vim-rspec'
-  Plugin 'vim-ruby/vim-ruby'
+  "Plugin 'vim-ruby/vim-ruby'
   Plugin 'tpope/vim-rbenv'
   Plugin 'tpope/vim-bundler'
 
   " Go
-  Plugin 'fatih/vim-go'
+  "Plugin 'fatih/vim-go'
 
   " Elixir
-  Plugin 'elixir-lang/vim-elixir'
+  "Plugin 'elixir-lang/vim-elixir'
 
   " Docker
   Plugin 'ekalinin/Dockerfile.vim'
