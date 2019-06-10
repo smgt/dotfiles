@@ -9,10 +9,8 @@ hash_string256() {
 
 tmux -2 new-session -d -s $HOST
 
-tmux set -g status-fg colour$(hash_string256 $HOST)
-tmux set -g status-bg colour$(hash_string256 $HOST 127)
-tmux set-window-option -g window-status-current-bg colour$(hash_string256 ${HOST} 1)
-tmux set-window-option -g window-status-current-fg colour$(hash_string256 ${HOST} 128)
+tmux set -g status-status fg=colour$(hash_string256 $HOST),bg=colour$(hash_string256 $HOST 127)
+tmux set-window-option -g window-status-current-style bg=colour$(hash_string256 ${HOST} 1),fg=colour$(hash_string256 ${HOST} 128)
 
 # Attach to session
 tmux -2 attach-session -t $HOST

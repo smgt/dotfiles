@@ -1,0 +1,23 @@
+#!/bin/bash
+# vi: ft=bash
+
+CONFIGFILE=$HOME/.hotkeyrc
+
+if [ ! -f $CONFIGFILE ];then
+  echo "No .hotkeyrc found in $HOME"
+  exit 1
+fi
+
+if [ -z $1 ];then
+  echo "Please supply a hotkey to run $0 HOTKEY"
+  exit 1
+fi
+
+HOTKEY=$1
+
+while IFS=: read -r name command
+do
+  if [ "$name" == "$HOTKEY" ];then
+    eval $command
+  fi
+done < <(sed -e 's/#.*$//' -e '/^$/d' $CONFIGFILE)
