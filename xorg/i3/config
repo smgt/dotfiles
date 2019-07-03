@@ -47,7 +47,7 @@ bindsym $mod+Shift+q kill
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 bindsym $mod+d exec rofi -modi run -show run
-bindsym $mod+m exec i3lock --color 010101
+bindsym $mod+m exec hotkey lock
 bindsym $mod+p exec $HOME/.dotfiles/bin/switch_layout
 
 # change focus
