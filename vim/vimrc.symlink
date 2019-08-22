@@ -336,3 +336,8 @@ endif
 autocmd FileType ruby nnoremap <buffer> <Leader>s :execute "SlimeSend1 load('".expand('%:p')."')"<CR>
 let g:slime_target = "tmux"
 let g:slime_python_ipython = 1
+
+let g:ale_fix_on_save = 1
+let b:ale_fixers = {
+      \ 'go': ['goimports', 'gofmt'],
+      \}
