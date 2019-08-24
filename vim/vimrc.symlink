@@ -37,10 +37,11 @@ call vundle#begin()
   " Utility
   Plugin 'tpope/vim-projectionist'
   Plugin 'jpalardy/vim-slime'
-  Plugin 'w0rp/ale'
+  Plugin 'dense-analysis/ale'
   Bundle 'christoomey/vim-tmux-navigator'
   Plugin 'ZoomWin'
   Plugin 'taglist.vim'
+  Plugin 'ycm-core/YouCompleteMe'
   "Plugin 'kien/ctrlp.vim'
   "Plugin 'mileszs/ack.vim'
   Plugin 'junegunn/fzf.vim'
