@@ -12,6 +12,10 @@ call vundle#begin()
   Plugin 'ervandew/supertab'
   Plugin 'tomtom/tcomment_vim'
 
+  " Snippets
+  Plugin 'SirVer/ultisnips'
+  Plugin 'honza/vim-snippets'
+
   " Git and file plugins
   Plugin 'tpope/vim-fugitive'
   Plugin 'gregsexton/gitv'
@@ -26,7 +30,8 @@ call vundle#begin()
   Plugin 'tpope/vim-bundler'
 
   " Go
-  "Plugin 'fatih/vim-go'
+  Plugin 'fatih/vim-go'
+  "Plugin 'mdempsky/gocode', {'rtp': 'vim/'}
 
   " Elixir
   "Plugin 'elixir-lang/vim-elixir'
@@ -41,7 +46,8 @@ call vundle#begin()
   Bundle 'christoomey/vim-tmux-navigator'
   Plugin 'ZoomWin'
   Plugin 'taglist.vim'
-  Plugin 'ycm-core/YouCompleteMe'
+  Plugin 'Vundle.vim'
+  "Plugin 'ycm-core/YouCompleteMe'
   "Plugin 'kien/ctrlp.vim'
   "Plugin 'mileszs/ack.vim'
   Plugin 'junegunn/fzf.vim'
@@ -105,7 +111,14 @@ set expandtab
 "autocmd FileType php set noexpandtab tabstop=4 shiftwidth=4 softtabstop=4 autoindent smartindent
 
 autocmd FileType go set listchars=tab:\ \ ,trail:✖
-let g:go_fmt_command = "goimports"
+let g:go_fmt_command = 'goimports'
+let g:go_info_mode = 'gocode'
+let g:go_fmt_options = {
+    \ 'goimports': '-local bitbucket.org/readly',
+    \ 'gofmt': '-s',
+    \ }
+let g:go_auto_type_info = 1
+let g:go_metalinter_autosave = 1
 
 
 " Searching
@@ -120,8 +133,8 @@ set nowritebackup
 set noswapfile
 
 " Tab completion
-set wildmode=list:longest,list:full
-set wildignore+=*.o,*.obj,.git,*.rbc,*.min.js,.rsync_cache
+"set wildmode=list:longest,list:full
+"set wildignore+=*.o,*.obj,.git,*.rbc,*.min.js,.rsync_cache
 
 " Status bar
 set laststatus=2
@@ -339,9 +352,9 @@ let g:slime_target = "tmux"
 let g:slime_python_ipython = 1
 
 " Ale configuration
-let g:ale_fixers = {
-      \   'go': ['goimports'],
-      \}
+" let g:ale_fixers = {
+"       \   'go': ['goimports'],
+"       \}
 
 " Set this variable to 1 to fix files when you save them.
-let g:ale_fix_on_save = 1
+" let g:ale_fix_on_save = 1
