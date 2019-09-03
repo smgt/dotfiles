@@ -39,6 +39,9 @@ call vundle#begin()
   " Docker
   Plugin 'ekalinin/Dockerfile.vim'
 
+  " JSON
+  Plugin 'elzr/vim-json'
+
   " Utility
   Plugin 'tpope/vim-projectionist'
   Plugin 'jpalardy/vim-slime'
