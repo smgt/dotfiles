@@ -4,13 +4,13 @@ HOST=$(hostname)
 
 hash_string256() {
     hash_value=$(printf "%s" "$1" | md5sum |tr -d " -"| tr "a-f" "A-F")
-    printf "ibase=16; (%s + %X) %% 100 \n" $hash_value "$2" | bc
+    printf "ibase=16; (%s + %X) %% 100 \n" "$hash_value" "$2" | bc
 }
 
-tmux -2 new-session -d -s $HOST
+tmux -2 new-session -d -s "$HOST"
 
-tmux set -g status-status fg=colour$(hash_string256 $HOST),bg=colour$(hash_string256 $HOST 127)
-tmux set-window-option -g window-status-current-style bg=colour$(hash_string256 ${HOST} 1),fg=colour$(hash_string256 ${HOST} 128)
+tmux set -g status-style fg=colour"$(hash_string256 "$HOST")",bg=colour"$(hash_string256 "$HOST" 127)"
+tmux set-window-option -g window-status-current-style bg=colour"$(hash_string256 "$HOST" 1)",fg=colour"$(hash_string256 "$HOST" 128)"
 
 # Attach to session
-tmux -2 attach-session -t $HOST
+tmux -2 attach-session -t "$HOST"
