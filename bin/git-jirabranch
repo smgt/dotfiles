@@ -1,0 +1,72 @@
+#!/bin/sh
+
+COMMAND_NAME="git jirabranch"
+COMMAND_JIRA="jira"
+
+if [ -f "$HOME/.jira.d/config.yml" ];then
+  JIRA_PROJECT=$(grep -e ^project < "$HOME"/.jira.d/config.yml | awk '{print $2}')
+fi
+
+if ! command -v "$COMMAND_JIRA">/dev/null 2>&1;then
+  echo "You need to install https://github.com/go-jira/jira to make this script work"
+  exit 1
+fi
+
+helpFunction()
+{
+  echo ""
+  echo "Usage: ${COMMAND_NAME} <TICKET>"
+  printf "\t-n Create a jira ticket"
+  printf "\t-s Create branch from sprint ticket"
+  printf "\t-p Jira Project"
+  exit 1 # Exit script after printing help
+}
+
+while getopts "nsp:" opt
+do
+  case "$opt" in
+    n ) ARG_CREATE_TICKET=1 ;;
+    s ) ARG_SPRINT_BRANCH=1 ;;
+    p ) JIRA_PROJECT=$OPTARG ;;
+    ? ) helpFunction;;
+  esac
+done
+
+shift "$(( OPTIND - 1 ))"
+
+if [ "$ARG_CREATE_TICKET" ];then
+  TEMPFILE=$(mktemp)
+  ISSUE_OPTS=""
+  if command -v fzf > /dev/null 2>&1;then
+    ISSUE_TYPE=$(jira issuetypes|fzf --ansi -d ":"|awk '{print $1}'|tr -d :|tr -d ' ')
+    ISSUE_OPTS="${ISSUE_OPTS} --issuetype=${ISSUE_TYPE} --project=${JIRA_PROJECT}"
+  fi
+  if "$COMMAND_JIRA" create${ISSUE_OPTS} --saveFile=${TEMPFILE};then
+    JIRA_TICKET=$(grep -i issue "$TEMPFILE" | awk '{print $2}')
+  else
+    echo "Failed to create ticket."
+    exit 1
+  fi
+elif [ "$ARG_SPRINT_BRANCH" ];then
+  JIRA_TICKET=$(jira list --query "sprint in openSprints() and type != epic and resolution = unresolved and project=$JIRA_PROJECT ORDER BY rank asc, created" | fzf | tr -d ":" | awk '{print $1}')
+else
+  JIRA_TICKET=$1
+fi
+
+if [ -z "$JIRA_TICKET" ];then
+  echo "You need to supply a jira ticket, ${COMMAND_NAME}"
+  exit 1
+fi
+
+JIRA_SUMMARY=$("$COMMAND_JIRA" req --gjq fields.summary "/rest/api/2/issue/${JIRA_TICKET}")
+if [ -z "$JIRA_SUMMARY" ];then
+  echo "Could not find jira ticket ${JIRA_TICKET}."
+  exit 1
+fi
+
+GIT_BRANCH_NAME=$(echo "${JIRA_TICKET}-$(echo "$JIRA_SUMMARY" | tr -s "[:space:]" '-' )"|cut -c1-64|sed 's/-$//')
+echo "Created git branch: $GIT_BRANCH_NAME"
+
+echo git checkout -b "$GIT_BRANCH_NAME" origin/"$GIT_BRANCH_NAME"
+
+# vim: filetype=sh
