@@ -67,6 +67,6 @@ fi
 GIT_BRANCH_NAME=$(echo "${JIRA_TICKET}-$(echo "$JIRA_SUMMARY" | tr -s "[:space:]" '-' )"|cut -c1-64|sed 's/-$//')
 echo "Created git branch: $GIT_BRANCH_NAME"
 
-echo git checkout -b "$GIT_BRANCH_NAME" origin/"$GIT_BRANCH_NAME"
+git checkout -b "$GIT_BRANCH_NAME" origin/"$GIT_BRANCH_NAME"
 
 # vim: filetype=sh
