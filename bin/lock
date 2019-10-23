@@ -6,7 +6,7 @@ DISPLAY_RE="([0-9]+)x([0-9]+)\\+([0-9]+)\\+([0-9]+)"
 IMAGE_RE="([0-9]+)x([0-9]+)"
 #screenshot=0
 #OUTPUT_IMAGE="/tmp/i3lock.png"
-CACHE_FOLDER="/tmp/wallpapers"
+CACHE_FOLDER="/tmp/wallpapers/"
 #WALLPAPER_TYPE_DEFAULT="screenshot"
 
 if [ -f "$HOME/.lockrc" ];then
@@ -15,6 +15,13 @@ fi
 
 if ! [ -d ${CACHE_FOLDER} ];then
   mkdir ${CACHE_FOLDER}
+fi
+
+if [[ -n ${lock_type} ]];then
+  WALLPAPER_TYPE=${lock_type}
+  if [[ -n "${lock_dir}" ]];then
+    WALLPAPER_DIR="${lock_dir}"
+  fi
 fi
 
 for i in "$@"
@@ -48,12 +55,6 @@ do
   esac
 done
 
-if [[ -n ${lock_type} ]];then
-  WALLPAPER_TYPE=${lock_type}
-  if [[ -n "${lock_dir}" ]];then
-    WALLPAPER_DIR="${lock_dir}"
-  fi
-fi
 
 if [ "$WALLPAPER_TYPE" == "screenshot" ];then
   if [ "$(command -v scrot)" ] && [ "$(command -v mogrify)" ];then
@@ -114,7 +115,7 @@ LOCK_IMAGE_INFO=$(identify "$WALLPAPER_PATH")
 # IMAGE_HEIGHT=${BASH_REMATCH[2]}
 OUTPUT_IMG_WIDTH=0 # Decide size to cover all screens
 OUTPUT_IMG_HEIGHT=0 # Decide size to cover all screens
-OUTPUT_IMG="$CACHE_FOLDER""$MD5_SCREEN_CONFIG"."$MD5_BKG_IMG".png
+OUTPUT_IMG="$CACHE_FOLDER""$MD5_SCREEN_CONFIG"."$MD5_BKG_IMG".jpg
 
 #Execute xrandr to get information about the monitors:
 while read -r LINE
@@ -127,9 +128,10 @@ do
     SCREEN_X=${BASH_REMATCH[3]}
     SCREEN_Y=${BASH_REMATCH[4]}
 
-    CACHE_IMG="$CACHE_FOLDER""$SCREEN_WIDTH"x"$SCREEN_HEIGHT"."$MD5_BKG_IMG".png
+    CACHE_IMG="$CACHE_FOLDER""$SCREEN_WIDTH"x"$SCREEN_HEIGHT"."$MD5_BKG_IMG".jpg
 
     if [ ! -e "$CACHE_IMG" ];then
+      echo 'resizing wallpaper'
       eval convert '$WALLPAPER_PATH' '-resize' '${SCREEN_WIDTH}X${SCREEN_HEIGHT}^' '-gravity' 'Center' '-crop' '${SCREEN_WIDTH}X${SCREEN_HEIGHT}+0+0' '+repage' '$CACHE_IMG'
     fi
     if (( OUTPUT_IMG_WIDTH < SCREEN_WIDTH+SCREEN_X )); then OUTPUT_IMG_WIDTH=$((SCREEN_WIDTH+SCREEN_X)); fi;
@@ -140,8 +142,8 @@ done <<<"$(xrandr)"
 
 if [ ! -e "$OUTPUT_IMG" ]
 then
-  eval convert -size ${OUTPUT_IMG_WIDTH}x${OUTPUT_IMG_HEIGHT} 'xc:black' "$OUTPUT_IMG"
-  eval convert "$OUTPUT_IMG" "$PARAMS" "$OUTPUT_IMG"
+  eval convert -type TrueColor -size ${OUTPUT_IMG_WIDTH}x${OUTPUT_IMG_HEIGHT} 'xc:black' "$OUTPUT_IMG"
+  eval convert -type TrueColor "$OUTPUT_IMG" "$PARAMS" "$OUTPUT_IMG"
 fi
 
 i3lock -i "${OUTPUT_IMG}" -n
