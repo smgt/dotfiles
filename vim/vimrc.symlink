@@ -1,83 +1,64 @@
   set nocompatible              " be iMproved, required
   filetype off                  " required
 
-" Vundle config
-let g:vundle_default_git_proto = 'git'
-
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-  Plugin 'tpope/vim-surround'
-  Plugin 'tpope/vim-unimpaired'
-  Plugin 'ervandew/supertab'
-  Plugin 'tomtom/tcomment_vim'
+call plug#begin('~/.vim/plugged')
+  Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-unimpaired'
+  Plug 'ervandew/supertab'
+  Plug 'tomtom/tcomment_vim'
 
   " Snippets
-  Plugin 'SirVer/ultisnips'
-  Plugin 'honza/vim-snippets'
+  Plug 'SirVer/ultisnips'
+  Plug 'honza/vim-snippets'
 
   " Git and file plugins
-  Plugin 'tpope/vim-fugitive'
-  Plugin 'gregsexton/gitv'
-  Plugin 'scrooloose/nerdtree'
+  Plug 'tpope/vim-fugitive'
+  Plug 'gregsexton/gitv'
+  Plug 'scrooloose/nerdtree'
 
-  Plugin 'sheerun/vim-polyglot'
+  Plug 'sheerun/vim-polyglot'
 
   " Ruby
-  Plugin 'thoughtbot/vim-rspec'
-  "Plugin 'vim-ruby/vim-ruby'
-  Plugin 'tpope/vim-rbenv'
-  Plugin 'tpope/vim-bundler'
+  "Plug 'thoughtbot/vim-rspec'
+  "Plug 'vim-ruby/vim-ruby'
+  "Plug 'tpope/vim-rbenv'
+  "Plug 'tpope/vim-bundler'
 
   " Go
-  Plugin 'fatih/vim-go'
-  "Plugin 'mdempsky/gocode', {'rtp': 'vim/'}
+  Plug 'fatih/vim-go'
+  "Plug 'mdempsky/gocode', {'rtp': 'vim/'}
 
   " Elixir
-  "Plugin 'elixir-lang/vim-elixir'
+  "Plug 'elixir-lang/vim-elixir'
 
   " Docker
-  Plugin 'ekalinin/Dockerfile.vim'
+  Plug 'ekalinin/Dockerfile.vim'
 
   " JSON
-  Plugin 'elzr/vim-json'
+  Plug 'elzr/vim-json'
 
   " Utility
-  Plugin 'tpope/vim-projectionist'
-  Plugin 'jpalardy/vim-slime'
-  Plugin 'dense-analysis/ale'
-  Bundle 'christoomey/vim-tmux-navigator'
-  Plugin 'ZoomWin'
-  Plugin 'taglist.vim'
-  Plugin 'Vundle.vim'
-  "Plugin 'ycm-core/YouCompleteMe'
-  "Plugin 'kien/ctrlp.vim'
-  "Plugin 'mileszs/ack.vim'
-  Plugin 'junegunn/fzf.vim'
-  "Plugin 'rking/ag.vim'
-  "Plugin 'Chun-Yang/vim-action-ag'
+  "Plug 'tpope/vim-projectionist'
+  Plug 'jpalardy/vim-slime'
+  Plug 'dense-analysis/ale'
+  "Bundle 'christoomey/vim-tmux-navigator'
+  Plug 'vim-scripts/ZoomWin'
+  Plug 'vim-scripts/taglist.vim'
+  "Plug 'Vundle.vim'
+  "Plug 'ycm-core/YouCompleteMe'
+  "Plug 'kien/ctrlp.vim'
+  "Plug 'mileszs/ack.vim'
+  Plug 'junegunn/fzf.vim'
+  "Plug 'rking/ag.vim'
+  "Plug 'Chun-Yang/vim-action-ag'
 
   " Themes
-  Plugin 'liuchengxu/space-vim-dark'
-
-nnoremap <silent> * :Ag <C-R><C-W><CR>
+  Plug 'liuchengxu/space-vim-dark'
 
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
+call plug#end()            " required
+
 filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just
-":PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to
-" auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
 
 set fileformat=unix
 let mapleader=","
@@ -152,10 +133,6 @@ endif
 " Turn off visual bell
 set visualbell t_vb=
 
-" Command-T configuration
-"let g:CommandTMaxHeight=30
-" map <Leader>p :CommandT<CR>
-let g:ctrlp_map = '<Leader>]'
 map <Leader>p :Files<CR>
 map <Leader>b :Buffers<CR>
 map <Leader>l :Lines<CR>
@@ -163,7 +140,6 @@ map <Leader>t :Tags<CR>
 
 " ZoomWin configuration
 map <Leader>z :ZoomWin<CR>
-
 
 " Taglist
 map <Leader>o :Tlist<CR>
@@ -214,19 +190,19 @@ set backspace=indent,eol,start
 
 " Opens an edit command with the path of the currently edited file filled in
 " Normal mode: <Leader>e
-map <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+" map <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 
 " Opens a tab edit command with the path of the currently edited file filled in
 " Normal mode: <Leader>t
-map <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
+" map <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
 " Inserts the path of the currently edited file into a command
 " Command mode: Ctrl+P
 cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 
 " Bubble single lines
-"nmap <C-k> [e
-"nmap <C-j> ]e
+" nmap <C-k> [e
+" nmap <C-j> ]e
 
 " Bubble multiple lines
 vmap <C-k> [egv
@@ -255,9 +231,6 @@ set modelines=10
 
 set showtabline=1
 
-" Yank into OSX clipboard
-"set clipboard=unnamed
-
 " Default color scheme
 "colors molokai2
 "colors base16-unikitty-dark
@@ -267,10 +240,6 @@ set showtabline=1
 colors space-vim-dark
 "set background=dark
 "colorscheme solarized
-
-" Gist settings
-let g:gist_clip_command = 'pbcopy'
-let g:gist_detect_filetype = 1
 
 " Highlight the 81 character background
 "set textwidth=80
@@ -289,38 +258,8 @@ set listchars=tab:⇝\ ,trail:✖
 " Remove trailing whitespace
 " autocmd BufWritePre * :%s/\s\+$//e
 
-" Show error list in Syntactic
-let g:syntastic_auto_loc_list=1
-let g:syntastic_error_symbol='🔥'
-let g:syntastic_warning_symbol='💩'
-let g:syntastic_ruby_checkers = ["mri", "rubocop"]
-
 " Populate airline special fonts
 let g:airline_powerline_fonts = 1
-
-" Configure vim-rspec
-" let g:rspec_command = 'call Send_to_Tmux("bundle exec rspec {spec}\n")'
-" let g:rspec_command = 'Dispatch bundle exec rspec {spec}'
-" map <Leader>r :call RunCurrentSpecFile()<CR>
-
-" Dash
-nmap <silent> <leader>d <Plug>DashSearch
-
-" Prompt for a command to run
-map <Leader>vp :VimuxPromptCommand<CR>
-
-" VIMUX
-" Run last command executed by RunVimTmuxCommand
-map <Leader>vl :VimuxRunLastCommand<CR>
-
-" Inspect runner pane
-map <Leader>vi :VimuxInspectRunner<CR>
-
-" Close all other tmux panes in current window
-map <Leader>vx :VimuxCloseRunner<CR>
-
-" Interrupt any command running in the runner pane
-map rs :VimuxInterruptRunner<CR>
 
 "map <Leader>rx :!"tmux new-window -t $_SNAME -n vim -d vim"
 
@@ -330,11 +269,11 @@ command! -nargs=1 Execute
 
 " Run the current file with rspec
 "map <Leader>rf :call VimuxRunCommand("clear; bundle exec rspec " . bufname("%") )<CR>
-map <Leader>rf :Execute "silent !tmxc test \"cd $(pwd);clear;bundle exec rspec " . bufname("%") . "\""<CR>
+"map <Leader>rf :Execute "silent !tmxc test \"cd $(pwd);clear;bundle exec rspec " . bufname("%") . "\""<CR>
 
 " Run rspec test closes to the cursor
 "map <Leader>rl :call VimuxRunCommand("clear; bundle exec rspec " . bufname("%") . ":" . line("."))<CR>
-map <Leader>rl :Execute "silent !tmxc test \"cd $(pwd);clear;bundle exec rspec " . bufname("%") . ":" . line(".") ."\""<CR>
+"map <Leader>rl :Execute "silent !tmxc test \"cd $(pwd);clear;bundle exec rspec " . bufname("%") . ":" . line(".") ."\""<CR>
 
 " Configure vim-ruby
 let g:ruby_indent_access_modifier_style = 'outdent'
@@ -350,9 +289,10 @@ else
   let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
 
-autocmd FileType ruby nnoremap <buffer> <Leader>s :execute "SlimeSend1 load('".expand('%:p')."')"<CR>
+" Slime
 let g:slime_target = "tmux"
 let g:slime_python_ipython = 1
+autocmd FileType ruby nnoremap <buffer> <Leader>s :execute "SlimeSend1 load('".expand('%:p')."')"<CR>
 
 " Ale configuration
 " let g:ale_fixers = {
@@ -362,3 +302,6 @@ let g:ale_linters = {'go': []}
 
 " Set this variable to 1 to fix files when you save them.
 " let g:ale_fix_on_save = 1
+
+" FZF
+
