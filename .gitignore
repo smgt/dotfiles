@@ -1,7 +1,7 @@
 .netrwhist
 .rbx
 tags
-vim/vim.symlink/bundle
+vim/vim.symlink/plugged
 .kitchen
 .rvm
 *.zwc
