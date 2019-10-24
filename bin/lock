@@ -8,9 +8,10 @@ IMAGE_RE="([0-9]+)x([0-9]+)"
 #OUTPUT_IMAGE="/tmp/i3lock.png"
 CACHE_FOLDER="/tmp/wallpapers/"
 #WALLPAPER_TYPE_DEFAULT="screenshot"
+LOCKRC="$HOME/.lockrc"
 
-if [ -f "$HOME/.lockrc" ];then
-  source "$HOME/.lockrc"
+if [ -f "$LOCKRC" ];then
+  source "$LOCKRC"
 fi
 
 if ! [ -d ${CACHE_FOLDER} ];then
@@ -67,19 +68,6 @@ if [ "$WALLPAPER_TYPE" == "screenshot" ];then
   fi
 fi
 
-if [ "$WALLPAPER_TYPE" == "earthview" ];then
-  if [ "$EARTHVIEW_ID" != "--earthview" ];then
-    earthview_url="https://www.gstatic.com/prettyearth/assets/full/${EARTHVIEW_ID}.jpg"
-  else
-    earthview_url=$(curl -s https://raw.githubusercontent.com/limhenry/earthview/master/earthview.json | jq -r '.[].image' | shuf -n1)
-  fi
-  WALLPAPER_PATH="/tmp/earthview.jpg"
-  if curl -s -f -o $WALLPAPER_PATH "$earthview_url";then
-    echo "Failed to download ${earthview_url}"
-    exit 1
-  fi
-fi
-
 if [ "$WALLPAPER_TYPE" == "dir" ];then
   if [ -d "$WALLPAPER_DIR" ];then
     WALLPAPER_PATH=$(shuf -n1 <(for f in "$WALLPAPER_DIR"/*.{png,jpg};do
@@ -131,7 +119,6 @@ do
     CACHE_IMG="$CACHE_FOLDER""$SCREEN_WIDTH"x"$SCREEN_HEIGHT"."$MD5_BKG_IMG".jpg
 
     if [ ! -e "$CACHE_IMG" ];then
-      echo 'resizing wallpaper'
       eval convert '$WALLPAPER_PATH' '-resize' '${SCREEN_WIDTH}X${SCREEN_HEIGHT}^' '-gravity' 'Center' '-crop' '${SCREEN_WIDTH}X${SCREEN_HEIGHT}+0+0' '+repage' '$CACHE_IMG'
     fi
     if (( OUTPUT_IMG_WIDTH < SCREEN_WIDTH+SCREEN_X )); then OUTPUT_IMG_WIDTH=$((SCREEN_WIDTH+SCREEN_X)); fi;
