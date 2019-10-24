@@ -12,6 +12,11 @@ if ! command -v "$COMMAND_JIRA">/dev/null 2>&1;then
   exit 1
 fi
 
+if ! command -v fzf > /dev/null 2>&1;then
+  echo "You need to install https://github.com/junegunn/fzf to make this script work"
+  exit 1
+fi
+
 helpFunction()
 {
   echo ""
@@ -41,7 +46,7 @@ if [ "$ARG_CREATE_TICKET" ];then
     ISSUE_TYPE=$(jira issuetypes|fzf --ansi -d ":"|awk '{print $1}'|tr -d :|tr -d ' ')
     ISSUE_OPTS="${ISSUE_OPTS} --issuetype=${ISSUE_TYPE} --project=${JIRA_PROJECT}"
   fi
-  if "$COMMAND_JIRA" create${ISSUE_OPTS} --saveFile=${TEMPFILE};then
+  if "$COMMAND_JIRA" create${ISSUE_OPTS} --saveFile="$TEMPFILE";then
     JIRA_TICKET=$(grep -i issue "$TEMPFILE" | awk '{print $2}')
   else
     echo "Failed to create ticket."
