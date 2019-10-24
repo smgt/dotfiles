@@ -1,16 +1,27 @@
-#!/bin/sh
+#!/bin/bash
 
-if [[ "$OSTYPE" == "linux-gnu" ]]; then
-  OS=linux
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-  OS=osx
-fi
+error() {
+  echo "ERROR: $1"
+  exit 1
+}
 
-if hash X; then
-  XORG=yes
-else
-  XORG=no
-fi
+case "$OSTYPE" in
+  "linux"*)
+    OS=linux
+    ;;
+  "darwin"*)
+    OS=osx
+    ;;
+  *)
+    error "Unknown operating system"
+    ;;
+esac
+
+# if hash X; then
+#   XORG=yes
+# else
+#   XORG=no
+# fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
@@ -25,7 +36,6 @@ do
       shift # past argument
       ;;
     --default)
-      DEFAULT=YES
       shift # past argument
       ;;
     *)    # unknown option
@@ -36,68 +46,63 @@ do
 done
 set -- "${POSITIONAL[@]}" # restore positional parameters
 
-function ask_remove() {
+ask_remove() {
   if [ ${ARG_FORCE} ];then
     return
   fi
-  read -p "  - File/directory already exists, remove $1 (y/n)? " answer
+  read -rp "  - File/directory already exists, remove $1 (y/n)? " answer
   case ${answer:0:1} in
     y|Y )
       #rm -rf $1
-      mv $1 $1.bak
+      mv "$1" "$1".bak
       ;;
     * )
       ;;
   esac
 }
 
-function install_file() {
+install_file() {
   local source=$1
   local target=$2
-  if [ ! -e $source ];then
+  if [ ! -e "$source" ];then
     return
   fi
-  if [ -s $target ];then
-    if [[ $(realpath $target) =~ $HOME/.dotfiles ]];then
+  if [ -s "$target" ];then
+    if [[ $(realpath "$target") =~ $HOME/.dotfiles ]];then
       echo "Skipping ${source} -> ${target}, already linked."
       return
     fi
   fi
-  if [ -e $target ];then
-    ask_remove $target
+  if [ -e "$target" ];then
+    ask_remove "$target"
   fi
-  if [ ! -e $target ];then
+  if [ ! -e "$target" ];then
     echo "  $source -> $target"
-    if [ ! -d $(dirname $target) ];then
-      mkdir -p $(dirname $target)
+    if [ ! -d "$(dirname "$target")" ];then
+      echo mkdir -p "$(dirname "$target")"
     fi
-    ln -s $source $target
+    echo ln -s "$source" "$target"
   fi
 }
 
-function echo_green() {
+echo_green() {
   echo -e "\e[32m$1\e[39m"
 }
+
 
 git submodule update --init
 
 echo_green "** Linking files"
-for line in $(cat files);do
-  aray=($(echo "$line"|tr ';' '\n'))
-  from_path=$DIR/${aray[0]}
-  to_path=$HOME/${aray[1]}
-  install_file $from_path $to_path
-done
+while IFS=\; read -r from_path to_path; do
+  install_file "$DIR/$from_path" "$HOME/$to_path"
+done < files
 
 if [ -f files.$OS ];then
   echo_green "** Linking $OS specific files"
-  for line in $(cat files.$OS);do
-    aray=($(echo "$line"|tr ';' '\n'))
-    from_path=$DIR/${aray[0]}
-    to_path=$HOME/${aray[1]}
-    install_file $from_path $to_path
-  done
+  while IFS=\; read -r from_path to_path; do
+    install_file "$DIR/$from_path" "$HOME/$to_path"
+  done < files.$OS
 fi
 
 echo "Installing vim plugins"
-vim -u NONE +PluginInstall +qall
+vim +VundleInstall +GoInstallBinaries
