@@ -1,2 +1,0 @@
-#compdef task
-_files -W ~/Dropbox/Tasks -/
