@@ -37,5 +37,3 @@ zle -N edit-command-line
 bindkey '^X^E' edit-command-line
 
 prompt smgt
-
-#source $DOTFILES/zsh/aliases.zsh
