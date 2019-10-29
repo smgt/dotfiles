@@ -16,7 +16,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'gregsexton/gitv'
   Plug 'scrooloose/nerdtree'
 
-  Plug 'sheerun/vim-polyglot'
 
   " Ruby
   "Plug 'thoughtbot/vim-rspec'
@@ -25,8 +24,7 @@ call plug#begin('~/.vim/plugged')
   "Plug 'tpope/vim-bundler'
 
   " Go
-  Plug 'fatih/vim-go'
-  "Plug 'mdempsky/gocode', {'rtp': 'vim/'}
+  Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 
   " Elixir
   "Plug 'elixir-lang/vim-elixir'
@@ -51,6 +49,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/fzf.vim'
   "Plug 'rking/ag.vim'
   "Plug 'Chun-Yang/vim-action-ag'
+
+  " Needs to be loaded at the end
+  Plug 'sheerun/vim-polyglot'
 
   " Themes
   Plug 'liuchengxu/space-vim-dark'
