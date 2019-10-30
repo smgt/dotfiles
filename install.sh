@@ -79,9 +79,9 @@ install_file() {
   if [ ! -e "$target" ];then
     echo "  $source -> $target"
     if [ ! -d "$(dirname "$target")" ];then
-      echo mkdir -p "$(dirname "$target")"
+      mkdir -p "$(dirname "$target")"
     fi
-    echo ln -s "$source" "$target"
+    ln -s "$source" "$target"
   fi
 }
 
@@ -90,7 +90,7 @@ echo_green() {
 }
 
 
-git submodule update --init
+#git submodule update --init
 
 echo_green "** Linking files"
 while IFS=\; read -r from_path to_path; do
@@ -105,4 +105,4 @@ if [ -f files.$OS ];then
 fi
 
 echo "Installing vim plugins"
-vim +VundleInstall +GoInstallBinaries
+vim +PlugInstall
