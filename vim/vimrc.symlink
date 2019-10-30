@@ -1,21 +1,21 @@
-  set nocompatible              " be iMproved, required
-  filetype off                  " required
+set autowrite
+set nocompatible              " be iMproved, required
+"filetype plugin indent on    " required
 
 call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-unimpaired'
-  Plug 'ervandew/supertab'
+  "Plug 'ervandew/supertab'
   Plug 'tomtom/tcomment_vim'
 
   " Snippets
   Plug 'SirVer/ultisnips'
-  Plug 'honza/vim-snippets'
+  "Plug 'honza/vim-snippets'
 
   " Git and file plugins
   Plug 'tpope/vim-fugitive'
   Plug 'gregsexton/gitv'
   Plug 'scrooloose/nerdtree'
-
 
   " Ruby
   "Plug 'thoughtbot/vim-rspec'
@@ -24,7 +24,7 @@ call plug#begin('~/.vim/plugged')
   "Plug 'tpope/vim-bundler'
 
   " Go
-  Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+  Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'tag': '*' }
 
   " Elixir
   "Plug 'elixir-lang/vim-elixir'
@@ -39,16 +39,11 @@ call plug#begin('~/.vim/plugged')
   "Plug 'tpope/vim-projectionist'
   Plug 'jpalardy/vim-slime'
   Plug 'dense-analysis/ale'
-  "Bundle 'christoomey/vim-tmux-navigator'
+  Plug 'christoomey/vim-tmux-navigator'
   Plug 'vim-scripts/ZoomWin'
-  Plug 'vim-scripts/taglist.vim'
-  "Plug 'Vundle.vim'
-  "Plug 'ycm-core/YouCompleteMe'
-  "Plug 'kien/ctrlp.vim'
-  "Plug 'mileszs/ack.vim'
+  Plug 'majutsushi/tagbar'
+  " "Plug 'ycm-core/YouCompleteMe'
   Plug 'junegunn/fzf.vim'
-  "Plug 'rking/ag.vim'
-  "Plug 'Chun-Yang/vim-action-ag'
 
   " Needs to be loaded at the end
   Plug 'sheerun/vim-polyglot'
@@ -59,7 +54,6 @@ call plug#begin('~/.vim/plugged')
 " All of your Plugins must be added before the following line
 call plug#end()            " required
 
-filetype plugin indent on    " required
 
 set fileformat=unix
 let mapleader=","
@@ -72,16 +66,12 @@ endif
 " 256 colors in terminal
 set t_Co=256
 
-set nocompatible
-
 " Show line number in front of each line
 set number
 
 " Show line and column number of the cursor position
 set ruler
 
-" Syntax highlighting
-syntax on
 
 " Location of tags file
 set tags=./.git/tags,./tags,tags;
@@ -91,20 +81,6 @@ set nowrap
 set tabstop=2
 set shiftwidth=2
 set expandtab
-
-" If php, use the php stuffs
-"autocmd FileType php set noexpandtab tabstop=4 shiftwidth=4 softtabstop=4 autoindent smartindent
-
-autocmd FileType go set listchars=tab:\ \ ,trail:✖
-let g:go_fmt_command = 'goimports'
-let g:go_info_mode = 'gocode'
-let g:go_fmt_options = {
-    \ 'goimports': '-local bitbucket.org/readly',
-    \ 'gofmt': '-s',
-    \ }
-let g:go_auto_type_info = 1
-let g:go_metalinter_autosave = 1
-
 
 " Searching
 set hlsearch
@@ -144,8 +120,18 @@ map <Leader>z :ZoomWin<CR>
 
 " Taglist
 map <Leader>o :Tlist<CR>
-let tlist_php_settings = 'm;module;php;c:class;f:function'
 let Tlist_Ctags_Cmd='ctags'
+
+autocmd FileType go set listchars=tab:\ \ ,trail:✖
+let g:go_metalinter_autosave = 1
+let g:go_fmt_command = 'goimports'
+"let g:go_info_mode = 'gocode'
+let g:go_fmt_options = {
+   \ 'goimports': '-local bitbucket.org/readly',
+   \ 'gofmt': '-s',
+   \ }
+"let g:go_metalinter_command = "/home/simon/Code/go/bin/golangci-lint run --exclude-use-default"
+"let g:go_debug=['shell-commands']
 
 " CTags
 map <Leader>rt :!ctags --extra=+f -R *<CR><CR>
@@ -186,9 +172,6 @@ au BufRead,BufNewFile {Guardfile,vagranfile,Vagrantfile,Gemfile,Rakefile,Thorfil
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
-" load the plugin and indent settings for the detected filetype
-" filetype plugin indent on
-
 " Opens an edit command with the path of the currently edited file filled in
 " Normal mode: <Leader>e
 " map <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
@@ -199,7 +182,7 @@ set backspace=indent,eol,start
 
 " Inserts the path of the currently edited file into a command
 " Command mode: Ctrl+P
-cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
+" cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 
 " Bubble single lines
 " nmap <C-k> [e
@@ -260,7 +243,7 @@ set listchars=tab:⇝\ ,trail:✖
 " autocmd BufWritePre * :%s/\s\+$//e
 
 " Populate airline special fonts
-let g:airline_powerline_fonts = 1
+" let g:airline_powerline_fonts = 1
 
 "map <Leader>rx :!"tmux new-window -t $_SNAME -n vim -d vim"
 
@@ -275,9 +258,6 @@ command! -nargs=1 Execute
 " Run rspec test closes to the cursor
 "map <Leader>rl :call VimuxRunCommand("clear; bundle exec rspec " . bufname("%") . ":" . line("."))<CR>
 "map <Leader>rl :Execute "silent !tmxc test \"cd $(pwd);clear;bundle exec rspec " . bufname("%") . ":" . line(".") ."\""<CR>
-
-" Configure vim-ruby
-let g:ruby_indent_access_modifier_style = 'outdent'
 
 " tmux will only forward escape sequences to the terminal if surrounded by a DCS sequence
 " http://sourceforge.net/mailarchive/forum.php?thread_name=AANLkTinkbdoZ8eNR1X2UobLTeww1jFrvfJxTMfKSq-L%2B%40mail.gmail.com&forum_name=tmux-users
@@ -304,5 +284,15 @@ let g:ale_linters = {'go': []}
 " Set this variable to 1 to fix files when you save them.
 " let g:ale_fix_on_save = 1
 
-" FZF
-
+autocmd FileType go set listchars=tab:\ \ ,trail:✖
+"let g:go_auto_type_info = 1
+let g:go_metalinter_autosave = 1
+"let g:go_metalinter_enabled = ['deadcode', 'govet', 'typecheck']
+"let g:go_metalinter_command='golangci-lint'
+"let g:go_metalinter_autosave_enabled=['vet', 'golint', 'typecheck']
+"let g:go_info_mode = 'gocode'
+let g:go_fmt_command = 'goimports'
+let g:go_fmt_options = {
+    \ 'goimports': '-local bitbucket.org/readly',
+    \ 'gofmt': '-s',
+    \ }
