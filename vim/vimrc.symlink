@@ -5,12 +5,12 @@ set nocompatible              " be iMproved, required
 call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-unimpaired'
-  "Plug 'ervandew/supertab'
+  Plug 'ervandew/supertab'
   Plug 'tomtom/tcomment_vim'
 
   " Snippets
   Plug 'SirVer/ultisnips'
-  "Plug 'honza/vim-snippets'
+  Plug 'honza/vim-snippets'
 
   " Git and file plugins
   Plug 'tpope/vim-fugitive'
@@ -42,7 +42,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'vim-scripts/ZoomWin'
   Plug 'majutsushi/tagbar'
-  " "Plug 'ycm-core/YouCompleteMe'
+  Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --go-completer' }
+
   Plug 'junegunn/fzf.vim'
 
   " Needs to be loaded at the end
@@ -296,3 +297,16 @@ let g:go_fmt_options = {
     \ 'goimports': '-local bitbucket.org/readly',
     \ 'gofmt': '-s',
     \ }
+
+
+" Trigger configuration. Do not use <tab> if you use
+" https://github.com/Valloric/YouCompleteMe.
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+"
+" " If you want :UltiSnipsEdit to split your window.
+" let g:UltiSnipsEditSplit="vertical"
