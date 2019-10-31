@@ -69,9 +69,10 @@ if [ -z "$JIRA_SUMMARY" ];then
   exit 1
 fi
 
-GIT_BRANCH_NAME=$(echo "${JIRA_TICKET}-$(echo "$JIRA_SUMMARY" | tr -s "[:space:]" '-' )"|cut -c1-64|sed 's/-$//')
+GIT_BRANCH_NAME=$(echo "${JIRA_TICKET}-$(echo "$JIRA_SUMMARY" | tr -s "[:space:]" '-' )"|cut -c1-64|sed 's/-$//'|sed 's/[^a-zA-Z0-9\-]//g')
 echo "Created git branch: $GIT_BRANCH_NAME"
 
-git checkout -b "$GIT_BRANCH_NAME" origin/"$GIT_BRANCH_NAME"
+git checkout -b "$GIT_BRANCH_NAME"
+git push -u origin "$GIT_BRANCH_NAME"
 
 # vim: filetype=sh
