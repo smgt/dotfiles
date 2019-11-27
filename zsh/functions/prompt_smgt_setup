@@ -11,7 +11,7 @@ prompt_smgt_git_dirty () {
 
 prompt_smgt_preexec () {
   # shows the current dir and executed command in the title when a process is active
-  printf "\e]0;$PWD:t: $2\a"
+  #printf "\e]0;$PWD:t: $2\a"
 }
 
 prompt_smgt_precmd () {

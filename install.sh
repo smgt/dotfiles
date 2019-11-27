@@ -106,3 +106,5 @@ fi
 
 echo "Installing vim plugins"
 vim +PlugInstall
+echo "Installing antigen"
+curl -L git.io/antigen > zsh/antigen.zsh
