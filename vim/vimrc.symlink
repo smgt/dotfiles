@@ -1,6 +1,6 @@
 set autowrite
 set nocompatible              " be iMproved, required
-"filetype plugin indent on    " required
+filetype plugin indent on    " required
 
 call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-surround'
@@ -16,15 +16,14 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-fugitive'
   Plug 'gregsexton/gitv'
   Plug 'scrooloose/nerdtree'
+  "Plug 'vim-syntastic/syntastic'
 
   " Ruby
   "Plug 'thoughtbot/vim-rspec'
-  "Plug 'vim-ruby/vim-ruby'
+  Plug 'vim-ruby/vim-ruby'
   "Plug 'tpope/vim-rbenv'
   "Plug 'tpope/vim-bundler'
 
-  " Go
-  Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'tag': '*' }
 
   " Elixir
   "Plug 'elixir-lang/vim-elixir'
@@ -37,7 +36,7 @@ call plug#begin('~/.vim/plugged')
 
   " Utility
   "Plug 'tpope/vim-projectionist'
-  Plug 'jpalardy/vim-slime'
+  Plug 'jgdavey/tslime.vim'
   Plug 'dense-analysis/ale'
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'vim-scripts/ZoomWin'
@@ -46,11 +45,15 @@ call plug#begin('~/.vim/plugged')
 
   Plug 'junegunn/fzf.vim'
 
-  " Needs to be loaded at the end
-  Plug 'sheerun/vim-polyglot'
+  " Go
+  Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'tags': '*' }
+  Plug 'janko/vim-test'
 
   " Themes
   Plug 'liuchengxu/space-vim-dark'
+
+  " Needs to be loaded at the end
+  Plug 'sheerun/vim-polyglot'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -123,16 +126,23 @@ map <Leader>z :ZoomWin<CR>
 map <Leader>o :Tlist<CR>
 let Tlist_Ctags_Cmd='ctags'
 
+map <C-n> :cnext<CR>
+map <C-m> :cprevious<CR>
+nnoremap <leader>a :cclose<CR>
+
 autocmd FileType go set listchars=tab:\ \ ,trail:✖
 let g:go_metalinter_autosave = 1
 let g:go_fmt_command = 'goimports'
 "let g:go_info_mode = 'gocode'
+let g:go_list_autoclose = 0
+let g:go_metalinter_autosave_enabled = ['govet', 'golint', 'errcheck']
 let g:go_fmt_options = {
    \ 'goimports': '-local bitbucket.org/readly',
    \ 'gofmt': '-s',
    \ }
-"let g:go_metalinter_command = "/home/simon/Code/go/bin/golangci-lint run --exclude-use-default"
+"let g:go_metalinter_command = "/home/simon/codez/golangci-lint/golangci-lint run --disable-all -E govet -E golint"
 "let g:go_debug=['shell-commands']
+let g:go_list_type = "quickfix"
 
 " CTags
 map <Leader>rt :!ctags --extra=+f -R *<CR><CR>
@@ -260,6 +270,9 @@ command! -nargs=1 Execute
 "map <Leader>rl :call VimuxRunCommand("clear; bundle exec rspec " . bufname("%") . ":" . line("."))<CR>
 "map <Leader>rl :Execute "silent !tmxc test \"cd $(pwd);clear;bundle exec rspec " . bufname("%") . ":" . line(".") ."\""<CR>
 
+" bind K to grep word under cursor
+nnoremap K :Rg "\b<C-R><C-W>\b"<CR>:cw<CR>
+
 " tmux will only forward escape sequences to the terminal if surrounded by a DCS sequence
 " http://sourceforge.net/mailarchive/forum.php?thread_name=AANLkTinkbdoZ8eNR1X2UobLTeww1jFrvfJxTMfKSq-L%2B%40mail.gmail.com&forum_name=tmux-users
 
@@ -272,25 +285,27 @@ else
 endif
 
 " Slime
-let g:slime_target = "tmux"
-let g:slime_python_ipython = 1
-autocmd FileType ruby nnoremap <buffer> <Leader>s :execute "SlimeSend1 load('".expand('%:p')."')"<CR>
+" let g:slime_target = "tmux"
+" let g:slime_python_ipython = 1
+" autocmd FileType ruby nnoremap <buffer> <Leader>s :execute "SlimeSend1 load('".expand('%:p')."')"<CR>
 
 " Ale configuration
-" let g:ale_fixers = {
-"       \   'go': ['goimports'],
-"       \}
-let g:ale_linters = {'go': []}
+let g:ale_fixers = {
+      \   'go': ['goimports'],
+      \}
+let g:ale_linters = {
+      \ 'go': ['golint', 'govet', 'staticcheck']
+      \}
 
 " Set this variable to 1 to fix files when you save them.
-" let g:ale_fix_on_save = 1
+let g:ale_fix_on_save = 1
 
 autocmd FileType go set listchars=tab:\ \ ,trail:✖
 "let g:go_auto_type_info = 1
 let g:go_metalinter_autosave = 1
 "let g:go_metalinter_enabled = ['deadcode', 'govet', 'typecheck']
 "let g:go_metalinter_command='golangci-lint'
-"let g:go_metalinter_autosave_enabled=['vet', 'golint', 'typecheck']
+let g:go_metalinter_autosave_enabled=['golint', 'govet', 'typecheck']
 "let g:go_info_mode = 'gocode'
 let g:go_fmt_command = 'goimports'
 let g:go_fmt_options = {
@@ -307,6 +322,28 @@ let g:go_fmt_options = {
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+let g:syntastic_go_checkers = ['golint', 'govet', 'golangci-lint']
+let g:syntastic_go_gometalinter_args = ['--disable-all', '--enable=errcheck']
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 "
 " " If you want :UltiSnipsEdit to split your window.
 " let g:UltiSnipsEditSplit="vertical"
+
+" Run a given vim command on the results of alt from a given path.
+" See usage below.
+function! AltCommand(path, vim_command)
+  let l:alternate = system("alt " . a:path)
+  if empty(l:alternate)
+    echo "No alternate file for " . a:path . " exists!"
+  else
+    exec a:vim_command . " " . l:alternate
+  endif
+endfunction
+
+" Find the alternate file for the current path and open it
+nnoremap <leader>. :w<cr>:call AltCommand(expand('%'), ':e')<cr>
+
+let test#strategy = "tslime"
+
+autocmd FileType go nmap <leader>t  <Plug>(go-test)
