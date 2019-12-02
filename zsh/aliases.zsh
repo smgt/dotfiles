@@ -35,28 +35,11 @@ alias mutt="LANG=en_US mutt"
 
 alias tmux="TERM=screen-256color-bce tmux"
 
-if (( $+command[mvim] ));then
-  export VIM_BIN==mvim
+if type nvim &> /dev/null; then
+  export VIM_BIN=nvim
 else
-  export VIM_BIN==vim
+  export VIM_BIN=vim
 fi
 
-function vim() {
-  if [ -f ".lvimrc" ]; then
-    $VIM_BIN -S .lvimrc $*
-  else
-    $VIM_BIN $*
-  fi
-}
-
-function mvim() {
-  if [ -f ".lvimrc" ]; then
-    $VIM_BIN -S .lvimrc $*
-  else
-    $VIM_BIN $*
-  fi
-}
-
-alias m="mvim"
-alias mt="mvim --remote-tab"
-alias v="vim"
+alias v=$VIM_BIN
+alias vim=$VIM_BIN
