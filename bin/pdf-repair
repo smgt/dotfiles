@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 
-if [ -z $1 ];then
+if [ -z "$1" ];then
   echo "Please add a file as argument, ${0} FILENAME"
   exit 1
 fi
 
-if [ -f $1 ];then
-  filename=${1##*/}
+if [ -f "$1" ];then
+  #filename=${1##*/}
   basename=${1%.*}
   /usr/bin/gs \
-    -o $basename-repaired.pdf \
+    -o "$basename"-repaired.pdf \
     -sDEVICE=pdfwrite \
     -dPDFSETTINGS=/prepress \
-     $1
+     "$1"
 else
   echo "Argument is not a file, ${1}"
   exit 1
