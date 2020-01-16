@@ -227,14 +227,14 @@ set modelines=10
 set showtabline=1
 
 " Default color scheme
-"colors molokai2
-"colors base16-unikitty-dark
-"colors Tomorrow-Night
-"colors Tomorrow-Night
-"colors mustang
+let g:space_vim_dark_background = 234
 colors space-vim-dark
-"set background=dark
-"colorscheme solarized
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+hi LineNr ctermbg=NONE guibg=NONE
 
 " Highlight the 81 character background
 "set textwidth=80
