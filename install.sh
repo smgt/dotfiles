@@ -104,6 +104,9 @@ if [ -f files.$OS ];then
   done < files.$OS
 fi
 
+# Setup vim
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 echo "Installing vim plugins"
 vim +PlugInstall
 echo "Installing antigen"
