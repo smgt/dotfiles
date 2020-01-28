@@ -35,11 +35,7 @@ alias mutt="LANG=en_US mutt"
 
 alias tmux="TERM=screen-256color-bce tmux"
 
-if type nvim &> /dev/null; then
-  export VIM_BIN=nvim
-else
-  export VIM_BIN=vim
-fi
+export VIM_BIN=vim
 
 alias v=$VIM_BIN
 alias vim=$VIM_BIN
