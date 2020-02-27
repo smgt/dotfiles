@@ -123,7 +123,7 @@ map <Leader>t :Tags<CR>
 map <Leader>z :ZoomWin<CR>
 
 " Taglist
-map <Leader>o :Tlist<CR>
+map <Leader>o :Tagbar<CR>
 let Tlist_Ctags_Cmd='ctags'
 
 map <C-n> :cnext<CR>
