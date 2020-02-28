@@ -61,6 +61,9 @@ set completeopt-=preview          " remove the horrendous preview window
 "set cursorline                    " highlight the current line for the cursor
 set encoding=utf-8
 set expandtab                     " expands tabs to spaces
+set softtabstop=2
+set tabstop=2
+set shiftwidth=2
 set list                          " show trailing whitespace
 set listchars=tab:\|\ ,trail:▫
 set nospell                       " disable spelling
@@ -72,8 +75,6 @@ set number                        " show number ruler
 "set relativenumber                " show relative numbers in the ruler
 set ruler
 set formatoptions=tcqronj         " set vims text formatting options
-set softtabstop=2
-set tabstop=2
 set title                         " let vim set the terminal title
 set updatetime=100                " redraw the status bar often
 
@@ -334,3 +335,5 @@ let g:neomake_go_gometalinter_maker = {
 
 
 let test#strategy = "tslime"
+
+au FileType make set noexpandtab
