@@ -91,7 +91,7 @@ if !has('nvim')
 endif
 
 " 256 colors in terminal
-" set t_Co=256
+set t_Co=256
 
 " Location of tags file
 set tags=./.git/tags,./tags,tags;
