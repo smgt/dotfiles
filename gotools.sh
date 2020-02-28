@@ -4,3 +4,4 @@ curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/insta
 curl -L https://git.io/misspell | bash
 go get github.com/jgautheron/goconst/cmd/goconst
 go get github.com/gordonklaus/ineffassign
+go get -u golang.org/x/tools/...
