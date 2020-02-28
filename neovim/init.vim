@@ -96,10 +96,18 @@ set t_Co=256
 " Location of tags file
 set tags=./.git/tags,./tags,tags;
 
-"set background=dark
-colorscheme deus
-let g:airline_theme='deus'
-highlight Search guibg=DeepPink4 guifg=White ctermbg=53 ctermfg=White
+"----
+"  Theme: Space dark
+"----
+let g:space_vim_dark_background = 235
+color space-vim-dark
+let g:airline_theme='violet'
+
+" Grey comments instead of green
+hi Comment guifg=#5C6370 ctermfg=59
+
+" Fix background in ruler and gutter
+hi LineNr ctermbg=NONE guibg=NONE
 
 " Searching
 set hlsearch
