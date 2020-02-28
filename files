@@ -9,4 +9,4 @@ tmux/tmux.conf.symlink;.tmux.conf
 vim/vimrc;.vimrc
 vim/gvimrc.symlink;.gvimrc
 ctags/ctags.symlink;.ctags
-vim/nvimrc;.config/nvim/init.vim
+neovim/init.vim;.config/nvim/init.vim
