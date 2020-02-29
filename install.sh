@@ -5,6 +5,23 @@ error() {
   exit 1
 }
 
+echo_green() {
+  echo -e "\e[32m$1\e[39m"
+}
+
+echo_yellow() {
+  echo -e "\e[33m$1\e[39m"
+}
+
+echo_red() {
+  echo -ne "\e[31m$1\e[39m"
+}
+
+echo_blue() {
+  echo -e "\e[34m$1\e[39m"
+}
+
+
 case "$OSTYPE" in
   "linux"*)
     OS=linux
@@ -47,10 +64,12 @@ done
 set -- "${POSITIONAL[@]}" # restore positional parameters
 
 ask_remove() {
-  if [ ${ARG_FORCE} ];then
-    return
-  fi
-  read -rp "  - File/directory already exists, remove $1 (y/n)? " answer
+  # if [ ${ARG_FORCE} ];then
+  #   return
+  # fi
+  echo_red "  - File/directory already exists, remove $1 (y/n)? "
+  local answer=0
+  read -r answer < /dev/tty
   case ${answer:0:1} in
     y|Y )
       #rm -rf $1
@@ -69,11 +88,12 @@ install_file() {
   fi
   if [ -s "$target" ];then
     if [[ $(realpath "$target") =~ $HOME/.dotfiles ]];then
-      echo "Skipping ${source} -> ${target}, already linked."
+      echo_yellow "Skipping ${source} -> ${target}, already linked."
       return
     fi
   fi
   if [ -e "$target" ];then
+    echo_red "$target\n"
     ask_remove "$target"
   fi
   if [ ! -e "$target" ];then
@@ -85,29 +105,30 @@ install_file() {
   fi
 }
 
-echo_green() {
-  echo -e "\e[32m$1\e[39m"
-}
+
 
 
 #git submodule update --init
 
-echo_green "** Linking files"
+echo_blue "** Linking files"
 while IFS=\; read -r from_path to_path; do
   install_file "$DIR/$from_path" "$HOME/$to_path"
 done < files
 
 if [ -f files.$OS ];then
-  echo_green "** Linking $OS specific files"
+  echo_blue "** Linking $OS specific files"
   while IFS=\; read -r from_path to_path; do
     install_file "$DIR/$from_path" "$HOME/$to_path"
   done < files.$OS
 fi
 
+
 # Setup vim
+echo_blue "** Installing vim plugins"
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-echo "Installing vim plugins"
 vim +PlugInstall
-echo "Installing antigen"
+echo_blue "** install nvim plugins"
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+nvim +PlugInstall
+echo_blue "** Installing antigen"
 curl -L git.io/antigen > zsh/antigen.zsh
