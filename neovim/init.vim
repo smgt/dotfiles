@@ -23,6 +23,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'sebdah/vim-delve'
   Plug 'junegunn/vim-emoji'
   Plug 'neomake/neomake'
+  Plug 'vimwiki/vimwiki'
 
   " Vim only plugins
   if !has('nvim')
@@ -242,6 +243,12 @@ let g:deoplete#sources#go#unimported_packages = 0
 let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
 let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 
+
+"----------------------------------------------
+" Plugin: vimwiki
+"----------------------------------------------
+" Set path to Syncthing path
+let g:vimwiki_list = [{'path': '~/Sync/vimwiki/'}]
 
 "----------------------------------------------
 " Language: Golang
