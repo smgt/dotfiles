@@ -20,7 +20,6 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'junegunn/fzf.vim'
   Plug 'janko/vim-test'
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'zchee/deoplete-go'
   Plug 'sebdah/vim-delve'
   Plug 'junegunn/vim-emoji'
   Plug 'neomake/neomake'
@@ -37,6 +36,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'ekalinin/Dockerfile.vim'
   Plug 'elzr/vim-json'
   Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'tags': '*'}
+  Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
 
   " Plug 'dense-analysis/ale'
 
@@ -231,11 +231,17 @@ let g:delve_backend = "native"
 "----------------------------------------------
 " Plugin: zchee/deoplete-go
 "----------------------------------------------
+" Enable completing on startup
+let g:deoplete#enable_at_startup = 1
 " Enable completing of go pointers
 let g:deoplete#sources#go#pointer = 1
 
 " Enable autocomplete of unimported packages
 let g:deoplete#sources#go#unimported_packages = 0
+
+let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+
 
 "----------------------------------------------
 " Language: Golang
