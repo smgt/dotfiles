@@ -72,8 +72,13 @@ ask_remove() {
   read -r answer < /dev/tty
   case ${answer:0:1} in
     y|Y )
-      #rm -rf $1
-      mv "$1" "$1".bak
+      if [ -L "$1" ];then
+        echo "rm $1"
+        #rm -rf "$1"
+      else
+        echo "mv $1"
+        #mv "$1" "$1".bak
+      fi
       ;;
     * )
       ;;
@@ -88,16 +93,18 @@ install_file() {
   fi
   if [ -s "$target" ];then
     if [[ $(realpath "$target") =~ $HOME/.dotfiles ]];then
-      echo_yellow "Skipping ${source} -> ${target}, already linked."
+      echo_yellow "  Skipping ${source} -> ${target}, already linked."
       return
     fi
   fi
   if [ -e "$target" ];then
-    echo_red "$target\n"
-    ask_remove "$target"
+    if [ "$(readlink -f "$target")" != "$source" ];then
+      echo_red "$target\n"
+      ask_remove "$target"
+    fi
   fi
   if [ ! -e "$target" ];then
-    echo "  $source -> $target"
+    echo_green "  $source -> $target"
     if [ ! -d "$(dirname "$target")" ];then
       mkdir -p "$(dirname "$target")"
     fi
@@ -122,13 +129,12 @@ if [ -f files.$OS ];then
   done < files.$OS
 fi
 
-
 # Setup vim
 echo_blue "** Installing vim plugins"
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-vim +PlugInstall
-echo_blue "** install nvim plugins"
-curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-nvim +PlugInstall
+curl -s -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+vim +PlugInstall +qall
+echo_blue "** Installing nvim plugins"
+curl -s -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+nvim +PlugInstall +qall
 echo_blue "** Installing antigen"
-curl -L git.io/antigen > zsh/antigen.zsh
+curl -s -L git.io/antigen > zsh/antigen.zsh
