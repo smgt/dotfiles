@@ -243,6 +243,9 @@ let g:deoplete#sources#go#unimported_packages = 0
 let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
 let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 
+" Use tab for compleating
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
 
 "----------------------------------------------
 " Plugin: vimwiki
