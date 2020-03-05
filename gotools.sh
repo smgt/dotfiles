@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 if [ -z "$GOPATH" ];then
   echo "Go path is unset."
   exit 1
