@@ -11,3 +11,4 @@
 --exclude=db/*
 --exclude=log/*
 --exclude=.cache/*
+--exclude="@.gitignore"
