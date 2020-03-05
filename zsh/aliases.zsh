@@ -39,3 +39,5 @@ export VIM_BIN=vim
 
 alias v=$VIM_BIN
 alias vim=$VIM_BIN
+
+alias n=nvim
