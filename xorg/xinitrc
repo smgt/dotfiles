@@ -44,18 +44,17 @@ fi
 #  unset f
 # fi
 
-if [ -f $HOME/.xinitrc.local ];then
-  source $HOME/.xinitrc.local
+if [ -f "$HOME/.xinitrc.local" ];then
+  . "$HOME/.xinitrc.local"
 fi
 
 export TERM=xterm-color
 
-#urxvtd -q -f &
-compton --config /home/simon/.compton.conf &
+#compton --config /home/simon/.compton.conf &
 ~/.fehbg &
 dunst &
 type dropbox > /dev/null 2>&1 && { dropbox & }
-type xss-lock >/dev/null 2>&1 && { xss-lock -- $HOME/.dotfiles/bin/lock & }
-autocutsel -fork &
-autocutsel -selection PRIMARY -fork &
+type xss-lock >/dev/null 2>&1 && { xss-lock -- "$HOME/.dotfiles/bin/lock" & }
+#autocutsel -fork &
+#autocutsel -selection PRIMARY -fork &
 exec ssh-agent i3
