@@ -1,9 +1,9 @@
 .netrwhist
 .rbx
 tags
-vim/vim.symlink/plugged
 .kitchen
 .rvm
 *.zwc
 zsh/antigen.zsh
 zsh/cache
+vim/vim/plugged
