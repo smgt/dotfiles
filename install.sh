@@ -89,18 +89,24 @@ install_file() {
   local source=$1
   local target=$2
   if [ ! -e "$source" ];then
+    echo_red "Error: $source does not exist"
     return
+  fi
+
+  if [ ! -e "$target" ];then
+    rm "$target"
+  fi
+
+  if [ -e "$target" ];then
+    if [ "$(readlink -f "$target")" != "$source" ];then
+      echo_red "$target\n"
+      ask_remove "$target"
+    fi
   fi
   if [ -s "$target" ];then
     if [[ $(realpath "$target") =~ $HOME/.dotfiles ]];then
       echo_yellow "  Skipping ${source} -> ${target}, already linked."
       return
-    fi
-  fi
-  if [ -e "$target" ];then
-    if [ "$(readlink -f "$target")" != "$source" ];then
-      echo_red "$target\n"
-      ask_remove "$target"
     fi
   fi
   if [ ! -e "$target" ];then
