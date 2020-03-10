@@ -6,5 +6,6 @@ ruby/gemrc;.gemrc
 zsh/zshrc;.zshrc
 tmux/tmux.conf;.tmux.conf
 vim/vimrc;.vimrc
+vim/vim;.vim
 ctags/ctags;.ctags
 neovim/init.vim;.config/nvim/init.vim
