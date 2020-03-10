@@ -73,11 +73,11 @@ ask_remove() {
   case ${answer:0:1} in
     y|Y )
       if [ -L "$1" ];then
-        echo "rm $1"
-        #rm -rf "$1"
+        #echo "rm $1"
+        rm -rf "$1"
       else
-        echo "mv $1"
-        #mv "$1" "$1".bak
+        #echo "mv $1"
+        mv "$1" "$1".bak
       fi
       ;;
     * )
