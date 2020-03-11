@@ -5,7 +5,7 @@ if [ -z "$GOPATH" ];then
   exit 1
 else
   curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s -- -b "$GOPATH"/bin v2.2.0
-  curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b "$GOPATH"/bin v1.23.1
+  curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b "$GOPATH"/bin v1.23.8
   curl -L https://git.io/misspell | sh -s -- -b "$GOPATH"/bin
   go get -u github.com/jgautheron/goconst/cmd/goconst
   go get -u github.com/gordonklaus/ineffassign
