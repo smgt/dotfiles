@@ -219,8 +219,11 @@ let g:neomake_warning_sign = {'text': '∆', 'texthl': 'NeomakeWarningSign'}
 let g:neomake_message_sign = {'text': '➤', 'texthl': 'NeomakeMessageSign'}
 let g:neomake_info_sign    = {'text': 'ℹ', 'texthl': 'NeomakeInfoSign'}
 
+let g:neomake_remove_invalid_entries=1
+
+
 " When writing a buffer (no delay).
-call neomake#configure#automake('w')
+call neomake#configure#automake('wr')
 
 "----------------------------------------------
 " Plugin: sebdah/vim-delve
@@ -326,28 +329,47 @@ let g:go_metalinter_enabled = [
 let g:go_addtags_transform = "snakecase"
 
 " neomake configuration for Go.
-let g:neomake_go_enabled_makers = [ 'go', 'gometalinter' ]
-let g:neomake_go_gometalinter_maker = {
+let g:neomake_go_enabled_makers = [ 'go', 'golangci_lint' ]
+let g:neomake_go_golangci_lint_maker = {
+  \ 'exe': 'golangci-lint',
   \ 'args': [
-  \   '--tests',
-  \   '--enable-gc',
-  \   '--concurrency=3',
-  \   '--fast',
-  \   '-D', 'aligncheck',
-  \   '-D', 'dupl',
-  \   '-D', 'gocyclo',
-  \   '-D', 'gotype',
+  \   'run',
+  \   '--out-format=line-number',
+  \   '--print-issued-lines=false',
   \   '-E', 'misspell',
-  \   '-E', 'unused',
-  \   '%:p:h',
+  \   '-E', 'dupl',
+  \   '-E', 'gosec',
+  \   '%t',
   \ ],
+  \ 'output_stream': 'stdout',
   \ 'append_file': 0,
+  \ 'cwd': '%:h',
   \ 'errorformat':
-  \   '%E%f:%l:%c:%trror: %m,' .
-  \   '%W%f:%l:%c:%tarning: %m,' .
-  \   '%E%f:%l::%trror: %m,' .
-  \   '%W%f:%l::%tarning: %m'
+  \   '%f:%l:%c: %m'
   \ }
+
+" let g:neomake_go_enabled_makers = [ 'go', 'gometalinter' ]
+" let g:neomake_go_gometalinter_maker = {
+"   \ 'args': [
+"   \   '--tests',
+"   \   '--enable-gc',
+"   \   '--concurrency=3',
+"   \   '--fast',
+"   \   '-D', 'aligncheck',
+"   \   '-D', 'dupl',
+"   \   '-D', 'gocyclo',
+"   \   '-D', 'gotype',
+"   \   '-E', 'misspell',
+"   \   '-E', 'unused',
+"   \   '%:p:h',
+"   \ ],
+"   \ 'append_file': 0,
+"   \ 'errorformat':
+"   \   '%E%f:%l:%c:%trror: %m,' .
+"   \   '%W%f:%l:%c:%tarning: %m,' .
+"   \   '%E%f:%l::%trror: %m,' .
+"   \   '%W%f:%l::%tarning: %m'
+"   \ }
 
 
 let test#strategy = "tslime"
