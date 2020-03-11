@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 HOST=$(hostname)
 
@@ -7,10 +7,22 @@ hash_string256() {
     printf "ibase=16; (%s + %X) %% 100 \n" "$hash_value" "$2" | bc
 }
 
-tmux -2 new-session -d -s "$HOST"
+declare -A hosts
+hosts[grunte]="colour210"
+hosts[bean]="colour69"
+color_grey=colour237
 
-tmux set -g status-style fg=colour"$(hash_string256 "$HOST")",bg=colour"$(hash_string256 "$HOST" 127)"
-tmux set-window-option -g window-status-current-style bg=colour"$(hash_string256 "$HOST" 1)",fg=colour"$(hash_string256 "$HOST" 128)"
+if [ ${hosts[$HOST]+_} ];then
+  color=${hosts[$HOST]}
+else
+  color="colour131"
+fi
+
+tmux -2 new-session -d -s "$HOST"
+#tmux set -g status-style fg=colour"$(hash_string256 "$HOST")",bg=colour"$(hash_string256 "$HOST" 127)"
+tmux set -g status-style fg="$color",bg="$color_grey"
+tmux set-window-option -g window-status-current-style bg="$color",fg="$color_grey"
+#tmux set-window-option -g window-status-current-style bg=colour"$(hash_string256 "$HOST" 1)",fg=colour"$(hash_string256 "$HOST" 128)"
 
 # Attach to session
 tmux -2 attach-session -t "$HOST"
