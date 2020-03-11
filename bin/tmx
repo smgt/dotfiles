@@ -10,6 +10,8 @@ hash_string256() {
 declare -A hosts
 hosts[grunte]="colour210"
 hosts[bean]="colour69"
+hosts[sugarsnap]="colour220"
+hosts[carrot]="colour135"
 color_grey=colour237
 
 if [ ${hosts[$HOST]+_} ];then
@@ -18,11 +20,13 @@ else
   color="colour131"
 fi
 
+export TERM=tmux-256color
+
 tmux -2 new-session -d -s "$HOST"
-#tmux set -g status-style fg=colour"$(hash_string256 "$HOST")",bg=colour"$(hash_string256 "$HOST" 127)"
 tmux set -g status-style fg="$color",bg="$color_grey"
 tmux set-window-option -g window-status-current-style bg="$color",fg="$color_grey"
-#tmux set-window-option -g window-status-current-style bg=colour"$(hash_string256 "$HOST" 1)",fg=colour"$(hash_string256 "$HOST" 128)"
+tmux set -g pane-active-border-style fg="$color"
+tmux set -g pane-border-style fg="$color_grey"
 
 # Attach to session
 tmux -2 attach-session -t "$HOST"
