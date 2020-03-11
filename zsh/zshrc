@@ -11,7 +11,9 @@ bindkey -e
 # shortcut to this dotfiles path is $DOTFILES
 export DOTFILES=$HOME/.dotfiles
 export ZSH=$DOTFILES/zsh
-if type nvim >/dev/null 2>&1; then
+
+# Configure vim/nvim as editor
+if type nvim > /dev/null 2>&1;then
   export EDITOR=nvim
 else
   export EDITOR=vim

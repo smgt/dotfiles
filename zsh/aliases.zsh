@@ -35,9 +35,6 @@ alias mutt="LANG=en_US mutt"
 
 alias tmux="TERM=screen-256color-bce tmux"
 
-export VIM_BIN=vim
-
-alias v=$VIM_BIN
-alias vim=$VIM_BIN
-
-alias n=nvim
+alias v=$EDITOR
+alias vim=$EDITOR
+alias n=$EDITOR
