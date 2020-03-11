@@ -11,13 +11,13 @@ declare -A hosts
 hosts[grunte]="colour210"
 hosts[bean]="colour69"
 hosts[sugarsnap]="colour220"
-hosts[carrot]="colour135"
+hosts[cucumber]="colour141"
 color_grey=colour237
 
 if [ ${hosts[$HOST]+_} ];then
   color=${hosts[$HOST]}
 else
-  color="colour131"
+  color="colour39"
 fi
 
 export TERM=tmux-256color
