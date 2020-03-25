@@ -39,6 +39,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'elzr/vim-json'
   Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'tags': '*'}
   Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
+  Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
 
   " Plug 'dense-analysis/ale'
 
@@ -256,6 +257,12 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 "----------------------------------------------
 " Set path to Syncthing path
 let g:vimwiki_list = [{'path': '~/Sync/vimwiki/'}]
+
+
+"----------------------------------------------
+" Language: C
+"----------------------------------------------
+let g:neomake_c_enabled_makers=['gcc', 'cppcheck']
 
 "----------------------------------------------
 " Language: Golang
