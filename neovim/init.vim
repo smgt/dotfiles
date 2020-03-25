@@ -24,6 +24,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'junegunn/vim-emoji'
   Plug 'neomake/neomake'
   Plug 'vimwiki/vimwiki'
+  Plug 'ludovicchabant/vim-gutentags'
 
   " Vim only plugins
   if !has('nvim')
