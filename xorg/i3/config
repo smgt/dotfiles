@@ -166,9 +166,14 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh &
 # finds out, if available)
 # bar {
 #   status_command polybar example
+
 # }
-#                         border   backg    text     indicator  child_border
-client.focused            #d75f87  #d75f87  #181818  #d75f87
-client.focused_inactive   #181818  #181818  #2c2e2f  #181818
-client.unfocused          #181818  #181818  #315858  #181818
-client.urgent             #383a3b  #00ccff  #ee0000  #181818
+#
+# class                 border  bground text    indicator child_border
+client.focused          #614B77 #614B77 #AF87D7 #292D2E   #292D2E
+client.focused_inactive #343434 #343434 #AF87D7 #292D2E   #614B77
+client.unfocused        #343434 #343434 #676767 #627AD2   #292D2E
+client.urgent           #343434 #343434 #CB4674 #292D2E   #292D2E
+client.placeholder      #343434 #343434 #22ABBB #E89E0F   #292D2E
+
+client.background       #292D2E
