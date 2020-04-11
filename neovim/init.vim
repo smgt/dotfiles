@@ -49,6 +49,7 @@ call plug#begin('~/.config/nvim/plugged')
   " Themes
   Plug 'liuchengxu/space-vim-dark'
   Plug 'ajmwagar/vim-deus'
+  Plug 'drewtempelmeyer/palenight.vim'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -97,6 +98,11 @@ endif
 " 256 colors in terminal
 set t_Co=256
 
+" true colors
+if (has("termguicolors"))
+  set termguicolors
+endif
+
 " Location of tags file
 set tags=./.git/tags,./tags,tags;
 
@@ -112,6 +118,16 @@ hi Comment guifg=#5C6370 ctermfg=59
 
 " Fix background in ruler and gutter
 hi LineNr ctermbg=NONE guibg=NONE
+
+"----
+"  Theme: palenight
+"----
+"set background=dark
+"colorscheme palenight
+"let g:airline_theme='palenight'
+
+"" Italics for my favorite color scheme
+"let g:palenight_terminal_italics=1
 
 " Searching
 set hlsearch
