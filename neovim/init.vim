@@ -49,6 +49,9 @@ call plug#begin('~/.config/nvim/plugged')
   " Themes
   Plug 'liuchengxu/space-vim-dark'
   Plug 'ajmwagar/vim-deus'
+  Plug 'sonph/onehalf'
+  Plug 'rakr/vim-one', { 'rtp': 'vim' }
+  Plug 'kyoz/purify', { 'rtp': 'vim' }
   Plug 'drewtempelmeyer/palenight.vim'
 
 " All of your Plugins must be added before the following line
@@ -87,12 +90,15 @@ filetype plugin indent on    " required
 
 set fileformat=unix
 set backspace=indent,eol,start
-syntax enable
+syntax on
 let mapleader=","
 
 "set term=builtin_ansi
 if !has('nvim')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   set term=screen-256color
+  set termguicolors
 endif
 
 " 256 colors in terminal
@@ -109,15 +115,42 @@ set tags=./.git/tags,./tags,tags;
 "----
 "  Theme: Space dark
 "----
-let g:space_vim_dark_background = 235
-color space-vim-dark
-let g:airline_theme='violet'
+"let g:space_vim_dark_background = 235
+"color space-vim-dark
+"let g:airline_theme='violet'
 
 " Grey comments instead of green
-hi Comment guifg=#5C6370 ctermfg=59
+"hi Comment guifg=#5C6370 ctermfg=59
 
 " Fix background in ruler and gutter
-hi LineNr ctermbg=NONE guibg=NONE
+"hi LineNr ctermbg=NONE guibg=NONE
+
+"----
+"  Theme: onehalf
+"---
+"set cursorline
+"color onehalflight
+"let g:airline_theme='onehalfdark'
+
+"----
+"  Theme: vim-one
+"---
+"colorscheme one
+"set background=dark
+"let g:airline_theme='one'
+
+"----
+"  Theme: purify
+"---
+"color purify
+"let g:airline_theme='purify'
+
+"----
+"  Theme: palenight
+"---
+set background=dark
+colorscheme palenight
+let g:airline_theme = "palenight"
 
 "----
 "  Theme: palenight
