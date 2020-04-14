@@ -13,7 +13,8 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'gregsexton/gitv'
   Plug 'scrooloose/nerdtree'
   Plug 'preservim/nerdcommenter'
-  Plug 'jgdavey/tslime.vim'
+  Plug 'benmills/vimux'
+  Plug 'ivanov/vim-ipython'
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'vim-scripts/ZoomWin'
   Plug 'majutsushi/tagbar'
@@ -312,6 +313,21 @@ let g:vimwiki_list = [{'path': '~/Sync/vimwiki/'}]
 " Language: C
 "----------------------------------------------
 let g:neomake_c_enabled_makers=['gcc', 'cppcheck']
+
+"----------------------------------------------
+" Plugin: vimux
+"----------------------------------------------
+" Emulate tslime behavior to work with a REPL
+"function! VimuxSlime()
+"  call VimuxSendText(@v)
+"  call VimuxSendKeys("Enter")
+"endfunction
+
+" If text is selected, save it in the v buffer and send that buffer it to tmux
+"vmap <C-c><C-c> "vy :call VimuxSlime()<CR>
+
+" Select current paragraph and send it to tmux
+"nmap <C-c><C-c> vip :call VimuxSlime()<CR>
 
 "----------------------------------------------
 " Language: Golang
