@@ -215,6 +215,7 @@ map <Leader>p :Files<CR>
 map <Leader>b :Buffers<CR>
 map <Leader>l :Lines<CR>
 map <Leader>t :Tags<CR>
+let $FZF_DEFAULT_COMMAND = 'rg --files'
 
 "----------------------------------------------
 " Plugin: ZoomWin configuration
