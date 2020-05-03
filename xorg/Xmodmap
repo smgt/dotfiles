@@ -1,0 +1,23 @@
+!add Control = Caps_Lock
+!remove Lock = Caps_Lock
+!keysym Caps_Lock = Control_L
+
+! F13
+keycode 191 = F13 F13 F13
+! F14
+keycode 192 = XF86Launch0 XF86Launch0 XF86Launch0
+! F15
+keycode 193 = XF86Launch8 XF86Launch8 XF86Launch8
+! F16
+keycode 194 = XF86Launch9 XF86Launch9 XF86Launch9
+! F17
+keycode 195 = XF86Launch3 XF86Launch3 XF86Launch3
+! F18
+keycode 196 = XF86Launch4 XF86Launch4 XF86Launch4
+! F19
+keycode 197 = XF86Launch5 XF86Launch5 XF86Launch5
+! F21
+keycode 199 = XF86LaunchB XF86LaunchB XF86LaunchB
+! F22
+keycode 200 = XF86Launch7 XF86Launch7 XF86Launch7
+

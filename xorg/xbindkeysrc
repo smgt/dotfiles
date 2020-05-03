@@ -21,3 +21,21 @@
 
 "playerctl previous"
   XF86AudioPrev
+"hotkey F13"
+  F13
+"hotkey F14"
+  XF86Launch0
+"hotkey F15"
+  XF86Launch8
+"hotkey F16"
+  XF86Launch9
+"hotkey F17"
+  XF86Launch3
+"hotkey F18"
+  XF86Launch4
+"hotkey F19"
+  XF86Launch5
+"hotkey F21"
+  XF86LaunchB
+"hotkey F22"
+  XF86Launch7
