@@ -54,6 +54,11 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'rakr/vim-one', { 'rtp': 'vim' }
   Plug 'kyoz/purify', { 'rtp': 'vim' }
   Plug 'drewtempelmeyer/palenight.vim'
+  Plug 'crusoexia/vim-monokai'
+  Plug 'patstockwell/vim-monokai-tasty'
+  Plug 'tyrannicaltoucan/vim-deep-space'
+  Plug 'wadackel/vim-dogrun'
+  Plug 'joshdick/onedark.vim'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -117,8 +122,8 @@ set tags=./.git/tags,./tags,tags;
 "  Theme: Space dark
 "----
 "let g:space_vim_dark_background = 235
-"color space-vim-dark
-"let g:airline_theme='violet'
+color space-vim-dark
+let g:airline_theme='violet'
 
 " Grey comments instead of green
 "hi Comment guifg=#5C6370 ctermfg=59
@@ -136,9 +141,9 @@ set tags=./.git/tags,./tags,tags;
 "----
 "  Theme: vim-one
 "---
-"colorscheme one
+"colorscheme onedark
 "set background=dark
-"let g:airline_theme='one'
+"let g:airline_theme='onedark'
 
 "----
 "  Theme: purify
@@ -149,9 +154,20 @@ set tags=./.git/tags,./tags,tags;
 "----
 "  Theme: palenight
 "---
-set background=dark
-colorscheme palenight
-let g:airline_theme = "palenight"
+"set background=dark
+"colorscheme palenight
+"let g:airline_theme = "palenight"
+
+"----
+"  Theme: monokai
+"----
+"colorscheme monokai
+"let g:airline_theme='monokai_tasty'
+
+" Clear the background
+highlight Normal guibg=NONE ctermbg=NONE
+hi LineNr     ctermbg=NONE guibg=NONE
+hi SignColumn ctermbg=NONE guibg=NONE
 
 "----
 "  Theme: palenight
