@@ -6,9 +6,10 @@
 --exclude=.git
 --exclude=tmp
 --exclude=log
---exclude=vendor/*
---exclude=node_modules/*
---exclude=db/*
---exclude=log/*
---exclude=.cache/*
+--exclude=vendor
+--exclude=node_modules
+--exclude=db
+--exclude=log
+--exclude=.cache
 --exclude="@.gitignore"
+--exclude=tags
