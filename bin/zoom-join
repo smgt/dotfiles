@@ -1,0 +1,53 @@
+#!/bin/bash
+
+ZOOM_RC=$HOME/.zoomrc
+
+# Format of .zoomrc
+# shortcut:url
+#
+# Example:
+# meeting:confno=12341234&pwd=password
+
+declare -A ZOOM_ROOMS
+
+if [ -f "$ZOOM_RC" ];then
+  while IFS=':' read -d $'\n' -r k v; do
+    # Skip lines starting with sharp
+    # or lines containing only space or empty lines
+    [[ "$k" =~ ^([[:space:]]*|[[:space:]]*#.*)$ ]] && continue
+    # Store key value into assoc array
+    ZOOM_ROOMS[$k]="$v"
+    # stdin the properties file
+  done < "$ZOOM_RC"
+fi
+
+ZOOM_CONNECT=""
+
+if [ -z "$1" ];then
+  echo "Usage $0 [zoom number/zoom shortcut] [zoom pass]"
+  echo "Defined shortcuts:"
+  for room in "${!ZOOM_ROOMS[@]}"; do
+    echo "  $room"
+  done
+  exit
+fi
+
+if [ "${ZOOM_ROOMS[$1]}" ];then
+  ZOOM_CONNECT="${ZOOM_ROOMS[$1]}"
+else
+  ZOOM_CONNECT="confno=$1"
+fi
+
+if [ -n "$2" ];then
+  ZOOM_CONNECT="$ZOOM_CONNECT&pwd=$2"
+fi
+
+
+if command -v zoom > /dev/null;then
+  zoom "zoommtg://zoom.us/join?action=join&$ZOOM_CONNECT"
+else
+  echo "You need to install zoom"
+  exit 1
+fi
+
+# vim: filetype=sh
