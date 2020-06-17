@@ -39,9 +39,13 @@ prompt_smgt_setup () {
     prompt_smgt_username=""
   fi
 
+  if [ -z $HOSTCOLOR ]; then
+    HOSTCOLOR=11
+  fi
+
   # show username@host if logged in through SSH
   if [[ "$SSH_CONNECTION" != '' ]]; then
-    prompt_smgt_username='%F{green}%n%f@%F{yellow}%m%f '
+    prompt_smgt_username='%F{green}%n%f@%F{$HOSTCOLOR}%m%f '
   fi
 
   PROMPT='$prompt_smgt_username%F{magenta}%B%~%b%f %(?.%F{magenta}.%F{red})❯%f '
