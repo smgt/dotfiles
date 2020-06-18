@@ -4,22 +4,29 @@ configdir="$HOME/.ssh-tunnel"
 piddir="/tmp/ssh-tunnel"
 shopt -s nullglob
 
-if [ ! $1 ];then
-  echo "Usage: ssh-tunnel"
-  echo "ssh-tunnel [tunnel name]"
+if [ ! "$1" ];then
+  echo "Usage: ssh-tunnel [command]"
+  echo "active - show active tunnels"
+  echo "close [tunnel name] - close a tunnel"
+  echo "[tunnel name] - start a tunnel"
+  echo ""
+  echo "Available tunnels:"
+  for a in "$configdir"/*;do
+    echo "  $(basename "$a")"
+  done
   exit 0
 fi
 
 function get_pid() {
-  if [ -f ${piddir}/$1 ];then
+  if [ -f ${piddir}/"$1" ];then
     local pid_file=${piddir}/$1
-    local pid=$(cat $pid_file)
+    pid=$(cat "$pid_file")
   fi
   echo -n "$pid"
 }
 
 function running_pid() {
-  local command=$(ps -p $1 -o command=)
+  local command=$(ps -p "$1" -o command=)
   if [[ -z "${command}" ]];then
     echo -n 'no'
   else
@@ -27,23 +34,23 @@ function running_pid() {
   fi
 }
 
-if [ $1 == 'active' ];then
-  for pid_file in ${piddir}/*;do
-    pid=$(cat ${pid_file})
-    command=$(ps -p $pid -o command=)
+if [ "$1" == 'active' ];then
+  for pid_file in "$piddir"/*;do
+    pid=$(cat "$pid_file")
+    command=$(ps -p "$pid" -o command=)
     if [[ -z "${command}" ]];then
-      rm $pid_file
+      rm "$pid_file"
     else
-      echo $(basename $pid_file)
+      basename "$pid_file"
       echo " $command"
     fi
   done
   exit 0
 fi
 
-if [ $1 == 'close' ];then
+if [ "$1" == 'close' ];then
   if [[ -z $2 ]];then
-    'specify tunnel name'
+    'specify tunnel name to close'
   fi
   pid=$(get_pid $2)
   if [[ -z $pid ]];then
@@ -55,8 +62,8 @@ if [ $1 == 'close' ];then
   exit 0
 fi
 
-if test -f ${configdir}/$1; then
-  . ${configdir}/$1
+if test -f "$configdir"/"$1"; then
+  . $configdir/$1
 else
   echo "Missing configuration for ${1}"
   exit 1
@@ -67,11 +74,10 @@ if [ ! -d ${piddir} ];then
 fi
 
 command="ssh -N -L ${local_port}:${host}:${remote_port} -l ${ssh_user} -i ${key_file} -o ExitOnForwardFailure=yes -o TCPKeepAlive=yes -o ServerAliveInterval=60 ${proxy_host}"
-#echo $command
 $command & ssh_tunnel_pid=$!
 ssh_tunnel_started=$(running_pid $ssh_tunnel_pid)
-if [ $ssh_tunnel_started == 'yes' ];then
-  echo $ssh_tunnel_pid > ${piddir}/$1
+if [ "$ssh_tunnel_started" == 'yes' ];then
+  echo $ssh_tunnel_pid > ${piddir}/"$1"
 else
   echo 'failed to start tunnel'
 fi
