@@ -196,6 +196,9 @@ set ignorecase
 set smartcase
 " <Ctrl-l> redraws the screen and removes any search highlighting.
 nnoremap <silent> <C-l> :nohl<CR><C-l>
+nnoremap <silent> * :BLines <C-R><C-W>*<CR>
+nnoremap <silent> <leader>* :Rg <C-R><C-W>*<CR>
+":nnoremap * /\<<C-R>=expand('<cword>')<CR>\><CR>
 
 
 " Remember last location in file
