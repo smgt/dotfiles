@@ -41,6 +41,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'tags': '*'}
   Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
   Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
+  Plug 'rust-lang/rust.vim'
 
   " Plug 'dense-analysis/ale'
 
@@ -59,6 +60,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'tyrannicaltoucan/vim-deep-space'
   Plug 'wadackel/vim-dogrun'
   Plug 'joshdick/onedark.vim'
+  Plug 'NLKNguyen/papercolor-theme'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -122,8 +124,8 @@ set tags=./.git/tags,./tags,tags;
 "  Theme: Space dark
 "----
 "let g:space_vim_dark_background = 235
-color space-vim-dark
-let g:airline_theme='violet'
+"color space-vim-dark
+"let g:airline_theme='violet'
 
 " Grey comments instead of green
 "hi Comment guifg=#5C6370 ctermfg=59
@@ -165,9 +167,9 @@ let g:airline_theme='violet'
 "let g:airline_theme='monokai_tasty'
 
 " Clear the background
-highlight Normal guibg=NONE ctermbg=NONE
-hi LineNr     ctermbg=NONE guibg=NONE
-hi SignColumn ctermbg=NONE guibg=NONE
+"highlight Normal guibg=NONE ctermbg=NONE
+"hi LineNr     ctermbg=NONE guibg=NONE
+"hi SignColumn ctermbg=NONE guibg=NONE
 
 "----
 "  Theme: palenight
@@ -178,6 +180,14 @@ hi SignColumn ctermbg=NONE guibg=NONE
 
 "" Italics for my favorite color scheme
 "let g:palenight_terminal_italics=1
+"
+
+"----
+"  Theme: papercolor
+"----
+set background=light
+colorscheme PaperColor
+let g:airline_theme='papercolor'
 
 " Searching
 set hlsearch
