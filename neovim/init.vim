@@ -17,7 +17,6 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'ivanov/vim-ipython'
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'vim-scripts/ZoomWin'
-  Plug 'majutsushi/tagbar'
   Plug 'junegunn/fzf.vim'
   Plug 'janko/vim-test'
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -26,6 +25,12 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'neomake/neomake'
   Plug 'vimwiki/vimwiki'
   Plug 'ludovicchabant/vim-gutentags'
+  Plug 'liuchengxu/vista.vim'
+
+  Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 
   " Vim only plugins
   if !has('nvim')
@@ -42,6 +47,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
   Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
   Plug 'rust-lang/rust.vim'
+  Plug 'sebastianmarkow/deoplete-rust'
 
   " Plug 'dense-analysis/ale'
 
@@ -238,12 +244,37 @@ noremap <C-o> :tabprev<CR>
 " set showtabline=1
 
 "----------------------------------------------
+" Plugin: deoplete
+"----------------------------------------------
+" Enable completing on startup
+let g:deoplete#enable_at_startup = 1
+
+" Use tab for compleating
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" Required for operations modifying multiple buffers like rename.
+set hidden
+
+"----------------------------------------------
+" Plugin: LanguageClient
+"----------------------------------------------
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+    \ 'python': ['/usr/local/bin/pyls'],
+    \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
+    \ 'go': ['gopls'],
+    \ }
+
+autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
+
+"----------------------------------------------
 " Plugin: fzf
 "----------------------------------------------
 map <Leader>p :Files<CR>
 map <Leader>b :Buffers<CR>
 map <Leader>l :Lines<CR>
-map <Leader>t :Tags<CR>
 let $FZF_DEFAULT_COMMAND = 'rg --files'
 
 "----------------------------------------------
@@ -252,9 +283,10 @@ let $FZF_DEFAULT_COMMAND = 'rg --files'
 map <Leader>z :ZoomWin<CR>
 
 "----------------------------------------------
-" Plugin: tagbar
+" Plugin: Vista
 "----------------------------------------------
-map <Leader>o :TagbarToggle<CR>
+map <Leader>o :Vista!!<CR>
+map <Leader>t :Vista finder<CR>
 
 " CTags
 map <Leader>rt :!ctags --extra=+f -R *<CR><CR>
@@ -317,8 +349,6 @@ let g:delve_backend = "native"
 "----------------------------------------------
 " Plugin: zchee/deoplete-go
 "----------------------------------------------
-" Enable completing on startup
-let g:deoplete#enable_at_startup = 1
 " Enable completing of go pointers
 let g:deoplete#sources#go#pointer = 1
 
@@ -327,10 +357,6 @@ let g:deoplete#sources#go#unimported_packages = 0
 
 let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
 let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-
-" Use tab for compleating
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
 
 "----------------------------------------------
 " Plugin: vimwiki
@@ -392,6 +418,12 @@ au FileType go nmap <leader>gDv <Plug>(go-doc-vertical)
 
 " Run goimports when running gofmt
 let g:go_fmt_command = "goimports"
+
+" Use fzf for declarations
+let g:go_decls_mode = 'fzf'
+
+" Go def for definitions
+let g:go_def_mode = 'godef'
 
 " Enable syntax highlighting per default
 " let g:go_highlight_types = 1
@@ -485,3 +517,5 @@ let g:neomake_go_golangci_lint_maker = {
 let test#strategy = "tslime"
 
 au FileType make set noexpandtab
+let g:vista_fzf_preview = ['right:50%']
+let g:vista_default_executive = 'lcn'
