@@ -46,6 +46,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'tags': '*'}
   Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
   Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
+  Plug 'vim-python/python-syntax'
   Plug 'rust-lang/rust.vim'
   Plug 'sebastianmarkow/deoplete-rust'
 
@@ -143,7 +144,7 @@ set tags=./.git/tags,./tags,tags;
 "  Theme: onehalf
 "---
 "set cursorline
-"color onehalflight
+"color onehalfdark
 "let g:airline_theme='onehalfdark'
 
 "----
@@ -328,13 +329,31 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 " Plugin: neomake/neomake
 "----------------------------------------------
 " Configure signs.
-let g:neomake_error_sign   = {'text': '✖', 'texthl': 'NeomakeErrorSign'}
-let g:neomake_warning_sign = {'text': '∆', 'texthl': 'NeomakeWarningSign'}
+let g:neomake_error_sign   = {'text': '❌', 'texthl': 'NeomakeErrorSign'}
+let g:neomake_warning_sign = {'text': '❗', 'texthl': 'NeomakeWarningSign'}
 let g:neomake_message_sign = {'text': '➤', 'texthl': 'NeomakeMessageSign'}
 let g:neomake_info_sign    = {'text': 'ℹ', 'texthl': 'NeomakeInfoSign'}
 
 let g:neomake_remove_invalid_entries=1
+"let g:neomake_open_list = 2
 
+"let g:neomake_highlight_lines = 0
+"let g:neomake_highlight_columns = 1
+"let g:neomake_place_signs = 0
+
+let g:neomake_virtualtext_prefix = ' ⯌ '
+
+hi default link NeomakeVirtualtextError SpellBad
+hi default link NeomakeVirtualtextWarning SpellCap
+hi default link NeomakeErrorSign SpellBad
+hi default link NeomakeWarningSign SpellCap
+
+"augroup my_neomake_highlights
+    "au!
+    "autocmd ColorScheme *
+      "\ highlight link NeomakeError SpellBad |
+      "\ highlight link NeomakeWarning SpellCap guisp=White
+    "augroup END
 
 " When writing a buffer (no delay).
 call neomake#configure#automake('wr')
