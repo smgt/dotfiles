@@ -53,7 +53,7 @@ systemctl --user import-environment DISPLAY
 
 #compton --config /home/simon/.compton.conf &
 ~/.fehbg &
-#dunst &
+dunst &
 type dropbox > /dev/null 2>&1 && { dropbox & }
 type xss-lock >/dev/null 2>&1 && { xss-lock -- "$HOME/.dotfiles/bin/lock" & }
 #autocutsel -fork &
