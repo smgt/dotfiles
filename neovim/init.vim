@@ -150,9 +150,9 @@ set tags=./.git/tags,./tags,tags;
 "----
 "  Theme: vim-one
 "---
-"colorscheme onedark
-"set background=dark
-"let g:airline_theme='onedark'
+colorscheme onedark
+set background=dark
+let g:airline_theme='onedark'
 
 "----
 "  Theme: purify
@@ -192,9 +192,9 @@ set tags=./.git/tags,./tags,tags;
 "----
 "  Theme: papercolor
 "----
-set background=light
-colorscheme PaperColor
-let g:airline_theme='papercolor'
+"set background=light
+"colorscheme PaperColor
+"let g:airline_theme='papercolor'
 
 " Searching
 set hlsearch
