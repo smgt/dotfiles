@@ -263,7 +263,7 @@ let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
     \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
     \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-    \ 'python': ['/usr/local/bin/pyls'],
+    \ 'python': ['/usr/bin/pyls'],
     \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
     \ 'go': ['gopls'],
     \ }
@@ -288,6 +288,8 @@ map <Leader>z :ZoomWin<CR>
 "----------------------------------------------
 map <Leader>o :Vista!!<CR>
 map <Leader>t :Vista finder<CR>
+let g:vista_fzf_preview = ['right:50%']
+let g:vista_default_executive = 'lcn'
 
 " CTags
 map <Leader>rt :!ctags --extra=+f -R *<CR><CR>
@@ -490,24 +492,25 @@ let g:go_metalinter_enabled = [
 let g:go_addtags_transform = "snakecase"
 
 " neomake configuration for Go.
-let g:neomake_go_enabled_makers = [ 'go', 'golangci_lint' ]
-let g:neomake_go_golangci_lint_maker = {
-  \ 'exe': 'golangci-lint',
-  \ 'args': [
-  \   'run',
-  \   '--out-format=line-number',
-  \   '--print-issued-lines=false',
-  \   '-E', 'misspell',
-  \   '-E', 'dupl',
-  \   '-E', 'gosec',
-  \   '%t',
-  \ ],
-  \ 'output_stream': 'stdout',
-  \ 'append_file': 0,
-  \ 'cwd': '%:h',
-  \ 'errorformat':
-  \   '%f:%l:%c: %m'
-  \ }
+let g:neomake_go_enabled_makers = []
+"let g:neomake_go_enabled_makers = [ 'go', 'golangci_lint' ]
+"let g:neomake_go_golangci_lint_maker = {
+  "\ 'exe': 'golangci-lint',
+  "\ 'args': [
+  "\   'run',
+  "\   '--out-format=line-number',
+  "\   '--print-issued-lines=false',
+  "\   '-E', 'misspell',
+  "\   '-E', 'dupl',
+  "\   '-E', 'gosec',
+  "\   '%t',
+  "\ ],
+  "\ 'output_stream': 'stdout',
+  "\ 'append_file': 0,
+  "\ 'cwd': '%:h',
+  "\ 'errorformat':
+  "\   '%f:%l:%c: %m'
+  "\ }
 
 " let g:neomake_go_enabled_makers = [ 'go', 'gometalinter' ]
 " let g:neomake_go_gometalinter_maker = {
@@ -536,5 +539,3 @@ let g:neomake_go_golangci_lint_maker = {
 let test#strategy = "tslime"
 
 au FileType make set noexpandtab
-let g:vista_fzf_preview = ['right:50%']
-let g:vista_default_executive = 'lcn'
