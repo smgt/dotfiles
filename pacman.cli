@@ -1,3 +1,4 @@
+zsh
 fzf
 neovim
 bat
@@ -6,3 +7,5 @@ eva
 ripgrep
 neomutt
 elinks
+nerd-fonts-jetbrains-mono
+fd
