@@ -32,13 +32,13 @@ monitor = ${env:MONITOR:DP2-1}
 width = 100%
 height = 40
 bottom = false
-padding = 0
+padding = ${format.padding}
 
 background = ${color.bg}
 foreground = ${color.fg}
 
-font-0 = JetBrains Mono:size=12;1
-font-1 = Font Awesome 5 Free:size=12:style=solid;0
+font-0 = JetBrainsMono Nerd Font:size=12;1
+#font-1 = Font Awesome 5 Free:size=12:style=solid;0
 
 modules-left = arch i3
 modules-center = date music
@@ -55,7 +55,7 @@ type = custom/script
 exec = "hostname | tr -d '\n'"
 format-background = ${color.bg}
 format-foreground = ${color.yellow}
-format-padding = 2
+format-padding-right = 2
 interval= 3600
 
 [module/xwindow]
@@ -74,10 +74,13 @@ battery = BAT0
 adapter = AC
 full-at = 98
 
+format-charging-padding=${format.padding}
+format-discharging-padding=${format.padding}
+
 format-charging = <animation-charging> <label-charging>
 format-discharging = <ramp-capacity> <label-discharging>
 
-format-full-prefix =" "
+format-full-prefix=" "
 format-full-prefix-font = 1
 ;format-full-underline = ${self.format-charging-underline}
 
@@ -86,6 +89,7 @@ ramp-capacity-1 = 
 ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
+ramp-capacity-padding-right=1
 
 animation-charging-0 = 
 animation-charging-1 = 
@@ -170,9 +174,7 @@ card = intel_backlight
 type = internal/cpu
 format-label = internal/cpu
 
-format = <label>
-format-padding = ${format.padding}
-
+ramp-coreload-spacing = 1
 ramp-coreload-0 = ▁
 ramp-coreload-1 = ▂
 ramp-coreload-2 = ▃
@@ -183,23 +185,41 @@ ramp-coreload-6 = ▇
 ramp-coreload-7 = █
 
 interval = 2
-label =  %percentage%
+
+format = <label>
+format-padding = ${format.padding}
+label = " %percentage%%"
 
 [module/memory]
 type = internal/memory
 interval = 2
-format-prefix = " "
+format-prefix = 
+format-prefix-padding-right=1
 format-padding = ${format.padding}
+format = <label>
 label = %percentage_used%%
+
+ramp-used-spacing = 1
+ramp-used-0 = ▁
+ramp-used-1 = ▂
+ramp-used-2 = ▃
+ramp-used-3 = ▄
+ramp-used-4 = ▅
+ramp-used-5 = ▆
+ramp-used-6 = ▇
+ramp-used-7 = █
 
 [module/wifi]
 type = internal/network
 interface = wlp4s0
 interval = 3.0
-format-connected-padding = ${format.padding}
-format-disconnected-padding = ${format.padding}
+;format-connected-padding = ${format.padding}
+;format-disconnected-padding = ${format.padding}
 
-format-connected = %{T1}%{T-} <label-connected>
+format-connected-prefix=%{T1}%{T-}
+format-connected-prefix-padding-right=1
+format-connected=<label-connected>
+format-connected-padding = ${format.padding}
 label-connected = %essid%
 
 format-disconnected =
@@ -216,6 +236,7 @@ ramp-signal-4 = ▅
 ramp-signal-5 = ▆
 ramp-signal-6 = ▇
 ramp-signal-7 = █
+ramp-signal-padding = 4
 ;ramp-signal-foreground = ${color.foreground-alt}
 
 [module/ethernet]
@@ -237,34 +258,30 @@ type = internal/date
 interval = 5
 
 date = " %Y-%m-%d"
-date-alt = " %Y-%m-%d"
+date-alt = " %d %b"
 
 time = %H:%M:%S
-time-alt = %H:%M:%S
+time-alt = %H:%M
 
 format-prefix = %{T1}%{T-}
 format-prefix-font=2
 
 label = %date% %time%
 
-[module/volume]
-type = internal/alsa
-format-volume-padding = ${format.padding}
-
-format-volume = <label-volume>
-label-volume =
-label-muted =
-
 [module/pulseaudio]
 type = internal/pulseaudio
 
-label-volume = %percentage%%
-format-volume = <label-volume>
-format-volume-padding= ${format.padding}
+format-volume-prefix=
+format-volume-prefix-padding-right=1
+label-volume=%percentage%%
+format-volume=<label-volume>
+format-volume-padding-left=${format.padding}
 
-label-muted = 
+label-muted = mute
+format-muted-prefix=
+format-muted-prefix-padding-right=1
 format-muted = <label-muted>
-format-muted-padding= ${format.padding}
+format-muted-padding-left= ${format.padding}
 
 [settings]
 screenchange-reload = true
