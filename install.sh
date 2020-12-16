@@ -135,6 +135,13 @@ if [ -f files.$OS ];then
   done < files.$OS
 fi
 
+while IFS= read -r package; do
+  yay -Qi "$package" > /dev/null
+  if [ $? -eq 1 ];then
+    yay -S "$package" --noconfirm
+  fi
+done < pacman.cli
+
 # Setup vim
 echo_blue "** Installing vim plugins"
 curl -s -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -144,5 +151,7 @@ curl -s -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://ra
 nvim +PlugInstall +qall
 echo_blue "** Installing antigen"
 curl -s -L git.io/antigen > zsh/antigen.zsh
-echo_blue "** Installing tmux tpm"
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+if [ -f "$HOME/.tmux/plugins/tpm" ];then
+  echo_blue "** Installing tmux tpm"
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
