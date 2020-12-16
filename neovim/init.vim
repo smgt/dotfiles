@@ -51,23 +51,20 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'sebastianmarkow/deoplete-rust'
 
   " Plug 'dense-analysis/ale'
+  Plug 'ryanoasis/vim-devicons'
 
   " Needs to be loaded at the end
-  " Plug 'sheerun/vim-polyglot'
+  Plug 'sheerun/vim-polyglot'
 
   " Themes
   Plug 'liuchengxu/space-vim-dark'
-  Plug 'ajmwagar/vim-deus'
-  Plug 'sonph/onehalf'
-  Plug 'rakr/vim-one', { 'rtp': 'vim' }
-  Plug 'kyoz/purify', { 'rtp': 'vim' }
-  Plug 'drewtempelmeyer/palenight.vim'
-  Plug 'crusoexia/vim-monokai'
-  Plug 'patstockwell/vim-monokai-tasty'
-  Plug 'tyrannicaltoucan/vim-deep-space'
-  Plug 'wadackel/vim-dogrun'
-  Plug 'joshdick/onedark.vim'
+  Plug 'sonph/onehalf', { 'rtp': 'vim' }
+  " Plug 'kyoz/purify', { 'rtp': 'vim' }
+  "Plug 'crusoexia/vim-monokai'
+  "Plug 'joshdick/onedark.vim'
+  Plug 'rakr/vim-one' ", { 'rtp': 'vim' }
   Plug 'NLKNguyen/papercolor-theme'
+  Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -108,6 +105,13 @@ set backspace=indent,eol,start
 syntax on
 let mapleader=","
 
+" vim hardcodes background color erase even if the terminfo file does
+" not contain bce (not to mention that libvte based terminals
+" incorrectly contain bce in their terminfo files). This causes
+" incorrect background rendering when using a color theme with a
+" background color.
+let &t_ut=''
+
 "set term=builtin_ansi
 if !has('nvim')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -117,12 +121,10 @@ if !has('nvim')
 endif
 
 " 256 colors in terminal
-set t_Co=256
+"set t_Co=256
 
 " true colors
-if (has("termguicolors"))
-  set termguicolors
-endif
+set termguicolors
 
 " Location of tags file
 set tags=./.git/tags,./tags,tags;
@@ -143,16 +145,16 @@ set tags=./.git/tags,./tags,tags;
 "----
 "  Theme: onehalf
 "---
-"set cursorline
-"color onehalfdark
-"let g:airline_theme='onehalfdark'
+set cursorline
+color onehalfdark
+let g:airline_theme='onehalfdark'
 
 "----
 "  Theme: vim-one
 "---
-colorscheme onedark
-set background=dark
-let g:airline_theme='onedark'
+"colorscheme one
+"set background=dark
+"let g:airline_theme='onedark'
 
 "----
 "  Theme: purify
