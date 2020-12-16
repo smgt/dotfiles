@@ -3,8 +3,9 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'tpope/vim-rhubarb'           " Depenency for tpope/fugitive
 
   " General
-  Plug 'bling/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
+  "Plug 'bling/vim-airline'
+  "Plug 'vim-airline/vim-airline-themes'
+  Plug 'itchyny/lightline.vim'
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-unimpaired'
   Plug 'SirVer/ultisnips'
@@ -246,6 +247,19 @@ noremap <C-o> :tabprev<CR>
 "
 " set showtabline=1
 
+"----------------------------------------------
+" Plugin: lightline
+"----------------------------------------------
+let g:lightline = {
+      \ 'colorscheme': 'onehalfdark',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
 "----------------------------------------------
 " Plugin: deoplete
 "----------------------------------------------
