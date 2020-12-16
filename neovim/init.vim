@@ -416,6 +416,11 @@ let g:neomake_c_enabled_makers=['gcc', 'cppcheck']
 "nmap <C-c><C-c> vip :call VimuxSlime()<CR>
 
 "----------------------------------------------
+" Language: Python
+"----------------------------------------------
+let g:python3_host_prog = '/usr/bin/python'
+
+"----------------------------------------------
 " Language: Golang
 "----------------------------------------------
 "au FileType go set noexpandtab
