@@ -144,3 +144,5 @@ curl -s -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://ra
 nvim +PlugInstall +qall
 echo_blue "** Installing antigen"
 curl -s -L git.io/antigen > zsh/antigen.zsh
+echo_blue "** Installing tmux tpm"
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
