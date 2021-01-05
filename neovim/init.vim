@@ -435,6 +435,11 @@ let g:neomake_c_enabled_makers=['gcc', 'cppcheck']
 let g:python3_host_prog = '/usr/bin/python'
 
 "----------------------------------------------
+" Language: Ruby
+"----------------------------------------------
+let g:ruby_host_prog = '~/.rbenv/versions/2.7.2/bin/neovim-ruby-host'
+
+"----------------------------------------------
 " Language: Golang
 "----------------------------------------------
 "au FileType go set noexpandtab
