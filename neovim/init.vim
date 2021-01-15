@@ -54,6 +54,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'vim-python/python-syntax'
   Plug 'rust-lang/rust.vim'
   Plug 'sebastianmarkow/deoplete-rust'
+  Plug 'hashivim/vim-terraform'
 
   " Plug 'dense-analysis/ale'
   Plug 'ryanoasis/vim-devicons'
@@ -205,6 +206,16 @@ colorscheme sonokai
 "set background=light
 "colorscheme PaperColor
 "let g:airline_theme='papercolor'
+let g:PaperColor_Theme_Options = {
+  \   'theme': {
+  \     'default': {
+  \       'override' : {
+  \         'spellbad':   ['#000000', '0'],
+  \         'spellcap':   ['#000000', '0'],
+  \       }
+  \     }
+  \   }
+  \ }
 
 " Searching
 set hlsearch
