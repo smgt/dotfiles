@@ -6,6 +6,8 @@ call plug#begin('~/.config/nvim/plugged')
   "Plug 'bling/vim-airline'
   "Plug 'vim-airline/vim-airline-themes'
   Plug 'itchyny/lightline.vim'
+  Plug 'sinetoami/lightline-neomake'
+
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-unimpaired'
   Plug 'SirVer/ultisnips'
@@ -27,6 +29,8 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'vimwiki/vimwiki'
   Plug 'ludovicchabant/vim-gutentags'
   Plug 'liuchengxu/vista.vim'
+
+  Plug 'ap/vim-css-color'
 
   Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
@@ -50,6 +54,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'vim-python/python-syntax'
   Plug 'rust-lang/rust.vim'
   Plug 'sebastianmarkow/deoplete-rust'
+  Plug 'hashivim/vim-terraform'
 
   " Plug 'dense-analysis/ale'
   Plug 'ryanoasis/vim-devicons'
@@ -58,7 +63,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'sheerun/vim-polyglot'
 
   " Themes
-  Plug 'liuchengxu/space-vim-dark'
+  Plug 'liuchengxu/space-vim-theme'
   Plug 'sonph/onehalf', { 'rtp': 'vim' }
   " Plug 'kyoz/purify', { 'rtp': 'vim' }
   "Plug 'crusoexia/vim-monokai'
@@ -66,6 +71,8 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'rakr/vim-one' ", { 'rtp': 'vim' }
   Plug 'NLKNguyen/papercolor-theme'
   Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+  Plug 'sainnhe/edge'
+  Plug 'sainnhe/sonokai'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -130,12 +137,13 @@ set termguicolors
 " Location of tags file
 set tags=./.git/tags,./tags,tags;
 
+colorscheme sonokai
+
 "----
 "  Theme: Space dark
 "----
-"let g:space_vim_dark_background = 235
-"color space-vim-dark
-"let g:airline_theme='violet'
+"let g:space_vim_theme_background = 235
+"color space_vim_theme
 
 " Grey comments instead of green
 "hi Comment guifg=#5C6370 ctermfg=59
@@ -146,9 +154,9 @@ set tags=./.git/tags,./tags,tags;
 "----
 "  Theme: onehalf
 "---
-set cursorline
-color onehalfdark
-let g:airline_theme='onehalfdark'
+"set cursorline
+"color onehalfdark
+"let g:airline_theme='onehalfdark'
 
 "----
 "  Theme: vim-one
@@ -198,6 +206,16 @@ let g:airline_theme='onehalfdark'
 "set background=light
 "colorscheme PaperColor
 "let g:airline_theme='papercolor'
+let g:PaperColor_Theme_Options = {
+  \   'theme': {
+  \     'default': {
+  \       'override' : {
+  \         'spellbad':   ['#000000', '0'],
+  \         'spellcap':   ['#000000', '0'],
+  \       }
+  \     }
+  \   }
+  \ }
 
 " Searching
 set hlsearch
@@ -250,14 +268,31 @@ noremap <C-o> :tabprev<CR>
 "----------------------------------------------
 " Plugin: lightline
 "----------------------------------------------
+
 let g:lightline = {
       \ 'colorscheme': 'onehalfdark',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
+      \ 'right': [ [ 'lineinfo' ],
+      \            [ 'percent' ],
+      \            [ 'fileformat', 'fileencoding', 'filetype' ],
+      \            ['neomake_warnings', 'neomake_errors','neomake_infos', 'neomake_ok'],
+      \     ],
       \ },
       \ 'component_function': {
       \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ 'component_type': {
+      \   'neomake_warnings': 'warning',
+      \   'neomake_errors': 'error',
+      \   'neomake_ok': 'left',
+      \ },
+      \ 'component_expand': {
+      \   'neomake_infos': 'lightline#neomake#infos',
+      \   'neomake_warnings': 'lightline#neomake#warnings',
+      \   'neomake_errors': 'lightline#neomake#errors',
+      \   'neomake_ok': 'lightline#neomake#ok',
       \ },
       \ }
 "----------------------------------------------
@@ -292,7 +327,7 @@ autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
 map <Leader>p :Files<CR>
 map <Leader>b :Buffers<CR>
 map <Leader>l :Lines<CR>
-let $FZF_DEFAULT_COMMAND = 'rg --files'
+let $FZF_DEFAULT_COMMAND = 'rg --hidden --files -g "!.git/*"'
 
 "----------------------------------------------
 " Plugin: ZoomWin configuration
@@ -304,6 +339,10 @@ map <Leader>z :ZoomWin<CR>
 "----------------------------------------------
 map <Leader>o :Vista!!<CR>
 map <Leader>t :Vista finder<CR>
+" Executive used when opening vista sidebar without specifying it.
+" See all the avaliable executives via `:echo g:vista#executives`.
+let g:vista_default_executive = 'ctags'
+
 let g:vista_fzf_preview = ['right:50%']
 let g:vista_default_executive = 'lcn'
 
