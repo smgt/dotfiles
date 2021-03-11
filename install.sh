@@ -162,3 +162,10 @@ if [ ! -d "$HOME/.asdf" ];then
   cd ~/.asdf || exit
   git checkout "$(git describe --abbrev=0 --tags)"
 fi
+
+if [ -d "$HOME/.asdf" ];then
+  source $HOME/.asdf/asdf.sh
+
+  asdf plugin add ruby
+  asdf plugin add golang
+fi
