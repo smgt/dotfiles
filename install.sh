@@ -155,3 +155,10 @@ if [ -f "$HOME/.tmux/plugins/tpm" ];then
   echo_blue "** Installing tmux tpm"
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
+
+if [ ! -d "$HOME/.asdf" ];then
+  echo_blue "** Installing asdf"
+  git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+  cd ~/.asdf || exit
+  git checkout "$(git describe --abbrev=0 --tags)"
+fi
