@@ -165,7 +165,7 @@ fi
 
 if [ -d "$HOME/.asdf" ];then
   source $HOME/.asdf/asdf.sh
-
+  echo_blue "** Installing asdf plugins"
   asdf plugin add ruby
   asdf plugin add golang
 fi
