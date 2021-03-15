@@ -473,6 +473,9 @@ let g:ruby_host_prog = '~/.rbenv/versions/2.7.2/bin/neovim-ruby-host'
 "au FileType go set softtabstop=4
 "au FileType go set tabstop=4
 
+" Use omni complete for go files
+call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
+
 " Mappings
 " au FileType go nmap <F8> :GoMetaLinter<cr>
 " au FileType go nmap <F9> :GoCoverageToggle -short<cr>
@@ -496,7 +499,7 @@ let g:go_fmt_command = "goimports"
 let g:go_decls_mode = 'fzf'
 
 " Go def for definitions
-let g:go_def_mode = 'godef'
+" let g:go_def_mode = 'gopls'
 
 " Enable syntax highlighting per default
 " let g:go_highlight_types = 1
@@ -516,9 +519,6 @@ let g:go_echo_command_info = 1
 
 " Highlight variable uses
 "let g:go_auto_sameids = 1
-
-" Fix for location list when vim-go is used together with Syntastic
-let g:go_list_type = "quickfix"
 
 " Add the failing test name to the output of :GoTest
 let g:go_test_show_name = 1
@@ -544,8 +544,8 @@ let g:go_metalinter_enabled = [
 let g:go_addtags_transform = "snakecase"
 
 " neomake configuration for Go.
-let g:neomake_go_enabled_makers = []
-"let g:neomake_go_enabled_makers = [ 'go', 'golangci_lint' ]
+"let g:neomake_go_enabled_makers = []
+let g:neomake_go_enabled_makers = [ 'go', 'golangci_lint' ]
 "let g:neomake_go_golangci_lint_maker = {
   "\ 'exe': 'golangci-lint',
   "\ 'args': [
@@ -563,30 +563,6 @@ let g:neomake_go_enabled_makers = []
   "\ 'errorformat':
   "\   '%f:%l:%c: %m'
   "\ }
-
-" let g:neomake_go_enabled_makers = [ 'go', 'gometalinter' ]
-" let g:neomake_go_gometalinter_maker = {
-"   \ 'args': [
-"   \   '--tests',
-"   \   '--enable-gc',
-"   \   '--concurrency=3',
-"   \   '--fast',
-"   \   '-D', 'aligncheck',
-"   \   '-D', 'dupl',
-"   \   '-D', 'gocyclo',
-"   \   '-D', 'gotype',
-"   \   '-E', 'misspell',
-"   \   '-E', 'unused',
-"   \   '%:p:h',
-"   \ ],
-"   \ 'append_file': 0,
-"   \ 'errorformat':
-"   \   '%E%f:%l:%c:%trror: %m,' .
-"   \   '%W%f:%l:%c:%tarning: %m,' .
-"   \   '%E%f:%l::%trror: %m,' .
-"   \   '%W%f:%l::%tarning: %m'
-"   \ }
-
 
 let test#strategy = "tslime"
 
