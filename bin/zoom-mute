@@ -1,0 +1,7 @@
+#!/bin/sh
+DISPLAY=:0
+CURRENT_WINDOW_ID=$(xdotool getwindowfocus)
+ZOOM_WINDOW_ID=$(xdotool search --limit 1 --name "Zoom Meeting")
+xdotool windowactivate --sync "$ZOOM_WINDOW_ID"
+xdotool key --clearmodifiers "alt+a"
+xdotool windowactivate --sync "$CURRENT_WINDOW_ID"
