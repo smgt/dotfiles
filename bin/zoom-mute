@@ -2,6 +2,16 @@
 DISPLAY=:0
 CURRENT_WINDOW_ID=$(xdotool getwindowfocus)
 ZOOM_WINDOW_ID=$(xdotool search --limit 1 --name "Zoom Meeting")
+
+if [ -z "$ZOOM_WINDOW_ID" ];then
+  exit 0
+fi
+
+if command -v notify-send;then
+  notify-send -a zoom-mute -u low -i zoom mute/unmute zoom
+fi
+
+sleep 0.1
 xdotool windowactivate --sync "$ZOOM_WINDOW_ID"
 xdotool key --clearmodifiers "alt+a"
 xdotool windowactivate --sync "$CURRENT_WINDOW_ID"
