@@ -1,4 +1,0 @@
-rofi.combi-modi:    window,run
-rofi.theme:         ~/.dotfiles/xorg/rofi/smgt
-rofi.font:          jetbrainsmono nerd font 12
-rofi.modi:          combi,window
