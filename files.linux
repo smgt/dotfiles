@@ -1,7 +1,7 @@
 xorg/polybar/config;.config/polybar/config
 xorg/polybar/launch.sh;.config/polybar/launch.sh
 xorg/i3/config;.config/i3/config
-xorg/rofi/config;.config/rofi/config
+xorg/rofi/config.rasi;.config/rofi/config.rasi
 xorg/rofi/purple.rasi;.config/rofi/purple.rasi
 xorg/xinitrc;.xinitrc
 xorg/xsession;.xsession
