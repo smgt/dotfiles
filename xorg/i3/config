@@ -185,19 +185,21 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh &
 # from the generated scheme.
 # NOTE: The '#f0f0f0' in the lines below is the color i3 will use if
 # it fails to get colors from Xresources.
-set_from_resource $fg i3wm.color2 #f0f0f0
-set_from_resource $bg i3wm.color0 #f0f0f0
-set_from_resource $active i3wm.color3
-set_from_resource $active-fg i3wm.color0
+set_from_resource $fg i3wm.foreground #ff0000
+set_from_resource $bg i3wm.background #ff0000
+set_from_resource $bgalt i3.backgroundalt #00ff00
+set_from_resource $active i3wm.color4 #0000ff
+set_from_resource $active-fg i3wm.color0 #ff0000
 
-# class                 border  backgr. text indicator child_border
-client.focused          $active $active $active-fg  $active       $active
-client.focused_inactive $bg     $bg     $fg  $bg       $bg
-client.unfocused        $bg     $bg     $fg  $bg       $bg
+## class                 border  backgr. text indicator child_border
+client.focused          $active $active $active-fg  $active $active
+client.focused_inactive $bg $bg     $fg  $bg       $bg
+client.unfocused        $bg $bg     $fg  $bg       $bg
 client.urgent           $bg     $bg     $fg  $bg       $bg
 client.placeholder      $bg     $bg     $fg  $bg       $bg
 
 client.background       $bg
+#include ~/Code/rainbow_painter-rb/tmp/colors-i3.conf
 
 # PROTIP: You can also dynamically set dmenu's colors this way:
 #bindsym $mod+d exec dmenu_run -nb "$fg" -nf "$bg" -sb "$bg" -sf "$fg"
