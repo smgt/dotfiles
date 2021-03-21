@@ -1,5 +1,6 @@
 [global]
-font = Hack 11
+#font = JetBrainsMono Nerdfont 11
+font = Overpass 10
 
 # Allow a small subset of html markup:
 #   <b>bold</b>
@@ -22,7 +23,7 @@ plain_text = no
 #   %I  iconname (without its path)
 #   %p  progress value if set ([  0%] to [100%]) or nothing
 # Markup is allowed
-format = "<span size='x-small' foreground='#929292'>%a</span>\n<b>%s</b>\n%b"
+format = "<span foreground='#949498' size='smaller'>%a</span>\n<b>%s</b>\n<span foreground='#e2e2e2'>%b</span>"
 
 # Sort messages by urgency.
 sort = no
@@ -70,7 +71,7 @@ hide_duplicates_count = yes
 # The width can be negative.  In this case the actual width is the
 # screen width minus the width defined in within the geometry option.
 #geometry = "250x50-40+40"
-geometry = "300x50-0+40"
+geometry = "450x50-0+39"
 
 # Shrink window if it's smaller than the width.  Will be ignored if
 # width is 0.
@@ -110,7 +111,7 @@ sticky_history = yes
 history_length = 15
 
 # Display indicators for URLs (U) and actions (A).
-show_indicators = no
+show_indicators = yes
 
 # The height of a single line.  If the height is smaller than the
 # font height, it will get raised to the font height.
@@ -142,23 +143,25 @@ separator_color = frame
 startup_notification = false
 
 # dmenu path.
-dmenu = /usr/bin/dmenu -p dunst:
+dmenu = /usr/bin/rofi -show drun:
 
 # Browser for opening urls in context menu.
 browser = /usr/bin/firefox -new-tab
 
 # Align icons left/right/off
-icon_position = off
-max_icon_size = 80
+icon_position = left
+max_icon_size = 50
 
 # Paths to default icons.
-icon_folders = /usr/share/icons/Paper/16x16/mimetypes/:/usr/share/icons/Paper/48x48/status/:/usr/share/icons/Paper/16x16/devices/:/usr/share/icons/Paper/48x48/notifications/:/usr/share/icons/Paper/48x48/emblems/
+#icon_folders = /usr/share/icons/Paper/16x16/mimetypes/:/usr/share/icons/Paper/48x48/status/:/usr/share/icons/Paper/16x16/devices/:/usr/share/icons/Paper/48x48/notifications/:/usr/share/icons/Paper/48x48/emblems/
+#icon_path = /usr/share/icons/Adwaita/32x32/status/:/usr/share/icons/Adwaita/32x32/devices/:/usr/share/icons/Adwaita/32x32/legacy/
+icon_path = /usr/share/icons/Flat-Remix-Blue/apps/scalable/:/usr/share/icons/Flat-Remix-Blue/status/scalable/512/
 
-frame_width = 3
-frame_color = "#8EC07C"
+frame_width = 2
+frame_color = "#444650"
+background = "#2c2e34"
 
 [shortcuts]
-
 # Shortcuts are specified as [modifier+][modifier+]...key
 # Available modifiers are "ctrl", "mod1" (the alt-key), "mod2",
 # "mod3" and "mod4" (windows-key).
@@ -181,25 +184,22 @@ context = ctrl+shift+period
 [urgency_low]
 # IMPORTANT: colors have to be defined in quotation marks.
 # Otherwise the "#" and following would be interpreted as a comment.
-frame_color = "#a3a3a3"
-foreground = "#a3a3a3"
-background = "#262626"
-#background = "#2B313C"
+#frame_color = "#e2e2e2"
+foreground = "#e2e2e2"
+background = "#2c2e34"
 timeout = 4
 
 [urgency_normal]
-frame_color = "#af87d7"
-foreground = "#a3a3a3"
-background = "#262626"
-#background = "#2B313C"
+#frame_color = "#b39df3"
+foreground = "#b39df3"
+background = "#2c2e34"
 timeout = 6
 
 [urgency_critical]
-frame_color = "#ff5f87"
-foreground = "#a3a3a3"
-background = "#262626"
-#background = "#2B313C"
-timeout = 0
+#frame_color = "#fc5d7c"
+foreground = "#fc5d7c"
+background = "#2c2e34"
+timeout = 8
 
 
 # Every section that isn't one of the above is interpreted as a rules to
