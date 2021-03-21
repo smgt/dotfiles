@@ -3,11 +3,8 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'tpope/vim-rhubarb'           " Depenency for tpope/fugitive
 
   " General
-  "Plug 'bling/vim-airline'
-  "Plug 'vim-airline/vim-airline-themes'
   Plug 'itchyny/lightline.vim'
   Plug 'sinetoami/lightline-neomake'
-
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-unimpaired'
   Plug 'SirVer/ultisnips'
@@ -59,9 +56,6 @@ call plug#begin('~/.config/nvim/plugged')
   " Plug 'dense-analysis/ale'
   Plug 'ryanoasis/vim-devicons'
 
-  " Needs to be loaded at the end
-  Plug 'sheerun/vim-polyglot'
-
   " Themes
   Plug 'liuchengxu/space-vim-theme'
   Plug 'sonph/onehalf', { 'rtp': 'vim' }
@@ -73,6 +67,11 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'kaicataldo/material.vim', { 'branch': 'main' }
   Plug 'sainnhe/edge'
   Plug 'sainnhe/sonokai'
+  Plug 'phanviet/vim-monokai-pro'
+  Plug 'dracula/vim'
+
+  " Needs to be loaded at the end
+  Plug 'sheerun/vim-polyglot'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -110,26 +109,9 @@ filetype plugin indent on    " required
 
 set fileformat=unix
 set backspace=indent,eol,start
+
 syntax on
 let mapleader=","
-
-" vim hardcodes background color erase even if the terminfo file does
-" not contain bce (not to mention that libvte based terminals
-" incorrectly contain bce in their terminfo files). This causes
-" incorrect background rendering when using a color theme with a
-" background color.
-let &t_ut=''
-
-"set term=builtin_ansi
-if !has('nvim')
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set term=screen-256color
-  set termguicolors
-endif
-
-" 256 colors in terminal
-"set t_Co=256
 
 " true colors
 set termguicolors
@@ -137,6 +119,9 @@ set termguicolors
 " Location of tags file
 set tags=./.git/tags,./tags,tags;
 
+let g:sonokai_style = 'shusia'
+let g:sonokai_enable_italic = 1
+let g:sonokai_disable_italic_comment = 1
 colorscheme sonokai
 
 "----
@@ -228,7 +213,6 @@ nnoremap <silent> * :BLines <C-R><C-W>*<CR>
 nnoremap <silent> <leader>* :Rg <C-R><C-W>*<CR>
 ":nnoremap * /\<<C-R>=expand('<cword>')<CR>\><CR>
 
-
 " Remember last location in file
 if has("autocmd")
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
@@ -270,14 +254,14 @@ noremap <C-o> :tabprev<CR>
 "----------------------------------------------
 
 let g:lightline = {
-      \ 'colorscheme': 'onehalfdark',
+      \ 'colorscheme': 'sonokai',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
-      \ 'right': [ [ 'lineinfo' ],
+      \ 'right': [ ['neomake_warnings', 'neomake_errors','neomake_infos', 'neomake_ok'],
+      \            [ 'lineinfo' ],
       \            [ 'percent' ],
       \            [ 'fileformat', 'fileencoding', 'filetype' ],
-      \            ['neomake_warnings', 'neomake_errors','neomake_infos', 'neomake_ok'],
       \     ],
       \ },
       \ 'component_function': {
@@ -345,6 +329,8 @@ let g:vista_default_executive = 'ctags'
 
 let g:vista_fzf_preview = ['right:50%']
 let g:vista_default_executive = 'lcn'
+
+let g:vista#renderer#enable_icon = 1
 
 " CTags
 map <Leader>rt :!ctags --extra=+f -R *<CR><CR>
