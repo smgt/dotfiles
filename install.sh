@@ -135,17 +135,42 @@ if [ -f files.$OS ];then
   done < files.$OS
 fi
 
+echo_blue "** Installing Arch packages"
 while IFS= read -r package; do
-  yay -Qi "$package" > /dev/null
-  if [ $? -eq 1 ];then
-    yay -S "$package" --noconfirm
+  installed=0
+  exists=0
+  valid=0
+
+  if ! [[ $package =~ ^# ]] && [ -n "$package" ];then
+    valid=1
+  fi
+
+  if [ "$valid" != 1 ];then
+    continue
+  fi
+
+  # Check if it's installed
+  if yay -Qiq "$package" > /dev/null; then
+    installed=1
+  fi
+
+  # Check if it exists
+  #if yay -Ss "$package" > /dev/null; then
+  #  echo "exists"
+  #  exists=1
+  #fi
+  exists=1
+
+  if [ "$installed" -eq 0 ] && [ "$exists" -eq 1 ] && [ "$valid" -eq 1 ];then
+    echo_green "Installing Arch package: $package"
+    yay -Sq "$package" --noconfirm
   fi
 done < pacman.cli
 
 # Setup vim
-echo_blue "** Installing vim plugins"
-curl -s -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-vim +PlugInstall +qall
+#echo_blue "** Installing vim plugins"
+#curl -s -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+#vim +PlugInstall +qall
 echo_blue "** Installing nvim plugins"
 curl -s -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 nvim +PlugInstall +qall
