@@ -24,10 +24,10 @@ fi
 ZOOM_CONNECT=""
 
 if [ -z "$1" ];then
-  echo "Usage $0 [zoom number/zoom shortcut] [zoom pass]"
-  echo "Defined shortcuts:"
+  #echo "Usage $0 [zoom number/zoom shortcut] [zoom pass]"
+  #echo "Defined shortcuts:"
   for room in "${!ZOOM_ROOMS[@]}"; do
-    echo "  $room"
+    echo "$room"
   done
   exit
 fi
@@ -44,7 +44,7 @@ fi
 
 
 if command -v zoom > /dev/null;then
-  zoom "zoommtg://zoom.us/join?action=join&$ZOOM_CONNECT"
+  zoom "zoommtg://zoom.us/join?action=join&$ZOOM_CONNECT" &
 else
   echo "You need to install zoom"
   exit 1
