@@ -1,6 +1,5 @@
 zsh
 fzf
-neovim
 bat
 tmux
 eva
@@ -8,4 +7,12 @@ ripgrep
 neomutt
 elinks
 fd
+exa
 git-delta-bin
+
+# ruby
+ruby
+
+# Neovim
+neovim
+python-pynvim
