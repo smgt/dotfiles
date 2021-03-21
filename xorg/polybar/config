@@ -1,23 +1,23 @@
 [color]
-trans = #00000000
-white = #FFFFFF
-black = #000000
 
-bg = ${xrdb:color0:#292B2E}
-fg = ${xrdb:color7:#A3A3A3}
-fg-alt = ${xrdb:color7:#D358D5}
+include-file = ~/.cache/rainbow-painter/colors.polybar
 
-focused = ${xrdb:color2:#614B77}
-urgent = ${xrdb:color2:#FF5F87}
-unfocused = ${xrdb:color7:#68727C}
-visible = ${xrdb:color6:#4f97d7}
+bg = ${color.background}
+fg = ${color.color7}
+fg-alt = ${color.color7}
 
-alert = ${xrdb:color1:#614B77}
+focused = ${color.color5}
+focused-text = ${color.color5_dark}
+urgent = ${color.color2}
+unfocused = ${color.color7}
+visible = ${color.color8}
 
-hostname = ${xrdb:color3:#eead0e}
+alert = ${color.color1}
+
+hostname = ${color.color5}
 
 [format]
-padding = 1
+padding = 3
 
 [global/wm]
 margin-top = 5
@@ -27,20 +27,24 @@ margin-bottom = 5
 monitor = ${env:MONITOR:DP2-1}
 width = 100%
 height = 40
+dpi-x = 0
+dpi-y = 0
 bottom = false
 padding = ${format.padding}
-border-color = ${color.focused}
+border-color = ${color.shade1}
 border-bottom-size = 1
 
 background = ${color.bg}
 foreground = ${color.fg}
 
-font-0 = JetBrainsMono Nerd Font:size=12;1
+font-0 = Overpass NerdFont:size=11.5;1
+#font-1 = JetBrainsMono Nerd Font:size=12;1
 #font-1 = Font Awesome 5 Free:size=12:style=solid;0
 
-modules-left = arch i3
-modules-center = date music
-modules-right = cpu memory battery wifi ethernet xkeyboard pulseaudio
+modules-left = i3
+modules-center = date
+#modules-right = cpu memory battery wifi ethernet xkeyboard pulseaudio date
+modules-right = memory battery wifi ethernet xkeyboard pulseaudio
 
 [module/music]
 type = custom/script
@@ -63,7 +67,10 @@ label = %title:0:30:...%
 [module/xkeyboard]
 type = internal/xkeyboard
 blacklist-0 = num lock
-label-layout =  %layout%
+blacklist-1 = scroll lock
+label-layout = %layout%
+format-prefix = 
+format-prefix-padding-right = 3
 format-padding = ${format.padding}
 
 [module/battery]
@@ -87,13 +94,14 @@ ramp-capacity-1 = 
 ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
-ramp-capacity-padding-right=1
+ramp-capacity-padding-right=2
 
 animation-charging-0 = 
 animation-charging-1 = 
 animation-charging-2 = 
 animation-charging-3 = 
 animation-charging-4 = 
+animation-charging-padding-right=2
 animation-charging-framerate = 750
 
 [module/filesystem]
@@ -109,11 +117,11 @@ label-unmounted-foreground = ${color.fg}
 
 [module/i3]
 type = internal/i3
-format =<label-state> <label-mode>
+format = <label-state> <label-mode>
 index-sort = true
 wrapping-scroll = false
 
-ws-icon-default = 
+ws-icon-default = " "
 ws-icon-0 = 1;
 ws-icon-1 = 2;
 #ws-icon-2 = 3;
@@ -121,10 +129,10 @@ ws-icon-2 = 9;
 ws-icon-3 = 10;
 ws-icon-4 = 8;
 
-label-focused = %icon% %index%
-label-unfocused = %icon% %index%
-label-urgent = %icon% %index%
-label-visible= %icon% %index%
+label-focused = %icon%  %index%
+label-unfocused = %icon%  %index%
+label-urgent = %icon%  %index%
+label-visible= %icon%  %index%
 
 label-mode-padding = 3
 label-unfocused-padding = 3
@@ -132,41 +140,19 @@ label-focused-padding= 3
 label-urgent-padding = 3
 label-visible-padding = 3
 
-format-margin=0
 
-label-focused-foreground = ${color.bg}
+label-focused-foreground = ${color.focused-text}
 label-focused-background = ${color.focused}
 
-label-unfocused-foreground = ${color.fg}
+label-unfocused-foreground = ${color.foreground}
 label-visible-foreground = ${color.visible}
+
 label-urgent-foreground = ${color.bg}
 label-urgent-background = ${color.alert}
 
 label-focused-underline = ${color.bg}
 label-urgent-underline = ${color.urgent}
 label-unfocused-underline = ${color.unfocused}
-
-[module/xbacklight]
-type = internal/xbacklight
-
-format = <label> <bar>
-label = BL
-
-bar-width = 10
-bar-indicator = s
-bar-indicator-foreground = #ff
-bar-indicator-font = 2
-bar-fill = 3
-bar-fill-font = 2
-bar-fill-foreground = #9f78e1
-bar-empty = 3
-bar-empty-font = 2
-;bar-empty-foreground = ${color.foreground-alt}
-
-[module/backlight-acpi]
-inherit = module/xbacklight
-type = internal/backlight
-card = intel_backlight
 
 [module/cpu]
 type = internal/cpu
@@ -186,18 +172,19 @@ interval = 2
 
 format = <label>
 format-padding = ${format.padding}
-label = " %percentage%%"
+format-prefix = 
+format-prefix-padding-right = 2
+label = %percentage%%
 
 [module/memory]
 type = internal/memory
 interval = 2
 format-prefix = 
-format-prefix-padding-right=1
+format-prefix-padding-right = 2
 format-padding = ${format.padding}
 format = <label>
 label = %percentage_used%%
 
-ramp-used-spacing = 1
 ramp-used-0 = ▁
 ramp-used-1 = ▂
 ramp-used-2 = ▃
@@ -214,8 +201,8 @@ interval = 3.0
 ;format-connected-padding = ${format.padding}
 ;format-disconnected-padding = ${format.padding}
 
-format-connected-prefix=%{T1}%{T-}
-format-connected-prefix-padding-right=1
+format-connected-prefix=
+format-connected-prefix-padding-right=3
 format-connected=<label-connected>
 format-connected-padding = ${format.padding}
 label-connected = %essid%
@@ -255,15 +242,18 @@ label-disconnected = %ifname%
 type = internal/date
 interval = 5
 
-date = " %Y-%m-%d"
+date = " %d/%m"
 date-alt = " %d %b"
 
-time = %H:%M:%S
+time = %H:%M
 time-alt = %H:%M
 
-format-prefix = %{T1}%{T-}
-format-prefix-font=2
+format-prefix = 
+format-prefix-font=0
+format-prefix-padding-right = 2
 
+format = <label>
+format-padding = ${format.padding}
 label = %date% %time%
 
 [module/pulseaudio]
