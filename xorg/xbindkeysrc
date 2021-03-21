@@ -1,7 +1,18 @@
-"pactl set-sink-mute @DEFAULT_SINK@ false;pactl set-sink-volume @DEFAULT_SINK@ -10%"
-  XF86AudioLowerVolume
+# bdn9
+# Layer 1
+# XF86AudioMute XF86Tools noop
+# XF86AudioPrev XF86AudioPlay XF86AudioNext
+# XF86Launch5 layer screensaver
+#
+# Layer 2
+# noop XF86Launch6 Cancel
+# XF86Launch7 XF86Launch8 XF86Launch9
+# NoSymbol XF86TouchpadToggle XF86TouchpadOn
 
 "pactl set-sink-mute @DEFAULT_SINK@ false;pactl set-sink-volume @DEFAULT_SINK@ +10%"
+  XF86AudioLowerVolume
+
+"pactl set-sink-mute @DEFAULT_SINK@ false;pactl set-sink-volume @DEFAULT_SINK@ -10%"
   XF86AudioRaiseVolume
 
 "pactl set-sink-mute @DEFAULT_SINK@ toggle"
@@ -13,29 +24,25 @@
 "xbacklight -inc 5"
   XF86MonBrightnessUp
 
-"playerctl play-pause"
+"playerctl -p spotify play-pause"
   XF86AudioPlay
 
-"playerctl next"
+"playerctl -p spotify next"
   XF86AudioNext
 
-"playerctl previous"
+"playerctl -p spotify previous"
   XF86AudioPrev
-"hotkey F13"
-  F13
-"hotkey F14"
-  XF86Launch0
-"hotkey F15"
-  XF86Launch8
-"hotkey F16"
-  XF86Launch9
-"hotkey F17"
-  XF86Launch3
-"hotkey F18"
-  XF86Launch4
-"hotkey F19"
+"hotkey bdn9_l1_low_left"
   XF86Launch5
-"hotkey F21"
-  XF86LaunchB
-"hotkey F22"
+"hotkey bdn9_l2_up_mid"
+  XF86Launch6
+"hotkey bdn9_l2_mid_left"
   XF86Launch7
+"hotkey bdn9_l2_mid_mid"
+  XF86Launch8
+"hotkey bdn9_l2_mid_right"
+  XF86Launch9
+"hotkey bdn9_l2_low_mid"
+  XF86TouchpadToggle
+"hotkey bdn9_l2_low_right
+  XF86TouchpadOn
