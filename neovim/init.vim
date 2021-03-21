@@ -26,6 +26,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'vimwiki/vimwiki'
   Plug 'ludovicchabant/vim-gutentags'
   Plug 'liuchengxu/vista.vim'
+  Plug 'junegunn/goyo.vim'
 
   Plug 'ap/vim-css-color'
 
