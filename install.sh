@@ -193,4 +193,6 @@ if [ -d "$HOME/.asdf" ];then
   echo_blue "** Installing asdf plugins"
   asdf plugin add ruby
   asdf plugin add golang
+  asdf plugin add rust
+  asdf plugin add python
 fi
