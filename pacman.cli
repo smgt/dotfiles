@@ -1,7 +1,9 @@
+git
+ctags
+tmux
 zsh
 fzf
 bat
-tmux
 eva
 ripgrep
 neomutt

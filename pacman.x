@@ -1,3 +1,6 @@
+xorg
+xorg-xinit
+i3-wm
 polybar
 dunst
 rofi
