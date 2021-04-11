@@ -4,6 +4,7 @@ ruby/pryrc;.pryrc
 ruby/irbrc;.irbrc
 ruby/gemrc;.gemrc
 zsh/zshrc;.zshrc
+zsh;.zsh
 tmux/tmux.conf;.tmux.conf
 vim/vimrc;.vimrc
 vim/plug.vim;.vim/autoload/plug.vim
