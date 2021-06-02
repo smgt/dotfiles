@@ -12,7 +12,7 @@ bindkey -e
 
 # shortcut to this dotfiles path is $DOTFILES
 export DOTFILES=$HOME/.dotfiles
-export ZSH=$DOTFILES/zsh
+export ZSH="$HOME/.zsh"
 
 # Configure vim/nvim as editor
 if type nvim > /dev/null 2>&1;then
@@ -22,7 +22,7 @@ else
 fi
 
 # source every .zsh file in this rep
-for config_file ($DOTFILES/zsh/*.zsh) do
+for config_file ($ZSH/*.zsh) do
   source $config_file
 done
 
