@@ -54,8 +54,12 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'sebastianmarkow/deoplete-rust'
   Plug 'hashivim/vim-terraform'
 
-  " Plug 'dense-analysis/ale'
-  Plug 'ryanoasis/vim-devicons'
+
+  " Needs to be loaded at the end
+  Plug 'sheerun/vim-polyglot'
+
+  " Eye candy
+  Plug 'ryanoasis/vim-devicons' " Adds icons!
 
   " Themes
   Plug 'liuchengxu/space-vim-theme'
@@ -249,6 +253,12 @@ noremap <C-o> :tabprev<CR>
 " set modelines=10
 "
 " set showtabline=1
+
+"----------------------------------------------
+" Plugin: NerdComment
+"----------------------------------------------
+let g:NERDSpaceDelims = 1
+
 
 "----------------------------------------------
 " Plugin: lightline
