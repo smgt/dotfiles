@@ -17,6 +17,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'ivanov/vim-ipython'
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'vim-scripts/ZoomWin'
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
   Plug 'janko/vim-test'
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
