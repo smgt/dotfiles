@@ -26,4 +26,6 @@ URxvt.print-pipe: "cat > /dev/null"
 *.boldMode: true
 *.colorBDMode: false
 
+#include ".cache/rainbow-painter/colors.Xresources"
+
 ! vim: ft=xdefaults :

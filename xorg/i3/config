@@ -37,7 +37,7 @@ for_window [instance="origin.exe"] floating enable
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec kitty -1
 
 # kill focused window
 bindsym $mod+Shift+q kill
