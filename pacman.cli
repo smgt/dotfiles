@@ -1,6 +1,7 @@
 git
 ctags
 tmux
+openssh
 zsh
 fzf
 bat

@@ -1,8 +1,12 @@
 xorg
 xorg-xinit
 i3-wm
+xbindkey
+kitty
+feh
 polybar
 dunst
 rofi
 nerd-fonts-jetbrains-mono
 nerd-fonts-overpass
+ttf-hack
