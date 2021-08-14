@@ -58,4 +58,5 @@ type dropbox > /dev/null 2>&1 && { dropbox & }
 type xss-lock >/dev/null 2>&1 && { xss-lock -- "$HOME/.dotfiles/bin/lock" & }
 #autocutsel -fork &
 #autocutsel -selection PRIMARY -fork &
-exec ssh-agent i3
+#exec ssh-agent i3
+exec i3
