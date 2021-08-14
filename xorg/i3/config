@@ -20,6 +20,8 @@ new_float pixel 2
 new_window pixel 2
 hide_edge_borders none
 
+for_window [instance="origin.exe"] floating enable
+
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
