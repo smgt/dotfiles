@@ -118,10 +118,46 @@ install_file() {
   fi
 }
 
+function install_pkg() {
+  local manager="$1"
+  local package="$2"
+  installed=0
+  exists=0
+  valid=0
 
+  if ! [[ $package =~ ^# ]] && [ -n "$package" ];then
+    valid=1
+  fi
 
+  if [ "$valid" != 1 ];then
+    return
+  fi
 
-#git submodule update --init
+  # Check if it's installed
+  if $manager -Qiq "$package" > /dev/null; then
+    installed=1
+  fi
+
+  # Check if it exists
+  #if yay -Ss "$package" > /dev/null; then
+  #  echo "exists"
+  #  exists=1
+  #fi
+  exists=1
+
+  if [ "$installed" -eq 0 ] && [ "$exists" -eq 1 ] && [ "$valid" -eq 1 ];then
+    echo_green "Installing Arch package: $package"
+    $manager -Sq "$package" --noconfirm
+  fi
+}
+
+function install_pkg_pacman() {
+  install_pkg "sudo pacman" "$1"
+}
+
+function install_pkg_yay() {
+  install_pkg yay "$1"
+}
 
 echo_blue "** Linking files"
 while IFS=\; read -r from_path to_path; do
@@ -136,36 +172,24 @@ if [ -f files.$OS ];then
 fi
 
 echo_blue "** Installing Arch packages"
+sudo pacman -Syy
+install_pkg_pacman "git"
+install_pkg_pacman "base-devel"
+
+if ! pacman -Qiq "yay" > /dev/null; then
+  mkdir "$HOME/.aur"
+  git clone https://aur.archlinux.org/yay.git "$HOME/.aur/yay"
+  pushd "$HOME/.aur/yay" || exit
+  makepkg -si --noconfirm
+  popd || exit
+fi
+
+
 while IFS= read -r package; do
-  installed=0
-  exists=0
-  valid=0
-
-  if ! [[ $package =~ ^# ]] && [ -n "$package" ];then
-    valid=1
-  fi
-
-  if [ "$valid" != 1 ];then
-    continue
-  fi
-
-  # Check if it's installed
-  if yay -Qiq "$package" > /dev/null; then
-    installed=1
-  fi
-
-  # Check if it exists
-  #if yay -Ss "$package" > /dev/null; then
-  #  echo "exists"
-  #  exists=1
-  #fi
-  exists=1
-
-  if [ "$installed" -eq 0 ] && [ "$exists" -eq 1 ] && [ "$valid" -eq 1 ];then
-    echo_green "Installing Arch package: $package"
-    yay -Sq "$package" --noconfirm
-  fi
+  install_pkg_yay "$package"
 done < pacman.cli
+
+chsh -s /bin/zsh
 
 # Setup vim
 #echo_blue "** Installing vim plugins"
