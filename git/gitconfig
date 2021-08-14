@@ -1,6 +1,8 @@
 [user]
   name = Simon Gate
-  email = simon@smgt.me
+  email = simon@kampgate.se
+[core]
+	excludesfile = /home/simon/.gitignore
 
 [color]
   ui = auto
@@ -41,5 +43,6 @@
   commit-decoration-style = bold yellow box ul
   file-style = bold yellow ul
   file-decoration-style = none
+
 [init]
 	defaultBranch = main
