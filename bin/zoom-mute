@@ -11,11 +11,11 @@ function noti() {
 }
 
 if [ -z "$ZOOM_WINDOW_ID" ];then
-  noti "zoom is not running"
+  noti "Zoom is not running"
   exit 0
 fi
 
-noti "zoom mute/unmute zoom"
+noti "Zoom mute/unmute zoom"
 
 sleep 0.1
 xdotool windowactivate --sync "$ZOOM_WINDOW_ID"
