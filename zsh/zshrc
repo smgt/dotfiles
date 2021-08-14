@@ -22,7 +22,7 @@ else
 fi
 
 # source every .zsh file in this rep
-for config_file ($ZSH/*.zsh) do
+for config_file ($HOME/.zsh/*.zsh) do
   source $config_file
 done
 
