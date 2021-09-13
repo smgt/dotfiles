@@ -9,5 +9,5 @@ tmux/tmux.conf;.tmux.conf
 vim/vimrc;.vimrc
 vim/plug.vim;.vim/autoload/plug.vim
 ctags/ctags;.ctags
-neovim/init.vim;.config/nvim/init.vim
+neovim;.config/nvim/
 git/gitconfig;.gitconfig
