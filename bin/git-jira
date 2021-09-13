@@ -1,6 +1,6 @@
 #!/bin/sh
 
-COMMAND_NAME="git jirabranch"
+COMMAND_NAME="git jira"
 COMMAND_JIRA="jira"
 
 if [ -f "$HOME/.jira.d/config.yml" ];then
