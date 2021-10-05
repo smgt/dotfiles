@@ -45,3 +45,9 @@ zle -N edit-command-line
 bindkey '^X^E' edit-command-line
 
 prompt smgt
+
+# set titlebar
+export HOSTNAME=$(hostname)
+precmd() {
+	echo -ne "\033_${USER}@${HOSTNAME%%.*}"; echo -ne "\033\\"
+}
