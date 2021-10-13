@@ -53,6 +53,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'ekalinin/Dockerfile.vim'
   Plug 'elzr/vim-json'
   " Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'tags': '*'}
+  Plug 'mattn/vim-goimports'
   Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
   Plug 'vim-python/python-syntax'
   Plug 'rust-lang/rust.vim'
@@ -337,7 +338,7 @@ let g:python3_host_prog = '/usr/bin/python'
 "----------------------------------------------
 " Language: Ruby
 "----------------------------------------------
-let g:ruby_host_prog = '~/home/simon/.asdf/installs/ruby/2.7.2/bin/neovim-ruby-host'
+let g:ruby_host_prog = '/home/simon/.asdf/installs/ruby/2.7.2/bin/neovim-ruby-host'
 
 "----------------------------------------------
 " Language: Golang
