@@ -8,3 +8,4 @@ zsh/antigen.zsh
 zsh/cache
 vim/vim/plugged
 vim/plug.vim
+.vagrant
