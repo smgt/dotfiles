@@ -1,3 +1,5 @@
+# source: https://github.com/joshdick/dotfiles/blob/main/zshrc.symlink
+
 # Echoes a username/host string when connected over SSH (empty otherwise)
 ssh_info() {
   if [ -z $HOSTCOLOR ]; then
