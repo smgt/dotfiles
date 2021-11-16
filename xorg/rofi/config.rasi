@@ -2,5 +2,5 @@ configuration {
 	modi: "combi,window";
 	font: "jetbrainsmono nerd font 12";
 	combi-modi: "window,run";
-	theme: "~/.dotfiles/xorg/rofi/smgt";
+	theme: "~/.cache/rainbow-painter/smgt.rasi";
 }
