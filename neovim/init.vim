@@ -72,6 +72,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'kyazdani42/nvim-web-devicons'
 
   " Themes
+  Plug 'sainnhe/everforest'
   Plug 'liuchengxu/space-vim-theme'
   Plug 'sonph/onehalf', { 'rtp': 'vim' }
   " Plug 'kyoz/purify', { 'rtp': 'vim' }
