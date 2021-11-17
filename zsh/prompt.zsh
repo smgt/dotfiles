@@ -6,7 +6,7 @@ ssh_info() {
     HOSTCOLOR=11
   fi
   if [[ "$SSH_CONNECTION" != '' ]];then
-    echo "%(!.%{$fg[red]%}.%{$fg[yellow]%})%n%{$reset_color%}@%F{$HOSTCOLOR}%m%{$reset_color%}"
+    echo "%(!.%{$fg[red]%}.%{$fg[yellow]%})%n%{$reset_color%}@%F{$HOSTCOLOR}%m%{$reset_color%} "
   fi
 }
 
@@ -68,4 +68,4 @@ git_info() {
 # Use ❯ as the non-root prompt character; # for root
 # Change the prompt character color if the last command had a nonzero exit code
 RPROMPT="\$(git_info)"
-PS1="\$(ssh_info) %{$fg[magenta]%}%B%~%b%u %(?.%{$fg[magenta]%}.%{$fg[red]%})%(!.#.❯)%{$reset_color%} "
+PS1="\$(ssh_info)%{$fg[magenta]%}%B%~%b%u %(?.%{$fg[magenta]%}.%{$fg[red]%})%(!.#.❯)%{$reset_color%} "
