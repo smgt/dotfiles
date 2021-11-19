@@ -37,7 +37,13 @@ done
 
 shift "$(( OPTIND - 1 ))"
 
-JIRA_TICKET=$(jira list --query "${JIRA_QUERY}" | fzf | tr -d ":" | awk '{print $1}')
+if [ -n "$1" ];then
+  JIRA_TICKET=$1
+fi
+
+if [ -z "$JIRA_TICKET" ];then
+  JIRA_TICKET=$(jira list --query "${JIRA_QUERY}" | fzf | tr -d ":" | awk '{print $1}')
+fi
 
 if [ -z "$JIRA_TICKET" ];then
   echo "You need to supply a jira ticket, ${COMMAND_NAME}"
@@ -63,8 +69,9 @@ if [ ${#GIT_BRANCH_NAME} -gt 20 ];then
   read -r -p "Edit branch name: " -i " $GIT_BRANCH_NAME" -e GIT_BRANCH_NAME
 fi
 
-echo git checkout -b "${GIT_BRANCH_NAME}" && \
-  echo git push -u origin "${GIT_BRANCH_NAME}"
+git branch "${GIT_BRANCH_NAME}" && \
+git checkout "${GIT_BRANCH_NAME}" && \
+  git push -u origin "${GIT_BRANCH_NAME}"
 
 echo "Created git branch: ${GIT_BRANCH_NAME}"
 # vim: filetype=sh
