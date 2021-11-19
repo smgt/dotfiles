@@ -23,10 +23,10 @@ fi
 git_branch=$(git rev-parse --abbrev-ref HEAD)
 if [[ $git_branch == *"/"* ]];then
   JIRA_ID=$(echo "$git_branch" | sed 's|/.*||')
-  echo "Found JIRA ticket in git branch name: $ticket"
+  echo "Found JIRA ticket in git branch name: $JIRA_ID"
 fi
 
-if [ -n "$ticket" ];then
+if [ -n "$JIRA_ID" ];then
   JIRA_SUMMARY=$("$COMMAND_JIRA" req --gjq fields.summary "/rest/api/2/issue/${JIRA_ID}")
   if [ -z "$JIRA_SUMMARY" ];then
     echo "Could not find jira ticket ${JIRA_ID}."
@@ -35,7 +35,8 @@ if [ -n "$ticket" ];then
 fi
 
 if [ -z "$JIRA_SUMMARY" ];then
-  echo ${COMMAND_GITLAB} mr create --asignee ${GITLAB_USER} --draft
+  ${COMMAND_GITLAB} mr create --asignee ${GITLAB_USER} --draft
 else
-  echo ${COMMAND_GITLAB} mr create --assignee ${GITLAB_USER} -t "$JIRA_ID $JIRA_SUMMARY" --draft -y -d ''
+  ${COMMAND_GITLAB} mr create --assignee ${GITLAB_USER} -t "$JIRA_ID $JIRA_SUMMARY" --draft -d "$(jira share "$JIRA_ID")   
+Closes ${JIRA_ID}   "
 fi
