@@ -3,8 +3,9 @@
 include-file = ~/.cache/rainbow-painter/colors.polybar
 
 bg = ${color.background}
-fg = ${color.color7}
-fg-alt = ${color.color7}
+# fg = ${color.color7}
+fg = ${color.shade4}
+fg-alt = ${color.shade4}
 
 focused = ${color.color5}
 focused-text = ${color.color5_dark}
@@ -17,7 +18,7 @@ alert = ${color.color1}
 hostname = ${color.color5}
 
 [format]
-padding = 3
+padding = 1
 
 [global/wm]
 margin-top = 5
@@ -37,8 +38,9 @@ border-bottom-size = 1
 background = ${color.bg}
 foreground = ${color.fg}
 
-font-0 = Overpass NerdFont:size=10;1
-#font-1 = JetBrainsMono Nerd Font:size=12;1
+#font-0 = Overpass NerdFont:size=10;1
+font-0 = FiraCode Nerd Font:size=10;1
+#font-0 = JetBrainsMono Nerd Font:size=12;1
 #font-1 = Font Awesome 5 Free:size=12:style=solid;0
 
 modules-left = i3
@@ -117,34 +119,34 @@ label-unmounted-foreground = ${color.fg}
 
 [module/i3]
 type = internal/i3
-format = <label-state> <label-mode>
+format = <label-state><label-mode>
 index-sort = true
 wrapping-scroll = false
 
 ws-icon-default = " "
-ws-icon-0 = 1;
+ws-icon-0 =1;
 ws-icon-1 = 2;
 #ws-icon-2 = 3;
+ws-icon-4 =8;
 ws-icon-2 = 9;
 ws-icon-3 = 10;
-ws-icon-4 = 8;
 
-label-focused = %icon%  %index%
-label-unfocused = %icon%  %index%
-label-urgent = %icon%  %index%
-label-visible= %icon%  %index%
+label-focused = %icon% %index%
+label-unfocused = %icon% %index%
+label-urgent = %icon% %index%
+label-visible= %icon% %index%
 
-label-mode-padding = 3
-label-unfocused-padding = 3
-label-focused-padding= 3
-label-urgent-padding = 3
-label-visible-padding = 3
+label-mode-padding = ${format.padding}
+label-unfocused-padding = ${format.padding}
+label-focused-padding= ${format.padding}
+label-urgent-padding = ${format.padding}
+label-visible-padding = ${format.padding}
 
 
 label-focused-foreground = ${color.focused-text}
 label-focused-background = ${color.focused}
 
-label-unfocused-foreground = ${color.foreground}
+label-unfocused-foreground = ${color.fg}
 label-visible-foreground = ${color.visible}
 
 label-urgent-foreground = ${color.bg}
