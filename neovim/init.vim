@@ -15,14 +15,9 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'benmills/vimux'
   Plug 'christoomey/vim-tmux-navigator'
 
-  "Plug 'janko/vim-test'
   Plug 'sebdah/vim-delve'
   Plug 'junegunn/vim-emoji'
-  "Plug 'vimwiki/vimwiki'
-  "Plug 'ludovicchabant/vim-gutentags'
-  "Plug 'liuchengxu/vista.vim'
   Plug 'junegunn/goyo.vim'
-
   Plug 'ap/vim-css-color'
 
   " Editor improvements
@@ -59,11 +54,18 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'rust-lang/rust.vim'
   Plug 'hashivim/vim-terraform'
 
-  " New stuff
-  Plug 'neovim/nvim-lspconfig'
-  Plug 'glepnir/lspsaga.nvim'
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  Plug 'nvim-lua/completion-nvim'
+  " LSP + treesitter plugins
+  Plug 'neovim/nvim-lspconfig' " LSP for neovim
+  Plug 'glepnir/lspsaga.nvim' " Better ui for LSP
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Better syntax highlighting
+  Plug 'hrsh7th/cmp-nvim-lsp' " Completion
+  Plug 'hrsh7th/cmp-buffer'
+  Plug 'hrsh7th/cmp-path'
+  Plug 'hrsh7th/cmp-cmdline'
+  Plug 'hrsh7th/nvim-cmp'
+  Plug 'hrsh7th/cmp-vsnip' " Completion for vsnip
+  Plug 'hrsh7th/vim-vsnip'
+  Plug 'onsails/lspkind-nvim' " Icons for Completion
 
   " Needs to be loaded at the end
   "Plug 'sheerun/vim-polyglot'
@@ -82,8 +84,11 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'NLKNguyen/papercolor-theme'
   Plug 'kaicataldo/material.vim', { 'branch': 'main' }
   Plug 'sainnhe/edge'
+  Plug 'connorholyday/vim-snazzy'
   Plug 'sainnhe/sonokai'
   Plug 'phanviet/vim-monokai-pro'
+  Plug 'sickill/vim-monokai'
+  Plug 'tomasr/molokai'
   Plug 'dracula/vim'
 
   " Needs to be loaded at the end
@@ -99,7 +104,8 @@ set autowrite                     " write when switching buffers
 set autowriteall                  " write on :quit
 set clipboard=unnamedplus
 "set colorcolumn=81                " highlight the 80th column as an indicator
-set completeopt-=preview          " remove the horrendous preview window
+"set completeopt-=preview          " remove the horrendous preview window
+set completeopt=menu,menuone,noselect " from hrsh7th/cmp
 "set cursorline                    " highlight the current line for the cursor
 set encoding=utf-8
 set expandtab                     " expands tabs to spaces
@@ -138,7 +144,7 @@ set tags=./.git/tags,./tags,tags;
 let g:sonokai_style = 'shusia'
 let g:sonokai_enable_italic = 1
 let g:sonokai_disable_italic_comment = 1
-colorscheme sonokai
+colorscheme dracula
 
 "----
 "  Theme: Space dark
