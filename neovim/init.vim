@@ -5,12 +5,13 @@ call plug#begin('~/.local/share/nvim/plugged')
   " General
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-unimpaired'
+  " Plug 'preservim/nerdcommenter'
+  Plug 'b3nj5m1n/kommentary' " Comments
 
   " Git
   Plug 'tpope/vim-fugitive'
   Plug 'gregsexton/gitv'
 
-  Plug 'preservim/nerdcommenter'
 
   Plug 'benmills/vimux'
   Plug 'christoomey/vim-tmux-navigator'
@@ -21,16 +22,15 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'ap/vim-css-color'
 
   " Editor improvements
-  Plug 'neomake/neomake'
+  " Plug 'neomake/neomake'
+  " Plug 'sinetoami/lightline-neomake'
   Plug 'vim-scripts/ZoomWin'
-
 
   " Fuzzy file finder
   Plug 'nvim-lua/popup.nvim' " Required by telescope
   Plug 'nvim-lua/plenary.nvim' " Required by telescope
   Plug 'nvim-telescope/telescope.nvim'
-  " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-  " Plug 'junegunn/fzf.vim'
+  Plug 'nvim-telescope/telescope-fzy-native.nvim' " Faster telescope
 
   " Snippets
   Plug 'hrsh7th/vim-vsnip'
@@ -40,38 +40,36 @@ call plug#begin('~/.local/share/nvim/plugged')
   " Statusline
   " Plug 'hoob3rt/lualine.nvim'
   Plug 'itchyny/lightline.vim'
-  Plug 'sinetoami/lightline-neomake'
 
   " Language support
   " Plug 'vim-ruby/vim-ruby'
-  Plug 'elixir-lang/vim-elixir'
-  Plug 'ekalinin/Dockerfile.vim'
-  Plug 'elzr/vim-json'
+  " Plug 'elixir-lang/vim-elixir'
+  " Plug 'ekalinin/Dockerfile.vim'
+  " Plug 'elzr/vim-json'
   " Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'tags': '*'}
-  Plug 'mattn/vim-goimports'
-  Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
-  Plug 'vim-python/python-syntax'
-  Plug 'rust-lang/rust.vim'
-  Plug 'hashivim/vim-terraform'
+  " Plug 'mattn/vim-goimports'
+  " Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
+  " Plug 'vim-python/python-syntax'
+  " Plug 'rust-lang/rust.vim'
+  " Plug 'hashivim/vim-terraform'
 
   " LSP + treesitter plugins
   Plug 'neovim/nvim-lspconfig' " LSP for neovim
-  Plug 'glepnir/lspsaga.nvim' " Better ui for LSP
+  " Plug 'glepnir/lspsaga.nvim' " Better ui for LSP
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Better syntax highlighting
-  Plug 'hrsh7th/cmp-nvim-lsp' " Completion
-  Plug 'hrsh7th/cmp-buffer'
-  Plug 'hrsh7th/cmp-path'
-  Plug 'hrsh7th/cmp-cmdline'
-  Plug 'hrsh7th/nvim-cmp'
-  Plug 'hrsh7th/cmp-vsnip' " Completion for vsnip
-  Plug 'hrsh7th/vim-vsnip'
-  Plug 'onsails/lspkind-nvim' " Icons for Completion
+  Plug 'hrsh7th/cmp-nvim-lsp' " Complete lsp
+  Plug 'hrsh7th/cmp-buffer' " Complete buffers
+  Plug 'hrsh7th/cmp-path' "Complete paths
+  Plug 'hrsh7th/cmp-cmdline' " Complete commands
+  Plug 'hrsh7th/cmp-vsnip' " Complete vsnip
+  Plug 'hrsh7th/nvim-cmp' " Compleation plugin
 
   " Needs to be loaded at the end
   "Plug 'sheerun/vim-polyglot'
 
   " Eye candy
-  Plug 'kyazdani42/nvim-web-devicons'
+  Plug 'kyazdani42/nvim-web-devicons' " Icons
+  Plug 'onsails/lspkind-nvim' " Icons for Completion
 
   " Themes
   Plug 'sainnhe/everforest'
@@ -92,7 +90,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'dracula/vim'
 
   " Needs to be loaded at the end
-  Plug 'sheerun/vim-polyglot'
+  " Plug 'sheerun/vim-polyglot'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required

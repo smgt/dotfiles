@@ -33,3 +33,5 @@ vim.api.nvim_set_keymap('n', '<Leader>p', '<cmd>Telescope find_files<CR>', opts)
 vim.api.nvim_set_keymap('n', '<Leader>l', '<cmd>Telescope live_grep<CR>', opts)
 vim.api.nvim_set_keymap('n', '<Leader>b', '<cmd>Telescope buffers<CR>', opts)
 vim.api.nvim_set_keymap('n', ';;', '<cmd>Telescope help_tags<CR>', opts)
+
+require('telescope').load_extension('fzy_native')
