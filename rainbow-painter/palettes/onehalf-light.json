@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "name": "Onehalf light",
+    "url": "https://github.com/sonph/onehalf/"
+  },
+  "colors": {
+    "terminal": {
+      "background": "#FAFAFA",
+      "foreground": "#383A42",
+      "cursor": "#BFCEFF",
+      "color0": "#383A42",
+      "color1": "#E45649",
+      "color2": "#40A14F",
+      "color3": "#C18401",
+      "color4": "#0184BC",
+      "color5": "#A626A4",
+      "color6": "#0997B3",
+      "color7": "#FAFAFA",
+      "color8": "#383A42",
+      "color9": "#E45649",
+      "color10": "#40A14F",
+      "color11": "#C18401",
+      "color12": "#0184BC",
+      "color13": "#A626A4",
+      "color14": "#0997B3",
+      "color15": "#FAFAFA"
+    },
+    "custom": [
+      {
+        "name": "backgroundalt",
+        "color": "#011627",
+        "lighten": 30
+      }
+    ]
+  }
+}

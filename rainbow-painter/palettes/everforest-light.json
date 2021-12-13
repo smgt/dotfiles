@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "name": "Everforest Light",
+    "url": "https://github.com/sainnhe/everforest"
+  },
+  "colors": {
+    "terminal": {
+      "background": "#fdf6e3",
+      "foreground": "#323d43",
+      "color0": "#4a555b",
+      "color1": "#e68183",
+      "color2": "#a7c080",
+      "color3": "#dbbc7f",
+      "color4": "#7fbbb3",
+      "color5": "#d699b6",
+      "color6": "#83c092",
+      "color7": "#f3efda",
+      "color8": "#525c62",
+      "color9": "#e68183",
+      "color10": "#a7c080",
+      "color11": "#dbbc7f",
+      "color12": "#7fbbb3",
+      "color13": "#d699b6",
+      "color14": "#83c092",
+      "color15": "#f3efda"
+    }
+  }
+}

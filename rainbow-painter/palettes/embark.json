@@ -1,0 +1,44 @@
+{
+    "meta": {
+        "name": "Embark",
+        "url": "https://github.com/embark-theme/kitty/blob/master/embark-theme.conf"
+    },
+    "colors": {
+        "terminal": {
+            "background": "#1E1C31",
+            "foreground": "#CBE3E7",
+            "cursor": "#A1EFD3",
+
+            "color0": "#1E1C31",
+            "color8": "#585273",
+
+            "color1": "#F48FB1",
+            "color9": "#F02E6E",
+
+            "color2": "#A1EFD3",
+            "color10": "#62D196",
+
+            "color3":"#FFE6B3",
+            "color11":"#F2B482",
+
+            "color4":"#91DDFF",
+            "color12":"#65B2FF",
+
+            "color5": "#D4BFFF",
+            "color13": "#A37ACC",
+
+            "color6":"#87DFEB",
+            "color14":"#63F2F1",
+
+            "color7": "#CBE3E7",
+            "color15": "#8A889D"
+        },
+        "custom": [
+            {
+                "name": "backgroundalt",
+                "color": "#1E1C32",
+                "lighten": 10
+            }
+        ]
+    }
+}
