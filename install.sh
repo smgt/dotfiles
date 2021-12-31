@@ -1,7 +1,7 @@
 #!/bin/bash
 
 error() {
-  echo "ERROR: $1"
+  echo_red "ERROR: $1"
   exit 1
 }
 
@@ -25,6 +25,9 @@ echo_blue() {
 case "$OSTYPE" in
   "linux"*)
     OS=linux
+    if [ -f /etc/os-release ];then
+      source /etc/os-release
+    fi
     ;;
   "darwin"*)
     OS=osx
@@ -34,11 +37,6 @@ case "$OSTYPE" in
     ;;
 esac
 
-# if hash X; then
-#   XORG=yes
-# else
-#   XORG=no
-# fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
@@ -62,61 +60,6 @@ do
   esac
 done
 set -- "${POSITIONAL[@]}" # restore positional parameters
-
-ask_remove() {
-  # if [ ${ARG_FORCE} ];then
-  #   return
-  # fi
-  echo_red "  - File/directory already exists, remove $1 (y/n)? "
-  local answer=0
-  read -r answer < /dev/tty
-  case ${answer:0:1} in
-    y|Y )
-      if [ -L "$1" ];then
-        #echo "rm $1"
-        rm -rf "$1"
-      else
-        #echo "mv $1"
-        mv "$1" "$1".bak
-      fi
-      ;;
-    * )
-      ;;
-  esac
-}
-
-install_file() {
-  local source=$1
-  local target=$2
-  if [ ! -e "$source" ];then
-    echo_red "Error: $source does not exist"
-    return
-  fi
-
-  if [ ! -e "$target" ];then
-    rm "$target"
-  fi
-
-  if [ -e "$target" ];then
-    if [ "$(readlink -f "$target")" != "$source" ];then
-      echo_red "$target\n"
-      ask_remove "$target"
-    fi
-  fi
-  if [ -s "$target" ];then
-    if [[ $(realpath "$target") =~ $HOME/.dotfiles ]];then
-      echo_yellow "  Skipping ${source} -> ${target}, already linked."
-      return
-    fi
-  fi
-  if [ ! -e "$target" ];then
-    echo_green "  $source -> $target"
-    if [ ! -d "$(dirname "$target")" ];then
-      mkdir -p "$(dirname "$target")"
-    fi
-    ln -s "$source" "$target"
-  fi
-}
 
 function install_pkg() {
   local manager="$1"
@@ -159,47 +102,18 @@ function install_pkg_yay() {
   install_pkg yay "$1"
 }
 
-echo_blue "** Linking files"
-while IFS=\; read -r from_path to_path; do
-  install_file "$DIR/$from_path" "$HOME/$to_path"
-done < files
-
-if [ -f files.$OS ];then
-  echo_blue "** Linking $OS specific files"
-  while IFS=\; read -r from_path to_path; do
-    install_file "$DIR/$from_path" "$HOME/$to_path"
-  done < files.$OS
+NVIM_PLUG_PATH=$HOME/.local/share/nvim/site/autoloading/plug.vim
+if [ ! -f "$NVIM_PLUG_PATH" ];then
+  echo_blue "** Installing nvim plugins"
+  curl -s -fLo "$NVIM_PLUG_PATH" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  nvim +PlugInstall +qall
 fi
 
-echo_blue "** Installing Arch packages"
-sudo pacman -Syy
-install_pkg_pacman "git"
-install_pkg_pacman "base-devel"
-
-if ! pacman -Qiq "yay" > /dev/null; then
-  mkdir "$HOME/.aur"
-  git clone https://aur.archlinux.org/yay.git "$HOME/.aur/yay"
-  pushd "$HOME/.aur/yay" || exit
-  makepkg -si --noconfirm
-  popd || exit
+if [ ! -f "zsh/antigen.zsh" ];then
+  echo_blue "** Installing antigen"
+  curl -s -L git.io/antigen > zsh/antigen.zsh
 fi
 
-
-while IFS= read -r package; do
-  install_pkg_yay "$package"
-done < pacman.cli
-
-chsh -s /bin/zsh
-
-# Setup vim
-#echo_blue "** Installing vim plugins"
-#curl -s -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-#vim +PlugInstall +qall
-echo_blue "** Installing nvim plugins"
-curl -s -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-nvim +PlugInstall +qall
-echo_blue "** Installing antigen"
-curl -s -L git.io/antigen > zsh/antigen.zsh
 if [ -f "$HOME/.tmux/plugins/tpm" ];then
   echo_blue "** Installing tmux tpm"
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
@@ -220,3 +134,32 @@ if [ -d "$HOME/.asdf" ];then
   asdf plugin add rust
   asdf plugin add python
 fi
+
+if [ "$ID" != "arch" ];then
+  error "$OS distro isn't arch, won't install any packages."
+  exit 1
+fi
+
+echo_blue "** Installing Arch packages"
+sudo pacman -Syy
+install_pkg_pacman "git"
+install_pkg_pacman "base-devel"
+
+if ! pacman -Qiq "yay" > /dev/null; then
+  mkdir "$HOME/.aur"
+  git clone https://aur.archlinux.org/yay.git "$HOME/.aur/yay"
+  pushd "$HOME/.aur/yay" || exit
+  makepkg -si --noconfirm
+  popd || exit
+fi
+
+while IFS= read -r package; do
+  install_pkg_yay "$package"
+done < pacman.cli
+
+chsh -s /bin/zsh
+
+# Setup vim
+#echo_blue "** Installing vim plugins"
+#curl -s -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+#vim +PlugInstall +qall
