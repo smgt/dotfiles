@@ -18,6 +18,6 @@ HOTKEY=$1
 while IFS=: read -r name command
 do
   if [ "$name" == "$HOTKEY" ];then
-    eval $command
+    eval "$command"
   fi
 done < <(sed -e 's/#.*$//' -e '/^$/d' $CONFIGFILE)

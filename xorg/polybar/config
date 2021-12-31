@@ -35,6 +35,9 @@ padding = ${format.padding}
 border-color = ${color.shade1}
 border-bottom-size = 1
 
+tray-position = right
+tray-padding = ${format.padding}
+
 background = ${color.bg}
 foreground = ${color.fg}
 

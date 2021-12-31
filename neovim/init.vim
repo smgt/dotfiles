@@ -42,6 +42,9 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'itchyny/lightline.vim'
 
   " Language support
+  Plug 'vim-crystal/vim-crystal'
+  Plug 'PyGamer0/vim-apl'
+  Plug 'baruchel/vim-notebook'
   " Plug 'vim-ruby/vim-ruby'
   " Plug 'elixir-lang/vim-elixir'
   " Plug 'ekalinin/Dockerfile.vim'
@@ -240,6 +243,7 @@ if has("autocmd")
 endif
 
 au BufRead,BufNewFile {Guardfile,vagranfile,Vagrantfile,Gemfile,Rakefile,Thorfile,config.ru} set ft=ruby
+au BufRead,BufNewFile *.cr set ft=crystal
 
 " Bubble single lines
 " nmap <C-k> [e
@@ -423,3 +427,10 @@ let g:go_addtags_transform = "snakecase"
 let test#strategy = "tslime"
 
 au FileType make set noexpandtab
+
+let g:notebook_cmd = 'dyalog'
+let g:notebook_stop = ")off"
+let g:notebook_send0=""
+let g:notebook_send = "'VIMDYALOGAPLNOTEBOOK'"
+let g:notebook_detect = 'VIMDYALOGAPLNOTEBOOK'
+let g:notebook_shell_internal = '/bin/sh'

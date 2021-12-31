@@ -140,6 +140,8 @@ if [ "$ID" != "arch" ];then
   exit 1
 fi
 
+exit 1
+
 echo_blue "** Installing Arch packages"
 sudo pacman -Syy
 install_pkg_pacman "git"

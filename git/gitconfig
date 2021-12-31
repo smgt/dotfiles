@@ -1,8 +1,17 @@
+[init]
+  defaultBranch = main
+
 [user]
   name = Simon Gate
   email = simon@kampgate.se
+
+[github]
+  user = smgt
+
 [core]
-	excludesfile = /home/simon/.gitignore
+  excludesfile = ~/.gitignore
+  editor = nvim
+  pager = delta
 
 [color]
   ui = auto
@@ -23,14 +32,6 @@
   changed = green
   untracked = cyan
 
-[core]
-  excludesfile = ~/.gitignore
-  editor = nvim
-  pager = delta
-
-[github]
-  user = smgt
-
 [interactive]
   diffFilter = delta --color-only
 
@@ -38,11 +39,24 @@
   features = side-by-side line-numbers decorations
   whitespace-error-style = 22 reverse
   syntax-theme = OneHalfDark
+  navigate = true
 
 [delta "decorations"]
   commit-decoration-style = bold yellow box ul
   file-style = bold yellow ul
   file-decoration-style = none
 
-[init]
-	defaultBranch = main
+[mergetool "nvim"]
+  cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
+
+[mergetool]
+  prompt = false
+
+[merge]
+  conflictstyle=diff3
+  tool = vimdiff
+  tool = nvim
+
+
+[diff]
+  colorMoved = default
