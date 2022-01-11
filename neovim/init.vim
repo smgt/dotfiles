@@ -138,6 +138,8 @@ let mapleader=","
 
 " true colors
 set termguicolors
+" enable curor coloring from themes
+set guicursor=n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor20,o:hor50
 
 " Location of tags file
 set tags=./.git/tags,./tags,tags;
@@ -145,7 +147,7 @@ set tags=./.git/tags,./tags,tags;
 let g:sonokai_style = 'shusia'
 let g:sonokai_enable_italic = 1
 let g:sonokai_disable_italic_comment = 1
-colorscheme dracula
+" colorscheme dracula
 
 "----
 "  Theme: Space dark
@@ -211,8 +213,8 @@ colorscheme dracula
 "----
 "  Theme: papercolor
 "----
-"set background=light
-"colorscheme PaperColor
+set background=light
+colorscheme PaperColor
 "let g:airline_theme='papercolor'
 let g:PaperColor_Theme_Options = {
   \   'theme': {
