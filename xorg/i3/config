@@ -44,7 +44,8 @@ assign [class="zoom"] 10
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec kitty -1
+# bindsym $mod+Return exec kitty -1
+bindsym $mod+Return exec wezterm
 
 # kill focused window
 bindsym $mod+Shift+q kill
