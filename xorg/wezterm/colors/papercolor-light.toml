@@ -1,0 +1,11 @@
+# papercolor-light
+[colors]
+foreground = "#3c3c3b"
+background = "#eaeaea"
+cursor_bg = "#000000"
+cursor_fg = "#ffffff"
+selection_bg = "#3c3c3b"
+selection_fg = "#eaeaea"
+
+ansi = ["#3c3c3b","#cb004d","#5f7c03","#cb4a05","#345c9e","#754297","#33888d","#eaeaea"]
+brights = ["#3c3c3b","#cb004d","#5f7c03","#cb4a05","#345c9e","#754297","#33888d","#eaeaea"]
