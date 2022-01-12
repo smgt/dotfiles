@@ -214,6 +214,7 @@ let g:sonokai_disable_italic_comment = 1
 "  Theme: papercolor
 "----
 set background=light
+set cursorline
 colorscheme PaperColor
 "let g:airline_theme='papercolor'
 let g:PaperColor_Theme_Options = {
