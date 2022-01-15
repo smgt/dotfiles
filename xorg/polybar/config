@@ -3,9 +3,10 @@
 include-file = ~/.cache/rainbow-painter/colors.polybar
 
 bg = ${color.background}
+bgalt = ${color.shade1}
 # fg = ${color.color7}
 fg = ${color.shade4}
-fg-alt = ${color.shade4}
+fgalt = ${color.shade4}
 
 focused = ${color.color5}
 focused-text = ${color.color5_dark}
@@ -75,7 +76,7 @@ blacklist-0 = num lock
 blacklist-1 = scroll lock
 label-layout = %layout%
 format-prefix = 
-format-prefix-padding-right = 3
+format-prefix-padding-right = 2
 format-padding = ${format.padding}
 
 [module/battery]
@@ -234,10 +235,12 @@ type = internal/network
 interface = eth0
 interval = 3.0
 
-format-connected-prefix = " "
+format-connected-prefix = 歷
+format-connected-prefix-padding-right = 2
 label-connected = %ifname% %local_ip%
 format-connected-padding = ${format.padding}
 format-disconnected-padding = ${format.padding}
+format-padding-left = 2
 
 ;format-disconnected-underline = ${self.format-connected-underline}
 label-disconnected = %ifname%
