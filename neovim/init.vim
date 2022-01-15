@@ -54,7 +54,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   " Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
   " Plug 'vim-python/python-syntax'
   " Plug 'rust-lang/rust.vim'
-  " Plug 'hashivim/vim-terraform'
+  Plug 'hashivim/vim-terraform'
 
   " LSP + treesitter plugins
   Plug 'neovim/nvim-lspconfig' " LSP for neovim
@@ -147,7 +147,6 @@ set tags=./.git/tags,./tags,tags;
 let g:sonokai_style = 'shusia'
 let g:sonokai_enable_italic = 1
 let g:sonokai_disable_italic_comment = 1
-" colorscheme dracula
 
 "----
 "  Theme: Space dark
@@ -428,6 +427,8 @@ let g:go_metalinter_enabled = [
 let g:go_addtags_transform = "snakecase"
 
 let test#strategy = "tslime"
+
+let g:terraform_fmt_on_save=1
 
 au FileType make set noexpandtab
 
