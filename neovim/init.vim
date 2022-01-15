@@ -75,22 +75,24 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'onsails/lspkind-nvim' " Icons for Completion
 
   " Themes
+  " neovim support
+  Plug 'catppuccin/nvim', {'as': 'catppuccin'}
+  Plug 'rakr/vim-one' ", { 'rtp': 'vim' }
+  Plug 'marko-cerovac/material.nvim'
+  Plug 'sainnhe/sonokai'
+  Plug 'sainnhe/edge'
+  Plug 'ray-x/aurora'
+  Plug 'shaunsingh/moonlight.nvim'
   Plug 'sainnhe/everforest'
-  Plug 'liuchengxu/space-vim-theme'
-  Plug 'sonph/onehalf', { 'rtp': 'vim' }
+  Plug 'dracula/vim'
+  Plug 'EdenEast/nightfox.nvim'
+
+  " Plug 'liuchengxu/space-vim-theme'
+  " Plug 'sonph/onehalf', { 'rtp': 'vim' }
   " Plug 'kyoz/purify', { 'rtp': 'vim' }
   "Plug 'crusoexia/vim-monokai'
   "Plug 'joshdick/onedark.vim'
-  Plug 'rakr/vim-one' ", { 'rtp': 'vim' }
   Plug 'NLKNguyen/papercolor-theme'
-  Plug 'kaicataldo/material.vim', { 'branch': 'main' }
-  Plug 'sainnhe/edge'
-  Plug 'connorholyday/vim-snazzy'
-  Plug 'sainnhe/sonokai'
-  Plug 'phanviet/vim-monokai-pro'
-  Plug 'sickill/vim-monokai'
-  Plug 'tomasr/molokai'
-  Plug 'dracula/vim'
 
   " Needs to be loaded at the end
   " Plug 'sheerun/vim-polyglot'
