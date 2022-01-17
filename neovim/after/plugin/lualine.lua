@@ -4,7 +4,7 @@ if (not status) then return end
 lualine.setup {
   options = {
     icons_enabled = true,
-    theme = 'solarized_dark',
+    theme = 'palenight',
     section_separators = {'', ''},
     component_separators = {'', ''},
     disabled_filetypes = {}
@@ -15,10 +15,20 @@ lualine.setup {
     lualine_c = {{
       'filename',
       file_status = true, -- displays file status (readonly status, modified status)
-      path = 0 -- 0 = just filename, 1 = relative path, 2 = absolute path
+      path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
+      symbols = {
+        modified = '[+]',
+        readonly = '[-]',
+        unnamed = '[No Name]',
+      }
     }},
     lualine_x = {
-      { 'diagnostics', sources = {"nvim_lsp"}, symbols = {error = ' ', warn = ' ', info = ' ', hint = ' '} },
+      {
+        'diagnostics',
+        sources = {"nvim_lsp"},
+        symbols = {error = ' ', warn = ' ', info = ' ', hint = ' '},
+        colored = true,
+      },
       'encoding',
       'filetype'
     },
