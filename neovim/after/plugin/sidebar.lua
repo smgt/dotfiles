@@ -1,4 +1,6 @@
-local sidebar = require("sidebar-nvim")
+local status, sidebar = pcall(require, "sidebar-nvim")
+if (not status) then return end
+
 sidebar.setup({
   open = true,
   side = "right",

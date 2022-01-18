@@ -55,3 +55,5 @@ let g:neomake_go_enabled_makers = [ 'go', 'golangci_lint' ]
   "\ 'errorformat':
   "\   '%f:%l:%c: %m'
   "\ }
+
+" vim: ts=4 sw=4 et

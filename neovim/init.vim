@@ -12,20 +12,18 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'tpope/vim-fugitive'
   Plug 'gregsexton/gitv'
 
-
+  " Tmux
   Plug 'benmills/vimux'
   Plug 'christoomey/vim-tmux-navigator'
-
-  Plug 'sebdah/vim-delve'
-  Plug 'junegunn/vim-emoji'
-  Plug 'junegunn/goyo.vim'
-  Plug 'norcalli/nvim-colorizer.lua'
 
   " Editor improvements
   " Plug 'neomake/neomake'
   " Plug 'sinetoami/lightline-neomake'
+  Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
   Plug 'vim-scripts/ZoomWin'
   Plug 'chentau/marks.nvim'
+  Plug 'sebdah/vim-delve'
+  Plug 'junegunn/goyo.vim'
 
   " Fuzzy file finder
   Plug 'nvim-lua/popup.nvim' " Required by telescope
@@ -59,6 +57,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 
   " LSP + treesitter plugins
   Plug 'neovim/nvim-lspconfig' " LSP for neovim
+  Plug 'williamboman/nvim-lsp-installer' " Install LSP servers
   " Plug 'glepnir/lspsaga.nvim' " Better ui for LSP
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Better syntax highlighting
   Plug 'hrsh7th/cmp-nvim-lsp' " Complete lsp
@@ -68,12 +67,13 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'hrsh7th/cmp-vsnip' " Complete vsnip
   Plug 'hrsh7th/nvim-cmp' " Compleation plugin
   " Symbol sidebar
-  Plug 'sidebar-nvim/sidebar.nvim'
-
+  " Plug 'sidebar-nvim/sidebar.nvim'
 
   " Eye candy
   Plug 'kyazdani42/nvim-web-devicons' " Icons
   Plug 'onsails/lspkind-nvim' " Icons for Completion
+  Plug 'junegunn/vim-emoji'
+  Plug 'norcalli/nvim-colorizer.lua'
 
   " Themes
   " neovim support
@@ -315,7 +315,7 @@ let g:python3_host_prog = '/usr/bin/python'
 "----------------------------------------------
 " Language: Ruby
 "----------------------------------------------
-let g:ruby_host_prog = '/home/simon/.asdf/installs/ruby/2.7.2/bin/neovim-ruby-host'
+let g:ruby_host_prog = '/usr/bin/ruby'
 
 "----------------------------------------------
 " Language: Golang
@@ -393,6 +393,8 @@ let g:go_metalinter_enabled = [
 let g:go_addtags_transform = "snakecase"
 
 let test#strategy = "tslime"
+
+let g:terraform_fmt_on_save=1
 
 au FileType make set noexpandtab
 
