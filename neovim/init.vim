@@ -170,7 +170,11 @@ let g:everforest_background = 'hard'
 " colorscheme dracula
 
 let g:palenight_terminal_italics=1
-colorscheme palenight
+"colorscheme palenight
+
+let g:tokyonight_style = "storm"
+let g:tokyonight_sidebars = ["Sidebar"]
+colorscheme tokyonight
 
 "----
 "  Theme: papercolor
