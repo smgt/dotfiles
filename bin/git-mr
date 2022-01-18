@@ -27,7 +27,7 @@ if [[ $git_branch == *"/"* ]];then
 fi
 
 if [ -n "$JIRA_ID" ];then
-  JIRA_SUMMARY=$("$COMMAND_JIRA" req --gjq fields.summary "/rest/api/2/issue/${JIRA_ID}")
+  eval "$("$COMMAND_JIRA" req -t gitlab-mr "/rest/api/2/issue/${JIRA_ID}")"
   if [ -z "$JIRA_SUMMARY" ];then
     echo "Could not find jira ticket ${JIRA_ID}."
     exit 1
@@ -35,8 +35,7 @@ if [ -n "$JIRA_ID" ];then
 fi
 
 if [ -z "$JIRA_SUMMARY" ];then
-  ${COMMAND_GITLAB} mr create --asignee ${GITLAB_USER} --draft
+  ${COMMAND_GITLAB} mr create --assignee ${GITLAB_USER} --draft
 else
-  ${COMMAND_GITLAB} mr create --assignee ${GITLAB_USER} -t "$JIRA_ID $JIRA_SUMMARY" --draft -d "$(jira share "$JIRA_ID")   
-Closes ${JIRA_ID}   "
+  ${COMMAND_GITLAB} mr create --assignee ${GITLAB_USER} -t "$JIRA_ID ${JIRA_SUMMARY}" --draft -d "${JIRA_DESCRIPTION}"
 fi
