@@ -1,5 +1,34 @@
-local nvim_lsp = require('lspconfig')
+-- local nvim_lsp = require('lspconfig')
+local lsp_installer = require("nvim-lsp-installer")
 local protocol = require'vim.lsp.protocol'
+
+-- Install LSP servers
+local servers = {
+  "bashls",
+  "dockerls",
+  -- "efm",
+  "gopls",
+  "jsonls",
+  "jsonnet_ls",
+  "pyright",
+  "rust_analyzer",
+  "solargraph",
+  "sumneko_lua",
+  "taplo",
+  "terraformls",
+  "tflint",
+  "vimls",
+  "yamlls",
+}
+
+for _, name in pairs(servers) do
+  local server_is_found, server = lsp_installer.get_server(name)
+  if server_is_found and not server:is_installed() then
+    print("Installing " .. name)
+    server:install()
+  end
+end
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -7,7 +36,7 @@ local on_attach = function(client, bufnr)
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
   -- Enable completion triggered by <c-x><c-o>
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+  -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- Mappings.
   local opts = { noremap=true, silent=true }
@@ -64,6 +93,7 @@ local on_attach = function(client, bufnr)
 
   -- Custom diagnostic icons
   local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+
   for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
@@ -73,8 +103,8 @@ local on_attach = function(client, bufnr)
   if client.resolved_capabilities.document_formatting then
     vim.api.nvim_command [[augroup Format]]
     vim.api.nvim_command [[autocmd! * <buffer>]]
-    -- vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]]
-    vim.api.nvim_command [[autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync(nil, 1000)]]
+    vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]]
+    --vim.api.nvim_command [[autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync(nil, 1000)]]
     vim.api.nvim_command [[augroup END]]
   end
 
@@ -83,11 +113,31 @@ end
 -- Enable cmp for each lsp server
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
+-- Register a handler that will be called for all installed servers.
+-- Alternatively, you may also register handlers on specific server instances instead (see example below).
+lsp_installer.on_server_ready(function(server)
+    local opts = {
+      capabilities = capabilities,
+      on_attach = on_attach,
+      flags = {
+        debounce_text_changes = 150,
+      },
+    }
+
+    -- (optional) Customize the options passed to the server
+    -- if server.name == "tsserver" then
+    --     opts.root_dir = function() ... end
+    -- end
+
+    -- This setup() function is exactly the same as lspconfig's setup function.
+    -- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+    server:setup(opts)
+end)
+
 -- Setup lspconfig.
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'pyright', 'rust_analyzer', 'solargraph', 'terraformls' }
-nvim_lsp['gopls'].setup {
+--[[ nvim_lsp['gopls'].setup {
   capabilities = capabilities,
   on_attach = on_attach,
   flags = {
@@ -98,7 +148,9 @@ nvim_lsp['gopls'].setup {
       buildFlags = {"-tags=integration"}
     }
   }
-}
+} ]]
+
+--[[ local servers = { 'pyright', 'rust_analyzer', 'solargraph', 'sumneko_lua', 'efm', 'terraformls'}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     capabilities = capabilities,
@@ -107,10 +159,10 @@ for _, lsp in ipairs(servers) do
       debounce_text_changes = 150,
     }
   }
-end
+end ]]
 
 -- Organize imports in golang
-function goimports(timeout_ms)
+--[[function goimports(timeout_ms)
   local context = { only = { "source.organizeImports" } }
   vim.validate { context = { context, "t", true } }
 
@@ -141,3 +193,4 @@ function goimports(timeout_ms)
 end
 
 vim.api.nvim_command [[autocmd BufWritePre *.go lua goimports(1000)]]
+

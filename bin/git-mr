@@ -37,5 +37,5 @@ fi
 if [ -z "$JIRA_SUMMARY" ];then
   ${COMMAND_GITLAB} mr create --assignee ${GITLAB_USER} --draft
 else
-  ${COMMAND_GITLAB} mr create --assignee ${GITLAB_USER} -t "$JIRA_ID $JIRA_SUMMARY" --draft -d "${JIRA_DESCRIPTION}"
+  ${COMMAND_GITLAB} mr create --assignee ${GITLAB_USER} -t "$JIRA_ID ${JIRA_SUMMARY}" --draft -d "${JIRA_DESCRIPTION}"
 fi

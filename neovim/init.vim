@@ -12,19 +12,18 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'tpope/vim-fugitive'
   Plug 'gregsexton/gitv'
 
-
+  " Tmux
   Plug 'benmills/vimux'
   Plug 'christoomey/vim-tmux-navigator'
-
-  Plug 'sebdah/vim-delve'
-  Plug 'junegunn/vim-emoji'
-  Plug 'junegunn/goyo.vim'
-  Plug 'ap/vim-css-color'
 
   " Editor improvements
   " Plug 'neomake/neomake'
   " Plug 'sinetoami/lightline-neomake'
+  Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
   Plug 'vim-scripts/ZoomWin'
+  Plug 'chentau/marks.nvim'
+  Plug 'sebdah/vim-delve'
+  Plug 'junegunn/goyo.vim'
 
   " Fuzzy file finder
   Plug 'nvim-lua/popup.nvim' " Required by telescope
@@ -38,13 +37,13 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'rafamadriz/friendly-snippets'
 
   " Statusline
-  " Plug 'hoob3rt/lualine.nvim'
-  Plug 'itchyny/lightline.vim'
+  Plug 'hoob3rt/lualine.nvim'
 
   " Language support
   Plug 'vim-crystal/vim-crystal'
   Plug 'PyGamer0/vim-apl'
   Plug 'baruchel/vim-notebook'
+  Plug 'ray-x/go.nvim'
   " Plug 'vim-ruby/vim-ruby'
   " Plug 'elixir-lang/vim-elixir'
   " Plug 'ekalinin/Dockerfile.vim'
@@ -58,6 +57,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 
   " LSP + treesitter plugins
   Plug 'neovim/nvim-lspconfig' " LSP for neovim
+  Plug 'williamboman/nvim-lsp-installer' " Install LSP servers
   " Plug 'glepnir/lspsaga.nvim' " Better ui for LSP
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Better syntax highlighting
   Plug 'hrsh7th/cmp-nvim-lsp' " Complete lsp
@@ -66,31 +66,37 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'hrsh7th/cmp-cmdline' " Complete commands
   Plug 'hrsh7th/cmp-vsnip' " Complete vsnip
   Plug 'hrsh7th/nvim-cmp' " Compleation plugin
-
-  " Needs to be loaded at the end
-  "Plug 'sheerun/vim-polyglot'
+  " Symbol sidebar
+  " Plug 'sidebar-nvim/sidebar.nvim'
 
   " Eye candy
   Plug 'kyazdani42/nvim-web-devicons' " Icons
   Plug 'onsails/lspkind-nvim' " Icons for Completion
+  Plug 'junegunn/vim-emoji'
+  Plug 'norcalli/nvim-colorizer.lua'
 
   " Themes
+  " neovim support
+  Plug 'catppuccin/nvim', {'as': 'catppuccin'}
+  Plug 'rakr/vim-one' ", { 'rtp': 'vim' }
+  Plug 'marko-cerovac/material.nvim'
+  Plug 'sainnhe/sonokai'
+  Plug 'sainnhe/edge'
+  Plug 'ray-x/aurora'
+  Plug 'shaunsingh/moonlight.nvim'
   Plug 'sainnhe/everforest'
-  Plug 'liuchengxu/space-vim-theme'
-  Plug 'sonph/onehalf', { 'rtp': 'vim' }
+  Plug 'dracula/vim'
+  Plug 'EdenEast/nightfox.nvim'
+  Plug 'folke/tokyonight.nvim'
+  Plug 'NLKNguyen/papercolor-theme'
+  Plug 'tanvirtin/monokai.nvim'
+  Plug 'drewtempelmeyer/palenight.vim'
+
+  " Plug 'liuchengxu/space-vim-theme'
+  " Plug 'sonph/onehalf', { 'rtp': 'vim' }
   " Plug 'kyoz/purify', { 'rtp': 'vim' }
   "Plug 'crusoexia/vim-monokai'
   "Plug 'joshdick/onedark.vim'
-  Plug 'rakr/vim-one' ", { 'rtp': 'vim' }
-  Plug 'NLKNguyen/papercolor-theme'
-  Plug 'kaicataldo/material.vim', { 'branch': 'main' }
-  Plug 'sainnhe/edge'
-  Plug 'connorholyday/vim-snazzy'
-  Plug 'sainnhe/sonokai'
-  Plug 'phanviet/vim-monokai-pro'
-  Plug 'sickill/vim-monokai'
-  Plug 'tomasr/molokai'
-  Plug 'dracula/vim'
 
   " Needs to be loaded at the end
   " Plug 'sheerun/vim-polyglot'
@@ -104,6 +110,7 @@ set autoread                      " reload file if the file changes on the disk
 set autowrite                     " write when switching buffers
 set autowriteall                  " write on :quit
 set clipboard=unnamedplus
+set cursorline
 "set colorcolumn=81                " highlight the 80th column as an indicator
 "set completeopt-=preview          " remove the horrendous preview window
 set completeopt=menu,menuone,noselect " from hrsh7th/cmp
@@ -144,88 +151,47 @@ set guicursor=n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor
 " Location of tags file
 set tags=./.git/tags,./tags,tags;
 
-let g:sonokai_style = 'shusia'
-let g:sonokai_enable_italic = 1
-let g:sonokai_disable_italic_comment = 1
+let g:sonokai_style = 'maia'
+let g:sonokai_enable_italics = 1
+"colorscheme sonokai
 
-"----
-"  Theme: Space dark
-"----
-"let g:space_vim_theme_background = 235
-"color space_vim_theme
+let g:everforest_enable_italic = 1
+let g:everforest_background = 'hard'
+"colorscheme everforest
 
-" Grey comments instead of green
-"hi Comment guifg=#5C6370 ctermfg=59
+" colorscheme tokyonight
 
-" Fix background in ruler and gutter
-"hi LineNr ctermbg=NONE guibg=NONE
+"colorscheme duskfox
 
-"----
-"  Theme: onehalf
-"---
-"set cursorline
-"color onehalfdark
-"let g:airline_theme='onehalfdark'
+"let g:aurora_italic = 1
+"let g:aurora_bold = 1
+"colorscheme aurora
 
-"----
-"  Theme: vim-one
-"---
-"colorscheme one
-"set background=dark
-"let g:airline_theme='onedark'
+" colorscheme dracula
 
-"----
-"  Theme: purify
-"---
-"color purify
-"let g:airline_theme='purify'
-
-"----
-"  Theme: palenight
-"---
-"set background=dark
+let g:palenight_terminal_italics=1
 "colorscheme palenight
-"let g:airline_theme = "palenight"
 
-"----
-"  Theme: monokai
-"----
-"colorscheme monokai
-"let g:airline_theme='monokai_tasty'
-
-" Clear the background
-"highlight Normal guibg=NONE ctermbg=NONE
-"hi LineNr     ctermbg=NONE guibg=NONE
-"hi SignColumn ctermbg=NONE guibg=NONE
-
-"----
-"  Theme: palenight
-"----
-"set background=dark
-"colorscheme palenight
-"let g:airline_theme='palenight'
-
-"" Italics for my favorite color scheme
-"let g:palenight_terminal_italics=1
-"
+let g:tokyonight_style = "storm"
+let g:tokyonight_sidebars = ["Sidebar"]
+colorscheme tokyonight
 
 "----
 "  Theme: papercolor
 "----
-set background=light
-set cursorline
-colorscheme PaperColor
-"let g:airline_theme='papercolor'
-let g:PaperColor_Theme_Options = {
-  \   'theme': {
-  \     'default': {
-  \       'override' : {
-  \         'spellbad':   ['#000000', '0'],
-  \         'spellcap':   ['#000000', '0'],
-  \       }
-  \     }
-  \   }
-  \ }
+" set background=light
+" colorscheme PaperColor
+" "let g:airline_theme='papercolor'
+" let g:PaperColor_Theme_Options = {
+"   \   'theme': {
+"   \     'default': {
+"   \       'override' : {
+"   \         'spellbad':   ['#000000', '0'],
+"   \         'spellcap':   ['#000000', '0'],
+"   \       }
+"   \     }
+"   \   }
+"   \ }
 
 " Searching
 set hlsearch
@@ -349,7 +315,7 @@ let g:python3_host_prog = '/usr/bin/python'
 "----------------------------------------------
 " Language: Ruby
 "----------------------------------------------
-let g:ruby_host_prog = '/home/simon/.asdf/installs/ruby/2.7.2/bin/neovim-ruby-host'
+let g:ruby_host_prog = '/usr/bin/ruby'
 
 "----------------------------------------------
 " Language: Golang
