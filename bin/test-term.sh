@@ -1,7 +1,8 @@
-echo -e '\e[1mbold\e[22m'
+echo -e 'normal'
 echo -e '\e[2mdim\e[22m'
 echo -e '\e[3mitalic\e[23m'
 echo -e '\e[1;3mbold italic\e[22;23m'
+echo -e '\e[1mbold\e[22m'
 echo -e '\e[4munderline\e[24m'
 echo -e '\e[4:1mthis is also underline (new in 0.52)\e[4:0m'
 echo -e '\e[21mdouble underline (new in 0.52)\e[24m'
@@ -45,15 +46,26 @@ echo -e "\x1b[4:4mdotted underline \x1b[58:2::255:0:0m and with color\x1b[0m"
 echo -e "\x1b[4:5mdashed underline \x1b[58:2::255:0:0m and with color\x1b[0m"
 
 
+
+echo
+echo Ligatures:
+liga="-<< -< -<- <-- <--- <<- <- -> ->> --> ---> ->- >- >>- <-> <--> <---> <----> <!--\n
+=<< =< =<= <== <=== <<= <= => =>> ==> ===> =>= >= >>= <=> <==> <===> <====> <!---\n
+[| |] {| |} <=< >=> <~~ <~ ~> ~~> :: ::: \/ /\ == != /= ~= <> === !== =/= =!= :>\n
+:= :- :+ <* <*> *> <| <|> |> <. <.> .> +: -: =: <***> __ (* comm *) ++ +++ |- -|"
+echo "Normal:"
+echo -e " "$liga
+echo -e "\e[3mItalic:\e[0m"
+echo -e "\e[3m" $liga"\e[0m"
+echo -e "\e[1mBold:\e[0m"
+echo -e "\e[1m" $liga"\e[0m"
+
 echo
 echo "Emoji: 🚀 💩 😁 🍖 🔥 🔷"
 
 echo
-echo "Ligatures:"
-echo "-<< -< -<- <-- <--- <<- <- -> ->> --> ---> ->- >- >>- <-> <--> <---> <----> <!--"
-echo "=<< =< =<= <== <=== <<= <= => =>> ==> ===> =>= >= >>= <=> <==> <===> <====> <!---"
-echo "[| |] {| |} <=< >=> <~~ <~ ~> ~~> :: ::: \/ /\ == != /= ~= <> === !== =/= =!= :>"
-echo ":= :- :+ <* <*> *> <| <|> |> <. <.> .> +: -: =: <***> __ (* comm *) ++ +++ |- -|"
+echo Nerd font:
+echo -e " 歷    שּ      "
 
 echo 
 echo 24-bit colors:
