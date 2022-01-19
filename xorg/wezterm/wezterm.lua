@@ -2,7 +2,8 @@ local wezterm = require 'wezterm';
 
 -- A helper function for my fallback fonts
 function font_with_fallback(name, params)
-  local names = {name, "Noto Color Emoji", "JetBrains Mono"}
+  -- local names = {name, "Noto Color Emoji", "JetBrains Mono"}
+  local names = {name, "Noto Color Emoji", "Anonymice Nerd Font"}
   return wezterm.font_with_fallback(names, params)
 end
 
@@ -39,16 +40,14 @@ function font_victor_mono()
 end
 
 function font_iosevka()
-  local family = "Iosevka"
-  local features = {"calt=1", "dlig=0", "ss20=1"}
+  local family = "Iosevka Term Curly"
+  local features = {"calt=1", "dlig=1", "cv36=4"}
   local italic_features = features
   local rules = {
-    -- Italic text
-    -- <=>
-    -- <=> ~~> --> == <=
-    -- k
+    -- Italic
     {
       italic = true,
+      intensity = "Normal",
       font = wezterm.font({
         family=family,
         weight="Regular",
@@ -58,8 +57,8 @@ function font_iosevka()
     },
     -- Italic + bold
     {
-      intensity = "Bold",
       italic = true,
+      intensity = "Bold",
       font = wezterm.font({
         family=family,
         weight="Bold",
@@ -72,10 +71,19 @@ function font_iosevka()
       intensity = "Bold",
       font = wezterm.font({
         family=family,
-        weight="DemiBold",
+        weight="Bold",
         harfbuzz_features=features,
       }),
-    }
+    },
+    -- Half
+    {
+      intensity = "Half",
+      font = wezterm.font({
+        family=family,
+        weight="ExtraLight",
+        harfbuzz_features=features,
+      }),
+    },
   }
   return rules
 end
@@ -84,10 +92,11 @@ return {
   -- font = wezterm.font("JetBrainsMono Nerd Font"),
   -- font = wezterm.font("VictorMono Nerd Font", {italic=false}),
   font = font_with_fallback({
-    family="Iosevka",
+    family="Iosevka Term Curly",
     harfbuzz_features={"calt=1", "clig=1", "dlig=1"},
   }),
   font_rules = font_iosevka(),
+
   font_size = 10.0,
   enable_tab_bar = false,
   color_scheme_dirs = {"$HOME/.config/wezterm/colors"},
