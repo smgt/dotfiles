@@ -40,7 +40,7 @@ end
 
 function font_iosevka()
   local family = "Iosevka"
-  local features = {"calt=0", "dlig=1", "ss20=1"}
+  local features = {"calt=1", "dlig=0", "ss20=1"}
   local italic_features = features
   local rules = {
     -- Italic text
@@ -85,7 +85,7 @@ return {
   -- font = wezterm.font("VictorMono Nerd Font", {italic=false}),
   font = font_with_fallback({
     family="Iosevka",
-    harfbuzz_features={"calt=1", "clig=1"},
+    harfbuzz_features={"calt=1", "clig=1", "dlig=1"},
   }),
   font_rules = font_iosevka(),
   font_size = 10.0,
