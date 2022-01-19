@@ -1,4 +1,4 @@
-alias dotvim='vim $DOTFILES'
+alias dotvim='pushd $DOTFILES && vim . && popd'
 alias dotcd='cd $DOTFILES'
 alias reload!='. ~/.zshrc'
 

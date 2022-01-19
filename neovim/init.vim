@@ -53,7 +53,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   " Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
   " Plug 'vim-python/python-syntax'
   " Plug 'rust-lang/rust.vim'
-  " Plug 'hashivim/vim-terraform'
+  Plug 'hashivim/vim-terraform'
 
   " LSP + treesitter plugins
   Plug 'neovim/nvim-lspconfig' " LSP for neovim
