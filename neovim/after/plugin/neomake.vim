@@ -1,4 +1,4 @@
-if !exists(':NeoMake') | finish | endif
+if !exists(':Neomake') | finish | endif
 "----------------------------------------------
 " Plugin: neomake/neomake
 "----------------------------------------------
@@ -28,13 +28,12 @@ hi default link NeomakeWarningSign SpellCap
       "\ highlight link NeomakeError SpellBad |
       "\ highlight link NeomakeWarning SpellCap guisp=White
     "augroup END
+let g:neomake_c_enabled_makers=['gcc', 'cppcheck']
+let g:neomake_go_enabled_makers = [ 'golangci_lint' ]
 
 " When writing a buffer (no delay).
 " call neomake#configure#automake('wr')
-call neomake#configure#automake('rw', 1000)
-
-let g:neomake_c_enabled_makers=['gcc', 'cppcheck']
-let g:neomake_go_enabled_makers = [ 'go', 'golangci_lint' ]
+call neomake#configure#automake('nw', 1000)
 
 "let g:neomake_go_enabled_makers = []
 "let g:neomake_go_enabled_makers = [ 'go', 'golangci_lint' ]
