@@ -43,16 +43,6 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'vim-crystal/vim-crystal'
   Plug 'PyGamer0/vim-apl'
   Plug 'baruchel/vim-notebook'
-  Plug 'ray-x/go.nvim'
-  " Plug 'vim-ruby/vim-ruby'
-  " Plug 'elixir-lang/vim-elixir'
-  " Plug 'ekalinin/Dockerfile.vim'
-  " Plug 'elzr/vim-json'
-  " Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'tags': '*'}
-  " Plug 'mattn/vim-goimports'
-  " Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
-  " Plug 'vim-python/python-syntax'
-  " Plug 'rust-lang/rust.vim'
   Plug 'hashivim/vim-terraform'
 
   " LSP + treesitter plugins

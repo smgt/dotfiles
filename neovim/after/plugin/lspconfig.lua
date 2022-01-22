@@ -6,7 +6,7 @@ local protocol = require'vim.lsp.protocol'
 local servers = {
   "bashls",
   "dockerls",
-  -- "efm",
+  "efm",
   "gopls",
   "jsonls",
   "jsonnet_ls",
@@ -113,6 +113,47 @@ end
 -- Enable cmp for each lsp server
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
+-- custom langserver settings
+local custom_server_opts = {
+  ["efm"] = function(opts)
+    opts.init_options = { documentFormatting = true }
+    opts.settings = {
+      rootMarkers = {".git/"},
+      languages ={
+        sh = {
+          { 
+            prefix = "shellcheck",
+            lintCommand = "shellcheck -f gcc -x",
+            lintSource = "shellcheck",
+            --[[ lintFormats = {
+              "%f:%l:%c: %trror: %m",
+              "%f:%l:%c: %tarning: %m",
+              "%f:%l:%c: %tote: %m",
+            } ]]
+          }
+        },
+        go = {
+          { prefix = "golangci-lint", lintCommand = "golangci-lint run --print-issued-lines=false --out-format line-number --issues-exit-code=0", lintIgnoreExitCode = true, },
+          { prefix = "goimports", formatCommand = "goimports", formatStdin = true },
+        },
+        proto = {
+          { prefix = "buf", lintCommand = "buf lint --path", rootMarkers = { "buf.yaml"} },
+        },
+        dockerfile = {
+          { prefix = "hadolint", lintCommand = "hadolint --no-color", lintFormats = {"%f:%l %m"} },
+        },
+      },
+    }
+  end,
+  ["ruby"] = function(opts)
+    opts.settings = {
+      format = {
+        enable = false
+      },
+    }
+  end,
+}
+
 -- Register a handler that will be called for all installed servers.
 -- Alternatively, you may also register handlers on specific server instances instead (see example below).
 lsp_installer.on_server_ready(function(server)
@@ -128,6 +169,9 @@ lsp_installer.on_server_ready(function(server)
     -- if server.name == "tsserver" then
     --     opts.root_dir = function() ... end
     -- end
+    if custom_server_opts[server.name] then
+      custom_server_opts[server.name](opts)
+    end
 
     -- This setup() function is exactly the same as lspconfig's setup function.
     -- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
