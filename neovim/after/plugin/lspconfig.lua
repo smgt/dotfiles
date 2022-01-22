@@ -104,7 +104,6 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_command [[augroup Format]]
     vim.api.nvim_command [[autocmd! * <buffer>]]
     vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]]
-    --vim.api.nvim_command [[autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync(nil, 1000)]]
     vim.api.nvim_command [[augroup END]]
   end
 
@@ -145,10 +144,14 @@ local custom_server_opts = {
       },
     }
   end,
-  ["ruby"] = function(opts)
+  ["solargraph"] = function(opts)
+    opts.init_options = {
+      formatting = false
+    }
     opts.settings = {
-      format = {
-        enable = false
+      solargraph = {
+        autoformat = false,
+        formatting = false,
       },
     }
   end,
