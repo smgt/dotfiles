@@ -56,6 +56,7 @@ systemctl --user import-environment DISPLAY
 dunst &
 type dropbox > /dev/null 2>&1 && { dropbox & }
 type xss-lock >/dev/null 2>&1 && { xss-lock -- "$HOME/.dotfiles/bin/lock" & }
+type xssproxy > /dev/null 2>&1 && { xssproxy & }
 #autocutsel -fork &
 #autocutsel -selection PRIMARY -fork &
 #exec ssh-agent i3
