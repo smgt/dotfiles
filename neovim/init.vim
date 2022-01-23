@@ -33,8 +33,6 @@ call plug#begin('~/.local/share/nvim/plugged')
   " Plug 'hrsh7th/vim-vsnip'
   " Plug 'hrsh7th/vim-vsnip-integ'
   " Plug 'rafamadriz/friendly-snippets'
-  Plug 'L3MON4D3/LuaSnip'
-  Plug 'honza/vim-snippets'
 
   " Statusline
   Plug 'hoob3rt/lualine.nvim'
@@ -56,6 +54,9 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'hrsh7th/cmp-cmdline' " Complete commands
   Plug 'hrsh7th/cmp-vsnip' " Complete vsnip
   Plug 'hrsh7th/nvim-cmp' " Compleation plugin
+  Plug 'L3MON4D3/LuaSnip'
+  Plug 'saadparwaiz1/cmp_luasnip'
+  Plug 'honza/vim-snippets'
   " Symbol sidebar
   " Plug 'sidebar-nvim/sidebar.nvim'
 
