@@ -17,8 +17,6 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'christoomey/vim-tmux-navigator'
 
   " Editor improvements
-  " Plug 'neomake/neomake'
-  " Plug 'sinetoami/lightline-neomake'
   Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
   Plug 'vim-scripts/ZoomWin'
   Plug 'chentau/marks.nvim'
