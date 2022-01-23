@@ -30,9 +30,11 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'nvim-telescope/telescope-fzy-native.nvim' " Faster telescope
 
   " Snippets
-  Plug 'hrsh7th/vim-vsnip'
-  Plug 'hrsh7th/vim-vsnip-integ'
-  Plug 'rafamadriz/friendly-snippets'
+  " Plug 'hrsh7th/vim-vsnip'
+  " Plug 'hrsh7th/vim-vsnip-integ'
+  " Plug 'rafamadriz/friendly-snippets'
+  Plug 'L3MON4D3/LuaSnip'
+  Plug 'honza/vim-snippets'
 
   " Statusline
   Plug 'hoob3rt/lualine.nvim'
