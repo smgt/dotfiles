@@ -3,12 +3,13 @@ local has_words_before = function()
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
+-- Setup luasnip
+local luasnip = require('luasnip')
+require("luasnip.loaders.from_snipmate").load()
+
 -- Setup lspkind
 -- Add small pictograms to lsp
 local lspkind = require('lspkind')
-
-local luasnip = require('luasnip')
-require("luasnip.loaders.from_snipmate").load()
 
 -- Setup nvim-cmp.
 local cmp = require'cmp'
@@ -86,11 +87,3 @@ cmp.setup.cmdline(':', {
       { name = 'cmdline' }
     })
 })
-
--- Setup lspconfig.
--- local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
--- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
--- require('lspconfig')['gopls', 'rust_analyzer', 'solargraph', 'pyright'].setup {
-  -- capabilities = capabilities
--- }
---
