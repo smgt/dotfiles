@@ -28,6 +28,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'nvim-lua/plenary.nvim' " Required by telescope
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'nvim-telescope/telescope-fzy-native.nvim' " Faster telescope
+  Plug 'nvim-telescope/telescope-symbols.nvim'
 
   " Snippets
   " Plug 'hrsh7th/vim-vsnip'
@@ -42,6 +43,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'PyGamer0/vim-apl'
   Plug 'baruchel/vim-notebook'
   Plug 'hashivim/vim-terraform'
+  Plug 'ellisonleao/glow.nvim'
 
   " LSP + treesitter plugins
   Plug 'neovim/nvim-lspconfig' " LSP for neovim
