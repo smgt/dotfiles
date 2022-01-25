@@ -82,6 +82,10 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'NLKNguyen/papercolor-theme'
   Plug 'tanvirtin/monokai.nvim'
   Plug 'drewtempelmeyer/palenight.vim'
+  Plug 'sainnhe/gruvbox-material'
+  Plug 'rose-pine/neovim'
+  Plug 'navarasu/onedark.nvim'
+  Plug 'RRethy/nvim-base16'
 
   " Plug 'liuchengxu/space-vim-theme'
   " Plug 'sonph/onehalf', { 'rtp': 'vim' }
@@ -142,6 +146,11 @@ set guicursor=n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor
 " Location of tags file
 set tags=./.git/tags,./tags,tags;
 
+" let g:gruvbox_material_background = 'medium'
+" let g:gruvbox_material_enable_italic = 1
+" let g:gruvbox_material_disable_italic_comment = 0
+" colorscheme gruvbox-material
+
 let g:sonokai_style = 'maia'
 let g:sonokai_enable_italics = 1
 "colorscheme sonokai
@@ -152,7 +161,8 @@ let g:everforest_background = 'hard'
 
 " colorscheme tokyonight
 
-"colorscheme duskfox
+
+colorscheme duskfox
 
 "let g:aurora_italic = 1
 "let g:aurora_bold = 1
@@ -165,7 +175,7 @@ let g:palenight_terminal_italics=1
 
 let g:tokyonight_style = "storm"
 let g:tokyonight_sidebars = ["Sidebar"]
-colorscheme tokyonight
+"colorscheme tokyonight
 
 "----
 "  Theme: papercolor

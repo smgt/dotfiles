@@ -4,7 +4,7 @@ if (not status) then return end
 lualine.setup {
   options = {
     icons_enabled = true,
-    theme = 'tokyonight',
+    theme = 'nightfox',
     section_separators = {'', ''},
     component_separators = {'', ''},
     disabled_filetypes = {}
