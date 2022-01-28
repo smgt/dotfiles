@@ -1,6 +1,6 @@
 configuration {
 	modi: "combi,window";
-	font: "jetbrainsmono nerd font 12";
+	font: "iosevka term curly 16";
 	combi-modi: "window,run";
 }
 
