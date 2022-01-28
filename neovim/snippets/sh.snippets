@@ -1,0 +1,12 @@
+snippet getopts "short getopt with version"
+	while getopts ":hv" opt
+	do
+	  case $opt in
+		h|help     )  echo "halp";exit 0   ;;
+		v|version  )  echo "version"; exit 0   ;;
+		* )  echo -e "\n  Option does not exist : $OPTARG\n"
+			  usage; exit 1   ;;
+	  esac
+	done
+	shift $(($OPTIND-1))
+
