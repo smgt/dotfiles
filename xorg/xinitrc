@@ -52,7 +52,8 @@ export TERM=xterm-256color
 systemctl --user import-environment DISPLAY
 
 #compton --config /home/simon/.compton.conf &
-~/.fehbg &
+#~/.fehbg &
+xsetroot -solid "#0d1217"
 dunst &
 type dropbox > /dev/null 2>&1 && { dropbox & }
 type xss-lock >/dev/null 2>&1 && { xss-lock -- "$HOME/.dotfiles/bin/lock" & }
