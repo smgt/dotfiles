@@ -3,7 +3,7 @@ local wezterm = require 'wezterm';
 -- A helper function for my fallback fonts
 function font_with_fallback(name, params)
   -- local names = {name, "Noto Color Emoji", "JetBrains Mono"}
-  local names = {name, "Noto Color Emoji", "Anonymice Nerd Font"}
+  local names = {name, "Noto Color Emoji", "FiraCode Nerd Font"}
   return wezterm.font_with_fallback(names, params)
 end
 
@@ -39,11 +39,18 @@ function font_victor_mono()
   return rules
 end
 
-function font_iosevka()
+function FontIosevka(opts)
   local family = "Iosevka Term Curly"
-  local features = {"calt=1", "dlig=1", "cv36=4"}
+
+  local features = {"calt=0", "dlig=1", "clig=1"}
   local italic_features = features
-  local rules = {
+
+  opts.font = font_with_fallback({
+    family=family,
+    harfbuzz_features=features,
+  })
+
+  opts.font_rules = {
     -- Italic
     {
       italic = true,
@@ -85,22 +92,17 @@ function font_iosevka()
       }),
     },
   }
-  return rules
+  return opts
 end
 
-return {
+return FontIosevka({
   -- font = wezterm.font("JetBrainsMono Nerd Font"),
   -- font = wezterm.font("VictorMono Nerd Font", {italic=false}),
-  font = font_with_fallback({
-    family="Iosevka Term Curly",
-    harfbuzz_features={"calt=1", "clig=1", "dlig=1"},
-  }),
-  font_rules = font_iosevka(),
 
   font_size = 10.0,
   enable_tab_bar = false,
   color_scheme_dirs = {"$HOME/.config/wezterm/colors"},
-  color_scheme = "tokyonight-storm",
+  color_scheme = "duskfox",
 
   ssh_domains = {
     {
@@ -108,4 +110,4 @@ return {
       remote_address = "grunte",
     }
   },
-}
+})
