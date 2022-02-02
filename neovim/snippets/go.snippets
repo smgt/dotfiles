@@ -1,4 +1,4 @@
 snippet tr "test run function"
-	t.Run("${1:name}", t *testing.T) {
+	t.Run("${1:name}", func(t *testing.T) {
 		${0:${VISUAL}}
-	}
+	})
