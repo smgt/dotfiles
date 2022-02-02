@@ -7,6 +7,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'tpope/vim-unimpaired'
   " Plug 'preservim/nerdcommenter'
   Plug 'b3nj5m1n/kommentary' " Comments
+  Plug 'kyazdani42/nvim-tree.lua' " File tree
 
   " Git
   Plug 'tpope/vim-fugitive'
