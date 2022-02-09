@@ -51,7 +51,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'jose-elias-alvarez/null-ls.nvim' " Linters etc
   Plug 'neovim/nvim-lspconfig' " LSP for neovim
   Plug 'williamboman/nvim-lsp-installer' " Install LSP servers
-  " Plug 'glepnir/lspsaga.nvim' " Better ui for LSP
+  Plug 'tami5/lspsaga.nvim'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Better syntax highlighting
   Plug 'hrsh7th/cmp-nvim-lsp' " Complete lsp
   Plug 'hrsh7th/cmp-buffer' " Complete buffers
