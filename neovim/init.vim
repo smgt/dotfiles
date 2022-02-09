@@ -48,6 +48,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'ellisonleao/glow.nvim'
 
   " LSP + treesitter plugins
+  Plug 'jose-elias-alvarez/null-ls.nvim' " Linters etc
   Plug 'neovim/nvim-lspconfig' " LSP for neovim
   Plug 'williamboman/nvim-lsp-installer' " Install LSP servers
   " Plug 'glepnir/lspsaga.nvim' " Better ui for LSP
