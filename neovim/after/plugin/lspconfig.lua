@@ -6,7 +6,6 @@ local protocol = require'vim.lsp.protocol'
 local servers = {
   "bashls",
   "dockerls",
-  "efm",
   "gopls",
   "jsonls",
   "jsonnet_ls",
@@ -118,28 +117,29 @@ local custom_server_opts = {
     opts.settings = {
       rootMarkers = {".git/"},
       languages ={
-        sh = {
-          {
-            prefix = "shellcheck",
-            lintCommand = "shellcheck -f gcc -x",
-            lintSource = "shellcheck",
-            --[[ lintFormats = {
-              "%f:%l:%c: %trror: %m",
-              "%f:%l:%c: %tarning: %m",
-              "%f:%l:%c: %tote: %m",
-            } ]]
-          }
-        },
-        go = {
-          { prefix = "golangci-lint", lintCommand = "golangci-lint run --print-issued-lines=false --out-format line-number --issues-exit-code=0", lintIgnoreExitCode = true, },
-          { prefix = "goimports", formatCommand = "goimports", formatStdin = true },
-        },
+        --sh = {
+        --  {
+        --    prefix = "shellcheck",
+        --    lintCommand = "shellcheck -f gcc -x",
+        --    lintSource = "shellcheck",
+        --    lintIgnoreExitCode = "true",
+        --    --[[ lintFormats = {
+        --      "%f:%l:%c: %trror: %m",
+        --      "%f:%l:%c: %tarning: %m",
+        --      "%f:%l:%c: %tote: %m",
+        --    } ]]
+        --  }
+        --},
+        -- go = {
+        --   { prefix = "golangci-lint", lintCommand = "golangci-lint run --print-issued-lines=false --out-format line-number --issues-exit-code=0", lintIgnoreExitCode = true, },
+        --   { prefix = "goimports", formatCommand = "goimports", formatStdin = true },
+        -- },
         proto = {
           { prefix = "buf", lintCommand = "buf lint --path", rootMarkers = { "buf.yaml"} },
         },
-        dockerfile = {
-          { prefix = "hadolint", lintCommand = "hadolint --no-color", lintFormats = {"%f:%l %m"} },
-        },
+        -- dockerfile = {
+        --   { prefix = "hadolint", lintCommand = "hadolint --no-color", lintFormats = {"%f:%l %m"} },
+        -- },
       },
     }
   end,
