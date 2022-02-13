@@ -91,6 +91,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'rose-pine/neovim'
   Plug 'navarasu/onedark.nvim'
   Plug 'RRethy/nvim-base16'
+  Plug 'rebelot/kanagawa.nvim'
 
   " Plug 'liuchengxu/space-vim-theme'
   " Plug 'sonph/onehalf', { 'rtp': 'vim' }
@@ -164,10 +165,7 @@ let g:everforest_enable_italic = 1
 let g:everforest_background = 'hard'
 "colorscheme everforest
 
-" colorscheme tokyonight
-
-
-colorscheme duskfox
+"colorscheme duskfox
 
 "let g:aurora_italic = 1
 "let g:aurora_bold = 1
@@ -178,9 +176,10 @@ colorscheme duskfox
 let g:palenight_terminal_italics=1
 "colorscheme palenight
 
-let g:tokyonight_style = "storm"
-let g:tokyonight_sidebars = ["Sidebar"]
-"colorscheme tokyonight
+let g:tokyonight_style = 'storm'
+let g:tokyonight_sidebars = [ 'Sidebar', 'NvimTree' ]
+colorscheme tokyonight
+"colorscheme kanagawa
 
 "----
 "  Theme: papercolor
