@@ -51,3 +51,6 @@ export HOSTNAME=$(hostname)
 precmd() {
 	echo -ne "\033_${USER}@${HOSTNAME%%.*}"; echo -ne "\033\\"
 }
+
+# Fix gpg
+export GPG_TTY=$(tty)
