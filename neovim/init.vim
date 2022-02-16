@@ -142,7 +142,7 @@ set fileformat=unix
 set backspace=indent,eol,start
 
 syntax on
-let mapleader=","
+let mapleader=','
 
 " true colors
 set termguicolors
@@ -175,6 +175,7 @@ let g:everforest_background = 'hard'
 
 let g:palenight_terminal_italics=1
 "colorscheme palenight
+"
 
 let g:tokyonight_style = 'storm'
 let g:tokyonight_sidebars = [ 'Sidebar', 'NvimTree' ]
@@ -210,7 +211,7 @@ set smartcase
 ":nnoremap * /\<<C-R>=expand('<cword>')<CR>\><CR>
 
 " Remember last location in file
-if has("autocmd")
+if has('autocmd')
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
     \| exe "normal g'\"" | endif
 endif
@@ -282,7 +283,7 @@ nnoremap <silent> <c-\> :TmuxNavigatePrevious<cr>
 " Plugin: sebdah/vim-delve
 "----------------------------------------------
 " Set the Delve backend.
-let g:delve_backend = "native"
+let g:delve_backend = 'native'
 
 
 "----------------------------------------------
@@ -347,7 +348,7 @@ let g:ruby_host_prog = '/usr/bin/ruby'
 " au FileType go nmap <leader>gDv <Plug>(go-doc-vertical)
 
 " Run goimports when running gofmt
-let g:go_fmt_command = "goimports"
+let g:go_fmt_command = 'goimports'
 
 " Use fzf for declarations
 let g:go_decls_mode = 'fzf'
@@ -380,8 +381,8 @@ let g:go_test_show_name = 1
 let g:go_gocode_propose_source=1
 
 " gometalinter configuration
-let g:go_metalinter_command = ""
-let g:go_metalinter_deadline = "5s"
+let g:go_metalinter_command = ''
+let g:go_metalinter_deadline = '5s'
 let g:go_metalinter_enabled = [
     \ 'deadcode',
     \ 'gas',
@@ -395,17 +396,17 @@ let g:go_metalinter_enabled = [
 \]
 
 " Set whether the JSON tags should be snakecase or camelcase.
-let g:go_addtags_transform = "snakecase"
+let g:go_addtags_transform = 'snakecase'
 
-let test#strategy = "tslime"
+let test#strategy = 'tslime'
 
 let g:terraform_fmt_on_save=1
 
 au FileType make set noexpandtab
 
 let g:notebook_cmd = 'dyalog'
-let g:notebook_stop = ")off"
-let g:notebook_send0=""
+let g:notebook_stop = ')off'
+let g:notebook_send0 = ''
 let g:notebook_send = "'VIMDYALOGAPLNOTEBOOK'"
 let g:notebook_detect = 'VIMDYALOGAPLNOTEBOOK'
 let g:notebook_shell_internal = '/bin/sh'
