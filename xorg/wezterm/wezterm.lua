@@ -104,6 +104,7 @@ return FontIosevka({
   color_scheme_dirs = {"$HOME/.config/wezterm/colors"},
   color_scheme = "tokyonight-storm",
   force_reverse_video_cursor = true,
+  exit_behavior = "Close",
   -- Kanagawa
   -- colors = {
   --   foreground = "#dcd7ba",
