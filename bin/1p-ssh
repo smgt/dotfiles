@@ -77,6 +77,7 @@ sub_load() {
   fi
 
   # TODO: Check if ssh agent is running
+  # TODO: Add verification if hostname is not the same as key name
   ssh-add -t "$agent_timeout" <(echo "$key_private")
 }
 
