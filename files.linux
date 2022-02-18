@@ -12,3 +12,4 @@ xorg/compton.conf;.compton.conf
 xorg/Xmodmap;.Xmodmap
 xorg/dunst/dunstrc;.config/dunst/dunstrc
 xorg/wezterm;.config/wezterm
+xorg/picom;.config/picom
