@@ -1,0 +1,172 @@
+#!/bin/bash
+
+__ScriptVersion="0.0.1"
+
+info_print() {
+  echo -e "\e[32m▪▪▪\e[0m $1"
+}
+
+error_print() {
+  echo -e "\e[31mERROR:\e[0m $1"
+}
+
+read -r -d '' JSON <<EOF
+{
+  "notesPlain": %s,
+  "sections": [
+    {
+      "fields": [
+        {
+          "k": "string",
+          "n": "publickey",
+          "t": "Public key",
+          "v": %s
+        },
+        {
+          "k": "concealed",
+          "n": "privatekey",
+          "t": "Private key",
+          "v": %s
+        },
+        {
+          "k": "string",
+          "n": "sshAgentTimeout",
+          "t": "SSH Agent Timeout",
+          "v": "%s"
+        }
+      ]
+    }
+  ]
+}
+EOF
+
+function usage ()
+{
+  echo "Usage :  $0 [command] [options] [--]
+  FIX ME!
+
+    Options:
+    -h|help       Display this message
+    -v|version    Display script version"
+}
+
+# TODO: Check if op and jq is installed
+
+sub_load() {
+  local key_hostname
+  key_hostname=$(hostname)
+  local agent_timeout
+
+  while getopts "t:h:" opt
+  do
+    case $opt in
+    h) key_hostname=$OPTARG;;
+    t) agent_timeout=$OPTARG;;
+    *) error_print "unknown flag '$opt'"; exit 1 ;;
+    esac
+  done
+  shift $((OPTIND-1))
+
+  entry_title="SSHKey-$key_hostname"
+
+  eval $(op signin)
+  entry=$(op get item "$entry_title" --fields sshAgentTimeout,notesPlain)
+  key_private=$(echo "$entry" | jq -r '.notesPlain')
+  if [ -z "$agent_timeout" ];then
+    agent_timeout=$(echo "$entry" | jq -r '.sshAgentTimeout')
+  fi
+
+  # TODO: Check if ssh agent is running
+  ssh-add -t "$agent_timeout" <(echo "$key_private")
+}
+
+sub_create() {
+  local default_timeout="2h"
+  local key_hostname
+  key_hostname=$(hostname)
+
+  while getopts "t:h:" opt
+  do
+    case $opt in
+    h) key_hostname=$OPTARG;;
+    t) default_timeout=$OPTARG;;
+    *) error_print "unknown flag '$opt'"; exit 1 ;;
+    esac
+  done
+  shift $((OPTIND-1))
+
+  local key_private_path=$1
+  local key_public_path=$2
+
+  if [ -z "$key_private_path" ];then
+    error_print "You need to supply a private ssh key"
+    usage
+    exit 1
+  fi
+
+  if [ ! -f "$key_private_path" ];then
+    error_print "The private key file you supplied is not found"
+    usage
+    exit 1
+  fi
+
+  local key_public
+  if [ -n "$key_public_path" ];then
+    if [ ! -f "$key_public_path" ];then
+      error_print "The public key file supplied is not found"
+      usage
+      exit 1
+    fi
+  else
+    if [ ! -f "${key_private_path}.pub" ];then
+      error_print "Failed to load the public key '$key_private_path.pub'"
+      usage
+      exit 1
+    fi
+    key_public_path="$key_private_path.pub"
+  fi
+
+  local key_private
+  key_private=$(jq -sR < "$key_private_path")
+  local key_public
+  key_public=$(jq -sR < "$key_public_path")
+
+  eval $(op signin)
+  entry_title="SSHKey-$key_hostname"
+  if op get item "$entry_title" &> /dev/null;then
+    error_print "A entry for a ssh key named $entry_title already exists"
+    exit 1
+  else
+    entry=$(printf "$JSON" "$key_private" "$key_public" "$key_private" "$default_timeout"|op encode)
+    uuid=$(op create item "Secure Note" --title "$entry_title" --tags ssh "$entry" | jq -r '.uuid')
+    retval_op="${PIPESTATUS[0]}"
+    if [ $retval_op ];then
+      info_print "Created secure note 'SSHKey-$key_hostname' successfully ($uuid)"
+    else
+      error_print "Failed to create the ssh key entry in 1Password"
+      exit 1
+    fi
+  fi
+}
+
+subcommand=$1
+
+case $subcommand in
+  "" | "-h" | "--help")
+    usage
+    exit 1
+    ;;
+  "-v" | "--version")
+    echo "version: $__ScriptVersion"
+    exit 1
+    ;;
+  *)
+    shift
+    sub_${subcommand} $@
+    if [ $? == 127 ];then
+      error_print "'$subcommand' is not a known subcommand" >&2
+      usage
+      exit 1
+    fi
+    ;;
+esac
