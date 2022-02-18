@@ -22,7 +22,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
   Plug 'vim-scripts/ZoomWin'
   Plug 'chentau/marks.nvim'
-  Plug 'sebdah/vim-delve'
+  "Plug 'sebdah/vim-delve'
   Plug 'junegunn/goyo.vim'
 
   " Fuzzy file finder
@@ -31,6 +31,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'nvim-telescope/telescope-fzy-native.nvim' " Faster telescope
   Plug 'nvim-telescope/telescope-symbols.nvim'
+  Plug 'nvim-telescope/telescope-dap.nvim' " DAP in telescope
 
   " Snippets
   " Plug 'hrsh7th/vim-vsnip'
@@ -59,9 +60,17 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'hrsh7th/cmp-cmdline' " Complete commands
   Plug 'hrsh7th/cmp-vsnip' " Complete vsnip
   Plug 'hrsh7th/nvim-cmp' " Compleation plugin
+
+  " Snippets
   Plug 'L3MON4D3/LuaSnip'
   Plug 'saadparwaiz1/cmp_luasnip'
   Plug 'honza/vim-snippets'
+
+  " Debugging with dap
+  Plug 'mfussenegger/nvim-dap'
+  Plug 'leoluz/nvim-dap-go'
+  Plug 'rcarriga/nvim-dap-ui'
+
   " Symbol sidebar
   " Plug 'sidebar-nvim/sidebar.nvim'
 
