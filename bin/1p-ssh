@@ -3,6 +3,17 @@
 set -e
 
 __ScriptVersion="0.0.1"
+op_session_name="my"
+#op_session_variable='$'"OP_SESSION_${op_session_name}"
+op_session=""
+eval op_session='$OP_SESSION_'$op_session_name
+
+op_signin() {
+  if [ -z "$op_session" ];then
+    echo "signed out, signing in"
+    op_session=$(op signin $op_session_name --raw)
+  fi
+}
 
 info_print() {
   echo -e "\e[32m▪▪▪\e[0m $1"
@@ -73,8 +84,10 @@ sub_load() {
   shift $((OPTIND-1))
 
   entry_title="SSHKey-$key_hostname"
+
   op_session=$(op signin --raw)
   entry=$(op --session "$op_session" get item "$entry_title" --fields sshAgentTimeout,notesPlain)
+
   key_private=$(echo "$entry" | jq -r '.notesPlain')
   if [ -z "$agent_timeout" ];then
     agent_timeout=$(echo "$entry" | jq -r '.sshAgentTimeout')
@@ -136,14 +149,14 @@ sub_create() {
   local key_public
   key_public=$(jq -sR < "$key_public_path")
 
-  eval $(op signin)
+  op_session=$(op signin --raw)
   entry_title="SSHKey-$key_hostname"
-  if op get item "$entry_title" &> /dev/null;then
+  if op --session "$op_session" get item "$entry_title" &> /dev/null;then
     error_print "A entry for a ssh key named $entry_title already exists"
     exit 1
   else
     entry=$(printf "$JSON" "$key_private" "$key_public" "$key_private" "$default_timeout"|op encode)
-    uuid=$(op create item "Secure Note" --title "$entry_title" --tags ssh "$entry" | jq -r '.uuid')
+    uuid=$(op --session "$op_session" create item "Secure Note" --title "$entry_title" --tags ssh "$entry" | jq -r '.uuid')
     retval_op="${PIPESTATUS[0]}"
     if [ $retval_op ];then
       info_print "Created secure note 'SSHKey-$key_hostname' successfully ($uuid)"
@@ -152,6 +165,56 @@ sub_create() {
       exit 1
     fi
   fi
+}
+
+sub_export() {
+  local private_path
+  local key_hostname
+  key_hostname=$(hostname)
+
+  while getopts "h:" opt
+  do
+    case $opt in
+    h) key_hostname=$OPTARG;;
+    *) error_print "unknown flag '$opt'"; exit 1 ;;
+    esac
+  done
+  shift $((OPTIND-1))
+
+  if [ -z "$1" ];then
+    error_print "Please supply a output file name for the key"
+    usage
+    exit 1
+  fi
+
+  if [ -f "$1" ];then
+    error_print "There is already a existing file '$1'"
+    exit 1
+  fi
+
+  private_path="$1"
+
+  op_session=$(op signin --raw)
+  entry_title="SSHKey-$key_hostname"
+  entry=$(op --session "$op_session" get item "$entry_title" --fields notesPlain,publickey)
+  echo -n "$entry" | jq -r '.notesPlain' > "$private_path"
+  echo -n "$entry" | jq -r '.publickey' > "$private_path".pub
+}
+
+sub_public-key() {
+  local key_hostname
+  key_hostname=$(hostname)
+  while getopts "h:" opt
+  do
+    case $opt in
+    h) key_hostname=$OPTARG;;
+    *) error_print "unknown flag '$opt'"; exit 1 ;;
+    esac
+  done
+  shift $((OPTIND-1))
+  op_signin
+  entry_title="SSHKey-$key_hostname"
+  op --session "$op_session" get item "$entry_title" --fields publickey
 }
 
 subcommand=$1
