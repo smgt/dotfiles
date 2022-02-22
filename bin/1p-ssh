@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 __ScriptVersion="0.0.1"
 
 info_print() {
@@ -10,7 +12,10 @@ error_print() {
   echo -e "\e[31mERROR:\e[0m $1"
 }
 
-read -r -d '' JSON <<EOF
+# With -d no delimiter read always hits
+# EOF and returns a non 0 exit code.
+# To use set -e we always return true
+read -r -d '' JSON <<EOF || true
 {
   "notesPlain": %s,
   "sections": [
@@ -68,9 +73,8 @@ sub_load() {
   shift $((OPTIND-1))
 
   entry_title="SSHKey-$key_hostname"
-
-  eval $(op signin)
-  entry=$(op get item "$entry_title" --fields sshAgentTimeout,notesPlain)
+  op_session=$(op signin --raw)
+  entry=$(op --session "$op_session" get item "$entry_title" --fields sshAgentTimeout,notesPlain)
   key_private=$(echo "$entry" | jq -r '.notesPlain')
   if [ -z "$agent_timeout" ];then
     agent_timeout=$(echo "$entry" | jq -r '.sshAgentTimeout')
@@ -163,7 +167,7 @@ case $subcommand in
     ;;
   *)
     shift
-    sub_${subcommand} $@
+    sub_${subcommand} "$@"
     if [ $? == 127 ];then
       error_print "'$subcommand' is not a known subcommand" >&2
       usage
