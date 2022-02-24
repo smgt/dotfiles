@@ -8,19 +8,20 @@ hash_string256() {
 }
 
 if [ -n "$1" ];then
-  tmux -2 list-sessions|awk '{print $0}'|grep "$HOST" > /dev/null
-  if [ $? == 1 ];then
-    echo "You need to start a new session before you can attach it"
+  if ! tmux has-session -t "$HOST";then
+    echo "You need to start a new host session before you can attach it"
     exit 1
   fi
-  tmux -2 list-sessions|awk '{print $0}'|grep "$1" > /dev/null
-  if [ $? == 1 ];then
-    tmux new-session -d -t "$HOST" -s "$1"
+
+  if tmux has-session -t "$1";then
+    tmux -2 attach-session -t "$1"
+  else
+    tmux -2 new-session -s "$1"
   fi
-  tmux attach -t "$1"
 else
   # Create session
   tmux -2 new-session -d -s "$HOST"
+
   # Attach to session
   tmux -2 attach-session -t "$HOST"
 fi
