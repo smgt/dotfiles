@@ -188,7 +188,7 @@ let g:palenight_terminal_italics=1
 
 let g:tokyonight_style = 'storm'
 let g:tokyonight_sidebars = [ 'Sidebar', 'NvimTree' ]
-colorscheme tokyonight
+"colorscheme tokyonight
 "colorscheme kanagawa
 
 "----
@@ -207,6 +207,9 @@ colorscheme tokyonight
 "   \     }
 "   \   }
 "   \ }
+"
+let g:material_style = "oceanic"
+colorscheme material
 
 " Searching
 set hlsearch
