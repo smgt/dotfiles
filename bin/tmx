@@ -7,20 +7,6 @@ hash_string256() {
     printf "ibase=16; (%s + %X) %% 100 \n" "$hash_value" "$2" | bc
 }
 
-declare -A hosts
-#hosts[grunte]="colour210"
-#hosts[bean]="colour69"
-#hosts[sugarsnap]="colour220"
-#hosts[cucumber]="colour141"
-color_grey=colour237
-
-if [ ${hosts[$HOST]+_} ];then
-  color=${hosts[$HOST]}
-else
-  color="colour141"
-fi
-color="colour${HOSTCOLOR}"
-
 if [ -n "$1" ];then
   tmux -2 list-sessions|awk '{print $0}'|grep "$HOST" > /dev/null
   if [ $? == 1 ];then
@@ -33,12 +19,8 @@ if [ -n "$1" ];then
   fi
   tmux attach -t "$1"
 else
+  # Create session
   tmux -2 new-session -d -s "$HOST"
-  tmux set -g status-style fg="$color",bg="$color_grey"
-  tmux set-window-option -g window-status-current-style bg="$color",fg="$color_grey"
-  tmux set -g pane-active-border-style fg="$color"
-  tmux set -g pane-border-style fg="$color_grey"
-
   # Attach to session
   tmux -2 attach-session -t "$HOST"
 fi
