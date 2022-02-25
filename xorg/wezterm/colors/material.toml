@@ -1,0 +1,11 @@
+# material
+[colors]
+foreground = "#c4c7d1"
+background = "#1e282d"
+cursor_bg = "#c4c7d1"
+cursor_fg = "#1e282d"
+selection_bg = "#1e282d"
+selection_fg = "#c4c7d1"
+
+ansi = ["#073642","#eb606b","#c3e88d","#f7eb95","#80cbc4","#ff2490","#aeddff","#ffffff"]
+brights = ["#ff002b","#eb606b","#c3e88d","#f7eb95","#7dc6bf","#6c71c4","#35434d","#ffffff"]
