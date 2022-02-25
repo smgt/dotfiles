@@ -1,18 +1,25 @@
 #!/bin/bash
 
+command_name=$(basename "$0")
 configdir="$HOME/.ssh-tunnel"
 piddir="/tmp/ssh-tunnel"
 shopt -s nullglob
 
+function echo_error() {
+  echo -e "\e[31mERROR:\e[0m $1"
+  exit 1
+}
+
 if [ ! "$1" ];then
-  echo "Usage: ssh-tunnel [command]"
-  echo "active - show active tunnels"
-  echo "close [tunnel name] - close a tunnel"
-  echo "[tunnel name] - start a tunnel"
-  echo ""
-  echo "Available tunnels:"
+  echo "Usage : $command_name COMMAND
+  Commands:
+    active          show active tunnels
+    close           close a active tunnel
+    [tunnel name]   start a tunnel
+  
+  Available tunnels:"
   for a in "$configdir"/*;do
-    echo "  $(basename "$a")"
+    echo "    $(basename "$a")"
   done
   exit 0
 fi
@@ -26,7 +33,8 @@ function get_pid() {
 }
 
 function running_pid() {
-  local command=$(ps -p "$1" -o command=)
+  local command
+  command=$(ps -p "$1" -o command=)
   if [[ -z "${command}" ]];then
     echo -n 'no'
   else
@@ -41,7 +49,7 @@ if [ "$1" == 'active' ];then
     if [[ -z "${command}" ]];then
       rm "$pid_file"
     else
-      basename "$pid_file"
+      echo -e "\e[32m▪ $(basename "$pid_file")\e[0m"
       echo " $command"
     fi
   done
@@ -52,28 +60,40 @@ if [ "$1" == 'close' ];then
   if [[ -z $2 ]];then
     'specify tunnel name to close'
   fi
-  pid=$(get_pid $2)
+  pid=$(get_pid "$2")
   if [[ -z $pid ]];then
     echo "Tunnel not running."
   else
-    rm $piddir/$2
-    kill $pid
+    rm "$piddir/$2"
+    kill "$pid"
   fi
   exit 0
 fi
 
 if test -f "$configdir"/"$1"; then
-  . $configdir/$1
+  . "$configdir/$1"
 else
-  echo "Missing configuration for ${1}"
-  exit 1
+  echo_error "Could not find a configuration file for '$1'"
 fi
 
 if [ ! -d ${piddir} ];then
   mkdir ${piddir}
 fi
 
-command="ssh -N -L ${local_port}:${host}:${remote_port} -l ${ssh_user} -i ${key_file} -o ExitOnForwardFailure=yes -o TCPKeepAlive=yes -o ServerAliveInterval=60 ${proxy_host}"
+command="ssh -N -L ${local_port}:${host}:${remote_port} -l ${ssh_user}"
+if [ -n "$key_file" ];then
+  if [ ! -f "$key_file" ];then
+    echo_error "Failed to find ssh key file '$key_file'"
+  fi
+  command="$command -I $key_file"
+fi
+command="$command -o ExitOnForwardFailure=yes -o TCPKeepAlive=yes -o ServerAliveInterval=60 ${proxy_host}"
+
+pid=$(get_pid "$1")
+if [ -n "$pid" ];then
+  echo_error "Tunnel '$1' already running"
+fi
+
 $command & ssh_tunnel_pid=$!
 ssh_tunnel_started=$(running_pid $ssh_tunnel_pid)
 if [ "$ssh_tunnel_started" == 'yes' ];then
