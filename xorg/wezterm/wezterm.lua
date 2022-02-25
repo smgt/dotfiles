@@ -102,7 +102,7 @@ return FontIosevka({
   font_size = 10.0,
   enable_tab_bar = false,
   color_scheme_dirs = {"$HOME/.config/wezterm/colors"},
-  color_scheme = "tokyonight-storm",
+  color_scheme = "MaterialDesignColors",
   force_reverse_video_cursor = true,
   exit_behavior = "Close",
   -- Kanagawa
