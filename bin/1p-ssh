@@ -7,6 +7,7 @@ op_session_name="my"
 #op_session_variable='$'"OP_SESSION_${op_session_name}"
 op_session=""
 eval op_session='$OP_SESSION_'$op_session_name
+command_name=$(basename "$0")
 
 op_signin() {
   if [ -z "$op_session" ];then
@@ -21,6 +22,15 @@ info_print() {
 
 error_print() {
   echo -e "\e[31mERROR:\e[0m $1"
+}
+
+prerequisites_check() {
+  if ! type "$1" &> /dev/null;then
+    error_print "Could not find required command '$1', please install."
+    echo
+    usage
+    exit 1
+  fi
 }
 
 # With -d no delimiter read always hits
@@ -58,27 +68,79 @@ EOF
 
 function usage ()
 {
-  echo "Usage :  $0 [command] [options] [--]
-  FIX ME!
+  echo "Usage :  $command_name [command] [options] [--]
+  Commands:
+    create        Import a ssh key into 1password
+    load          Load a ssh key into ssh-agent from a 1password vault 
+    export        Exports a ssh key from 1password to a local file
+    public-key    Print a public key to stdout
 
-    Options:
-    -h|help       Display this message
-    -v|version    Display script version"
+  Options:
+    -h            Display this message
+    -v            Display script version
+
+  Run $command_name [COMMAND] -h for more information about a command.
+
+  $command_name requires op (1password cli) and jq to work."
+}
+
+function usage_load() {
+  echo "Usage : $command_name load [options]
+
+  Load a ssh key into ssh-agent from a 1password vault 
+
+  Options:
+    -k            Name of key, usually hostname, default: $(hostname)
+    -t            Custom ssh-agent timeout, default is read from 1p entry
+    -h            Print usage"
+}
+
+function usage_create() {
+  echo "Usage : $command_name create [options] PRIVATEKEY PUBLICKEY
+
+  Create a 1password entry from a ssh key
+
+  Options:
+    -k            Name of key, usually hostname, default: $(hostname)
+    -t            Default ssh-agent key timeout, default: 2h
+    -h            Print usage"
+}
+
+function usage_export() {
+  echo "Usage : $command_name export [options] PRIVATEKEY
+
+  Export a 1password ssh key entry to a local file
+
+  Options:
+    -k            Name of key, usually hostname, default: $(hostname)
+    -h            Print usage"
+}
+
+function usage_public-key() {
+  echo "Usage : $command_name public-key [options]
+
+  Print a public key to stdout
+
+  Options:
+    -k            Name of key, usually hostname, default: $(hostname)
+    -h            Print usage"
 }
 
 # TODO: Check if op and jq is installed
 
 sub_load() {
+  set -e
   local key_hostname
   key_hostname=$(hostname)
   local agent_timeout
 
-  while getopts "t:h:" opt
+  while getopts "t:hk:" opt
   do
     case $opt in
-    h) key_hostname=$OPTARG;;
+    k) key_hostname=$OPTARG;;
     t) agent_timeout=$OPTARG;;
-    *) error_print "unknown flag '$opt'"; exit 1 ;;
+    h) usage_load; exit 0 ;;
+    *) error_print "unknown flag '$opt'"; usage_load; exit 1 ;;
     esac
   done
   shift $((OPTIND-1))
@@ -99,16 +161,18 @@ sub_load() {
 }
 
 sub_create() {
+  set -e
   local default_timeout="2h"
   local key_hostname
   key_hostname=$(hostname)
 
-  while getopts "t:h:" opt
+  while getopts "t:hk:" opt
   do
     case $opt in
-    h) key_hostname=$OPTARG;;
+    k) key_hostname=$OPTARG;;
     t) default_timeout=$OPTARG;;
-    *) error_print "unknown flag '$opt'"; exit 1 ;;
+    h) usage_create; exit 0 ;;
+    *) error_print "unknown flag '$opt'"; usage_create; exit 1 ;;
     esac
   done
   shift $((OPTIND-1))
@@ -118,13 +182,13 @@ sub_create() {
 
   if [ -z "$key_private_path" ];then
     error_print "You need to supply a private ssh key"
-    usage
+    usage_create
     exit 1
   fi
 
   if [ ! -f "$key_private_path" ];then
     error_print "The private key file you supplied is not found"
-    usage
+    usage_create
     exit 1
   fi
 
@@ -132,13 +196,13 @@ sub_create() {
   if [ -n "$key_public_path" ];then
     if [ ! -f "$key_public_path" ];then
       error_print "The public key file supplied is not found"
-      usage
+      usage_create
       exit 1
     fi
   else
     if [ ! -f "${key_private_path}.pub" ];then
       error_print "Failed to load the public key '$key_private_path.pub'"
-      usage
+      usage_create
       exit 1
     fi
     key_public_path="$key_private_path.pub"
@@ -168,22 +232,24 @@ sub_create() {
 }
 
 sub_export() {
+  set -e
   local private_path
   local key_hostname
   key_hostname=$(hostname)
 
-  while getopts "h:" opt
+  while getopts "hk:" opt
   do
     case $opt in
-    h) key_hostname=$OPTARG;;
-    *) error_print "unknown flag '$opt'"; exit 1 ;;
+    k) key_hostname=$OPTARG;;
+    h) usage_export; exit 0 ;;
+    *) error_print "unknown flag '$opt'";usage_export;  exit 1 ;;
     esac
   done
   shift $((OPTIND-1))
 
   if [ -z "$1" ];then
     error_print "Please supply a output file name for the key"
-    usage
+    usage_export
     exit 1
   fi
 
@@ -202,13 +268,15 @@ sub_export() {
 }
 
 sub_public-key() {
+  set -e
   local key_hostname
   key_hostname=$(hostname)
-  while getopts "h:" opt
+  while getopts "k:h" opt
   do
     case $opt in
-    h) key_hostname=$OPTARG;;
-    *) error_print "unknown flag '$opt'"; exit 1 ;;
+    k) key_hostname=$OPTARG;;
+    h) usage_public-key; exit 0;;
+    *) error_print "unknown flag '$opt'"; usage_public-key; exit 1 ;;
     esac
   done
   shift $((OPTIND-1))
@@ -217,22 +285,27 @@ sub_public-key() {
   op --session "$op_session" get item "$entry_title" --fields publickey
 }
 
+prerequisites_check op
+prerequisites_check jq
+
 subcommand=$1
 
 case $subcommand in
-  "" | "-h" | "--help")
+  "" | "-h" )
     usage
     exit 1
     ;;
-  "-v" | "--version")
+  "-v" )
     echo "version: $__ScriptVersion"
     exit 1
     ;;
   *)
     shift
+    set +e
     sub_${subcommand} "$@"
     if [ $? == 127 ];then
       error_print "'$subcommand' is not a known subcommand" >&2
+      echo
       usage
       exit 1
     fi
