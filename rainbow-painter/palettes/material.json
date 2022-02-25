@@ -1,0 +1,35 @@
+{
+        "meta": {
+                "name": "Material",
+                "url": ""
+        },
+        "colors": {
+                "terminal": {
+                        "background": "#1e282d",
+                        "foreground": "#c4c7d1",
+                        "color0": "#073642",
+                        "color1": "#eb606b",
+                        "color2": "#c3e88d",
+                        "color3": "#f7eb95",
+                        "color4": "#80cbc4",
+                        "color5": "#ff2490",
+                        "color6": "#aeddff",
+                        "color7": "#ffffff",
+                        "color8": "#ff002b",
+                        "color9": "#eb606b",
+                        "color10": "#c3e88d",
+                        "color11": "#f7eb95",
+                        "color12": "#7dc6bf",
+                        "color13": "#6c71c4",
+                        "color14": "#35434d",
+                        "color15": "#ffffff"
+                },
+                "custom": [
+                        {
+                                "name": "backgroundalt",
+                                "color": "#282c34",
+                                "lighten": 10
+                        }
+                ]
+        }
+}
