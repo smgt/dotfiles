@@ -144,7 +144,9 @@ set formatoptions=tcqronj         " set vims text formatting options
 set title                         " let vim set the terminal title
 set updatetime=100                " redraw the status bar often
 
-set nocompatible              " be iMproved, required
+set signcolumn=yes:1
+
+"set nocompatible              " be iMproved, required
 filetype plugin indent on    " required
 
 set fileformat=unix
