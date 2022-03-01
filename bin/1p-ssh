@@ -281,7 +281,7 @@ sub_public-key() {
   shift $((OPTIND-1))
   op_signin
   entry_title="SSHKey-$key_hostname"
-  op --session "$op_session" get item "$entry_title" --fields publickey
+  echo "$(op --session "$op_session" get item "$entry_title" --fields publickey)"
 }
 
 prerequisites_check op
