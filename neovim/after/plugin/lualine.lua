@@ -7,10 +7,18 @@ lualine.setup {
     theme = 'auto',
     section_separators = {left = '', right = ''},
     component_separators = {left = '🭲',  right = '🭲'},
-    disabled_filetypes = {}
+    disabled_filetypes = {
+      'dapui_breakpoints',
+      'dapui_scopes',
+      'dapui_stacks',
+      'dapui_repl',
+      'dapui_watches',
+    }
   },
   sections = {
-    lualine_a = {'mode'},
+    lualine_a = {
+      {'mode'},
+    },
     lualine_b = {'branch'},
     lualine_c = {
       {
