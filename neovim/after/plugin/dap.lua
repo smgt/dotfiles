@@ -2,16 +2,6 @@ require('dap-go').setup()
 local dap = require('dap')
 local dapui = require('dapui')
 -- local widgets = require('dap.ui.widgets')
-local utils = require('utils')
-
-
--- vim.api.nvim_set_keymap('n', '<F5>', '<cmd>lua require"dap".continue()<CR>', opts)
-utils.set_keymaps('n', '<F5>', '<cmd>lua require"dap".continue()<CR>')
-utils.set_keymaps('n', '<F6>', '<cmd>lua require"dap".step_over()<CR>')
-utils.set_keymaps('n', '<F7', '<cmd>lua require"dap".step_into()<CR>')
-utils.set_keymaps('n', '<F8>', '<cmd>lua require"dap".step_out()<CR>')
-utils.set_keymaps('n', '<F9>', '<cmd>lua require"dap".terminate()<CR>')
-utils.set_keymaps('n', '<space>b',  '<cmd>lua require"dap".toggle_breakpoint()<CR>')
 
 dapui.setup({
   icons = { expanded = "▾", collapsed = "▸" },
