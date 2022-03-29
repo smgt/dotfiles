@@ -6,6 +6,7 @@ hash_string256() {
     hash_value=$(printf "%s" "$1" | md5sum |tr -d " -"| tr "a-f" "A-F")
     printf "ibase=16; (%s + %X) %% 100 \n" "$hash_value" "$2" | bc
 }
+export TERM=xterm-256color
 
 if [ -n "$1" ];then
   if ! tmux has-session -t "$HOST";then
