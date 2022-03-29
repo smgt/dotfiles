@@ -2,13 +2,15 @@
 
 set -e
 
-__ScriptVersion="0.1.0"
-export OP_ACCOUNT="my.1password.com"
+__ScriptVersion="0.2.0"
+op_session_variable="OP_SESSION_${OP_SSH_ACCOUNT}"
 command_name=$(basename "$0")
+entry_prefix="SSHKey-"
 
 op_signin() {
-  if [ -z "$op_session" ];then
-    op_session=$(op signin --raw)
+  if [ -z "${!op_session_variable}" ];then
+    local session_key=$(op signin --raw)
+    export $op_session_variable="$session_key"
   fi
 }
 
@@ -34,36 +36,30 @@ prerequisites_check() {
 # To use set -e we always return true
 read -r -d '' JSON <<EOF || true
 {
-  "sections": [
+  "fields": [
     {
-
-      "fields": [
-        {
-          "id": "notesPlain",
-          "type": "STRING",
-          "purpose": "NOTES",
-          "label": "notesPlain",
-          "value": "%s"
-        },
-        {
-          "type": "STRING",
-          "id": "publickey",
-          "label": "Public key",
-          "value": %s
-        },
-        {
-          "type": "CONCEALED",
-          "id": "privatekey",
-          "label": "Private key",
-          "value": %s
-        },
-        {
-          "type": "STRING",
-          "id": "sshAgentTimeout",
-          "label": "SSH Agent Timeout",
-          "value": "%s"
-        }
-      ]
+      "id": "notesPlain",
+      "type": "STRING",
+      "purpose": "NOTES",
+      "label": "notesPlain"
+    },
+    {
+      "id": "private_key",
+      "type": "CONCEALED",
+      "label": "private key",
+      "value": \$private_key
+    },
+    {
+      "type": "STRING",
+      "id": "public_key",
+      "label": "public key",
+      "value": \$public_key
+    },
+    {
+      "type": "STRING",
+      "id": "ssh_agent_timeout",
+      "label": "SSH agent timeout",
+      "value": \$timeout
     }
   ]
 }
@@ -129,8 +125,6 @@ function usage_public-key() {
     -h            Print usage"
 }
 
-# TODO: Check if op and jq is installed
-
 sub_load() {
   set -e
   local key_hostname
@@ -148,26 +142,26 @@ sub_load() {
   done
   shift $((OPTIND-1))
 
-  entry_title="SSHKey-$key_hostname"
-  entry_title="$key_hostname"
+  entry_title="$entry_prefix$key_hostname"
 
   op_signin
-  entry=$(op item get "$entry_title" --fields label=private_key --format json)
+  entry=$(op item get "$entry_title" --format json)
+  key_private=$(echo "$entry" | jq -rj '.fields[] | select(.id == "private_key").value')
 
-
-  key_private=$(echo "$entry" | jq -r '.value')
+  timeout_opt=""
   if [ -z "$agent_timeout" ];then
-    agent_timeout=$(echo "$entry" | jq -r '.sshAgentTimeout')
+    agent_timeout=$(echo "$entry" | jq -rj '.fields[] | select(.id == "ssh_agent_timeout").value')
+  fi
+  if [ -n "$agent_timeout" ];then
+    timeout_opt="-t $agent_timeout "
   fi
 
   # TODO: Check if ssh agent is running
   # TODO: Add verification if hostname is not the same as key name
-  ssh-add -t "7200" <(echo "$key_private")
+  ssh-add $timeout_opt <(echo "$key_private")
 }
 
 sub_create() {
-  error_print "NOT WORKING"
-  exit 1
   set -e
   local default_timeout="2h"
   local key_hostname
@@ -216,21 +210,21 @@ sub_create() {
   fi
 
   local key_private
-  key_private=$(jq -sR < "$key_private_path")
+  #key_private=$(cat "$keyjq -sR <(cat "$key_private_path"))
+  key_private=$(cat "$key_private_path")
   local key_public
-  key_public=$(jq -sR < "$key_public_path")
+  #key_public=$(jq -sR < "$key_public_path")
+  key_public=$(cat "$key_public_path")
 
   op_signin
-  entry_title="SSHKey-$key_hostname"
-  if op --session "$op_session" item get "$entry_title" &> /dev/null;then
+  entry_title="$entry_prefix$key_hostname"
+  if op item get "$entry_title" &> /dev/null;then
     error_print "A entry for a ssh key named $entry_title already exists"
     exit 1
   else
-    entry=$(printf "$JSON" "$key_private" "$key_public" "$key_private" "$default_timeout"|op encode)
-    uuid=$(op --session "$op_session" create item "Secure Note" --title "$entry_title" --tags ssh "$entry" | jq -r '.uuid')
-    retval_op="${PIPESTATUS[0]}"
-    if [ $retval_op ];then
-      info_print "Created secure note 'SSHKey-$key_hostname' successfully ($uuid)"
+    op item create --title "$entry_title" --category "Secure Note" --tags ssh --template=<(jq --null-input --arg public_key "$key_public" --arg private_key "$key_private" --arg timeout "2h" "$JSON")
+    if [ $? ];then
+      info_print "Created secure note 'SSHKey-$key_hostname' successfully"
     else
       error_print "Failed to create the ssh key entry in 1Password"
       exit 1
@@ -268,16 +262,13 @@ sub_export() {
   private_path="$1"
 
   op_signin
-  # entry_title="SSHKey-$key_hostname"
-  # entry=$(op --session "$op_session" item get "$entry_title" --fields notesPlain,publickey)
-  # echo -n "$entry" | jq -r '.notesPlain' > "$private_path"
-  # echo -n "$entry" | jq -r '.publickey' > "$private_path".pub
-  entry=$(op item get "$key_hostname" --fields label=private_key)
+  entry_title="$entry_prefix$key_hostname"
+  entry=$(op item get "$entry_title" --fields label=private_key,label=public_key --format json)
+  echo "$entry" | jq -r '.[] | select(.id == "private_key").value' > "$private_path"
+  echo "$entry" | jq -r '.[] | select(.id == "public_key").value' > "$private_path".pub
 }
 
 sub_public-key() {
-  error_print "NOT WORKING"
-  exit 1
   set -e
   local key_hostname
   key_hostname=$(hostname)
@@ -291,9 +282,8 @@ sub_public-key() {
   done
   shift $((OPTIND-1))
   op_signin
-  entry_title="SSHKey-$key_hostname"
-  #echo "$(op --session "$op_session" item get "$entry_title" --fields publickey)"
-  #op item get "$entry_title" --fields label=public_key
+  entry_title="$entry_prefix$key_hostname"
+  op item get "$entry_title" --fields label=public_key --format json | jq -rj '.value'
 }
 
 prerequisites_check op
