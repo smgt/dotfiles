@@ -54,3 +54,5 @@ precmd() {
 
 # Fix gpg
 export GPG_TTY=$(tty)
+
+[ -f "$DOTFILES/zsh/extra/pj" ] && source "$DOTFILES/zsh/extra/pj"

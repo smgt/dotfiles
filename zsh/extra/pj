@@ -1,0 +1,73 @@
+#!/bin/bash
+
+PJ_COMMAND_DEFAULT="nvim"
+PJ_DICT_PATH="$CODE/.pj-projects"
+
+_pj_command_nvim() {
+  cd "$CODE/$1" || true
+  nvim
+}
+
+_pj_command_nvim-tree() {
+  cd "$CODE/$1" || true
+  nvim +NvimTreeOpen
+}
+
+_pj_command_cd() {
+  cd "$CODE/$1" || return
+}
+
+_pj_update_cache() {
+  find "$CODE"/ -name .git -type d -printf "%P\n"| sed 's!.git$!!' > "$PJ_DICT_PATH"
+}
+
+pj() {
+  local pj_command
+  pj_command="$PJ_COMMAND_DEFAULT"
+  if [ -z "$CODE" ];then
+    echo "Environment variable '\$CODE' not found, set it and point to your code"
+    return
+  fi
+
+  if [ ! -f "$PJ_DICT_PATH" ];then
+    _pj_update_cache
+  fi
+
+  # mmin is in minutes
+  if test -n "$(find "$PJ_DICT_PATH" -mmin +120)";then
+    _pj_update_cache
+  fi
+
+  if [ -n "$1" ];then
+    pj_command="$1"
+  fi
+
+  dir=$(fzf --layout=reverse --border --margin=1 --height 50% -1 < "$PJ_DICT_PATH" | awk '{print $1}')
+  if [ "$dir" = "" ];then
+    return
+  fi
+
+  set +e
+  _pj_command_${pj_command} "$dir" # 2> /dev/null
+  if [ "$?" -eq 127 ];then
+    echo "ERROR: Unknown command $pj_command."
+    return
+  fi
+  set -e
+}
+
+pjc() {
+  pj cd
+}
+
+pjn() {
+  pj nvim
+}
+
+pjt() {
+  pj nvim-tree
+}
+
+pju() {
+  _pj_update_cache
+}
