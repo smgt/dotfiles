@@ -9,10 +9,10 @@
 # XF86Launch7 XF86Launch8 XF86Launch9
 # NoSymbol XF86TouchpadToggle XF86TouchpadOn
 
-"pactl set-sink-mute @DEFAULT_SINK@ false;pactl set-sink-volume @DEFAULT_SINK@ +10%"
+"pactl set-sink-mute @DEFAULT_SINK@ false;pactl set-sink-volume @DEFAULT_SINK@ -5%"
   XF86AudioLowerVolume
 
-"pactl set-sink-mute @DEFAULT_SINK@ false;pactl set-sink-volume @DEFAULT_SINK@ -10%"
+"pactl set-sink-mute @DEFAULT_SINK@ false;pactl set-sink-volume @DEFAULT_SINK@ +5%"
   XF86AudioRaiseVolume
 
 "pactl set-sink-mute @DEFAULT_SINK@ toggle"
