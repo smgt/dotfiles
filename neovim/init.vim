@@ -159,6 +159,7 @@ let mapleader=','
 set termguicolors
 " enable curor coloring from themes
 set guicursor=n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor20,o:hor50
+set guifont=Iosevka\ Term\ Curly:h10
 
 " Location of tags file
 set tags=./.git/tags,./tags,tags;
