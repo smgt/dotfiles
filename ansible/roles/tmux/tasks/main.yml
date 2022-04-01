@@ -1,0 +1,11 @@
+---
+- name: Install tmux
+  ansible.builtin.package:
+    name:
+      - tmux
+    state: latest
+  become: yes
+- name: Install tpm
+  ansible.builtin.git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: "{{ ansible_user_dir }}/.tmux/plugins/tpm"

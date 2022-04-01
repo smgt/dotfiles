@@ -1,0 +1,14 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Set roles
+      set_fact:
+        roles: "{{ default_roles | difference(exclude_roles | default([])) }}"
+
+    - name: Display roles
+      debug: "var=roles"
+
+    - name: Run roles
+      include_role:
+        name: "{{ item }}"
+      with_items: "{{ roles }}"

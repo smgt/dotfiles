@@ -1,0 +1,19 @@
+---
+- name: Install required tools
+  ansible.builtin.package:
+    name:
+      - git
+      - curl
+      - base-devel
+    state: latest
+  become: yes
+- name: Configure shell
+  user:
+    name: vagrant 
+    shell: /bin/zsh
+  become: yes
+- name: Install yay
+  kewlfft.aur.aur:
+    use: makepkg
+    name:
+      - yay

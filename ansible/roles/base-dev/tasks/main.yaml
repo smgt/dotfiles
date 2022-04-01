@@ -1,0 +1,31 @@
+---
+- name: Install dev tools
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - openssh
+      - fzf
+      - bat
+      - ripgrep
+      - neomutt
+      - notmuch
+      - notmuch-addrlookup
+      - elinks
+      - fd
+      - eva
+      - git-delta
+      - jq
+      - asdf-vm
+      - aws-cli
+      - aws-iam-authenticator-bin
+      - gnupg
+      - htop
+      - lftp
+      - zstd
+      - nmap
+      # - go-jira
+    state: latest
+    # - dunst
+    # - feh
+    # - firefox
+    # - pavucontrol

@@ -1,0 +1,6 @@
+default_roles:
+  - system
+  - zsh
+  - neovim
+  - tmux
+  - base-dev
