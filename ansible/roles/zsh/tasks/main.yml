@@ -7,7 +7,7 @@
   become: yes
 - name: Configure shell
   user:
-    name: vagrant 
+    name: "{{ansible_user_id}}"
     shell: /bin/zsh
   become: yes
 # - name: Install Antigen

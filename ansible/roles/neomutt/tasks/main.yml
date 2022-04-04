@@ -1,0 +1,10 @@
+---
+- name: Install neomutt tools
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - neomutt
+      - notmuch
+      - notmuch-addrlookup-c
+      - elinks
+    state: latest

@@ -1,4 +1,10 @@
 ---
+- name: Distribution
+  debug: msg="{{ ansible_distribution }}"
+- name: Distribution version
+  debug: msg="{{ ansible_distribution_version}}"
+- name: Distribution major version
+  debug: msg="{{ ansible_distribution_major_version }}"
 - name: Install required tools
   ansible.builtin.package:
     name:
@@ -7,6 +13,10 @@
       - base-devel
     state: latest
   become: yes
+- name: Configure git
+  ansible.builtin.template:
+    dest: "{{ansible_user_dir}}/.gitconfig"
+    src: gitconfig.j2
 - name: Configure shell
   user:
     name: vagrant 
@@ -17,3 +27,8 @@
     use: makepkg
     name:
       - yay
+- name: Update pacman cache
+  kewlfft.aur.aur:
+    use: yay
+    upgrade: yes
+    update_cache: yes

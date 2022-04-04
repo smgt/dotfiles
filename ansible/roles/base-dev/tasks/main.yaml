@@ -4,28 +4,32 @@
     use: yay
     name:
       - openssh
+      - gnupg
       - fzf
       - bat
       - ripgrep
-      - neomutt
-      - notmuch
-      - notmuch-addrlookup
-      - elinks
       - fd
       - eva
       - git-delta
       - jq
       - asdf-vm
-      - aws-cli
-      - aws-iam-authenticator-bin
-      - gnupg
       - htop
       - lftp
       - zstd
       - nmap
+      # TODO: Fix gpg key installation
+      #- 1password-cli # 3FEF9748469ADBE15DA7CA80AC2D62742012EA22 needs gpg key
       # - go-jira
+      # - tailscale
+      # - aws-cli
+      # - aws-iam-authenticator-bin
     state: latest
     # - dunst
     # - feh
     # - firefox
     # - pavucontrol
+    # - gnvim
+    # - polybar
+    # - picom
+    # - 
+
