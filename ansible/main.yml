@@ -3,12 +3,22 @@
   tasks:
     - name: Set roles
       set_fact:
-        roles: "{{ default_roles | difference(exclude_roles | default([])) }}"
+        default_roles: "{{ default_roles | difference(exclude_roles | default([])) }}"
 
-    - name: Display roles
-      debug: "var=roles"
+    - name: Display default roles
+      debug: "var=default_roles"
 
-    - name: Run roles
+    - name: Run default_roles
       include_role:
         name: "{{ item }}"
-      with_items: "{{ roles }}"
+      with_items: "{{ default_roles }}"
+
+    - name: Display extra roles
+      debug: "var=extra_roles"
+      when: extra_roles is defined
+
+    - name: Run extra_roles
+      include_role:
+        name: "{{ item }}"
+      with_items: "{{ extra_roles }}"
+      when: extra_roles is defined
