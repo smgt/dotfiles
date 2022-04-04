@@ -39,13 +39,12 @@ Vagrant.configure("2") do |config|
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
-  # config.vm.provider "virtualbox" do |vb|
-  #   # Display the VirtualBox GUI when booting the machine
-  #   vb.gui = true
-  #
-  #   # Customize the amount of memory on the VM:
-  #   vb.memory = "1024"
-  # end
+  config.vm.provider 'virtualbox' do |vb|
+    # Display the VirtualBox GUI when booting the machine
+    # vb.gui = true
+    # Customize the amount of memory on the VM:
+    vb.memory = '2048'
+  end
   #
   # View the documentation for the provider you are using for more
   # information on available options.
@@ -53,18 +52,18 @@ Vagrant.configure("2") do |config|
   config.vm.provision 'shell', privileged: true, inline: <<-SHELL
     if ! [ -x "$(command -v ansible)" ]; then
       pacman -Syu --noconfirm
-      pacman -S ansible --noconfirm
+      pacman -S ansible rsync --noconfirm
     fi
   SHELL
 
   config.vm.provision 'shell', privileged: true, inline: <<-SHELL
     set -e
-    mkdir -p /home/vagrant/.dotfiles
-    cp -r /vagrant/* /home/vagrant/.dotfiles/
-    chown -R vagrant /home/vagrant/.dotfiles/
-    su - vagrant -c "ansible-galaxy install -r /home/vagrant/.dotfiles/ansible/requirements.yml"
-    su - vagrant -c "ansible-playbook --diff \"/home/vagrant/.dotfiles/ansible/main.yml\""
-    su - vagrant -c "cd /home/vagrant/.dotfiles/;./link.sh"
+    su - vagrant -c "rsync -avzh --exclude \".git\" --delete /vagrant/ /home/vagrant/.dotfiles/"
+    su - vagrant -c "mkdir -p /home/vagrant/.config/dotfiles;cp /home/vagrant/.dotfiles/values.yml /home/vagrant/.config/dotfiles/"
+    su - vagrant -c "cd /home/vagrant/.dotfiles; bin/dotfiles"
+    # su - vagrant -c "ansible-galaxy install -r /home/vagrant/.dotfiles/ansible/requirements.yml"
+    # su - vagrant -c "ansible-playbook --diff --extra-vars \"@/home/vagrant/.dotfiles/variables.yml\" \"/home/vagrant/.dotfiles/ansible/main.yml\""
+    # su - vagrant -c "cd /home/vagrant/.dotfiles/;./link.sh"
   SHELL
 
   # config.vm.provision 'ansible_local' do |ansible|
@@ -75,10 +74,4 @@ Vagrant.configure("2") do |config|
   #   ansible.galaxy_role_file = 'requirements.yml'
   #   ansible.provisioning_path = '/vagrant/ansible'
   # end
-
-  config.vm.provision 'shell', privileged: false, inline: <<-SHELL
-    cd /vagrant
-    #./link.sh
-    echo derp
-  SHELL
 end
