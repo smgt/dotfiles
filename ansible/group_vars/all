@@ -4,3 +4,15 @@ default_roles:
   - neovim
   - tmux
   - base-dev
+  - asdf
+
+desktop_roles:
+  - xorg
+  - fonts
+
+asdf_plugins:
+  - ruby
+  - golang
+  - rust
+  - python
+  - terraform
