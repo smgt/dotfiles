@@ -3,7 +3,7 @@ default_roles:
   - zsh
   - neovim
   - tmux
-  - base-dev
+  - utils
   - asdf
 
 desktop_roles:
