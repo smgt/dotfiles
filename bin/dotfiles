@@ -10,7 +10,7 @@ if ! [ -x "$(command -v ansible)" ]; then
   sudo pacman -S ansible --noconfirm
 fi
 
-cp -r /vagrant/* /home/vagrant/.dotfiles/
+#cp -r /vagrant/* /home/vagrant/.dotfiles/
 
 # Clone repository
 # if ! [[ -d "$DOTFILES_DIR" ]]; then
@@ -24,6 +24,9 @@ cd "$DOTFILES_DIR"
 
 # Update Galaxy
 ansible-galaxy install -r ansible/requirements.yml
+
+export ANSIBLE_NOCOWS=1
+sudo pacman -Sy
 
 # Run playbook
 if [[ -f "$CONFIG_DIR/vault-password.txt" ]]; then

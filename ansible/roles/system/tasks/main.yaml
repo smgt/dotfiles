@@ -27,8 +27,3 @@
     use: makepkg
     name:
       - yay
-- name: Update pacman cache
-  kewlfft.aur.aur:
-    use: yay
-    upgrade: yes
-    update_cache: yes
