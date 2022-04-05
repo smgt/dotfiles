@@ -1,0 +1,1 @@
+* Uninstall git-delta-bin

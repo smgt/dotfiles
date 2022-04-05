@@ -20,6 +20,7 @@
       - direnv
       - aws-cli
       - aws-iam-authenticator-bin
+      - httpie
       # TODO: Fix gpg key installation
       #- 1password-cli # 3FEF9748469ADBE15DA7CA80AC2D62742012EA22 needs gpg key
     state: latest
