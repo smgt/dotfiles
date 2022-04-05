@@ -4,6 +4,10 @@
     use: yay
     name:
       #- xorg-server
+      - xorg
+      - xorg-apps
+      - xorg-setxkbmap
+      - xbindkeys
       - picom
       - i3-wm
       - dunst
