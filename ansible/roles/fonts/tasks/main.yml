@@ -1,0 +1,14 @@
+---
+- name: Install fonts
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - ttc-iosevka-curly
+      - ttf-jetbrains-mono
+      - ttf-liberation
+      - ttf-ubuntu-font-family
+      - ttf-droid
+      - ttf-inter-ui
+      - ttf-dejavu
+      - ttf-bitstream-vera
+      - ttf-font-awesome

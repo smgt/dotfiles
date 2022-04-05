@@ -7,7 +7,6 @@
 
     - name: Display default roles
       debug: "var=default_roles"
-
     - name: Run default_roles
       include_role:
         name: "{{ item }}"
@@ -16,9 +15,17 @@
     - name: Display extra roles
       debug: "var=extra_roles"
       when: extra_roles is defined
-
     - name: Run extra_roles
       include_role:
         name: "{{ item }}"
       with_items: "{{ extra_roles }}"
       when: extra_roles is defined
+
+    - name: Display desktop roles
+      debug: "var=desktop_roles"
+      when: desktop_roles is defined
+    - name: Run desktop_roles
+      include_role:
+        name: "{{ item }}"
+      with_items: "{{ desktop_roles }}"
+      when: desktop_roles is defined

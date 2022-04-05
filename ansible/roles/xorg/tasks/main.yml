@@ -1,0 +1,12 @@
+---
+- name: Install xorg
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      #- xorg-server
+      - picom
+      - i3-wm
+      - dunst
+      - polybar
+      - rofi
+      - firefox
