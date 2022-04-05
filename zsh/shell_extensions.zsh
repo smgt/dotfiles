@@ -1,8 +1,8 @@
 # https://github.com/asdf-vm/asdf
 if [[ -f "$HOME/.asdf/asdf.sh" ]];then
-  source "$HOME/.asdf/asdf.sh"
+  . $HOME/.asdf/asdf.sh
 elif [[ -f "/opt/asdf-vm/asdf.sh" ]];then
-  source "/opt/asdf-vm/asdf.sh"
+  . /opt/asdf-vm/asdf.sh
 fi
 
 command -v direnv >/dev/null 2>&1 && eval "$(direnv hook zsh)"

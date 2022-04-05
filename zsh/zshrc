@@ -10,9 +10,11 @@ plugins=()
 # vim shortcuts
 bindkey -e
 
+# Paths
 # shortcut to this dotfiles path is $DOTFILES
 export DOTFILES=$HOME/.dotfiles
 export ZSH="$HOME/.zsh"
+export PATH="$DOTFILES/bin:$HOME/bin:$PATH"
 
 # Configure vim/nvim as editor
 if type nvim > /dev/null 2>&1;then
