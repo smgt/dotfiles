@@ -5,6 +5,7 @@
     name:
       #- xorg-server
       - xorg
+      - xorg-xinit
       - xorg-apps
       - xorg-setxkbmap
       - xbindkeys
