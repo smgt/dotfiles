@@ -2,15 +2,19 @@
 
 set -e
 
-__ScriptVersion="0.2.0"
+__ScriptVersion="0.2.1"
+
+if [ -z "$OP_SSH_ACCOUNT" ];then
+  echo -e "\e[33m▪▪▪ Warning\e[0m: \$OP_SSH_ACCOUNT is unset"
+fi
+
 op_session_variable="OP_SESSION_${OP_SSH_ACCOUNT}"
 command_name=$(basename "$0")
 entry_prefix="SSHKey-"
 
 op_signin() {
   if [ -z "${!op_session_variable}" ];then
-    local session_key=$(op signin --raw)
-    export $op_session_variable="$session_key"
+    eval $(op signin)
   fi
 }
 
