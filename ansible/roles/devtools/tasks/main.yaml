@@ -1,0 +1,11 @@
+---
+- name: Install devtools
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - direnv
+      - protolint
+      - vint
+      - shellcheck
+      - efm-langserver
+    state: latest
