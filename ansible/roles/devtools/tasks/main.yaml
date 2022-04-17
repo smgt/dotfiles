@@ -4,6 +4,7 @@
     use: yay
     name:
       - direnv
+      - golangci-lint-bin
       - protolint
       - vint
       - shellcheck
