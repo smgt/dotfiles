@@ -226,7 +226,7 @@ sub_create() {
     error_print "A entry for a ssh key named $entry_title already exists"
     exit 1
   else
-    op item create --title "$entry_title" --category "Secure Note" --tags ssh --template=<(jq --null-input --arg public_key "$key_public" --arg private_key "$key_private" --arg timeout "2h" "$JSON")
+    op item create --title "$entry_title" --category "Secure Note" --tags ssh --template=<(jq --null-input --arg public_key "$key_public" --arg private_key "$key_private" --arg timeout "$default_timeout" "$JSON")
     if [ $? ];then
       info_print "Created secure note 'SSHKey-$key_hostname' successfully"
     else
