@@ -15,6 +15,6 @@
       - polybar
       - rofi
       - firefox
-      - slack
+      - slack-desktop
       - spotify
       - wezterm
