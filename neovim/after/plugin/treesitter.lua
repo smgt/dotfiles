@@ -1,4 +1,4 @@
-require'nvim-treesitter.configs'.setup {
+require 'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
     disable = {},
@@ -7,7 +7,7 @@ require'nvim-treesitter.configs'.setup {
     enable = false,
     disable = {},
   },
-  ensure_installed = "maintained",
+  ensure_installed = "all",
 }
 
 -- local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
