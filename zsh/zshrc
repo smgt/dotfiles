@@ -24,6 +24,11 @@ else
   export EDITOR=vim
 fi
 
+# Load direnv
+if command -v direnv >/dev/null 2>&1; then
+  eval "$(direnv hook zsh)"
+fi
+
 # source every .zsh file in this rep
 for config_file ($HOME/.zsh/*.zsh) do
   source $config_file
