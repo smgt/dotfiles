@@ -1,6 +1,6 @@
 -- local nvim_lsp = require('lspconfig')
 local lsp_installer = require("nvim-lsp-installer")
-local protocol = require'vim.lsp.protocol'
+local protocol = require 'vim.lsp.protocol'
 
 -- Install LSP servers
 local servers = {
@@ -32,19 +32,20 @@ end
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
   -- Enable completion triggered by <c-x><c-o>
   -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- Mappings.
-  local opts = { noremap=true, silent=true }
+  local opts = { noremap = true, silent = true }
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   -- buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap("n", "K",  "<cmd>Lspsaga hover_doc<cr>", opts)
+  buf_set_keymap("n", "K", "<cmd>Lspsaga hover_doc<cr>", opts)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
@@ -60,9 +61,9 @@ local on_attach = function(client, bufnr)
   -- buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap("n", "gj", "<cmd>Lspsaga diagnostic_jump_next<cr>", opts)
   -- buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap("n", "gk", "<cmd>Lspsaga diagnostic_jump_prev<cr>",opts )
+  buf_set_keymap("n", "gk", "<cmd>Lspsaga diagnostic_jump_prev<cr>", opts)
   -- buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-  buf_set_keymap("n", "go", "<cmd>Lspsaga show_line_diagnostics<cr>",opts )
+  buf_set_keymap("n", "go", "<cmd>Lspsaga show_line_diagnostics<cr>", opts)
   buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
   buf_set_keymap("x", "gx", ":<c-u>Lspsaga range_code_action<cr>", opts)
@@ -125,8 +126,8 @@ local custom_server_opts = {
   ["efm"] = function(opts)
     opts.init_options = { documentFormatting = true }
     opts.settings = {
-      rootMarkers = {".git/"},
-      languages ={
+      rootMarkers = { ".git/" },
+      languages = {
         --sh = {
         --  {
         --    prefix = "shellcheck",
@@ -145,7 +146,7 @@ local custom_server_opts = {
         --   { prefix = "goimports", formatCommand = "goimports", formatStdin = true },
         -- },
         proto = {
-          { prefix = "buf", lintCommand = "buf lint --path", rootMarkers = { "buf.yaml"} },
+          { prefix = "buf", lintCommand = "buf lint --path", rootMarkers = { "buf.yaml" } },
         },
         -- dockerfile = {
         --   { prefix = "hadolint", lintCommand = "hadolint --no-color", lintFormats = {"%f:%l %m"} },
@@ -168,21 +169,21 @@ local custom_server_opts = {
 
 -- Register a handler that will be called for all installed servers.
 lsp_installer.on_server_ready(function(server)
-    local opts = {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      flags = {
-        debounce_text_changes = 150,
-      },
-    }
+  local opts = {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    flags = {
+      debounce_text_changes = 150,
+    },
+  }
 
-    if custom_server_opts[server.name] then
-      custom_server_opts[server.name](opts)
-    end
+  if custom_server_opts[server.name] then
+    custom_server_opts[server.name](opts)
+  end
 
-    -- This setup() function is exactly the same as lspconfig's setup function.
-    -- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-    server:setup(opts)
+  -- This setup() function is exactly the same as lspconfig's setup function.
+  -- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+  server:setup(opts)
 end)
 
 -- Setup lspconfig.
