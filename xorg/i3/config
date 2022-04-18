@@ -45,7 +45,8 @@ floating_modifier $mod
 
 # start a terminal
 # bindsym $mod+Return exec kitty -1
-bindsym $mod+Return exec wezterm
+bindsym $mod+Return exec wezterm --config 'default_prog={"tmx"}' start
+bindsym $mod+Shift+Return exec wezterm start
 
 # kill focused window
 bindsym $mod+Shift+q kill
