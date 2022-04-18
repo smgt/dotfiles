@@ -54,9 +54,10 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'williamboman/nvim-lsp-installer' " Install LSP servers
   Plug 'tami5/lspsaga.nvim'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Better syntax highlighting
+  Plug 'github/copilot.vim'
   Plug 'hrsh7th/cmp-nvim-lsp' " Complete lsp
   Plug 'hrsh7th/cmp-buffer' " Complete buffers
-  Plug 'hrsh7th/cmp-path' "Complete paths
+  Plug 'hrsh7th/cmp-path' " Complete paths
   Plug 'hrsh7th/cmp-cmdline' " Complete commands
   Plug 'hrsh7th/cmp-vsnip' " Complete vsnip
   Plug 'hrsh7th/nvim-cmp' " Compleation plugin
