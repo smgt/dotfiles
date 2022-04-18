@@ -1,0 +1,30 @@
+---
+- name: Install utils
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - openssh
+      - gnupg
+      - fzf
+      - bat
+      - ripgrep
+      - fd
+      - eva
+      - git-delta
+      - jq
+      - htop
+      - lftp
+      - zstd
+      - unzip
+      - nmap
+      - aws-cli
+      - aws-iam-authenticator-bin
+      - httpie
+      # TODO: Fix gpg key installation
+      - 1password-cli # 3FEF9748469ADBE15DA7CA80AC2D62742012EA22 needs gpg key
+    state: latest
+- name: Install extra utils
+  kewlfft.aur.aur:
+    use: yay
+    name: "{{ extra_packages }}"
+  when: extra_packages is defined

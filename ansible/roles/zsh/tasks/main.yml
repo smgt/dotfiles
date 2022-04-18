@@ -1,0 +1,16 @@
+---
+- name: Install zsh
+  ansible.builtin.package:
+    name:
+      - zsh
+    state: latest
+  become: yes
+- name: Configure shell
+  user:
+    name: "{{ansible_user_id}}"
+    shell: /bin/zsh
+  become: yes
+# - name: Install Antigen
+#   get_url:
+#     url: https://git.io/antigen
+#     dest: ~/.antigen/

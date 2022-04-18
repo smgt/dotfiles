@@ -1,0 +1,20 @@
+---
+- name: Install xorg
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      #- xorg-server
+      - xorg
+      - xorg-xinit
+      - xorg-apps
+      - xorg-setxkbmap
+      - xbindkeys
+      - picom
+      - i3-wm
+      - dunst
+      - polybar
+      - rofi
+      - firefox
+      - slack-desktop
+      - spotify
+      - wezterm

@@ -1,0 +1,64 @@
+[init]
+  defaultBranch = main
+
+[user]
+  name = {{ git_user_name }}
+  email = {{ git_user_email }}
+  {% if git_user_sign_key is defined %}signingkey = {{ git_user_sign_key }}{% endif %}
+
+[github]
+  user = {{ git_user_github }}
+
+[core]
+  excludesfile = ~/.gitignore
+  editor = nvim
+  pager = delta
+
+[color]
+  ui = auto
+
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+
+[color "diff"]
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = cyan
+
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  features = side-by-side line-numbers decorations
+  whitespace-error-style = 22 reverse
+  syntax-theme = OneHalfDark
+  navigate = true
+
+[delta "decorations"]
+  commit-decoration-style = bold yellow box ul
+  file-style = bold yellow ul
+  file-decoration-style = none
+
+[mergetool "nvim"]
+  cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
+
+[mergetool]
+  prompt = false
+
+[merge]
+  conflictstyle=diff3
+  tool = vimdiff
+  tool = nvim
+
+[diff]
+  colorMoved = default
+[gpg]
+	program = gpg2

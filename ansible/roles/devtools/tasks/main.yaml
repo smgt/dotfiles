@@ -1,0 +1,12 @@
+---
+- name: Install devtools
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - direnv
+      - golangci-lint-bin
+      - protolint
+      - vint
+      - shellcheck
+      - efm-langserver
+    state: latest
