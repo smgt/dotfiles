@@ -2,20 +2,6 @@
 
 HOST=$(hostname)
 
-# create new ssh agent session
-SSH_AGENT_ENV="$HOME/.ssh-agent.env"
-ssh-add -l &>/dev/null
-if [ "$?" == 2 ]; then
-  test -r "$SSH_AGENT_ENV" && \
-    eval "$(<"$SSH_AGENT_ENV")" >/dev/null
-
-  ssh-add -l &>/dev/null
-  if [ "$?" == 2 ]; then
-    (umask 066; ssh-agent > "$SSH_AGENT_ENV")
-    eval "$(<"$SSH_AGENT_ENV")" >/dev/null
-  fi
-fi
-
 hash_string256() {
     hash_value=$(printf "%s" "$1" | md5sum |tr -d " -"| tr "a-f" "A-F")
     printf "ibase=16; (%s + %X) %% 100 \n" "$hash_value" "$2" | bc
