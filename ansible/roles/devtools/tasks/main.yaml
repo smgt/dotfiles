@@ -9,4 +9,5 @@
       - vint
       - shellcheck
       - efm-langserver
+      - terraform-ls-bin
     state: latest
