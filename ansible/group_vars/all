@@ -7,6 +7,8 @@ default_roles:
   - devtools
   - asdf
 
+desktop_install: false
+
 desktop_roles:
   - xorg
   - fonts

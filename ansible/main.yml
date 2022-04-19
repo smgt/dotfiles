@@ -22,10 +22,11 @@
       when: extra_roles is defined
 
     - name: Display desktop roles
-      debug: "var=desktop_roles"
-      when: desktop_roles is defined
+      debug: "var=desktop_install"
+      when: desktop_install
+
     - name: Run desktop_roles
       include_role:
         name: "{{ item }}"
       with_items: "{{ desktop_roles }}"
-      when: desktop_roles is defined
+      when: desktop_install
