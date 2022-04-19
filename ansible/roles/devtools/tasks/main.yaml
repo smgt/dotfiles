@@ -10,4 +10,5 @@
       - shellcheck
       - efm-langserver
       - terraform-ls-bin
+      - misspell
     state: latest
