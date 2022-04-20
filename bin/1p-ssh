@@ -269,7 +269,9 @@ sub_export() {
   entry_title="$entry_prefix$key_hostname"
   entry=$(op item get "$entry_title" --fields label=private_key,label=public_key --format json)
   echo "$entry" | jq -r '.[] | select(.id == "private_key").value' > "$private_path"
+  chmod 600 "$private_path"
   echo "$entry" | jq -r '.[] | select(.id == "public_key").value' > "$private_path".pub
+  chmod 600 "$private_path".pub
 }
 
 sub_public-key() {
