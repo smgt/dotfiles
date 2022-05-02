@@ -19,3 +19,9 @@
       - spotify
       - wezterm
       - flameshot
+      - wireplumber
+      - pipewire
+      - pipewire-pulse
+      - pipewire-alsa
+      - pipewire-jack
+      - qpwgraph
