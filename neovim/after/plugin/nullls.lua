@@ -6,6 +6,7 @@ if (not status) then return end
 null_ls.setup({
   sources = {
     null_ls.builtins.completion.spell,
+    null_ls.builtins.diagnostics.vale,
     null_ls.builtins.diagnostics.shellcheck,
     null_ls.builtins.diagnostics.hadolint,
     null_ls.builtins.diagnostics.jsonlint,
