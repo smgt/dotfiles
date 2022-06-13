@@ -61,6 +61,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'hrsh7th/cmp-cmdline' " Complete commands
   Plug 'hrsh7th/cmp-vsnip' " Complete vsnip
   Plug 'hrsh7th/nvim-cmp' " Compleation plugin
+  Plug 'simrat39/symbols-outline.nvim' " symbols
 
   " Snippets
   Plug 'L3MON4D3/LuaSnip'
