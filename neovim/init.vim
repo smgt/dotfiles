@@ -62,6 +62,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'hrsh7th/cmp-vsnip' " Complete vsnip
   Plug 'hrsh7th/nvim-cmp' " Compleation plugin
   Plug 'simrat39/symbols-outline.nvim' " symbols
+  Plug 'folke/trouble.nvim' " Diagnostics view
 
   " Snippets
   Plug 'L3MON4D3/LuaSnip'
@@ -213,7 +214,7 @@ let g:tokyonight_sidebars = [ 'Sidebar', 'NvimTree' ]
 "   \   }
 "   \ }
 "
-let g:material_style = "oceanic"
+let g:material_style = 'oceanic'
 colorscheme material
 
 " Searching
