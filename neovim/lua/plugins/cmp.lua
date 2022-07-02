@@ -3,16 +3,20 @@ local has_words_before = function()
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
--- Setup luasnip
-local luasnip = require('luasnip')
-require("luasnip.loaders.from_snipmate").lazy_load()
+local cmp_status_ok, cmp = pcall(require, 'cmp')
+if not cmp_status_ok then
+  return
+end
 
--- Setup lspkind
--- Add small pictograms to lsp
-local lspkind = require('lspkind')
+local luasnip_status_ok, luasnip = pcall(require, 'luasnip')
+if not luasnip_status_ok then
+  return
+end
 
--- Setup nvim-cmp.
-local cmp = require 'cmp'
+local lspkind_status_ok, lspkind = pcall(require, 'lspkind')
+if not lspkind_status_ok then
+  return
+end
 
 cmp.setup({
   formatting = {
@@ -62,15 +66,11 @@ cmp.setup({
   },
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
-    -- { name = 'vsnip' }, -- For vsnip users.
     { name = 'luasnip' }, -- For luasnip users.
-    -- { name = 'ultisnips' }, -- For ultisnips users.
-    -- { name = 'snippy' }, -- For snippy users.
   }, {
     { name = 'buffer' },
   })
 })
-
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline('/', {
