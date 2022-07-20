@@ -1,0 +1,31 @@
+#!/bin/bash
+
+if [ -z "$1" ];then
+  echo Please supply a ip number
+  exit 1
+fi
+ip=$1
+shift
+
+BLUE='\033[0;34m'
+RED='\033[0;31m'
+YELLOW='\033[0;33m'
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+if ! curl -s "http://$ip" > /dev/null ;then
+  echo -e "${RED}■ ERROR${NC} Failed to contact Bound, have you enabled upload mode?"
+  exit 1
+fi
+
+total=${#@}
+i=1
+
+for var in "$@";do
+  echo -e "${GREEN}■${NC} Uploading ${BLUE}$var${NC} ($i/$total) to ${YELLOW}$ip${NC}"
+  if ! curl -s -F "files[]=@$var" "http://$ip/upload" > /dev/null ;then
+    echo "${RED}■ ERROR${NC} Failed to upload file"
+    exit 1
+  fi
+  i=$((i+1))
+done
