@@ -79,6 +79,7 @@ return packer.startup(function(use)
   use 'baruchel/vim-notebook'
   use 'hashivim/vim-terraform'
   use 'ellisonleao/glow.nvim'
+  use 'ray-x/go.nvim'
 
   -- LSP + treesitter plugins
   use 'jose-elias-alvarez/null-ls.nvim' -- Linters etc
