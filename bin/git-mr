@@ -27,7 +27,7 @@ if [[ $git_branch == *"/"* ]];then
 fi
 
 if [ -n "$JIRA_ID" ];then
-  eval "$("$COMMAND_JIRA" req -t gitlab-mr "/rest/api/2/issue/${JIRA_ID}")"
+  eval $("$COMMAND_JIRA" req -t gitlab-mr "/rest/api/2/issue/${JIRA_ID}")
   if [ -z "$JIRA_SUMMARY" ];then
     echo "Could not find jira ticket ${JIRA_ID}."
     exit 1
