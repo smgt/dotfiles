@@ -1,4 +1,4 @@
-xorg/polybar/config;.config/polybar/config
+xorg/polybar/config.ini;.config/polybar/config.ini
 xorg/polybar/launch.sh;.config/polybar/launch.sh
 xorg/i3/config;.config/i3/config
 xorg/rofi/config.rasi;.config/rofi/config.rasi
