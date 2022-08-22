@@ -1,9 +1,11 @@
 -- Automatically install packer
+PackerBootstrap = false
 local fn = vim.fn
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 
 if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap = fn.system({
+  PackerBootstrap = true
+  fn.system({
     'git',
     'clone',
     '--depth',
@@ -30,6 +32,8 @@ end
 
 -- Install plugins
 return packer.startup(function(use)
+  -- packer manages packer
+  use { 'wbthomason/packer.nvim' }
 
   -- utils
   use 'tpope/vim-surround'
@@ -162,7 +166,7 @@ return packer.startup(function(use)
   --use 'crusoexia/vim-monokai'
   --use 'joshdick/onedark.vim'
 
-  if packer_bootstrap then
+  if PackerBootstrap then
     require('packer').sync()
   end
 end)
