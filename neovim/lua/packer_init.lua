@@ -105,7 +105,10 @@ return packer.startup(function(use)
   }
 
   use 'simrat39/symbols-outline.nvim' -- symbols
-  use 'folke/trouble.nvim' -- Diagnostics view
+  use {
+    'folke/trouble.nvim', -- Diagnostics view
+    requires = "kyazdani42/nvim-web-devicons",
+  }
 
   -- Snippets
   use 'L3MON4D3/LuaSnip'
@@ -141,6 +144,16 @@ return packer.startup(function(use)
   use 'navarasu/onedark.nvim'
   use 'RRethy/nvim-base16'
   use 'rebelot/kanagawa.nvim'
+  use {
+    "lukas-reineke/indent-blankline.nvim",
+    config = function()
+      require("indent_blankline").setup {
+        -- for example, context is off by default, use this to turn it on
+        show_current_context = true,
+        show_current_context_start = true,
+      }
+    end
+  }
 
   -- use 'liuchengxu/space-vim-theme'
   -- use 'sonph/onehalf', { 'rtp': 'vim' }
