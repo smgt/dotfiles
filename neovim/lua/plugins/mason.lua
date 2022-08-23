@@ -1,0 +1,19 @@
+require("mason").setup()
+require("mason-lspconfig").setup({
+  ensure_installed = {
+    "bashls",
+    "dockerls",
+    "gopls",
+    "jsonls",
+    "jsonnet_ls",
+    "pyright",
+    "rust_analyzer",
+    "solargraph",
+    "sumneko_lua",
+    "taplo",
+    "terraformls",
+    "tflint",
+    "vimls",
+    "yamlls",
+  }
+})

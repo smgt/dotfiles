@@ -1,33 +1,3 @@
--- local nvim_lsp = require('lspconfig')
-local lsp_installer = require("nvim-lsp-installer")
-local protocol = require 'vim.lsp.protocol'
-
--- Install LSP servers
-local servers = {
-  "bashls",
-  "dockerls",
-  "gopls",
-  "jsonls",
-  "jsonnet_ls",
-  "pyright",
-  "rust_analyzer",
-  "solargraph",
-  "sumneko_lua",
-  "taplo",
-  "terraformls",
-  "tflint",
-  "vimls",
-  "yamlls",
-}
-
-for _, name in pairs(servers) do
-  local server_is_found, server = lsp_installer.get_server(name)
-  if server_is_found and not server:is_installed() then
-    print("Installing " .. name)
-    server:install()
-  end
-end
-
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -121,94 +91,42 @@ end
 -- Enable cmp for each lsp server
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
--- custom langserver settings
-local custom_server_opts = {
-  ["efm"] = function(opts)
-    opts.init_options = { documentFormatting = true }
-    opts.settings = {
-      rootMarkers = { ".git/" },
-      languages = {
-        --sh = {
-        --  {
-        --    prefix = "shellcheck",
-        --    lintCommand = "shellcheck -f gcc -x",
-        --    lintSource = "shellcheck",
-        --    lintIgnoreExitCode = "true",
-        --    --[[ lintFormats = {
-        --      "%f:%l:%c: %trror: %m",
-        --      "%f:%l:%c: %tarning: %m",
-        --      "%f:%l:%c: %tote: %m",
-        --    } ]]
-        --  }
-        --},
-        -- go = {
-        --   { prefix = "golangci-lint", lintCommand = "golangci-lint run --print-issued-lines=false --out-format line-number --issues-exit-code=0", lintIgnoreExitCode = true, },
-        --   { prefix = "goimports", formatCommand = "goimports", formatStdin = true },
-        -- },
-        proto = {
-          { prefix = "buf", lintCommand = "buf lint --path", rootMarkers = { "buf.yaml" } },
-        },
-        -- dockerfile = {
-        --   { prefix = "hadolint", lintCommand = "hadolint --no-color", lintFormats = {"%f:%l %m"} },
-        -- },
-      },
-    }
-  end,
-  ["solargraph"] = function(opts)
-    opts.init_options = {
-      formatting = false
-    }
-    opts.settings = {
-      solargraph = {
-        autoformat = false,
-        formatting = false,
-      },
-    }
-  end,
+local lsp_flags = {
+  -- This is the default in Nvim 0.7+
+  debounce_text_changes = 150,
 }
 
--- Register a handler that will be called for all installed servers.
-lsp_installer.on_server_ready(function(server)
-  local opts = {
-    capabilities = capabilities,
-    on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 150,
-    },
-  }
+---- Register a handler that will be called for all installed servers.
+--lsp_installer.on_server_ready(function(server)
+--  local opts = {
+--    capabilities = capabilities,
+--    on_attach = on_attach,
+--    flags = {
+--      debounce_text_changes = 150,
+--    },
+--  }
 
-  if custom_server_opts[server.name] then
-    custom_server_opts[server.name](opts)
-  end
+--  if custom_server_opts[server.name] then
+--    custom_server_opts[server.name](opts)
+--  end
 
-  -- This setup() function is exactly the same as lspconfig's setup function.
-  -- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-  server:setup(opts)
-end)
+--  -- This setup() function is exactly the same as lspconfig's setup function.
+--  -- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+--  server:setup(opts)
+--end)
 
--- Setup lspconfig.
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
---[[ nvim_lsp['gopls'].setup {
-  capabilities = capabilities,
-  on_attach = on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  },
-  settings = {
-    gopls = {
-      buildFlags = {"-tags=integration"}
-    }
-  }
-} ]]
-
---[[ local servers = { 'pyright', 'rust_analyzer', 'solargraph', 'sumneko_lua', 'efm', 'terraformls'}
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
-    capabilities = capabilities,
-    on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 150,
-    }
-  }
-end ]]
+---- Setup lspconfig.
+---- Use a loop to conveniently call 'setup' on multiple servers and
+---- map buffer local keybindings when the language server attaches
+----[[ nvim_lsp['gopls'].setup {
+--  capabilities = capabilities,
+--  on_attach = on_attach,
+--  flags = {
+--    debounce_text_changes = 150,
+--  },
+--  settings = {
+--    gopls = {
+--      buildFlags = {"-tags=integration"}
+--    }
+--  }
+--} ]]

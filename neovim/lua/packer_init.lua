@@ -92,8 +92,11 @@ return packer.startup(function(use)
 
   -- LSP + treesitter plugins
   use 'jose-elias-alvarez/null-ls.nvim' -- Linters etc
-  use 'neovim/nvim-lspconfig' -- LSP for neovim
-  use 'williamboman/nvim-lsp-installer' -- Install LSP servers
+  use {
+    "williamboman/mason.nvim", -- LSP installer
+    "williamboman/mason-lspconfig.nvim", -- LSP config support for mason
+    "neovim/nvim-lspconfig", -- LSP for neovim
+  }
   use 'tami5/lspsaga.nvim'
   use {
     'nvim-treesitter/nvim-treesitter',
