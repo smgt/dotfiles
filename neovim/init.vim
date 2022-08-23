@@ -47,6 +47,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'baruchel/vim-notebook'
   Plug 'hashivim/vim-terraform'
   Plug 'ellisonleao/glow.nvim'
+  Plug 'ray-x/go.nvim'
 
   " LSP + treesitter plugins
   Plug 'jose-elias-alvarez/null-ls.nvim' " Linters etc
