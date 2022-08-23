@@ -83,7 +83,12 @@ return packer.startup(function(use)
   use 'baruchel/vim-notebook'
   use 'hashivim/vim-terraform'
   use 'ellisonleao/glow.nvim'
-  use 'ray-x/go.nvim'
+  use {
+    'ray-x/go.nvim',
+    config = function()
+      require('go').setup()
+    end
+}
 
   -- LSP + treesitter plugins
   use 'jose-elias-alvarez/null-ls.nvim' -- Linters etc
@@ -113,6 +118,9 @@ return packer.startup(function(use)
   use {
     'folke/trouble.nvim', -- Diagnostics view
     requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require('trouble').setup()
+    end
   }
 
   -- Snippets
@@ -127,7 +135,13 @@ return packer.startup(function(use)
   -- Eye candy
   use 'kyazdani42/nvim-web-devicons' -- Icons
   use 'junegunn/vim-emoji'
-  use 'norcalli/nvim-colorizer.lua'
+
+  use {
+    'norcalli/nvim-colorizer.lua',
+    config = function()
+      require('colorizer').setup()
+    end
+  }
 
   -- Themes
   use { 'catppuccin/nvim', as = 'catppuccin' }

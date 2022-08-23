@@ -8,6 +8,8 @@ end
 
 vim.g.mapleader = ','
 
+-- General
+--
 map('i', '<Up>', '<NOP>')
 map('i', '<Down>', '<NOP>')
 map('i', '<Left>', '<NOP>')
@@ -20,6 +22,8 @@ map('', '<Right>', '<NOP>')
 map('n', '<C-p>', ':tabnext<CR>')
 map('n', '<C-o>', ':tabprev<CR>')
 
+-- TMUX
+--
 map('n', '<C-h>', ':TmuxNavigateLeft<CR>')
 map('n', '<C-j>', ':TmuxNavigateDown<CR>')
 map('n', '<C-k>', ':TmuxNavigateUp<CR>')

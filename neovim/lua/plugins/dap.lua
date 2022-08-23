@@ -2,8 +2,6 @@ require('dap-go').setup()
 local dap = require('dap')
 local dapui = require('dapui')
 -- local widgets = require('dap.ui.widgets')
-require('dapui').setup(
-)
 
 dapui.setup({
   icons = { expanded = "▾", collapsed = "▸" },

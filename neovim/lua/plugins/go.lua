@@ -32,10 +32,5 @@ end
 vim.api.nvim_command [[autocmd BufWritePre *.go lua goimports(1000)]]
 --]]
 
--- Load go module
-local status, go = pcall(require, "go")
-if (not status) then return end
-go.setup()
-
 -- Run gofmt + goimport on save
 -- vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').goimport() ]], false)
