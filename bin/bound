@@ -23,8 +23,8 @@ i=1
 
 for var in "$@";do
   echo -e "${GREEN}■${NC} Uploading ${BLUE}$var${NC} ($i/$total) to ${YELLOW}$ip${NC}"
-  if ! curl -s -F "files[]=@$var" "http://$ip/upload" > /dev/null ;then
-    echo "${RED}■ ERROR${NC} Failed to upload file"
+  if ! curl -s -F "files[]=@\"$var\"" "http://$ip/upload" > /dev/null ;then
+    echo -e "${RED}■ ERROR${NC} Failed to upload file"
     exit 1
   fi
   i=$((i+1))
