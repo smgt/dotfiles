@@ -1,3 +1,24 @@
+require("mason").setup()
+local mason = require("mason-lspconfig")
+mason.setup({
+  ensure_installed = {
+    "bashls",
+    "dockerls",
+    "gopls",
+    "jsonls",
+    "jsonnet_ls",
+    "pyright",
+    "rust_analyzer",
+    "solargraph",
+    "sumneko_lua",
+    "taplo",
+    "terraformls",
+    "tflint",
+    "vimls",
+    "yamlls",
+  }
+})
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -43,7 +64,7 @@ local on_attach = function(client, bufnr)
   -- Load completion
   -- require 'completion'.on_attach(client, bufnr)
 
-  protocol.CompletionItemKind = {
+  require('vim.lsp.protocol').CompletionItemKind = {
     '', -- Text
     '', -- Method
     '', -- Function
@@ -95,6 +116,14 @@ local lsp_flags = {
   -- This is the default in Nvim 0.7+
   debounce_text_changes = 150,
 }
+
+for _, server in ipairs(mason.get_installed_servers()) do
+  require('lspconfig')[server].setup {
+    on_attach = on_attach,
+    flags = lsp_flags,
+    capabilities = capabilities,
+  }
+end
 
 ---- Register a handler that will be called for all installed servers.
 --lsp_installer.on_server_ready(function(server)
