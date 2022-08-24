@@ -88,7 +88,7 @@ return packer.startup(function(use)
     config = function()
       require('go').setup()
     end
-}
+  }
 
   -- LSP + treesitter plugins
   use 'jose-elias-alvarez/null-ls.nvim' -- Linters etc
@@ -117,14 +117,6 @@ return packer.startup(function(use)
     },
   }
 
-  use 'simrat39/symbols-outline.nvim' -- symbols
-  use {
-    'folke/trouble.nvim', -- Diagnostics view
-    requires = "kyazdani42/nvim-web-devicons",
-    config = function()
-      require('trouble').setup()
-    end
-  }
 
   -- Snippets
   use 'L3MON4D3/LuaSnip'
@@ -136,6 +128,28 @@ return packer.startup(function(use)
   use 'rcarriga/nvim-dap-ui'
 
   -- Eye candy
+  use {
+    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    config = function()
+      require("lsp_lines").setup()
+      vim.diagnostic.config({
+        virtual_text = false,
+      })
+    end,
+  }
+  use {
+    'simrat39/symbols-outline.nvim',
+    config = function()
+      require('symbols-outline').setup()
+    end
+  }
+  use {
+    'folke/trouble.nvim', -- Diagnostics view
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require('trouble').setup()
+    end
+  }
   use 'kyazdani42/nvim-web-devicons' -- Icons
   use 'junegunn/vim-emoji'
 
