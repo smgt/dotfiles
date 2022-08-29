@@ -152,13 +152,13 @@ return packer.startup(function(use)
   }
   use 'kyazdani42/nvim-web-devicons' -- Icons
   use 'junegunn/vim-emoji'
-
   use {
     'norcalli/nvim-colorizer.lua',
     config = function()
       require('colorizer').setup()
     end
   }
+  use { 'glepnir/dashboard-nvim' }
 
   -- Themes
   use { 'catppuccin/nvim', as = 'catppuccin' }

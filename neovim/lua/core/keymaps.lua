@@ -37,7 +37,7 @@ map('n', '<F6>', '<cmd>lua require"dap".step_over()<CR>')
 map('n', '<F7', '<cmd>lua require"dap".step_into()<CR>')
 map('n', '<F8>', '<cmd>lua require"dap".step_out()<CR>')
 map('n', '<F9>', '<cmd>lua require"dap".terminate()<CR>')
-map('n', '<space>b',  '<cmd>lua require"dap".toggle_breakpoint()<CR>')
+map('n', '<space>b', '<cmd>lua require"dap".toggle_breakpoint()<CR>')
 -- map('n', '<F5>', '<cmd>lua require"dap".continue()<CR>')
 
 -- Telescope
