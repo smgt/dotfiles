@@ -157,6 +157,15 @@ return packer.startup(function(use)
       require('colorizer').setup()
     end
   }
+  use {
+    'akinsho/bufferline.nvim',
+    tag = "v2.*",
+    requires = 'kyazdani42/nvim-web-devicons',
+    config = function()
+      require("bufferline").setup({
+      })
+    end
+  }
   use { 'glepnir/dashboard-nvim' }
 
   -- Themes
