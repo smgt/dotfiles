@@ -44,7 +44,6 @@ return packer.startup(function(use)
     'ray-x/guihua.lua',
     run = 'cd lua/fzy && make'
   }
-  use 'vim-scripts/ZoomWin'
   use 'chentau/marks.nvim'
   use 'junegunn/goyo.vim'
   use 'kyazdani42/nvim-tree.lua'
