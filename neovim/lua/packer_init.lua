@@ -90,11 +90,11 @@ return packer.startup(function(use)
   }
 
   -- LSP + treesitter plugins
+  use "neovim/nvim-lspconfig"
   use 'jose-elias-alvarez/null-ls.nvim' -- Linters etc
   use {
     "williamboman/mason.nvim", -- LSP installer
     "williamboman/mason-lspconfig.nvim", -- LSP config support for mason
-    "neovim/nvim-lspconfig", -- LSP for neovim
   }
   use 'tami5/lspsaga.nvim'
   use {
@@ -105,21 +105,18 @@ return packer.startup(function(use)
 
   use {
     'hrsh7th/nvim-cmp',
+    wants = { "LuaSnip" },
     requires = {
+      'L3MON4D3/LuaSnip',
+      'honza/vim-snippets',
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline',
-      'hrsh7th/cmp-vsnip',
       'saadparwaiz1/cmp_luasnip',
       'onsails/lspkind-nvim',
     },
   }
-
-
-  -- Snippets
-  use 'L3MON4D3/LuaSnip'
-  use 'honza/vim-snippets'
 
   -- Debugging with dap
   use 'mfussenegger/nvim-dap'

@@ -3,15 +3,10 @@ local has_words_before = function()
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
-local cmp_status_ok, cmp = pcall(require, 'cmp')
-if not cmp_status_ok then
-  return
-end
+local luasnip = require("luasnip")
+local cmp = require("cmp")
 
-local luasnip_status_ok, luasnip = pcall(require, 'luasnip')
-if not luasnip_status_ok then
-  return
-end
+require("luasnip.loaders.from_snipmate").lazy_load()
 
 local lspkind_status_ok, lspkind = pcall(require, 'lspkind')
 if not lspkind_status_ok then
@@ -64,6 +59,9 @@ lspkind.init({
 })
 
 cmp.setup({
+  window = {
+    documentation = true
+  },
   formatting = {
     format = lspkind.cmp_format({
       mode = 'symbol',
@@ -102,7 +100,7 @@ cmp.setup({
       end
     end, { "i", "s" }),
 
-    ["<S-Tab>"] = cmp.mapping(function()
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
       elseif luasnip.jumpable(-1) then
@@ -122,13 +120,15 @@ cmp.setup({
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline('/', {
-  sources = {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
     { name = 'buffer' }
-  }
+  })
 })
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources({
     { name = 'path' }
   }, {
