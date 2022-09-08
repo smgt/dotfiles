@@ -4,6 +4,7 @@ require('core/autocmds')
 require('core/keymaps')
 require('core/colors')
 require('core/statusline')
+
 require('plugins/nvim-tree')
 require('plugins/cmp')
 require('plugins/dap')
