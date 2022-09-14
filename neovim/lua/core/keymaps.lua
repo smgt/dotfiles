@@ -19,8 +19,10 @@ map('', '<Down>', '<NOP>')
 map('', '<Left>', '<NOP>')
 map('', '<Right>', '<NOP>')
 
-map('n', '<C-p>', ':tabnext<CR>')
-map('n', '<C-o>', ':tabprev<CR>')
+-- map('n', '<C-p>', ':tabnext<CR>')
+-- map('n', '<C-o>', ':tabprev<CR>')
+map('n', '<C-p>', ':BufferNext<CR>')
+map('n', '<C-o>', ':BufferPrevious<CR>')
 
 -- TMUX
 --
