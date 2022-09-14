@@ -14,6 +14,8 @@ table.insert(vimgrep_arguments, "!.git/*")
 
 telescope.setup {
   defaults = {
+    layout_strategy = "vertical",
+    layout_config = { height = 0.95 },
     vimgrep_arguments = vimgrep_arguments,
     mappings = {
       i = {

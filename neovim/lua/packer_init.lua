@@ -170,7 +170,7 @@ return packer.startup(function(use)
   use { 'glepnir/dashboard-nvim' }
 
   -- Themes
-  use { 'catppuccin/nvim', as = 'catppuccin' }
+  use { 'catppuccin/nvim', as = 'catppuccin', run = ':CatppuccinCompile' }
   use 'rakr/vim-one' -- was rtp
   use 'marko-cerovac/material.nvim'
   use 'sainnhe/sonokai'
