@@ -101,7 +101,7 @@ return packer.startup(function(use)
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
   }
-  -- use 'github/copilot.vim'
+  use 'github/copilot.vim'
 
   use {
     'hrsh7th/nvim-cmp',
