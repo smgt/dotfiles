@@ -16,6 +16,8 @@ mason.setup({
     "tflint",
     "vimls",
     "yamlls",
+    "vale",
+    "impl",
   }
 })
 
