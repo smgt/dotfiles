@@ -101,11 +101,26 @@ return packer.startup(function(use)
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
   }
-  use 'github/copilot.vim'
+
+  use {
+    "zbirenbaum/copilot.lua",
+    event = { "VimEnter" },
+    config = function()
+      vim.defer_fn(function()
+        require("copilot").setup()
+      end, 100)
+    end,
+  }
+
+  -- use {
+  --   'zbirenbaum/copilot-cmp',
+  --   after = { "copilot.lua"},
+  --   before = {'hrsh7th/nvim-cmp'},
+  -- }
 
   use {
     'hrsh7th/nvim-cmp',
-    wants = { "LuaSnip" },
+    wants = { "LuaSnip", "copilot" },
     requires = {
       'L3MON4D3/LuaSnip',
       'honza/vim-snippets',
@@ -115,6 +130,7 @@ return packer.startup(function(use)
       'hrsh7th/cmp-cmdline',
       'saadparwaiz1/cmp_luasnip',
       'onsails/lspkind-nvim',
+      'zbirenbaum/copilot-cmp',
     },
   }
 
