@@ -119,12 +119,49 @@ local lsp_flags = {
   debounce_text_changes = 150,
 }
 
-for _, server in ipairs(mason.get_installed_servers()) do
-  require('lspconfig')[server].setup {
-    on_attach = on_attach,
-    flags = lsp_flags,
-    capabilities = capabilities,
+local custom_lsp_server_opts = {}
+
+custom_lsp_server_opts.solargraph = {
+  init_options = {
+    formatting = false
   }
+}
+
+custom_lsp_server_opts.sumneko_lua = {
+  settings = {
+    Lua = {
+      runtime = {
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = { 'vim' },
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
+      },
+    }
+  }
+}
+
+local base_lsp_config = {
+  on_attach = on_attach,
+  flags = lsp_flags,
+  capabilities = capabilities,
+}
+
+for _, server in ipairs(mason.get_installed_servers()) do
+  local opts = vim.deepcopy(base_lsp_config)
+  if custom_lsp_server_opts[server] then
+    opts = vim.tbl_deep_extend('force', opts, custom_lsp_server_opts[server])
+  end
+
+  require('lspconfig')[server].setup(opts)
 end
 
 ---- Register a handler that will be called for all installed servers.
