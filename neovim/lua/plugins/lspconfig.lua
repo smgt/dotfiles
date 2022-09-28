@@ -8,6 +8,8 @@ mason.setup({
     "jsonls",
     "jsonnet_ls",
     "pyright",
+    "golangci-lint",
+    "golangci-lint-langserver",
     "rust_analyzer",
     "solargraph",
     "sumneko_lua",

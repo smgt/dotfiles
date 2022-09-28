@@ -15,6 +15,5 @@ null_ls.setup({
     null_ls.builtins.formatting.protolint,
     null_ls.builtins.diagnostics.teal,
     null_ls.builtins.diagnostics.vint,
-    null_ls.builtins.diagnostics.golangci_lint
   },
 })
