@@ -1,12 +1,15 @@
 local status, saga = pcall(require, "lspsaga")
 if (not status) then return end
--- local provider = require 'lspsaga.provider'
 
 -- lua
 saga.init_lsp_saga {
-  error_sign = '',
-  warn_sign = '',
-  hint_sign = '',
-  infor_sign = '',
-  border_style = 'round',
+  border_style = 'rounded',
+  diagnostic_header = { " ", " ", " ", "ﴞ " },
+  -- use emoji lightbulb in default
+  code_action_icon = "💡",
+  finder_icons = {
+    def = '  ',
+    ref = '諭 ',
+    link = '  ',
+  },
 }
