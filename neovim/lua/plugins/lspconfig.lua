@@ -8,8 +8,7 @@ mason.setup({
     "jsonls",
     "jsonnet_ls",
     "pyright",
-    "golangci-lint",
-    "golangci-lint-langserver",
+    "golangci_lint_ls",
     "rust_analyzer",
     "solargraph",
     "sumneko_lua",
@@ -18,8 +17,6 @@ mason.setup({
     "tflint",
     "vimls",
     "yamlls",
-    "vale",
-    "impl",
   }
 })
 
@@ -168,38 +165,3 @@ for _, server in ipairs(mason.get_installed_servers()) do
 
   require('lspconfig')[server].setup(opts)
 end
-
----- Register a handler that will be called for all installed servers.
---lsp_installer.on_server_ready(function(server)
---  local opts = {
---    capabilities = capabilities,
---    on_attach = on_attach,
---    flags = {
---      debounce_text_changes = 150,
---    },
---  }
-
---  if custom_server_opts[server.name] then
---    custom_server_opts[server.name](opts)
---  end
-
---  -- This setup() function is exactly the same as lspconfig's setup function.
---  -- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
---  server:setup(opts)
---end)
-
----- Setup lspconfig.
----- Use a loop to conveniently call 'setup' on multiple servers and
----- map buffer local keybindings when the language server attaches
-----[[ nvim_lsp['gopls'].setup {
---  capabilities = capabilities,
---  on_attach = on_attach,
---  flags = {
---    debounce_text_changes = 150,
---  },
---  settings = {
---    gopls = {
---      buildFlags = {"-tags=integration"}
---    }
---  }
---} ]]
