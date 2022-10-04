@@ -38,14 +38,12 @@ return packer.startup(function(use)
   -- utils
   use 'tpope/vim-surround'
   use 'tpope/vim-unimpaired'
-  use 'tpope/vim-commentary'
-  use 'JoosepAlviste/nvim-ts-context-commentstring'
+  use 'tpope/vim-commentary' -- comments
+  use 'JoosepAlviste/nvim-ts-context-commentstring' -- context aware comment-string
   use {
     'ray-x/guihua.lua',
     run = 'cd lua/fzy && make'
   }
-  use 'chentau/marks.nvim'
-  use 'junegunn/goyo.vim'
   use 'kyazdani42/nvim-tree.lua'
 
   -- git
@@ -81,13 +79,13 @@ return packer.startup(function(use)
   use 'PyGamer0/vim-apl'
   use 'baruchel/vim-notebook'
   use 'hashivim/vim-terraform'
-  use 'ellisonleao/glow.nvim'
-  use {
-    'ray-x/go.nvim',
-    config = function()
-      require('go').setup()
-    end
-  }
+  use 'ellisonleao/glow.nvim' -- markdown preview
+  -- use {
+  --   'ray-x/go.nvim',
+  --   config = function()
+  --     require('go').setup()
+  --   end
+  -- }
 
   -- LSP + treesitter plugins
   use "neovim/nvim-lspconfig"
@@ -96,7 +94,7 @@ return packer.startup(function(use)
     "williamboman/mason.nvim", -- LSP installer
     "williamboman/mason-lspconfig.nvim", -- LSP config support for mason
   }
-  use 'tami5/lspsaga.nvim'
+  use 'glepnir/lspsaga.nvim'
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
@@ -112,12 +110,7 @@ return packer.startup(function(use)
     end,
   }
 
-  -- use {
-  --   'zbirenbaum/copilot-cmp',
-  --   after = { "copilot.lua"},
-  --   before = {'hrsh7th/nvim-cmp'},
-  -- }
-
+  -- auto-complete
   use {
     'hrsh7th/nvim-cmp',
     wants = { "LuaSnip", "copilot" },
