@@ -136,6 +136,19 @@ return packer.startup(function(use)
   use 'rcarriga/nvim-dap-ui'
 
   -- Eye candy
+
+  use {
+    "folke/todo-comments.nvim",
+    requires = "nvim-lua/plenary.nvim",
+    config = function()
+      require("todo-comments").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
+  }
+
   use {
     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
     config = function()
