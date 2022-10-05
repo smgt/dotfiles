@@ -88,6 +88,8 @@ map('n', '<Space>bd', '<Cmd>BufferOrderByDirectory<CR>')
 map('n', '<Space>bl', '<Cmd>BufferOrderByLanguage<CR>')
 map('n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>')
 
+map('n', '<leader>im', "<cmd>lua require'telescope'.extensions.goimpl.goimpl{}<CR>]]")
+
 -- Other:
 -- :BarbarEnable - enables barbar (enabled by default)
 -- :BarbarDisable - very bad command, should never be used

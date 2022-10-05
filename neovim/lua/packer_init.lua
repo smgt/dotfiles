@@ -87,21 +87,36 @@ return packer.startup(function(use)
   --   end
   -- }
 
+  use {
+    'edolphin-ydf/goimpl.nvim',
+    requires = {
+      { 'nvim-lua/plenary.nvim' },
+      { 'nvim-lua/popup.nvim' },
+      { 'nvim-telescope/telescope.nvim' },
+      { 'nvim-treesitter/nvim-treesitter' },
+    },
+    config = function()
+      require 'telescope'.load_extension 'goimpl'
+    end,
+  }
+
+
   -- LSP + treesitter plugins
-  use "neovim/nvim-lspconfig"
-  use {
-    "williamboman/mason.nvim", -- LSP installer
-    "williamboman/mason-lspconfig.nvim", -- LSP config support for mason
-  }
-  use {
-    'jose-elias-alvarez/null-ls.nvim', -- Linters etc
-    'jayp0521/mason-null-ls.nvim'
-  }
-  use 'glepnir/lspsaga.nvim'
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
   }
+
+  use "williamboman/mason.nvim" -- LSP installer
+  use "williamboman/mason-lspconfig.nvim" -- LSP config support for mason, needs to be loaded before lspconfig
+
+  use "neovim/nvim-lspconfig"
+
+  use 'jose-elias-alvarez/null-ls.nvim' -- Linters etc
+  use 'jayp0521/mason-null-ls.nvim' -- NOTE: needs to be loaded after null-ls
+
+
+  use 'glepnir/lspsaga.nvim'
 
   use {
     "zbirenbaum/copilot.lua",
@@ -166,7 +181,10 @@ return packer.startup(function(use)
   }
   use {
     'folke/trouble.nvim', -- Diagnostics view
-    requires = "kyazdani42/nvim-web-devicons",
+    requires = {
+      "kyazdani42/nvim-web-devicons",
+      'folke/lsp-colors.nvim'
+    },
     config = function()
       require('trouble').setup()
     end
