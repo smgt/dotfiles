@@ -9,7 +9,7 @@ __tmux_cmus() {
     #The lines below works fine. Just uncomment them and add them
     # in np below if you want the track number or album name.
     #cmus_tracknumber=$(echo $cmus_data | grep "tracknumber" | cut -d ' ' -f 3)
-    cmus_album=$(cmus-remote -Q | egrep "^tag album " | cut -d ' ' -f 3-)
+    cmus_album=$(cmus-remote -Q | grep -E "^tag album " | cut -d ' ' -f 3-)
 
 
     if [ "$cmus_status" == "playing" ]; then
