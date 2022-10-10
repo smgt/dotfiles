@@ -40,12 +40,14 @@ prerequisites_check() {
 # To use set -e we always return true
 read -r -d '' JSON <<EOF || true
 {
+  "category": "SECURE_NOTE",
   "fields": [
     {
       "id": "notesPlain",
       "type": "STRING",
       "purpose": "NOTES",
-      "label": "notesPlain"
+      "label": "notesPlain",
+      "value": ""
     },
     {
       "id": "private_key",
@@ -226,13 +228,17 @@ sub_create() {
     error_print "A entry for a ssh key named $entry_title already exists"
     exit 1
   else
-    op item create --title "$entry_title" --category "Secure Note" --tags ssh --template=<(jq --null-input --arg public_key "$key_public" --arg private_key "$key_private" --arg timeout "$default_timeout" "$JSON")
+
+    TMP_FILE=$(mktemp -p "$PWD")
+    jq --null-input --arg public_key "$key_public" --arg private_key "$key_private" --arg timeout "$default_timeout" "$JSON" > "$TMP_FILE"
+    op item create --title "$entry_title" --tags ssh --template "$TMP_FILE"
     if [ $? ];then
       info_print "Created secure note 'SSHKey-$key_hostname' successfully"
     else
       error_print "Failed to create the ssh key entry in 1Password"
       exit 1
     fi
+    rm "$TMP_FILE"
   fi
 }
 
