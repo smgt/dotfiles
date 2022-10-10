@@ -21,7 +21,7 @@ _pj_update_cache() {
   find "$CODE"/ -name .git -type d -printf "%P\n"| sed 's!.git$!!' > "$PJ_DICT_PATH"
 }
 
-pj() {
+_pj() {
   local pj_command
   pj_command="$PJ_COMMAND_DEFAULT"
   if [ -z "$CODE" ];then
@@ -42,13 +42,20 @@ pj() {
     pj_command="$1"
   fi
 
-  dir=$(fzf --layout=reverse --border --margin=1 --height 50% -1 < "$PJ_DICT_PATH" | awk '{print $1}')
+  local start_query
+  if [ -n "$2" ];then
+    start_query='--query '"$2"
+  fi
+
+  export FZF_DEFAULT_OPTS='--layout=reverse --border '$start_query' --margin=1 --height 50% -1'
+
+  dir=$(fzf < "$PJ_DICT_PATH" | awk '{print $1}')
   if [ "$dir" = "" ];then
     return
   fi
 
   set +e
-  _pj_command_${pj_command} "$dir" # 2> /dev/null
+  "_pj_command_${pj_command}" "$dir" # 2> /dev/null
   if [ "$?" -eq 127 ];then
     echo "ERROR: Unknown command $pj_command."
     return
@@ -57,15 +64,19 @@ pj() {
 }
 
 pjc() {
-  pj cd
+  _pj cd "$1"
 }
 
 pjn() {
-  pj nvim
+  _pj nvim "$1"
+}
+
+pj() {
+  _pj nvim "$1"
 }
 
 pjt() {
-  pj nvim-tree
+  _pj nvim-tree "$1"
 }
 
 pju() {
