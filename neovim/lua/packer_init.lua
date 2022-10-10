@@ -45,6 +45,12 @@ return packer.startup(function(use)
     run = 'cd lua/fzy && make'
   }
   use 'kyazdani42/nvim-tree.lua'
+  use { "anuvyklack/windows.nvim", -- autoscale windows
+    requires = "anuvyklack/middleclass",
+    config = function()
+      require('windows').setup()
+    end
+  }
 
   -- git
   use 'gregsexton/gitv'
