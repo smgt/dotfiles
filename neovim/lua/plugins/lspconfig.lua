@@ -140,6 +140,7 @@ custom_lsp_server_opts.gopls = {
   settings = {
     gopls = {
       gofumpt = true,
+      buildFlags = { "-tags=integration" },
     }
   }
 }
