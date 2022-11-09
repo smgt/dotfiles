@@ -55,6 +55,7 @@ systemctl --user import-environment DISPLAY
 ~/.fehbg &
 #xsetroot -solid "#0d1217"
 dunst &
+type flameshot > /dev/null 2>&1 && { flameshot & }
 type dropbox > /dev/null 2>&1 && { dropbox & }
 type xss-lock >/dev/null 2>&1 && { xss-lock -- "$HOME/.dotfiles/bin/lock" & }
 type xssproxy > /dev/null 2>&1 && { xssproxy & }
