@@ -61,6 +61,25 @@ do
   esac
 done
 
+if [ -z "$WALLPAPER_TYPE" ];then
+  echo "lock type is unset, create ~/.lockrc or pass arguments to lock"
+  exit 1
+fi
+
+if ! command -v mogrify &> /dev/null ;then
+  echo "lock: required tool 'mogrify' isn't installed (imagemagick)"
+  exit 1
+fi
+
+if ! command -v identify &> /dev/null ;then
+  echo "lock: required tool 'identify' isn't installed (imagemagick)"
+  exit 1
+fi
+
+if ! command -v i3lock &> /dev/null ;then
+  echo "lock: required tool 'i3lock' isn't installed"
+  exit 1
+fi
 
 if [ "$WALLPAPER_TYPE" == "screenshot" ];then
   if [ "$(command -v scrot)" ] && [ "$(command -v mogrify)" ];then
