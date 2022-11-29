@@ -6,7 +6,7 @@ DISPLAY_RE="([0-9]+)x([0-9]+)\\+([0-9]+)\\+([0-9]+)"
 IMAGE_RE="([0-9]+)x([0-9]+)"
 #screenshot=0
 #OUTPUT_IMAGE="/tmp/i3lock.png"
-CACHE_FOLDER="/tmp/wallpapers/"
+CACHE_FOLDER="$HOME/.config/dotfiles-lock"
 #WALLPAPER_TYPE_DEFAULT="screenshot"
 LOCKRC="$HOME/.lockrc"
 
@@ -14,14 +14,19 @@ if [ -f "$LOCKRC" ];then
   source "$LOCKRC"
 fi
 
-if ! [ -d ${CACHE_FOLDER} ];then
-  mkdir ${CACHE_FOLDER}
+if ! [ -d "$CACHE_FOLDER" ];then
+  mkdir "$CACHE_FOLDER"
 fi
 
 if [[ -n ${lock_type} ]];then
   WALLPAPER_TYPE=${lock_type}
+
   if [[ -n "${lock_dir}" ]];then
     WALLPAPER_DIR="${lock_dir}"
+  fi
+
+  if [[ -n "${lock_file_path}" ]];then
+    WALLPAPER_PATH="$lock_file_path"
   fi
 fi
 
