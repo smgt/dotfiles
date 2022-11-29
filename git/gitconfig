@@ -62,4 +62,8 @@
 [diff]
   colorMoved = default
 [gpg]
-	program = gpg2
+	format = ssh
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true
