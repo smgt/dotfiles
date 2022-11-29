@@ -4,6 +4,7 @@
     use: yay
     name:
       - ttc-iosevka-curly
+      - ttf-firacode-nerd
       - ttf-jetbrains-mono
       - ttf-liberation
       - ttf-ubuntu-font-family

@@ -16,7 +16,7 @@
       - rofi
       - firefox
       - slack-desktop
-      - spotify
+      #- spotify
       - wezterm
       - flameshot
       - wireplumber
@@ -25,3 +25,5 @@
       - pipewire-alsa
       - pipewire-jack
       - qpwgraph
+      - imagemagick
+      - i3lock-color

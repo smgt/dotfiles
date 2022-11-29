@@ -17,7 +17,7 @@
       - zstd
       - unzip
       - nmap
-      - aws-cli-v2-bin
+      - aws-cli-v2
       - aws-iam-authenticator-bin
       - httpie
       # TODO: Fix gpg key installation
