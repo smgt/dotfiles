@@ -52,17 +52,19 @@ fi
 systemctl --user import-environment DISPLAY
 
 #compton --config /home/simon/.compton.conf &
-~/.fehbg &
 #xsetroot -solid "#0d1217"
-dunst &
+
+. /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
+#autocutsel -fork &
+#autocutsel -selection PRIMARY -fork &
+#exec ssh-agent i3
+#eval $(dbus-launch --sh-syntax)
+~/.fehbg &
+type dunst > /dev/null 2>&1 && { dunst & }
 type flameshot > /dev/null 2>&1 && { flameshot & }
 type dropbox > /dev/null 2>&1 && { dropbox & }
 type xss-lock >/dev/null 2>&1 && { xss-lock -- "$HOME/.dotfiles/bin/lock" & }
 type xssproxy > /dev/null 2>&1 && { xssproxy & }
 type picom > /dev/null 2>&1 && { picom & }
 
-. /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
-#autocutsel -fork &
-#autocutsel -selection PRIMARY -fork &
-#exec ssh-agent i3
 exec i3
