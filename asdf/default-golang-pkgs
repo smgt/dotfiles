@@ -1,1 +1,2 @@
 gotest.tools/gotestsum@latest
+golang.org/x/vuln/cmd/govulncheck@latest
