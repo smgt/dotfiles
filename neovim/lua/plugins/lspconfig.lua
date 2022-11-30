@@ -111,7 +111,7 @@ local custom_lsp_server_opts = {}
 
 custom_lsp_server_opts.solargraph = {
 	init_options = {
-		formatting = false,
+		autoformat = false,
 	},
 }
 
