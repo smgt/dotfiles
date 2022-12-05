@@ -13,3 +13,5 @@
       - ttf-dejavu
       - ttf-bitstream-vera
       - ttf-font-awesome
+      - adobe-base-14-fonts
+      - ttf-ms-win11-auto
