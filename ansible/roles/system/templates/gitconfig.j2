@@ -14,6 +14,9 @@
   editor = nvim
   pager = delta
 
+[include]
+  path = ~/.gitconfig.local
+
 [color]
   ui = auto
 
@@ -60,5 +63,15 @@
 
 [diff]
   colorMoved = default
+
+{% if git_user_sign_key is defined %}
 [gpg]
-	program = gpg2
+  format = ssh
+[commit]
+  gpgsign = true
+[tag]
+  gpgsign = true
+[gpg "ssh"]
+  allowedSignersFile = {{ ansible_user_dir }}/.git-allowed-signers
+{% endif %}
+

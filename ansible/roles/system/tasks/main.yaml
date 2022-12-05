@@ -12,16 +12,27 @@
       - curl
       - base-devel
     state: latest
-  become: yes
+  become: true
 - name: Configure git
   ansible.builtin.template:
     dest: "{{ansible_user_dir}}/.gitconfig"
     src: gitconfig.j2
-- name: Configure shell
-  user:
-    name: vagrant 
-    shell: /bin/zsh
-  become: yes
+- name: Create git signers file
+  copy:
+    content: ""
+    dest: "{{ansible_user_dir}}/.git-allowed-signers"
+    force: no
+    group: "{{ansible_user_gid}}"
+    owner: "{{ansible_user_uid}}"
+    mode: 0660
+- name: Create gitconfig local file
+  copy:
+    content: ""
+    dest: "{{ansible_user_dir}}/.gitconfig.local"
+    force: no
+    group: "{{ansible_user_gid}}"
+    owner: "{{ansible_user_uid}}"
+    mode: 0660
 - name: Install yay
   kewlfft.aur.aur:
     use: makepkg
