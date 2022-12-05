@@ -32,6 +32,13 @@ fi
 # Enter path
 cd "$DOTFILES_DIR"
 
+# Chech if dotfiles configuration exits
+if ! [ -f "$CONFIG_FILE_PATH" ];then
+  echo "No dotfiles config found at $CONFIG_FILE_PATH"
+  echo "You need to create a file, take a look at $DOTFILES_DIR/config.yml.example"
+  exit 1
+fi
+
 # Update Galaxy
 ansible-galaxy install -r ansible/requirements.yml
 
