@@ -60,8 +60,9 @@ systemctl --user import-environment DISPLAY
 #exec ssh-agent i3
 #eval $(dbus-launch --sh-syntax)
 ~/.fehbg &
+type /usr/lib/xfce-polkit/xfce-polkit > /dev/null 2>&1 && { /usr/lib/xfce-polkit/xfce-polkit & }
 type dunst > /dev/null 2>&1 && { dunst & }
-type flameshot > /dev/null 2>&1 && { flameshot & }
+# type flameshot > /dev/null 2>&1 && { flameshot & }
 type dropbox > /dev/null 2>&1 && { dropbox & }
 type xss-lock >/dev/null 2>&1 && { xss-lock -- "$HOME/.dotfiles/bin/lock" & }
 type xssproxy > /dev/null 2>&1 && { xssproxy & }
