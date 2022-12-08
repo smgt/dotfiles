@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Check if maim is installed
+if ! command -v maim &> /dev/null;then
+  echo "maim could not be found"
+  exit 1
+fi
+
+# Check if xclip is installed
+if ! command -v xclip &> /dev/null;then
+  echo "xclip could not be found"
+  exit 1
+fi
+
+# Parse commands
+if [ -z "$1" ];then
+  CMD="select"
+elif [ "$1" == "-w" ];then
+  CMD="window"
+elif [ "$1" == "-s" ];then
+  CMD="select"
+elif [ "$1" == "-f" ];then
+  CMD="full"
+else
+  echo "Invalid command"
+  exit 1
+fi
+
+if [ "$CMD" == "select" ];then
+  maim -s | xclip -selection clipboard -t image/png
+elif [ "$CMD" == "window" ];then
+  maim -i "$(xdotool getactivewindow)" | xclip -selection clipboard -t image/png
+elif [ "$CMD" == "full" ];then
+  maim | xclip -selection clipboard -t image/png
+fi
