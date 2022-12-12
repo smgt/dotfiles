@@ -14,7 +14,7 @@ entry_prefix="SSHKey-"
 
 op_signin() {
   if [ -z "${!op_session_variable}" ];then
-    eval $(op signin --account $OP_SSH_ACCOUNT)
+    eval $(op signin --account "$OP_SSH_ACCOUNT")
   fi
 }
 
