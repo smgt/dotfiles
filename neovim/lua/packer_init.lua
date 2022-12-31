@@ -123,10 +123,18 @@ return packer.startup(function(use)
 		run = ":TSUpdate",
 	})
 
-	use("williamboman/mason.nvim") -- LSP installer
-	use("williamboman/mason-lspconfig.nvim") -- LSP config support for mason, needs to be loaded before lspconfig
-
-	use("neovim/nvim-lspconfig")
+	use({
+		"neovim/nvim-lspconfig",
+		requires = {
+			"williamboman/mason.nvim", -- LSP installer
+			"williamboman/mason-lspconfig.nvim", -- LSP config support for mason, needs to be loaded before lspconfig
+			"j-hui/fidget.nvim", -- LSP status
+			"folke/neodev.nvim", -- LSP annotations
+		},
+		config = function()
+			require("fidget").setup()
+		end,
+	})
 
 	use("jose-elias-alvarez/null-ls.nvim") -- Linters etc
 	use("jayp0521/mason-null-ls.nvim") -- NOTE: needs to be loaded after null-ls

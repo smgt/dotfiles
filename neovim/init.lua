@@ -13,7 +13,6 @@ require("plugins/nvim-tree")
 require("plugins/cmp")
 require("plugins/dap")
 require("plugins/lspsaga")
-require("plugins/mason") -- before nullls and lspconfig
 require("plugins/lspconfig")
 require("plugins/nullls")
 require("plugins/lualine")

@@ -1,3 +1,5 @@
+require("mason").setup()
+
 local mason = require("mason-lspconfig")
 mason.setup({
 	ensure_installed = {
@@ -100,7 +102,10 @@ local on_attach = function(client, bufnr)
 end
 
 -- Enable cmp for each lsp server
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+
+require("neodev").setup()
 
 local lsp_flags = {
 	-- This is the default in Nvim 0.7+
@@ -132,6 +137,10 @@ custom_lsp_server_opts.sumneko_lua = {
 			-- Do not send telemetry data containing a randomized but unique identifier
 			telemetry = {
 				enable = false,
+			},
+			-- Use neodev
+			completion = {
+				callSnippet = "Replace",
 			},
 		},
 	},
