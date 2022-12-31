@@ -225,7 +225,13 @@ return packer.startup(function(use)
 		"romgrk/barbar.nvim",
 		requires = { "kyazdani42/nvim-web-devicons" },
 	})
-	use({ "glepnir/dashboard-nvim" })
+	-- use({ "glepnir/dashboard-nvim" })
+	use({
+		"goolord/alpha-nvim",
+		config = function()
+			require("alpha").setup(require("alpha.themes.dashboard").config)
+		end,
+	})
 
 	-- Themes
 	use({ "catppuccin/nvim", as = "catppuccin", run = ":CatppuccinCompile" })
