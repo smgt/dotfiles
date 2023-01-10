@@ -10,3 +10,4 @@ vim/vim/plugged
 vim/plug.vim
 .vagrant
 neovim/plugin
+neovim/**/.luarc.json
