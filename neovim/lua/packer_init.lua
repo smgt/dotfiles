@@ -71,6 +71,7 @@ return packer.startup(function(use)
 			{ "tpope/vim-rhubarb" },
 		},
 	})
+	use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
 
 	-- tmux
 	use("benmills/vimux")
@@ -203,6 +204,7 @@ return packer.startup(function(use)
 	use("mfussenegger/nvim-dap")
 	use("leoluz/nvim-dap-go")
 	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
+	use("jayp0521/mason-nvim-dap.nvim")
 
 	-- Eye candy
 

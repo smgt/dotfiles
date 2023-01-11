@@ -23,10 +23,9 @@ null_ls.setup({
 	},
 })
 
+-- Automatically install all linters configured in null_ls
 require("mason-null-ls").setup({
-	ensure_installed = {
-		"goimports",
-		"gofumpt",
-		"stylua",
-	},
+	ensure_installed = nil,
+	automatic_installation = true,
+	automatic_setup = false,
 })

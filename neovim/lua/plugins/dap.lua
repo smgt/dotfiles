@@ -1,3 +1,8 @@
+-- Install debuggers with mason
+require("mason-nvim-dap").setup({
+	ensure_installed = { "python", "delve" },
+})
+
 require("dap-go").setup()
 local dap = require("dap")
 local dapui = require("dapui")
