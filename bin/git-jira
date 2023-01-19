@@ -1,27 +1,77 @@
 #!/bin/bash
 
-COMMAND_NAME="git jira"
-COMMAND_JIRA="jira"
+NAME="git jira"
+
+COMMAND_GUM=gum
+
 JIRA_QUERY="project = ${JIRA_PROJECT} AND status IN('To Do', 'In Progress') ORDER BY rank asc, created"
+JIRA_JQ_TEMPLATE_SEARCH='"'\
+'\(.key). \(.fields.summary)'\
+'\t'\
+'Reporter: \(.fields.reporter.displayName)\n'\
+'Created: \(.fields.created)\n'\
+'Updated: \(.fields.updated)\n\n'\
+'\(.fields.description)'\
+'"'
 
-# if [ -f "$HOME/.jira.d/config.yml" ];then
-  # JIRA_PROJECT=$(grep -e ^project < "$HOME"/.jira.d/config.yml | awk '{print $2}')
-# fi
-
-if ! command -v "$COMMAND_JIRA">/dev/null 2>&1;then
-  echo "You need to install https://github.com/go-jira/jira to make this script work"
-  exit 1
-fi
+JIRA_JQ_TEMPLATE_ISSUE='"'\
+'\(.key). \(.fields.summary)'\
+'"'
 
 if ! command -v fzf > /dev/null 2>&1;then
   echo "You need to install https://github.com/junegunn/fzf to make this script work"
   exit 1
 fi
 
+if ! command -v "$COMMAND_GUM" > /dev/null 2>&1;then
+  echo "You need to install gum, https://github.com/charmbracelet/gum"
+  exit 1
+fi
+
+function searchTicket() {
+  curl \
+    --data-urlencode "jql=$JIRA_QUERY" \
+    --get \
+    --user "$JIRA_API_USER:$JIRA_API_TOKEN" \
+    --silent \
+    --compressed \
+    --header 'Accept: application/json' \
+    "$JIRA_API_ENDPOINT/rest/api/2/search" |
+  jq ".issues[] | $JIRA_JQ_TEMPLATE_SEARCH" |
+  sed -e 's/"\(.*\)"/\1/' -e 's/\\t/\t/' |
+  fzf \
+    --with-nth=1 \
+    --delimiter='\t' \
+    --preview='echo -e {2}' \
+    --preview-window=top:wrap |
+  cut -f1
+ }
+
+function showTicket() {
+  if [ -z "$1" ];then
+    exit 1
+  fi
+  res=$(curl \
+    --get \
+    --user "$JIRA_API_USER:$JIRA_API_TOKEN" \
+    --silent \
+    --compressed \
+    --fail-with-body \
+    --header 'Accept: application/json' \
+    "$JIRA_API_ENDPOINT/rest/api/2/issue/$1")
+  if [ $? -ne 0 ];then
+    echo "$res" | jq -r ".errorMessages[0]"
+    exit 1
+  fi
+  echo "$res" | jq ". | $JIRA_JQ_TEMPLATE_ISSUE" |
+  sed -e 's/"\(.*\)"/\1/' -e 's/\\t/\t/' |
+  cut -f1
+}
+
 helpFunction()
 {
   echo ""
-  echo "Usage: ${COMMAND_NAME} <TICKET>"
+  echo "Usage: ${NAME} <TICKET>"
   printf "\t-n Create a jira ticket"
   printf "\t-s Create branch from ticket"
   printf "\t-p Jira Project"
@@ -39,39 +89,34 @@ shift "$(( OPTIND - 1 ))"
 
 if [ -n "$1" ];then
   JIRA_TICKET=$1
+  JIRA_OUT=$(showTicket "$JIRA_TICKET")
 fi
 
 if [ -z "$JIRA_TICKET" ];then
-  JIRA_TICKET=$(jira list --query "${JIRA_QUERY}" | fzf | tr -d ":" | awk '{print $1}')
+  JIRA_OUT=$(searchTicket)
+  JIRA_TICKET=$(echo "$JIRA_OUT" | awk '{print $1}')
 fi
 
 if [ -z "$JIRA_TICKET" ];then
-  echo "You need to supply a jira ticket, ${COMMAND_NAME}"
-  exit 1
-fi
-
-JIRA_SUMMARY=$("$COMMAND_JIRA" req --gjq fields.summary "/rest/api/2/issue/${JIRA_TICKET}")
-if [ -z "$JIRA_SUMMARY" ];then
-  echo "Could not find jira ticket ${JIRA_TICKET}."
+  echo "You need to supply a jira ticket, ${NAME}"
   exit 1
 fi
 
 GIT_BRANCH_NAME=$(
-  echo "$JIRA_SUMMARY" |
-  sed -e 's/[^ a-zA-Z0-9]//g' |
-  tr -s "[:space:]" '-' |
+  echo "$JIRA_OUT" |
+  sed -e 's/\. /\t/' -e 's/[^a-zA-Z0-9\t]/-/g' -e 's/-$//' |
+  tr -s '-' |
   cut -c1-64 |
-  sed 's/-$//' |
-  awk -v jt="$JIRA_TICKET" '{printf "%s/%s", jt, tolower($1)}'
+  awk '{printf "%s/%s", $1, tolower($2)}'
 )
 
-if [ ${#GIT_BRANCH_NAME} -gt 20 ];then
-  read -r -p "Edit branch name: " -i " $GIT_BRANCH_NAME" -e GIT_BRANCH_NAME
-fi
+echo -e "$GIT_BRANCH_NAME"
+GIT_BRANCH_NAME=$(gum input --prompt "Branch name: " --value "$GIT_BRANCH_NAME" --width 64 --placeholder "$GIT_BRANCH_NAME")
 
-git branch "${GIT_BRANCH_NAME}" && \
-git checkout "${GIT_BRANCH_NAME}" && \
-  git push -u origin "${GIT_BRANCH_NAME}"
+gum confirm "Create branch?" && \
+  git branch "${GIT_BRANCH_NAME}" && \
+  git checkout "${GIT_BRANCH_NAME}" && \
+  git push -u origin "${GIT_BRANCH_NAME}" && \
+  echo "Created git branch: ${GIT_BRANCH_NAME}"
 
-echo "Created git branch: ${GIT_BRANCH_NAME}"
 # vim: filetype=sh
