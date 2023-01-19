@@ -32,7 +32,17 @@ telescope.setup({
 	},
 	pickers = {
 		find_files = {
-			find_command = { "fd", "--type", "file", "--follow", "--hidden", "--exclude", ".git" },
+			find_command = {
+				"fd",
+				"--type",
+				"file",
+				"--follow",
+				"--hidden",
+				"--exclude",
+				".git",
+				"--exclude",
+				"vendor",
+			},
 		},
 	},
 })
