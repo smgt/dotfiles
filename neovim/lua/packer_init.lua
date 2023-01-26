@@ -238,7 +238,7 @@ return packer.startup(function(use)
 	use({
 		"folke/trouble.nvim", -- Diagnostics view
 		requires = {
-			"kyazdani42/nvim-web-devicons",
+			"nvim-tree/nvim-web-devicons",
 			"folke/lsp-colors.nvim",
 		},
 		config = function()

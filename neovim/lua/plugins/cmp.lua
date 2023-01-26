@@ -4,65 +4,67 @@ local has_words_before = function()
 	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
-require("copilot_cmp").setup()
+-- require("copilot_cmp").setup()
 
 local luasnip = require("luasnip")
 local cmp = require("cmp")
 
 require("luasnip.loaders.from_snipmate").lazy_load()
 
-local lspkind_status_ok, lspkind = pcall(require, "lspkind")
-if not lspkind_status_ok then
-	return
-end
+--local lspkind_status_ok, lspkind = pcall(require, "lspkind")
+--if not lspkind_status_ok then
+--	return
+--end
 
-lspkind.init({
-	-- defines how annotations are shown
-	-- default: symbol
-	-- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
-	mode = "text_symbol",
+--lspkind.init({
+--	-- defines how annotations are shown
+--	-- default: symbol
+--	-- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
+--	mode = "text_symbol",
 
-	-- default symbol map
-	-- can be either 'default' (requires nerd-fonts font) or
-	-- 'codicons' for codicon preset (requires vscode-codicons font)
-	--
-	-- default: 'default'
-	preset = "codicons",
+--	-- default symbol map
+--	-- can be either 'default' (requires nerd-fonts font) or
+--	-- 'codicons' for codicon preset (requires vscode-codicons font)
+--	--
+--	-- default: 'default'
+--	preset = "default",
 
-	-- override preset symbols
-	--
-	-- default: {}
-	symbol_map = {
-		Copilot = "",
-		Text = "",
-		Method = "",
-		Function = "",
-		Constructor = "",
-		Field = "ﰠ",
-		Variable = "",
-		Class = "ﴯ",
-		Interface = "",
-		Module = "",
-		Property = "ﰠ",
-		Unit = "塞",
-		Value = "",
-		Enum = "",
-		Keyword = "",
-		Snippet = "",
-		Color = "",
-		File = "",
-		Reference = "",
-		Folder = "",
-		EnumMember = "",
-		Constant = "",
-		Struct = "פּ",
-		Event = "",
-		Operator = "",
-		TypeParameter = "",
-	},
-})
+--	-- override preset symbols
+--	--
+--	-- default: {}
+--	symbol_map = {
+--		Copilot = "",
+--		Text = "",
+--		Method = "",
+--		Function = "",
+--		Constructor = "",
+--		Field = "ﰠ",
+--		Variable = "",
+--		Class = "ﴯ",
+--		Interface = "",
+--		Module = "",
+--		Property = "ﰠ",
+--		Unit = "塞",
+--		Value = "",
+--		Enum = "",
+--		Keyword = "",
+--		Snippet = "",
+--		Color = "",
+--		File = "",
+--		Reference = "",
+--		Folder = "",
+--		EnumMember = "",
+--		Constant = "",
+--		Struct = "פּ",
+--		Event = "",
+--		Operator = "",
+--		TypeParameter = "",
+--	},
+--})
 
-local copilot_comparators = require("copilot_cmp.comparators")
+-- local copilot_comparators = require("copilot_cmp.comparators")
+
+local lspkind = require("lspkind")
 
 cmp.setup({
 	-- preselect = cmp.PreselectMode.None,
@@ -74,32 +76,41 @@ cmp.setup({
 	--     return {}
 	--   end
 	-- },
-	sorting = {
-		priority_weight = 2,
-		comparators = {
-			copilot_comparators.prioritize,
-			-- require("copilot_cmp.comparators").score,
+	-- sorting = {
+	-- 	priority_weight = 2,
+	-- 	comparators = {
+	-- 		copilot_comparators.prioritize,
+	-- 		-- require("copilot_cmp.comparators").score,
 
-			-- Below is the default comparitor list and order for nvim-cmp
-			cmp.config.compare.offset,
-			-- cmp.config.compare.scopes, --this is commented in nvim-cmp too
-			cmp.config.compare.exact,
-			cmp.config.compare.score,
-			cmp.config.compare.recently_used,
-			cmp.config.compare.locality,
-			cmp.config.compare.kind,
-			cmp.config.compare.sort_text,
-			cmp.config.compare.length,
-			cmp.config.compare.order,
-		},
-	},
+	-- 		-- Below is the default comparitor list and order for nvim-cmp
+	-- 		cmp.config.compare.offset,
+	-- 		-- cmp.config.compare.scopes, --this is commented in nvim-cmp too
+	-- 		cmp.config.compare.exact,
+	-- 		cmp.config.compare.score,
+	-- 		cmp.config.compare.recently_used,
+	-- 		cmp.config.compare.locality,
+	-- 		cmp.config.compare.kind,
+	-- 		cmp.config.compare.sort_text,
+	-- 		cmp.config.compare.length,
+	-- 		cmp.config.compare.order,
+	-- 	},
+	-- },
 	window = {
-		documentation = true,
+		documentation = cmp.config.window.bordered(),
+		completion = cmp.config.window.bordered(),
 	},
 	formatting = {
 		format = lspkind.cmp_format({
-			mode = "symbol",
+			mode = "symbol_text",
 			maxwidth = 50,
+			ellipsis_char = "...",
+			menu = {
+				buffer = "[Buffer]",
+				nvim_lsp = "[LSP]",
+				luasnip = "[LuaSnip]",
+				nvim_lua = "[Lua]",
+				latex_symbols = "[Latex]",
+			},
 		}),
 	},
 	snippet = {
@@ -119,15 +130,16 @@ cmp.setup({
 			i = cmp.mapping.abort(),
 			c = cmp.mapping.close(),
 		}),
-		["<C-g>"] = cmp.mapping(function()
-			vim.api.nvim_feedkeys(
-				vim.fn["copilot#Accept"](vim.api.nvim_replace_termcodes("<Tab>", true, true, true)),
-				"n",
-				true
-			)
-		end),
+		-- ["<C-g>"] = cmp.mapping(function()
+		-- 	vim.api.nvim_feedkeys(
+		-- 		vim.fn["copilot#Accept"](vim.api.nvim_replace_termcodes("<Tab>", true, true, true)),
+		-- 		"n",
+		-- 		true
+		-- 	)
+		-- end),
 		["<CR>"] = cmp.mapping.confirm({ select = true }),
-		["<C-j>"] = cmp.mapping.confirm({ select = true }),
+		["<C-k>"] = cmp.mapping.select_prev_item(),
+		["<C-j>"] = cmp.mapping.select_next_item(),
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
@@ -151,7 +163,7 @@ cmp.setup({
 		end, { "i", "s" }),
 	},
 	sources = cmp.config.sources({
-		{ name = "copilot" },
+		-- { name = "copilot" },
 		{ name = "luasnip" }, -- For luasnip users.
 		{ name = "nvim_lsp" },
 	}, {
