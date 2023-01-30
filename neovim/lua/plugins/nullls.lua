@@ -17,7 +17,7 @@ null_ls.setup({
 
 		null_ls.builtins.formatting.terraform_fmt, --terraform
 		null_ls.builtins.formatting.goimports, -- Go
-		null_ls.builtins.formatting.gofumpt, -- Go
+		-- null_ls.builtins.formatting.gofumpt, -- Go
 		null_ls.builtins.formatting.protolint, -- proto
 		null_ls.builtins.formatting.stylua, -- proto
 	},
