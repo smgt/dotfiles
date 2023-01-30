@@ -10,3 +10,4 @@ neovim;.config/nvim/
 asdf/default-gems;.default-gems
 asdf/default-golang-pkgs;.default-golang-pkgs
 rainbow-painter;.config/rainbow-painter
+ripgrep/ripgreprc;.ripgreprc
