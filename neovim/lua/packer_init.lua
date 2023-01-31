@@ -80,9 +80,10 @@ return packer.startup(function(use)
 	-- telescope
 	use({
 		"nvim-telescope/telescope.nvim",
+		branch = "0.1.x",
 		requires = {
-			{ "nvim-lua/popup.nvim" },
 			{ "nvim-lua/plenary.nvim" },
+			{ "nvim-lua/popup.nvim" },
 			{ "nvim-telescope/telescope-fzy-native.nvim" },
 			{ "nvim-telescope/telescope-symbols.nvim" },
 			{ "nvim-telescope/telescope-dap.nvim" },
@@ -275,7 +276,20 @@ return packer.startup(function(use)
 	})
 
 	-- Themes
-	use({ "catppuccin/nvim", as = "catppuccin", run = ":CatppuccinCompile" })
+	use({
+		"catppuccin/nvim",
+		as = "catppuccin",
+		run = ":CatppuccinCompile",
+		config = function()
+			require("catppuccin").setup({
+				flavour = "frappe",
+				background = {
+					light = "latte",
+					dark = "frappe",
+				},
+			})
+		end,
+	})
 	use("rakr/vim-one") -- was rtp
 	use("marko-cerovac/material.nvim")
 	use("sainnhe/sonokai")
