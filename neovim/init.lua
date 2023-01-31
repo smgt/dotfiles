@@ -1,7 +1,3 @@
-if vim.fn.has("nvim-0.8") ~= 1 then
-	vim.api.nvim_err_writeln("Dotfiles requires Neovim 0.8.0 or greater")
-end
-
 require("packer_init")
 require("core/options")
 require("core/autocmds")
