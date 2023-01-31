@@ -42,6 +42,15 @@ vim.keymap.set("n", "<Leader>l", "<cmd>Telescope live_grep<CR>", opts)
 vim.keymap.set("n", "<Leader>b", "<cmd>Telescope buffers<CR>", opts)
 vim.keymap.set("n", ";;", "<cmd>Telescope help_tags<CR>", opts)
 
+-- Trouble
+--
+vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>", opts)
+vim.keymap.set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", opts)
+vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", opts)
+vim.keymap.set("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>", opts)
+vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", opts)
+-- vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>", opts)
+
 -- Barbar
 --
 -- Move to previous/next
