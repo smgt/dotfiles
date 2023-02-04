@@ -39,11 +39,12 @@ floating_modifier $mod
 
 # start a terminal
 # bindsym $mod+Return exec kitty -1
-bindsym $mod+Return exec wezterm start -- tmx
+#bindsym $mod+Return exec wezterm start -- tmx
+bindsym $mod+Return exec kitty
 bindsym $mod+Shift+Return exec wezterm start
-exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
-exec hash dbus-update-activation-environment 2>/dev/null && \
-     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+#exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+#exec hash dbus-update-activation-environment 2>/dev/null && \
+#     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -54,7 +55,8 @@ bindsym $mod+Shift+q kill
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-bindsym $mod+d exec rofi -show combi
+#bindsym $mod+d exec rofi -show combi
+bindsym $mod+d exec wofi --show drun
 bindsym $mod+m exec hotkey lock
 bindsym $mod+p exec $HOME/.dotfiles/bin/switch_layout
 
@@ -101,7 +103,6 @@ bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
-
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -173,6 +174,28 @@ input "type:keyboard" {
     xkb_options grp:alt_shift_toggle
 }
 
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+# set brightness logarithmically by factor 1.4
+# .72 is just slightly bigger than 1 / 1.4
+bindsym --locked XF86MonBrightnessUp exec light -S "$(light -G | awk '{ print int(($1 + .72) * 1.4) }')"
+bindsym --locked XF86MonBrightnessDown exec light -S "$(light -G | awk '{ print int($1 / 1.4) }')"
 
-# NOTE: The '#f0f0f0' in the lines below is the color i3 will use if
+
+exec_always /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+#exec_always /usr/lib/xfce-polkit/xfce-polkit
+
+output "Dell Inc. DELL P2715Q V7WP9561660S" scale 2
+output "Dell Inc. DELL P2715Q V7WP9561660S" pos 0 0 res 3840x2160
+output eDP-1 pos 240 1080 res 2880x1800
+
+exec swayidle -w \
+	timeout 600 'swaylock -f -c 000000' \
+	timeout 605 'swaymsg "output * power off"' \
+	resume 'swaymsg "output * power on"' \
+  before-sleep 'swaylock -f -c 000000' \
+  before-sleep 'playerctl pause'
+
 include ~/.config/sway/theme.conf
+include /etc/sway/config.d/*
