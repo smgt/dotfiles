@@ -6,8 +6,8 @@
   "spacing": 4, // Gaps between modules (4px)
   // Choose the order of the modules
   "modules-left": [
-    "sway/workspaces"
-    // "sway/mode",
+    "sway/workspaces",
+    "sway/mode"
     // "sway/scratchpad",
     // "custom/media"
   ],
@@ -15,18 +15,19 @@
     "sway/window"
   ],
   "modules-right": [
-    // "idle_inhibitor",
     "pulseaudio",
     "network",
     // "cpu",
     "memory",
-    // "temperature",
-    // "backlight",
+    "temperature",
+    "backlight",
     // "keyboard-state",
     "sway/language",
     "battery",
     // "battery#bat2",
     "clock",
+    "idle_inhibitor",
+    "custom/lock",
     "tray"
   ],
   // Modules configuration
@@ -130,7 +131,7 @@
     ]
   },
   "backlight": {
-    // "device": "acpi_video1",
+    "device": "intel_backlight",
     "format": "{percent}% {icon}",
     "format-icons": [
       "",
@@ -142,7 +143,8 @@
       "",
       "",
       ""
-    ]
+    ],
+    "on-click": "light -A 10"
   },
   "battery": {
     "states": {
@@ -208,10 +210,19 @@
     "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
     // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
   },
+  "custom/lock": {
+    "format": "  ",
+    //"exec-on-event": true,
+    "on-click": "sleep 0.117;swaylock -f -c 000000",
+    // "on-click": "notify-send dep",
+    "tooltip": "Lock screen",
+    "interval": "once",
+    "max-length": 40
+  },
   "sway/language": {
     "format": "{}",
     "on-click": "swaymsg input type:keyboard xkb_switch_layout next",
     "tooltip-format": "{long}"
   }
 }
-// vi: ft=jsonc
+//vi: ft=jsonc

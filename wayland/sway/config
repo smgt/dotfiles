@@ -189,13 +189,9 @@ exec_always /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 output "Dell Inc. DELL P2715Q V7WP9561660S" scale 2
 output "Dell Inc. DELL P2715Q V7WP9561660S" pos 0 0 res 3840x2160
 output eDP-1 pos 240 1080 res 2880x1800
+output * bg ~/.dotfiles/wayland/sway/wallpaper.png tile
 
-exec swayidle -w \
-	timeout 600 'swaylock -f -c 000000' \
-	timeout 605 'swaymsg "output * power off"' \
-	resume 'swaymsg "output * power on"' \
-  before-sleep 'swaylock -f -c 000000' \
-  before-sleep 'playerctl pause'
+exec wl-paste -t text --watch clipman store --no-persist
 
 include ~/.config/sway/theme.conf
 include /etc/sway/config.d/*

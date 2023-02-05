@@ -3,7 +3,7 @@
 * {
     /* `otf-font-awesome` is required to be installed for icons */
     font-family: FontAwesome, Iosevka Term Curly, sans-serif;
-    font-size: 16px;
+    font-size: 10px;
 }
 
 window#waybar {
@@ -40,8 +40,9 @@ button {
     /* Use box-shadow instead of border so the text isn't offset */
     box-shadow: inset 0 -3px transparent;
     /* Avoid rounded borders under each button name */
-    border: none;
-    border-radius: 0;
+    border: 1px;
+    border-radius: 2px;
+    margin: 2px 0px
 }
 
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
@@ -72,7 +73,7 @@ button:hover {
 
 #mode {
     background-color: #64727D;
-    border-bottom: 3px solid #ffffff;
+    border-bottom: 0px solid #ffffff;
 }
 
 #clock,
@@ -85,14 +86,18 @@ button:hover {
 #network,
 #pulseaudio,
 #custom-media,
+#custom-lock,
 #tray,
 #mode,
 #idle_inhibitor,
 #scratchpad,
 #language,
 #mpd {
-    padding: 0 10px;
+    padding: 0 6;
     color: @crust;
+    border: 1;
+    border-radius: 2;
+    margin: 4 0;
 }
 
 #window,
@@ -184,6 +189,12 @@ label:focus {
     min-width: 100px;
 }
 
+#custom-lock {
+    background-color: @blue;
+    color: @mantle;
+    padding: 0px 5px;
+}
+
 #custom-media.custom-spotify {
     background-color: #66cc99;
 }
@@ -214,12 +225,12 @@ label:focus {
 }
 
 #idle_inhibitor {
-    background-color: #2d3436;
+    background-color: @overlay2;
+    padding: 0 8px;
 }
 
 #idle_inhibitor.activated {
-    background-color: #ecf0f1;
-    color: #2d3436;
+    background-color: @lavender;
 }
 
 #mpd {
