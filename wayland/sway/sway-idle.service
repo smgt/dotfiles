@@ -1,0 +1,17 @@
+[Unit]
+Description=Idle manager for Wayland
+Documentation=man:swayidle(1)
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/swayidle -d -w \
+            timeout 600 'swaylock -f -c 000000' \
+            timeout 605 'swaymsg "output * dpms off"' \
+            resume 'swaymsg "output * dpms on"' \
+            lock 'swaylock -f -c 000000' \
+            before-sleep 'playerctl pause;swaylock -f -c 000000'
+ExecStartPost=/usr/bin/sleep 1
+
+[Install]
+WantedBy=sway-session.target
