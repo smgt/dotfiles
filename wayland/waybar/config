@@ -213,7 +213,7 @@
   "custom/lock": {
     "format": "  ",
     //"exec-on-event": true,
-    "on-click": "loginctl lock-session",
+    "on-click": "sleep 0.117;loginctl lock-session",
     // "on-click": "notify-send dep",
     "tooltip": "Lock screen",
     "interval": "once",
