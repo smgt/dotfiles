@@ -76,7 +76,6 @@ button:hover {
     border-bottom: 0px solid #ffffff;
 }
 
-#clock,
 #battery,
 #cpu,
 #memory,
@@ -115,9 +114,11 @@ button:hover {
     margin-right: 0;
 }
 
+/*
 #clock {
     background-color: @rosewater;
 }
+*/
 
 #battery {
     background-color: @flamingo;
