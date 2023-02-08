@@ -14,3 +14,4 @@ xorg/wezterm;.config/wezterm
 xorg/picom;.config/picom
 wayland/sway;.config/sway
 wayland/waybar;.config/waybar
+wayland/swaylock/config;.config/swaylock/config
