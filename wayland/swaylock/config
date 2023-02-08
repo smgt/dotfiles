@@ -1,0 +1,27 @@
+ignore-empty-password
+image=~/.dotfiles/wayland/sway/wallpaper.png
+font=Iosevka Term Curly
+
+scaling=tile
+
+inside-color=00000000
+bs-hl-color=ea999c
+ring-color=eebebe
+key-hl-color=f2d5cf
+line-color=00000000
+
+inside-clear-color=81c8be
+ring-clear-color=81c8be
+line-clear-color=81c8be
+
+inside-caps-lock-color=ef9f76
+ring-caps-lock-color=ef9f76
+line-caps-lock-color=ef9f76
+
+inside-ver-color=babbf1
+ring-ver-color=babbf1
+line-ver-color=babbf1
+
+inside-wrong-color=e78284
+ring-wrong-color=e78284
+line-wrong-color=e78284
