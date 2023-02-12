@@ -13,7 +13,7 @@ mason.setup({
 		"golangci_lint_ls",
 		"rust_analyzer",
 		"solargraph",
-		"sumneko_lua",
+		"lua_ls",
 		"taplo",
 		"terraformls",
 		"tflint",
@@ -126,7 +126,7 @@ custom_lsp_server_opts.solargraph = {
 	},
 }
 
-custom_lsp_server_opts.sumneko_lua = {
+custom_lsp_server_opts.lua_ls = {
 	settings = {
 		Lua = {
 			runtime = {
