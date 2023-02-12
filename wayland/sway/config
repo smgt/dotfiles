@@ -18,21 +18,28 @@ assign [class="firefox"] 1
 assign [class="spotify"] 9
 assign [class="slack"] 8
 assign [class="discord"] 8
-assign [class="zoom"] 10
-assign [title="Zoom"] 10
-assign [title="Zoom Meeting"] 10
-assign [title="Zoom - Free Account"] 10
+
+# Zoom Meeting App
+# 
+# Default for all windows is non-floating.
+# 
+# For pop up notification windows that don't use notifications api
+for_window [app_id="zoom" title="^Zoom$"] border none, floating enable
+assign [app_id="zoom" title="^Zoom$"] 10
+for_window [app_id="flameshot"] border pixel 0, floating enable, fullscreen disable, move absolute position 0 0
+# For specific Zoom windows
+for_window [app_id="zoom" title="^(Zoom|About)$"] border pixel, floating enable
+assign [app_id="zoom" title="Zoom - Free Account"] 10
+for_window [app_id="zoom" title="Settings"] floating enable, floating_minimum_size 960 x 700
+
+# Open Zoom Meeting windows on a new workspace (a bit hacky)
+#for_window [app_id="zoom" title="Zoom Meeting(.*)?"] workspace next_on_output --create, move container to workspace current, floating disable, inhibit_idle open
+assign [app_id="zoom" title="Zoom Meeting"] 10
+for_window [app_id="zoom" title="Zoom Meeting(.*)?"] floating disable, inhibit_idle open
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
-
-# Before i3 v4.8, we used to recommend this one as the default:
-# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-# The font above is very space-efficient, that is, it looks good, sharp and
-# clear in small sizes. However, its unicode glyph coverage is limited, the old
-# X core fonts rendering does not support right-to-left and this being a bitmap
-# font, it doesn’t scale on retina/hidpi displays.
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -174,6 +181,11 @@ input "type:keyboard" {
     xkb_options grp:alt_shift_toggle
 }
 
+input "type:touchpad" {
+  natural_scroll disabled
+  scroll_factor 0.6
+}
+
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
@@ -192,6 +204,7 @@ output eDP-1 pos 240 1080 res 2880x1800
 output * bg ~/.dotfiles/wayland/sway/wallpaper.png tile
 
 exec wl-paste -t text --watch clipman store --no-persist
+exec bluemon-tray
 
 include ~/.config/sway/theme.conf
 include /etc/sway/config.d/*

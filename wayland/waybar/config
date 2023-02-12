@@ -13,7 +13,7 @@
   ],
   "modules-center": [
     //"sway/window"
-    "clock",
+    "clock"
   ],
   "modules-right": [
     "pulseaudio",
@@ -21,13 +21,16 @@
     // "cpu",
     "memory",
     "temperature",
-    "backlight",
+    // "backlight",
     // "keyboard-state",
     "sway/language",
     "battery",
+    "custom/unread",
     // "battery#bat2",
     "idle_inhibitor",
-    "custom/screenshot",
+    // "custom/screenshot",
+    "custom/darkman",
+    "mpris",
     "custom/lock",
     "tray"
   ],
@@ -109,7 +112,7 @@
   },
   "clock": {
     "timezone": "Europe/Stockholm",
-    "format": "{:%H:%M}",
+    "format": "{:%H:%M %Y-%m-%d W%W}",
     "format-alt": "{:%A, %B %d, %Y (%R)}  ",
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
     "calendar": {
@@ -227,10 +230,27 @@
     // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
   },
   "custom/screenshot": {
-    "format": "c",
+    "format": "",
     "on-click": "wayshot -s \"$(slurp -f '%x %y %w %h')\"",
     "tooltip": "screenshot",
     "interval": "once"
+  },
+  "custom/music": {
+    "format": "",
+    "on-click": "playerctl play-pause",
+    "tooltip": "Play/Pause",
+    "interval": "once"
+  },
+  "custom/darkman": {
+    "format": "",
+    "on-click": "darkman toggle",
+    "tooltip": "Dark/light mode",
+    "interval": "once"
+  },
+  "custom/unread": {
+    "format": "{} 󰇮",
+    "exec": "find ~/Mail/INBOX/ -type f | grep -vE ',[^,]*S[^,]*$' | wc -l",
+    "interval": 60
   },
   "custom/lock": {
     "format": "  ",
@@ -245,6 +265,23 @@
     "format": "{}",
     "on-click": "swaymsg input type:keyboard xkb_switch_layout next",
     "tooltip-format": "{long}"
+  },
+  "mpris": {
+    "format": "{player_icon} {status_icon}",
+    "format-paused": "{player_icon} {status_icon}",
+    "player-icons": {
+      "default": "-",
+      "mpv": "🎵",
+      "spotify": ""
+    },
+    "status-icons": {
+      "paused": "⏸",
+      "playing": "",
+      "stopped": "x"
+    },
+    "ignored-players": [
+      "firefox"
+    ]
   }
 }
 // vi: ft=jsonc

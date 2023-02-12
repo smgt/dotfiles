@@ -86,6 +86,10 @@ button:hover {
 #pulseaudio,
 #custom-media,
 #custom-lock,
+#custom-darkman,
+#custom-music,
+#custom-unread,
+#mpris,
 #tray,
 #mode,
 #idle_inhibitor,
@@ -190,7 +194,11 @@ label:focus {
     min-width: 100px;
 }
 
-#custom-lock {
+#custom-lock,
+#custom-music,
+#custom-unread,
+#mpris,
+#custom-darkman {
     background-color: @blue;
     color: @mantle;
     padding: 0px 5px;
