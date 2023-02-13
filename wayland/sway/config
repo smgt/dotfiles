@@ -47,7 +47,8 @@ floating_modifier $mod
 # start a terminal
 # bindsym $mod+Return exec kitty -1
 #bindsym $mod+Return exec wezterm start -- tmx
-bindsym $mod+Return exec kitty --listen-on unix:$HOME/.cache/kitty.sock
+#bindsym $mod+Return exec kitty --listen-on unix:$HOME/.cache/kitty.sock
+bindsym $mod+Return exec wezterm start
 bindsym $mod+Shift+Return exec wezterm start
 #exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 #exec hash dbus-update-activation-environment 2>/dev/null && \
@@ -63,7 +64,7 @@ bindsym $mod+Shift+q kill
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 #bindsym $mod+d exec rofi -show combi
-bindsym $mod+d exec wofi --show drun
+bindsym $mod+d exec wofi --show drun --no-action
 bindsym $mod+m exec hotkey lock
 bindsym $mod+p exec $HOME/.dotfiles/bin/switch_layout
 
