@@ -204,7 +204,8 @@ output eDP-1 pos 240 1080 res 2880x1800
 output * bg ~/.dotfiles/wayland/sway/wallpaper.png tile
 
 exec wl-paste -t text --watch clipman store --no-persist
-exec bluemon-tray
+exec blueman-applet
+exec 1password
 
 include ~/.config/sway/theme.conf
 include /etc/sway/config.d/*
