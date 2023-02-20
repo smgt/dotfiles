@@ -48,8 +48,10 @@ if [ -f "$HOME/.xinitrc.local" ];then
   . "$HOME/.xinitrc.local"
 fi
 
+export XDG_CURRENT_DESKTOP=gnome
+
 #export TERM=xterm-256color
-systemctl --user import-environment DISPLAY
+systemctl --user import-environment DISPLAY XDG_CURRENT_DESKTOP
 
 #compton --config /home/simon/.compton.conf &
 #xsetroot -solid "#0d1217"
@@ -60,7 +62,9 @@ systemctl --user import-environment DISPLAY
 #exec ssh-agent i3
 #eval $(dbus-launch --sh-syntax)
 ~/.fehbg &
-type /usr/lib/xfce-polkit/xfce-polkit > /dev/null 2>&1 && { /usr/lib/xfce-polkit/xfce-polkit & }
+type xfsettingsd > /dev/null 2>&1 && { xfsettingsd & }
+# type /usr/lib/xfce-polkit/xfce-polkit > /dev/null 2>&1 && { /usr/lib/xfce-polkit/xfce-polkit & }
+type /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 > /dev/null 2>&1 && { /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & }
 type dunst > /dev/null 2>&1 && { dunst & }
 # type flameshot > /dev/null 2>&1 && { flameshot & }
 type dropbox > /dev/null 2>&1 && { dropbox & }
