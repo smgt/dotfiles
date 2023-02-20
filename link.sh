@@ -95,6 +95,10 @@ link_file() {
   # if [ ! -e "$target" ];then
   #   rm -rf "$target"
   # fi
+  if [ ! -e "$target" ];then
+    echo_red "$target\n"
+    ask_remove "$target"
+  fi
 
   if [ -e "$target" ];then
     if [ "$(readlink -f "$target")" != "$source" ];then

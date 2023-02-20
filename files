@@ -7,7 +7,7 @@ zsh;.zsh
 tmux/tmux.conf;.tmux.conf
 ctags/ctags;.ctags
 neovim;.config/nvim/
-asdf/default-gems;.default-gems
-asdf/default-golang-pkgs;.default-golang-pkgs
+utils/asdf/default-gems;.default-gems
+utils/asdf/default-golang-pkgs;.default-golang-pkgs
 rainbow-painter;.config/rainbow-painter
-ripgrep/ripgreprc;.ripgreprc
+utils/ripgrep/ripgreprc;.ripgreprc
