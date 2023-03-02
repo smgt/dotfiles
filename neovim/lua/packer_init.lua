@@ -99,6 +99,7 @@ return packer.startup(function(use)
 	use("baruchel/vim-notebook")
 	use("hashivim/vim-terraform")
 	use("ellisonleao/glow.nvim") -- markdown preview
+	use("isobit/vim-caddyfile")
 	-- use {
 	--   'ray-x/go.nvim',
 	--   config = function()
