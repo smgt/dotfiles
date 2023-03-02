@@ -3,6 +3,7 @@
 * {
     /* `otf-font-awesome` is required to be installed for icons */
     font-family: FontAwesome, Iosevka Term Curly, sans-serif;
+    /* font-family: FontAwesome, JetBrainsMono Nerd Font, sans-serif; */
     font-size: 10px;
 }
 

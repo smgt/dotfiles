@@ -50,6 +50,7 @@ floating_modifier $mod
 #bindsym $mod+Return exec kitty --listen-on unix:$HOME/.cache/kitty.sock
 bindsym $mod+Return exec wezterm start
 bindsym $mod+Shift+Return exec wezterm start
+bindsym $mod+y exec $HOME/.dotfiles/bin/screenshot
 #exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 #exec hash dbus-update-activation-environment 2>/dev/null && \
 #     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
@@ -66,6 +67,7 @@ bindsym $mod+Shift+q kill
 #bindsym $mod+d exec rofi -show combi
 bindsym $mod+d exec wofi --show drun --no-action
 bindsym $mod+m exec hotkey lock
+bindsym $mod+g exec clipman pick -t wofi
 bindsym $mod+p exec $HOME/.dotfiles/bin/switch_layout
 
 # change focus
