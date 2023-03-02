@@ -123,9 +123,9 @@ function font_iosevka(opts)
 	return opts
 end
 
-local settings = font_jetbrains({
+local settings = font_iosevka({
 
-	font_size = 10.0,
+	font_size = 11.0,
 	enable_tab_bar = false,
 	color_scheme_dirs = { "$HOME/.config/wezterm/colors" },
 	color_scheme = scheme_for_appearance(wezterm.gui.get_appearance()),
