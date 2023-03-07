@@ -20,6 +20,8 @@ null_ls.setup({
 		-- null_ls.builtins.formatting.gofumpt, -- Go
 		null_ls.builtins.formatting.protolint, -- proto
 		null_ls.builtins.formatting.stylua, -- proto
+
+		-- null_ls.builtins.diagnostics.standardrb,
 	},
 })
 
