@@ -44,6 +44,13 @@ return packer.startup(function(use)
 		"ray-x/guihua.lua",
 		run = "cd lua/fzy && make",
 	})
+	use({
+		"andythigpen/nvim-coverage",
+		requires = "nvim-lua/plenary.nvim",
+		config = function()
+			require("coverage").setup()
+		end,
+	})
 	use("kyazdani42/nvim-tree.lua")
 	use({
 		"anuvyklack/windows.nvim", -- autoscale windows
