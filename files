@@ -11,3 +11,4 @@ utils/asdf/default-gems;.default-gems
 utils/asdf/default-golang-pkgs;.default-golang-pkgs
 rainbow-painter;.config/rainbow-painter
 utils/ripgrep/ripgreprc;.ripgreprc
+utils/zellij;.config/zellij
