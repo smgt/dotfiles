@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+set +e
+
+# https://github.com/kovidgoyal/kitty/blob/master/docs/desktop-notifications.rst
+
+#ICON_ERROR="iVBORw0KGgoAAAANSUhEUgAAAEAAAABAAQMAAACQp+OdAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAL\nEwAACxMBAJqcGAAAAANQTFRF70lJK3+nPwAAAA9JREFUeJxjYBgFo4B8AAACQAABWTahAwAAAABJ\nRU5ErkJggg=="
+
+#printf '\x1b]99;a=-1:i=68:d=0:g=chunked:;Summary\x1b\\'
+# printf '\x1b]99;a=-1:i=68:d=1:p=icon;%s\x1b\\', $ICON_ERROR
+#
+function notify() {
+  if [[ -z "${TMUX}" ]] ; then
+    echo "not tmux"
+    printf "\e]777;notify;%s;%s\e\\" "$1" "$2"
+    echo "asdf"
+    # printf '\033Ptmux;\033\x1b]99;a=-1:i=68:d=0:p=title;%s\x1b\033\\' "$1"
+    # printf '\033Ptmux;\033\x1b]99;a=-1:i=68:d=2:p=body;%s\x1b\033\\' "$2"
+  else
+    # printf '\x1b]99;a=-1:i=68:d=0:p=title;%s\x1b\\' "$1"
+    # printf '\x1b]99;a=-1:i=68:d=2:p=body;%s\x1b\\' "$2"
+    echo "is tmux"
+    printf "\ePtmux;\e\e]777;notify;%s;%s\e\e\\" "$1" "$2"
+    echo "asdf"
+  fi
+}
+
+"${@:2}"
+exit_code=$?
+
+# FAIL_COLOR="\e[41;1m\e[30;1m"
+# SUCCESS_COLOR="\e[42;1m\e[30;1m"
+
+# center() {
+#   color=""
+#   if [ -n "$1" ];then
+#     color="$1"
+#   fi
+#   termwidth="$(tput cols)"
+#   padding="$(printf '%0.1s' ={1..500})"
+#   printf '%b%*.*s %s %*.*s\e[0m\n' "$color" 0 "$(((termwidth-2-${#1})/2))" "$padding" "$2" 0 "$(((termwidth-1-${#1})/2))" "$padding"
+# }
+
+
+if [ $exit_code -ne 0 ];then
+  notify "$1" "🟥 Tests failed!"
+  exit 0
+  #printf "\u001b[41;1m\u001b[30;1m\x1B[0m\n"
+  # center "$FAIL_COLOR" "FAIL!"
+else
+  echo "before"
+  echo $(notify "$1" "🟩 Tests succeded!")
+  echo "after"
+  exit 0
+  #printf " SUCCESS! \x1B[0m\n"
+  # center "$SUCCESS_COLOR" "SUCCESS!"
+fi
+
+echo "done"
