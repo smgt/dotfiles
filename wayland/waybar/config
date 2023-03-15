@@ -37,7 +37,7 @@
   // Modules configuration
   "sway/workspaces": {
     "disable-scroll": true,
-    "all-outputs": true,
+    "all-outputs": false,
     // "format": "{name}: {icon}",
     "format": "{name}",
     "format-icons": {
@@ -238,26 +238,36 @@
   "custom/music": {
     "format": "",
     "on-click": "playerctl play-pause",
-    "tooltip": "Play/Pause",
+    "tooltip": true,
     "interval": "once"
   },
   "custom/darkman": {
-    "format": "",
+    "format": " {icon} ",
     "on-click": "darkman toggle",
-    "tooltip": "Dark/light mode",
+    "return-type": "json",
+    "exec": "sleep 0.2;DM=$(darkman get | tr -d '\n'); echo '{\"alt\": \"'$DM'\", \"text\":\"darkmode\", \"tooltip\":\"'$DM'\"}'",
+    "format-icons": {
+      "dark": "",
+      "light": ""
+    },
+    "exec-on-event": true,
+    "tooltip": true,
     "interval": "once"
   },
   "custom/unread": {
     "format": "{} 󰇮",
-    "exec": "find ~/Mail/INBOX/ -type f | grep -vE ',[^,]*S[^,]*$' | wc -l",
+    "tooltip": true,
+    "exec": "find ~/Mail/INBOX/ -type f | grep -vE ',[^,]*S[^,]*$' | wc -l && echo 'unread email' | tr -d '\n'",
+    "on-click": "wezterm start neomutt",
     "interval": 60
   },
   "custom/lock": {
     "format": "  ",
+    "exec": "echo '\nlock screen'",
     //"exec-on-event": true,
     "on-click": "sleep 0.117;loginctl lock-session",
     // "on-click": "notify-send dep",
-    "tooltip": "Lock screen",
+    "tooltip": true,
     "interval": "once",
     "max-length": 40
   },
@@ -275,8 +285,8 @@
       "spotify": ""
     },
     "status-icons": {
-      "paused": "⏸",
-      "playing": "",
+      "paused": "",
+      "playing": "⏸",
       "stopped": "x"
     },
     "ignored-players": [
