@@ -210,5 +210,7 @@ exec wl-paste -t text --watch clipman store --no-persist
 exec blueman-applet
 exec 1password
 
+exec ~/.config/sway/session.sh --with-cleanup
+
 include ~/.config/sway/theme.conf
 include /etc/sway/config.d/*
