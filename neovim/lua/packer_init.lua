@@ -149,52 +149,65 @@ return packer.startup(function(use)
 	use("jose-elias-alvarez/null-ls.nvim") -- Linters etc
 	use("jayp0521/mason-null-ls.nvim") -- NOTE: needs to be loaded after null-ls
 
-	-- use("glepnir/lspsaga.nvim")
 	use({
-		"lewis6991/hover.nvim",
+		"glepnir/lspsaga.nvim",
+		branch = "main",
 		config = function()
-			require("hover").setup({
-				init = function()
-					-- Require providers
-					require("hover.providers.lsp")
-					-- require('hover.providers.gh')
-					-- require('hover.providers.gh_user')
-					require("hover.providers.jira")
-					-- require('hover.providers.man')
-					-- require('hover.providers.dictionary')
-				end,
-				preview_opts = {
-					border = nil,
-				},
-				-- Whether the contents of a currently open hover window should be moved
-				-- to a :h preview-window when pressing the hover keymap.
-				preview_window = false,
-				title = true,
-			})
-
-			-- Setup keymaps
-			vim.keymap.set("n", "K", require("hover").hover, { desc = "hover.nvim" })
-			vim.keymap.set("n", "gK", require("hover").hover_select, { desc = "hover.nvim (select)" })
+			require("lspsaga").setup({})
 		end,
+		requires = {
+			{ "nvim-tree/nvim-web-devicons" },
+			--Please make sure you install markdown and markdown_inline parser
+			{ "nvim-treesitter/nvim-treesitter" },
+		},
 	})
+	-- use({
+	-- 	"lewis6991/hover.nvim",
+	-- 	config = function()
+	-- 		require("hover").setup({
+	-- 			init = function()
+	-- 				-- Require providers
+	-- 				require("hover.providers.lsp")
+	-- 				-- require('hover.providers.gh')
+	-- 				-- require('hover.providers.gh_user')
+	-- 				require("hover.providers.jira")
+	-- 				-- require('hover.providers.man')
+	-- 				-- require('hover.providers.dictionary')
+	-- 			end,
+	-- 			preview_opts = {
+	-- 				border = nil,
+	-- 			},
+	-- 			-- Whether the contents of a currently open hover window should be moved
+	-- 			-- to a :h preview-window when pressing the hover keymap.
+	-- 			preview_window = false,
+	-- 			title = true,
+	-- 		})
 
-	use({
-		"zbirenbaum/copilot.lua",
-		event = { "VimEnter" },
-		config = function()
-			vim.defer_fn(function()
-				require("copilot").setup({
-					suggestion = { enabled = false },
-					panel = { enabled = false },
-				})
-			end, 100)
-		end,
-	})
+	-- 		-- Setup keymaps
+	-- 		vim.keymap.set("n", "K", require("hover").hover, { desc = "hover.nvim" })
+	-- 		vim.keymap.set("n", "gK", require("hover").hover_select, { desc = "hover.nvim (select)" })
+	-- 	end,
+	-- })
+
+	-- use({
+	-- 	"zbirenbaum/copilot.lua",
+	-- 	cmd = "Copilot",
+	-- 	event = "InsertEnter",
+	-- 	config = function()
+	-- 		require("copilot").setup({})
+	-- 		-- vim.defer_fn(function()
+	-- 		-- 	require("copilot").setup({
+	-- 		-- 		suggestion = { enabled = false },
+	-- 		-- 		panel = { enabled = false },
+	-- 		-- 	})
+	-- 		-- end, 100)
+	-- 	end,
+	-- })
 
 	-- auto-complete
 	use({
 		"hrsh7th/nvim-cmp",
-		wants = { "LuaSnip", "copilot" },
+		wants = { "LuaSnip" },
 		requires = {
 			"L3MON4D3/LuaSnip",
 			"honza/vim-snippets",
@@ -205,7 +218,6 @@ return packer.startup(function(use)
 			"hrsh7th/cmp-git",
 			"saadparwaiz1/cmp_luasnip",
 			"onsails/lspkind-nvim",
-			"zbirenbaum/copilot-cmp",
 		},
 	})
 
