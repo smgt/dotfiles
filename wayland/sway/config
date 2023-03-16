@@ -206,6 +206,11 @@ output "Dell Inc. DELL P2715Q V7WP9561660S" pos 0 0 res 3840x2160
 output eDP-1 pos 240 1080 res 2880x1800
 output * bg ~/.dotfiles/wayland/sway/wallpaper.png tile
 
+set $laptop eDP-1
+bindswitch --reload --locked lid:on output $laptop disable
+bindswitch --reload --locked lid:off output $laptop enable
+exec_always ~/.config/sway/lid.sh
+
 exec wl-paste -t text --watch clipman store --no-persist
 exec blueman-applet
 exec 1password
