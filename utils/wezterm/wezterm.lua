@@ -2,7 +2,7 @@ local wezterm = require("wezterm")
 local act = wezterm.action
 local mux = wezterm.mux
 
-local mux_servers = { "grunte", "paprika" }
+local mux_servers = { "grunte", "paprika", "sugarsnap" }
 
 -- Generate unix domain config for all mux_servers
 local function gen_unix_domains()
@@ -174,7 +174,7 @@ end
 
 local settings = font_iosevka({
 	font_size = 11.0,
-	leader = { key = "b", mods = "CTRL", timeout_milliseconds = 1000 },
+	leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 },
 	keys = {
 		{ key = "1", mods = "LEADER", action = act({ ActivateTab = 0 }) },
 		{ key = "2", mods = "LEADER", action = act({ ActivateTab = 1 }) },
