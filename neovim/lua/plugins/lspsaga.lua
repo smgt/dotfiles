@@ -4,15 +4,25 @@ if not status then
 end
 
 -- lua
-saga.init_lsp_saga({
-	border_style = "rounded",
-	diagnostic_header = { " ", " ", " ", "ﴞ " },
-	max_preview_lines = 30,
-	-- use emoji lightbulb in default
-	code_action_icon = "💡",
+saga.setup({
+	ui = {
+		title = true,
+		border = "rounded",
+		code_action = "💡",
+	},
+	preview = {
+		lines_below = 30,
+		lines_above = 0,
+	},
+	lightbulb = {
+		enable = true,
+	},
 	finder_icons = {
 		def = "  ",
 		ref = "諭 ",
 		link = "  ",
+	},
+	outline = {
+		win_width = 50,
 	},
 })
