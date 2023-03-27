@@ -1,0 +1,4 @@
+vendor/
+.git/
+npm_modules
+.terraform
