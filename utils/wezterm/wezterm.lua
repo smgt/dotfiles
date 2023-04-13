@@ -39,7 +39,7 @@ wezterm.on("gui-startup", function(cmd)
 		workspace = "local",
 		args = args,
 	})
-	window:spawn_tab({})
+	-- window:spawn_tab({})
 	-- spawn 10 tabs
 	-- for _ = 1, 10 do
 	--   window:spawn_tab {}
@@ -174,25 +174,25 @@ end
 
 local settings = font_iosevka({
 	font_size = 11.0,
-	leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 },
-	keys = {
-		{ key = "1", mods = "LEADER", action = act({ ActivateTab = 0 }) },
-		{ key = "2", mods = "LEADER", action = act({ ActivateTab = 1 }) },
-		{ key = "3", mods = "LEADER", action = act({ ActivateTab = 2 }) },
-		{ key = "4", mods = "LEADER", action = act({ ActivateTab = 3 }) },
-		{ key = "5", mods = "LEADER", action = act({ ActivateTab = 4 }) },
-		{ key = "6", mods = "LEADER", action = act({ ActivateTab = 5 }) },
-		{ key = "h", mods = "LEADER", action = act.SplitHorizontal },
-		{ key = "v", mods = "LEADER", action = act.SplitVertical },
-		{
-			key = "Backspace",
-			mods = "LEADER",
-			action = act.ShowLauncherArgs({
-				flags = "FUZZY|WORKSPACES",
-			}),
-		},
-		{ key = "b", mods = "LEADER|CTRL", action = act.SendString("\x01") },
-	},
+	-- leader = { key = "b", mods = "CTRL", timeout_milliseconds = 1001 },
+	-- keys = {
+	-- 	{ key = "1", mods = "LEADER", action = act({ ActivateTab = 0 }) },
+	-- 	{ key = "2", mods = "LEADER", action = act({ ActivateTab = 1 }) },
+	-- 	{ key = "3", mods = "LEADER", action = act({ ActivateTab = 2 }) },
+	-- 	{ key = "4", mods = "LEADER", action = act({ ActivateTab = 3 }) },
+	-- 	{ key = "5", mods = "LEADER", action = act({ ActivateTab = 4 }) },
+	-- 	{ key = "6", mods = "LEADER", action = act({ ActivateTab = 5 }) },
+	-- 	{ key = "h", mods = "LEADER", action = act.SplitHorizontal },
+	-- 	{ key = "v", mods = "LEADER", action = act.SplitVertical },
+	-- 	{
+	-- 		key = "Backspace",
+	-- 		mods = "LEADER",
+	-- 		action = act.ShowLauncherArgs({
+	-- 			flags = "FUZZY|WORKSPACES",
+	-- 		}),
+	-- 	},
+	-- 	-- { key = "b", mods = "LEADER|CTRL", action = act.SendString("\x01") },
+	-- },
 	color_scheme_dirs = { "$HOME/.config/wezterm/colors" },
 	color_scheme = scheme_for_appearance(wezterm.gui.get_appearance()),
 	force_reverse_video_cursor = true,
