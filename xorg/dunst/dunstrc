@@ -1,6 +1,7 @@
 [global]
 #font = JetBrainsMono Nerdfont 11
-font = Overpass 10
+#font = Overpass 10
+font = Iosevka Term Curly 12
 
 # Allow a small subset of html markup:
 #   <b>bold</b>
