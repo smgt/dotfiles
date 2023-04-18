@@ -28,6 +28,22 @@ if ! command -v "$COMMAND_GUM" > /dev/null 2>&1;then
   exit 1
 fi
 
+if [ -z "$JIRA_API_USER" ];then
+  echo "You need to set \$JIRA_API_USER env variable"
+  exit 1
+fi
+
+if [ -z "$JIRA_API_TOKEN" ];then
+  echo "You need to set \$JIRA_API_TOKEN env variable"
+  exit 1
+fi
+
+if [ -z "$JIRA_API_ENDPOINT" ];then
+  echo "You need to set \$JIRA_API_ENDPOINT env variable"
+  exit 1
+fi
+
+
 function searchTicket() {
   curl \
     --data-urlencode "jql=$JIRA_QUERY" \
