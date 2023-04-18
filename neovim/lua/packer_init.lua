@@ -38,7 +38,7 @@ return packer.startup(function(use)
   -- utils
   use("tpope/vim-surround")
   use("tpope/vim-unimpaired")
-  use("tpope/vim-commentary") -- comments
+  use("tpope/vim-commentary")                       -- comments
   use("JoosepAlviste/nvim-ts-context-commentstring") -- context aware comment-string
   use({
     "ray-x/guihua.lua",
@@ -59,16 +59,23 @@ return packer.startup(function(use)
       require("windows").setup()
     end,
   })
+
   use({
-    "krivahtoo/silicon.nvim",
-    run = "./install.sh",
+    "rcarriga/nvim-notify",
     config = function()
-      require("silicon").setup({
-        theme = "gruvbox",
-        font = "Iosevka Term Curly=16",
-      })
+      vim.notify = require("notify")
     end,
   })
+  -- use({
+  --   "krivahtoo/silicon.nvim",
+  --   run = "./install.sh",
+  --   config = function()
+  --     require("silicon").setup({
+  --       theme = "gruvbox",
+  --       -- font = "Iosevka Term Curly=16",
+  --     })
+  --   end,
+  -- })
 
   -- git
   use("gregsexton/gitv")
@@ -136,10 +143,10 @@ return packer.startup(function(use)
   use({
     "neovim/nvim-lspconfig",
     requires = {
-      "williamboman/mason.nvim", -- LSP installer
+      "williamboman/mason.nvim",        -- LSP installer
       "williamboman/mason-lspconfig.nvim", -- LSP config support for mason, needs to be loaded before lspconfig
-      "j-hui/fidget.nvim", -- LSP startup time status
-      "folke/neodev.nvim", -- LSP annotations
+      "j-hui/fidget.nvim",              -- LSP startup time status
+      "folke/neodev.nvim",              -- LSP annotations
     },
     config = function()
       require("fidget").setup()
@@ -147,7 +154,7 @@ return packer.startup(function(use)
   })
 
   use("jose-elias-alvarez/null-ls.nvim") -- Linters etc
-  use("jayp0521/mason-null-ls.nvim") -- NOTE: needs to be loaded after null-ls
+  use("jayp0521/mason-null-ls.nvim")    -- NOTE: needs to be loaded after null-ls
 
   use({
     "glepnir/lspsaga.nvim",
