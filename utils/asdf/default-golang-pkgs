@@ -1,3 +1,4 @@
 gotest.tools/gotestsum@latest
 golang.org/x/vuln/cmd/govulncheck@latest
 github.com/go-delve/delve/cmd/dlv@latest
+github.com/josharian/impl@latest
