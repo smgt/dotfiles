@@ -165,6 +165,15 @@ custom_lsp_server_opts.gopls = {
 	},
 }
 
+custom_lsp_server_opts.yamlls = {
+	settings = {
+		yaml = {
+			-- FIX mapKeyOrder warning
+			keyOrdering = false,
+		},
+	},
+}
+
 local base_lsp_config = {
 	on_attach = on_attach,
 	flags = lsp_flags,
