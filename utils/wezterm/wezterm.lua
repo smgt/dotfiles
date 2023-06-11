@@ -63,7 +63,7 @@ end)
 -- A helper function for my fallback fonts
 function font_with_fallback(name, params)
   -- local names = {name, "Noto Color Emoji", "JetBrains Mono"}
-  local names = { name, "Noto Color Emoji", "FiraCode Nerd Font" }
+  local names = { name, "Symbols Nerd Font", "Noto Color Emoji", "JetBrains Mono" }
   return wezterm.font_with_fallback(names, params)
 end
 
@@ -77,7 +77,7 @@ function font_jetbrains(opts)
 end
 
 function font_firacode(opts)
-  local family = "FiraCode Nerd Font Mono"
+  local family = "FiraCode Nerd Font Mono Ret"
 
   opts.font = font_with_fallback({
     family = family,
@@ -117,7 +117,9 @@ function font_victor_mono()
   return rules
 end
 
+-- if
 function font_iosevka(opts)
+  -- local family = "Iosevka Nerd Font"
   local family = "Iosevka Term Curly"
 
   local features = { "calt=0", "dlig=1", "clig=1" }
@@ -135,7 +137,7 @@ function font_iosevka(opts)
       intensity = "Normal",
       font = wezterm.font({
         family = family,
-        weight = "Regular",
+        weight = "Light",
         italic = true,
         harfbuzz_features = italic_features,
       }),
@@ -146,7 +148,7 @@ function font_iosevka(opts)
       intensity = "Bold",
       font = wezterm.font({
         family = family,
-        weight = "Bold",
+        weight = "Regular",
         italic = true,
         harfbuzz_features = features,
       }),
@@ -197,8 +199,11 @@ local settings = font_iosevka({
   color_scheme_dirs = { "$HOME/.config/wezterm/colors" },
   color_scheme = scheme_for_appearance(wezterm.gui.get_appearance()),
   force_reverse_video_cursor = true,
+  warn_about_missing_glyphs = false,
   exit_behavior = "Close",
+
   enable_wayland = true,
+
   enable_tab_bar = false,
   use_fancy_tab_bar = true,
   tab_bar_at_bottom = true,
