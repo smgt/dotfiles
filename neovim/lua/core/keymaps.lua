@@ -15,8 +15,12 @@ vim.keymap.set("", "<Right>", "<NOP>", opts)
 
 -- vim.keymap.set('n', '<C-p>', ':tabnext<CR>', opts)
 -- vim.keymap.set('n', '<C-o>', ':tabprev<CR>', opts)
-vim.keymap.set("n", "<C-p>", ":BufferNext<CR>", opts)
-vim.keymap.set("n", "<C-o>", ":BufferPrevious<CR>", opts)
+-- barbar
+-- vim.keymap.set("n", "<C-p>", ":BufferNext<CR>", opts)
+-- vim.keymap.set("n", "<C-o>", ":BufferPrevious<CR>", opts)
+-- bufferline
+vim.keymap.set("n", "<C-p>", ":BufferLineCycleNext<CR>", opts)
+vim.keymap.set("n", "<C-o>", ":BufferLineCyclePrev<CR>", opts)
 
 -- TMUX
 --

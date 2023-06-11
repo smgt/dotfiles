@@ -38,12 +38,34 @@ return packer.startup(function(use)
   -- utils
   use("tpope/vim-surround")
   use("tpope/vim-unimpaired")
-  use("tpope/vim-commentary")                       -- comments
+  use({
+    "lukas-reineke/indent-blankline.nvim",
+    config = function()
+      require("indent_blankline").setup({
+        -- for example, context is off by default, use this to turn it on
+        show_current_context = true,
+        show_current_context_start = true,
+      })
+    end,
+  })
+  -- use("tpope/vim-commentary")                       -- comments
+  use({
+    "numToStr/Comment.nvim", --comments
+    config = function()
+      require("Comment").setup({
+        pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+      })
+    end,
+  })
   use("JoosepAlviste/nvim-ts-context-commentstring") -- context aware comment-string
+
+  -- https://github.com/ray-x/guihua.lua
   use({
     "ray-x/guihua.lua",
     run = "cd lua/fzy && make",
   })
+
+  -- Visualize coverage reports
   use({
     "andythigpen/nvim-coverage",
     requires = "nvim-lua/plenary.nvim",
@@ -51,6 +73,7 @@ return packer.startup(function(use)
       require("coverage").setup()
     end,
   })
+  -- File tree
   use("kyazdani42/nvim-tree.lua")
   use({
     "anuvyklack/windows.nvim", -- autoscale windows
@@ -166,17 +189,27 @@ return packer.startup(function(use)
         ui = {
           title = true,
           border = "rounded",
-          code_action = "💡",
+          code_action = "💡 ",
         },
         preview = {
           lines_below = 30,
-          lines_above = 0,
+          lines_above = 5,
         },
         lightbulb = {
           enable = true,
         },
         outline = {
           win_width = 40,
+        },
+        symbol_in_winbar = {
+          enable = false,
+          separator = " ",
+          ignore_patterns = {},
+          hide_keyword = true,
+          show_file = false,
+          folder_level = 2,
+          respect_root = false,
+          color_mode = true,
         },
       })
     end,
@@ -299,19 +332,32 @@ return packer.startup(function(use)
       require("colorizer").setup()
     end,
   })
-  -- use {
-  --   'akinsho/bufferline.nvim',
-  --   tag = "v2.*",
-  --   requires = 'kyazdani42/nvim-web-devicons',
-  --   config = function()
-  --     require("bufferline").setup({
-  --     })
-  --   end
-  -- }
   use({
-    "romgrk/barbar.nvim",
-    requires = { "kyazdani42/nvim-web-devicons" },
+    "akinsho/bufferline.nvim",
+    tag = "*",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("bufferline").setup({
+        options = {
+          diagnostic = "nvim_lsp",
+          separator_style = "slant",
+          underline = true,
+          offsets = {
+            {
+              filetype = "NvimTree",
+              text = "File Explorer",
+              highlight = "Directory",
+              separator = "", -- use a "true" to enable the default, or set your own character
+            },
+          },
+        },
+      })
+    end,
   })
+  -- use({
+  --   "romgrk/barbar.nvim",
+  --   requires = { "kyazdani42/nvim-web-devicons" },
+  -- })
   -- use({ "glepnir/dashboard-nvim" })
   use({
     "goolord/alpha-nvim",
@@ -335,34 +381,31 @@ return packer.startup(function(use)
       })
     end,
   })
-  use("rakr/vim-one") -- was rtp
-  use("marko-cerovac/material.nvim")
+  -- use("rakr/vim-one") -- was rtp
+  -- use("marko-cerovac/material.nvim")
   use("sainnhe/sonokai")
   use("sainnhe/edge")
   use("ray-x/aurora")
-  use("shaunsingh/moonlight.nvim")
+  -- use("shaunsingh/moonlight.nvim")
   use("sainnhe/everforest")
-  use("dracula/vim")
+  -- use("dracula/vim")
   use("EdenEast/nightfox.nvim")
   use("folke/tokyonight.nvim")
   use("NLKNguyen/papercolor-theme")
   use("tanvirtin/monokai.nvim")
-  use("drewtempelmeyer/palenight.vim")
-  use("sainnhe/gruvbox-material")
-  use("rose-pine/neovim")
-  use("navarasu/onedark.nvim")
-  use("RRethy/nvim-base16")
-  use("rebelot/kanagawa.nvim")
+  -- use("drewtempelmeyer/palenight.vim")
+  -- use("sainnhe/gruvbox-material")
+  use({ "rose-pine/neovim", as = "rose-pine" })
+  -- use("navarasu/onedark.nvim")
+  -- use("RRethy/nvim-base16")
   use({
-    "lukas-reineke/indent-blankline.nvim",
+    "loctvl842/monokai-pro.nvim",
     config = function()
-      require("indent_blankline").setup({
-        -- for example, context is off by default, use this to turn it on
-        show_current_context = true,
-        show_current_context_start = true,
-      })
+      require("monokai-pro").setup()
     end,
   })
+  use({ "nyoom-engineering/oxocarbon.nvim" })
+  use("rebelot/kanagawa.nvim")
 
   -- use 'liuchengxu/space-vim-theme'
   -- use 'sonph/onehalf', { 'rtp': 'vim' }
