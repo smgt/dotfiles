@@ -214,6 +214,7 @@ exec_always ~/.config/sway/lid.sh
 exec wl-paste -t text --watch clipman store --no-persist
 exec blueman-applet
 exec 1password
+exec dunst
 
 exec ~/.config/sway/session.sh --with-cleanup
 
