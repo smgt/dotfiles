@@ -166,10 +166,10 @@ return packer.startup(function(use)
   use({
     "neovim/nvim-lspconfig",
     requires = {
-      "williamboman/mason.nvim",        -- LSP installer
-      "williamboman/mason-lspconfig.nvim", -- LSP config support for mason, needs to be loaded before lspconfig
-      "j-hui/fidget.nvim",              -- LSP startup time status
-      "folke/neodev.nvim",              -- LSP annotations
+      "williamboman/mason.nvim",            -- LSP installer
+      "williamboman/mason-lspconfig.nvim",  -- LSP config support for mason, needs to be loaded before lspconfig
+      { "j-hui/fidget.nvim", tag = "legacy" }, -- LSP startup time status
+      "folke/neodev.nvim",                  -- LSP annotations
     },
     config = function()
       require("fidget").setup()
@@ -189,7 +189,7 @@ return packer.startup(function(use)
         ui = {
           title = true,
           border = "rounded",
-          code_action = "💡 ",
+          -- code_action = "💡 ",
         },
         preview = {
           lines_below = 30,
@@ -215,7 +215,6 @@ return packer.startup(function(use)
     end,
     requires = {
       { "nvim-tree/nvim-web-devicons" },
-      --Please make sure you install markdown and markdown_inline parser
       { "nvim-treesitter/nvim-treesitter" },
     },
   })
