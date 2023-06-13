@@ -3,25 +3,25 @@ require("neodev").setup()
 
 local mason = require("mason-lspconfig")
 mason.setup({
-  ensure_installed = {
-    "bashls",
-    "dockerls",
-    "docker_compose_language_service",
-    "bufls",
-    "gopls",
-    "jsonls",
-    "jsonnet_ls",
-    "pyright",
-    "golangci_lint_ls",
-    "rust_analyzer",
-    "lua_ls",
-    "solargraph",
-    "taplo",
-    "terraformls",
-    "tflint",
-    "vimls",
-    "yamlls",
-  },
+	ensure_installed = {
+		"bashls",
+		"dockerls",
+		"docker_compose_language_service",
+		"bufls",
+		"gopls",
+		"jsonls",
+		"jsonnet_ls",
+		"pyright",
+		"golangci_lint_ls",
+		"rust_analyzer",
+		"lua_ls",
+		"solargraph",
+		"taplo",
+		"terraformls",
+		"tflint",
+		"vimls",
+		"yamlls",
+	},
 })
 
 local opts = { noremap = true, silent = true }

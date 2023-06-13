@@ -14,12 +14,12 @@ null_ls.setup({
     null_ls.builtins.diagnostics.vint,     -- Vimscript
     null_ls.builtins.diagnostics.write_good, -- prose
     -- null_ls.builtins.diagnostics.golangci_lint, -- Go
-
-    null_ls.builtins.formatting.terraform_fmt, --terraform
-    null_ls.builtins.formatting.goimports,   -- Go
-    -- null_ls.builtins.formatting.gofumpt, -- Go
-    null_ls.builtins.formatting.protolint,   -- proto
-    null_ls.builtins.formatting.stylua,      -- proto
+		null_ls.builtins.diagnostics.ruff, -- python
+		null_ls.builtins.formatting.terraform_fmt, --terraform
+		null_ls.builtins.formatting.goimports, -- Go
+		-- null_ls.builtins.formatting.gofumpt, -- Go
+		null_ls.builtins.formatting.protolint, -- proto
+		null_ls.builtins.formatting.stylua, -- proto
 
     -- null_ls.builtins.diagnostics.standardrb,
   },
