@@ -12,7 +12,11 @@
 [core]
   excludesfile = ~/.gitignore
   editor = nvim
-  pager = delta
+  # pager = delta
+  pager = delta --features $(darkman get)
+
+[include]
+  path = ~/.gitconfig.local
 
 [color]
   ui = auto
@@ -37,15 +41,25 @@
   diffFilter = delta --color-only
 
 [delta]
-  features = side-by-side line-numbers decorations
+  features = decorations
+  side-by-side = true
+  line-numbers = true
+  navigate = true
   whitespace-error-style = 22 reverse
-  syntax-theme = OneHalfDark
   navigate = true
 
 [delta "decorations"]
   commit-decoration-style = bold yellow box ul
   file-style = bold yellow ul
   file-decoration-style = none
+
+[delta "light"]
+  theme = GitHub
+  light = true
+
+[delta "dark"]
+  theme = GitHub
+  light = false
 
 [mergetool "nvim"]
   cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
@@ -57,7 +71,6 @@
   conflictstyle=diff3
   tool = vimdiff
   tool = nvim
-
 
 [diff]
   colorMoved = default
