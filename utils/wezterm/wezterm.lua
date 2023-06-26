@@ -20,12 +20,15 @@ end
 local function scheme_for_appearance(appearance)
   wezterm.log_info(appearance)
   if appearance == nil then
-    return "Catppuccin Frappe"
+    -- return "Catppuccin Frappe"
+    return "Tokyo Night Moon"
   end
   if appearance:find("Light") then
-    return "Catppuccin Latte"
+    -- return "Catppuccin Latte"
+    return "Tokyo Night Day"
   else
-    return "Catppuccin Frappe"
+    -- return "Catppuccin Frappe"
+    return "Tokyo Night Moon"
   end
 end
 
@@ -205,9 +208,16 @@ local settings = font_iosevka({
   enable_wayland = true,
 
   enable_tab_bar = false,
-  use_fancy_tab_bar = true,
-  tab_bar_at_bottom = true,
+  hide_tab_bar_if_only_one_tab = true,
+  -- use_fancy_tab_bar = true,
+  tab_bar_at_bottom = false,
   unix_domains = gen_unix_domains(),
+  window_padding = {
+    left = 0,
+    right = 0,
+    bottom = 0,
+    top = 0,
+  },
 })
 
 return settings
