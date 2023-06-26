@@ -30,8 +30,9 @@
     "idle_inhibitor",
     // "custom/screenshot",
     "custom/darkman",
-    "mpris",
+    // "mpris",
     "custom/lock",
+    "custom/sleep",
     "tray"
   ],
   // Modules configuration
@@ -266,6 +267,15 @@
     "exec": "echo '\nlock screen'",
     //"exec-on-event": true,
     "on-click": "sleep 0.117;loginctl lock-session",
+    // "on-click": "notify-send dep",
+    "tooltip": true,
+    "interval": "once",
+    "max-length": 40
+  },
+  "custom/sleep": {
+    "format": " 󰒲 ",
+    //"exec-on-event": true,
+    "on-click": "sleep 3;systemctl suspend",
     // "on-click": "notify-send dep",
     "tooltip": true,
     "interval": "once",
