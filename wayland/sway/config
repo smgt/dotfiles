@@ -14,19 +14,20 @@ hide_edge_borders none
 # Application behavior
 for_window [instance="origin.exe"] floating enable
 # for_window [class="zoom"] floating enable
-assign [class="firefox"] 1
-assign [class="spotify"] 9
-assign [class="slack"] 8
-assign [class="discord"] 8
+assign [app_id="firefox"] 1
+assign [app_id="spotify"] 9
+assign [app_id="slack"] 8
+assign [app_id="discord"] 8
+
+for_window [app_id="flameshot"] border pixel 0, floating enable, fullscreen disable, move absolute position 0 0
 
 # Zoom Meeting App
 # 
 # Default for all windows is non-floating.
 # 
 # For pop up notification windows that don't use notifications api
-for_window [app_id="zoom" title="^Zoom$"] border none, floating enable
+for_window [app_id="zoom" title="^Zoom$"] border none
 assign [app_id="zoom" title="^Zoom$"] 10
-for_window [app_id="flameshot"] border pixel 0, floating enable, fullscreen disable, move absolute position 0 0
 # For specific Zoom windows
 for_window [app_id="zoom" title="^(Zoom|About)$"] border pixel, floating enable
 assign [app_id="zoom" title="Zoom - Free Account"] 10
@@ -48,8 +49,8 @@ floating_modifier $mod
 # bindsym $mod+Return exec kitty -1
 #bindsym $mod+Return exec wezterm start -- tmx
 #bindsym $mod+Return exec kitty --listen-on unix:$HOME/.cache/kitty.sock
-bindsym $mod+Return exec wezterm start
-bindsym $mod+Shift+Return exec wezterm start
+bindsym $mod+Return exec wezterm start --always-new-process
+bindsym $mod+Shift+Return exec $HOME/.config/wofi/ssh.sh
 bindsym $mod+y exec $HOME/.dotfiles/bin/screenshot
 #exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 #exec hash dbus-update-activation-environment 2>/dev/null && \
