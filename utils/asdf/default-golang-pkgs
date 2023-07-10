@@ -4,3 +4,4 @@ github.com/go-delve/delve/cmd/dlv@latest
 github.com/josharian/impl@latest
 golang.org/x/vuln/cmd/govulncheck@latest
 github.com/securego/gosec/v2/cmd/gosec@latest
+golang.org/x/tools/gopls@latest
