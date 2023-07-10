@@ -11,6 +11,7 @@ xorg/Xmodmap;.Xmodmap
 xorg/dunst/dunstrc;.config/dunst/dunstrc
 xorg/picom;.config/picom
 wayland/sway;.config/sway
+wayland/wofi;.config/wofi
 wayland/waybar;.config/waybar
 wayland/swaylock/config;.config/swaylock/config
 utils/wezterm;.config/wezterm
