@@ -177,13 +177,20 @@ return packer.startup(function(use)
   })
 
   use("jose-elias-alvarez/null-ls.nvim") -- Linters etc
-  use("jayp0521/mason-null-ls.nvim")    -- NOTE: needs to be loaded after null-ls
+  use({
+    "jayp0521/mason-null-ls.nvim",
+    requires = {
+      "williamboman/mason.nvim",
+      "jose-elias-alvarez/null-ls.nvim",
+    }
+  })
 
   use({
-    "glepnir/lspsaga.nvim",
-    opt = true,
-    branch = "main",
-    event = "LspAttach",
+    "nvimdev/lspsaga.nvim",
+    -- opt = true,
+    -- branch = "main",
+    -- event = "LspAttach",
+    after = "nvim-lspconfig",
     config = function()
       require("lspsaga").setup({
         ui = {

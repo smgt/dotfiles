@@ -7,8 +7,9 @@ opt.swapfile = false
 opt.completeopt = "menu,menuone,noselect"
 
 if g.neovide then
-  opt.guifont = "Iosevka Term Curly:h14"
+  opt.guifont = "Iosevka Term Curly:h10"
   g.neovide_scale_factor = 1.0
+  g.neovide_cursor_animation_length = 0
 end
 
 -- ??
