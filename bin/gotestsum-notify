@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+emoji="✅"
+msg="Passed"
+
+if [[ "$TESTS_ERRORS" -gt "0" ]]; then
+  emoji="⚠️"
+  msg="Errors ($TESTS_ERRORS/$TESTS_TOTAL)"
+elif [[ "$TESTS_FAILED" -gt "0" ]];then
+  emoji="❌"
+  msg="Failed ($TESTS_FAILED/$TESTS_TOTAL)"
+elif [[ "$TESTS_SKIPPED" -gt "0" ]]; then
+  msg="Passed with skipped ($TESTS_SKIPPED/$TESTS_TOTAL)"
+fi
+
+notify-send -a gotestsum "$(basename $(pwd))" "$emoji $msg"
