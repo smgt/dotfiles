@@ -207,7 +207,7 @@ output "Dell Inc. DELL P2715Q V7WP9561660S" pos 0 0 res 3840x2160
 output "Dell Inc. DELL U3223QE F57H2P3" scale 2
 output "Dell Inc. DELL U3223QE F57H2P3" pos 0 0 res 3840x2160
 output eDP-1 pos 240 1080 res 2880x1800
-output * bg ~/.dotfiles/wayland/sway/wallpaper.png tile
+output * background ~/.dotfiles/wayland/sway/wallpaper.png tile
 
 set $laptop eDP-1
 bindswitch --reload --locked lid:on output $laptop disable
@@ -216,7 +216,7 @@ exec_always ~/.config/sway/lid.sh
 
 exec wl-paste -t text --watch clipman store --no-persist
 exec blueman-applet
-exec 1password
+exec 1password --enable-features=UseOzonePlatform --ozone-platform=wayland
 exec dunst
 
 exec ~/.config/sway/session.sh --with-cleanup
