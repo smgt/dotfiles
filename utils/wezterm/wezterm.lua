@@ -179,7 +179,7 @@ function font_iosevka(opts)
 end
 
 local settings = font_iosevka({
-  font_size = 11.0,
+  font_size = 10.0,
   -- leader = { key = "b", mods = "CTRL", timeout_milliseconds = 1001 },
   -- keys = {
   -- 	{ key = "1", mods = "LEADER", action = act({ ActivateTab = 0 }) },
