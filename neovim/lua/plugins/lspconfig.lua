@@ -3,25 +3,25 @@ require("neodev").setup()
 
 local mason = require("mason-lspconfig")
 mason.setup({
-	ensure_installed = {
-		"bashls",
-		"dockerls",
-		"docker_compose_language_service",
-		"bufls",
-		"gopls",
-		"jsonls",
-		"jsonnet_ls",
-		"pyright",
-		"golangci_lint_ls",
-		"rust_analyzer",
-		"lua_ls",
-		"solargraph",
-		"taplo",
-		"terraformls",
-		"tflint",
-		"vimls",
-		"yamlls",
-	},
+  ensure_installed = {
+    "bashls",
+    "dockerls",
+    "docker_compose_language_service",
+    "bufls",
+    "gopls",
+    "jsonls",
+    "jsonnet_ls",
+    "pyright",
+    "golangci_lint_ls",
+    "rust_analyzer",
+    "lua_ls",
+    "solargraph",
+    "taplo",
+    "terraformls",
+    "tflint",
+    "vimls",
+    "yamlls",
+  },
 })
 
 local opts = { noremap = true, silent = true }
@@ -48,7 +48,7 @@ local on_attach = function(client, bufnr)
   -- vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
   vim.keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", bufopts)
   vim.keymap.set("n", "gD", "<cmd>Lspsaga peek_type_definition<CR>", bufopts)
-  vim.keymap.set("n", "gr", "<cmd>Lspsaga lsp_finder<CR>", bufopts)
+  vim.keymap.set("n", "gr", "<cmd>Lspsaga finder<CR>", bufopts)
   vim.keymap.set("n", "gI", "<cmd>Telescope lsp_implementations<CR>", bufopts)
   vim.keymap.set("n", "<Leader>o", "<cmd>Lspsaga outline<CR>", bufopts)
   -- vim.keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", bufopts)
