@@ -2,40 +2,113 @@
 
 set -e
 
-COMMAND_JIRA="jira"
-COMMAND_GITLAB="glab"
-
-if [ -z "$GITLAB_USER" ];then
-  echo "Environment variable $GITLAB_USER is not set, please do."
+if [ -z "$GITLAB_TOKEN" ];then
+  echo "Environment variable \$GITLAB_TOKEN is not set, please do."
   exit 1
 fi
 
-if ! command -v "$COMMAND_GITLAB" &> /dev/null;then
-  echo "You need $COMMAND_GITLAB installed to use this script."
+COMMAND_GUM="gum"
+if ! command -v "$COMMAND_GUM" &> /dev/null;then
+  echo "You need $COMMAND_GUM installed to use this script."
+  echo "https://github.com/charmbracelet/gum"
+  exit 1
+fi
+COMMAND_JQ="jq"
+if ! command -v "$COMMAND_JQ" &> /dev/null;then
+  echo "You need $COMMAND_JQ installed to use this script."
+  echo "https://jqlang.github.io/jq/"
+  exit 1
+fi
+COMMAND_CURL="curl"
+if ! command -v "$COMMAND_CURL" &> /dev/null;then
+  echo "You need $COMMAND_CURL installed to use this script."
+  echo "https://curl.se/"
   exit 1
 fi
 
-if ! command -v "$COMMAND_JIRA" &> /dev/null;then
-  echo "You need $COMMAND_JIRA installed to use this script."
+gum style \
+	--foreground 212 --border-foreground 212 --border double \
+	--align center --width 30 --margin "1 2" --padding "1 2" \
+	'Create Merge Request'
+
+GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+if [[ $GIT_BRANCH == *"/"* ]];then
+  JIRA_ID=$(echo "$GIT_BRANCH" | sed 's|/.*||')
+fi
+
+GIT_REMOTE=$(git config --get remote.origin.url)
+if ! [[ $GIT_REMOTE =~ gitlab\.com ]];then
+  echo -n "This script only works for gitlab.com"
   exit 1
 fi
 
-git_branch=$(git rev-parse --abbrev-ref HEAD)
-if [[ $git_branch == *"/"* ]];then
-  JIRA_ID=$(echo "$git_branch" | sed 's|/.*||')
-  echo "Found JIRA ticket in git branch name: $JIRA_ID"
-fi
-
-if [ -n "$JIRA_ID" ];then
-  eval $("$COMMAND_JIRA" req -t gitlab-mr "/rest/api/2/issue/${JIRA_ID}")
-  if [ -z "$JIRA_SUMMARY" ];then
-    echo "Could not find jira ticket ${JIRA_ID}."
-    exit 1
-  fi
-fi
-
-if [ -z "$JIRA_SUMMARY" ];then
-  ${COMMAND_GITLAB} mr create --assignee ${GITLAB_USER} --draft
+if [[ $GIT_REMOTE =~ git@gitlab.com ]];then
+  GIT_PATH=${GIT_REMOTE#*:}
 else
-  ${COMMAND_GITLAB} mr create --assignee ${GITLAB_USER} -t "$JIRA_ID ${JIRA_SUMMARY}" --draft -d "${JIRA_DESCRIPTION}"
+  GIT_PATH=${GIT_REMOTE#https://}
+  GIT_PATH=${GIT_PATH#*/}
+fi
+GIT_CLEAN=${GIT_PATH%.*}
+PROJECT_ID=$(printf %s "$GIT_CLEAN" | jq -sRr @uri)
+PROJECT_DATA=$(curl --silent --header "Authorization: Bearer $GITLAB_TOKEN" "https://gitlab.com/api/v4/projects/$PROJECT_ID")
+PROJECT_DEFAULT_BRANCH=$(echo "$PROJECT_DATA" | jq -r ".default_branch")
+
+if [ -z "$JIRA_ID" ];then
+  MR_TITLE_INPUT=$(gum input --header Title --prompt "> " --placeholder "Fix a bug")
+  MR_TITLE="$MR_TITLE_INPUT"
+else
+  MR_TITLE_INPUT=$(gum input --header Title --prompt "> [$JIRA_ID] " --placeholder "Fix a bug")
+  MR_TITLE="[$JIRA_ID] $MR_TITLE_INPUT"
+fi
+
+MR_DRAFT=$(gum choose --header "Is it a draft?" yes no)
+if [[ $MR_DRAFT == "yes" ]];then
+  MR_TITLE="Draft: $MR_TITLE"
+fi
+MR_DESC=$(gum write --header "Description" --placeholder "Description of the MR, CTRL-D to exit")
+
+gum format "# Result"
+echo "Title: $MR_TITLE"
+echo "$MR_DESC"
+mr_request_opts=()
+mr_request_opts+=("title=$MR_TITLE")
+mr_request_opts+=("description=$MR_DESC")
+mr_request_opts+=("source_branch=$GIT_BRANCH")
+mr_request_opts+=("target_branch=$PROJECT_DEFAULT_BRANCH")
+mr_request_opts+=("remove_source_branch=yes")
+
+
+if [ -f "$HOME/.git-mr-users" ];then
+  IFS=$'\n'
+  for a in $(gum choose --no-limit < "$HOME/.git-mr-users");do
+    b=$(echo "$a" | cut -d' ' -f2)
+    mr_request_opts+=("reviewer_ids[]=$b")
+  done
+fi
+
+if gum confirm "Create Merge Request for $GIT_BRANCH onto $PROJECT_DEFAULT_BRANCH?";then
+  # Create merge request
+  # source_branch : current branch
+  # target_branch : default branch
+  # title : MR_TITLE
+  # assignee_id : me
+  # description : MR_DESC
+  # reviewer_ids : reviewers
+  # remove_source_branch : yes or no
+  gitlab_user_id=$(curl --silent --header "Authorization: Bearer $GITLAB_TOKEN" https://gitlab.com/api/v4/user | jq '.id')
+  mr_request_opts+=("assignee_id=${gitlab_user_id}")
+  set +e
+  mr_resp=$(curl --silent -X POST --fail-with-body --header "Authorization: Bearer $GITLAB_TOKEN" https://gitlab.com/api/v4/projects/$PROJECT_ID/merge_requests \
+    "${mr_request_opts[@]/#/-d}")
+  mr_curl_exit="$?"
+  if [ $mr_curl_exit -ne 0 ];then
+    gum style --align center --border=double --padding "0 2" "Failed creating a merge request"
+    echo "$mr_resp" | jq
+  else 
+    mr_url=$(echo "$mr_resp" | jq -r ".web_url")
+    gum style --align center --border=double --padding "0 2" "Created merge request" "$mr_url"
+  fi
+else
+  gum style --border=double --padding "0 2" "Merge request cancelled"
+  exit 0
 fi
