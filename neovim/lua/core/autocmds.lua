@@ -11,7 +11,7 @@ autocmd("BufRead", {
 	command = "set tw=72",
 })
 
-autocmd("BufRead,BufNewFile", {
+autocmd({"BufRead","BufNewFile"}, {
 	pattern = "{Guardfile, vagrantfile, Vagrantfile, Gemfile, Rakefile, Thorfile, config.ru}",
 	command = "set ft=ruby",
 })
@@ -21,7 +21,7 @@ autocmd("FileType", {
 	command = "set noexpandtab",
 })
 
-autocmd("BufRead,BufNewFile", {
+autocmd({"BufRead","BufNewFile"}, {
 	pattern = "*.cr",
 	command = "set ft=crystal",
 })
