@@ -48,8 +48,7 @@ floating_modifier $mod
 
 # start a terminal
 # bindsym $mod+Return exec kitty -1
-bindsym $mod+Return exec wezterm start -- tmx
-bindsym $mod+Shift+Return exec wezterm start
+bindsym $mod+Return exec wezterm start --always-new-process
 
 # kill focused window
 bindsym $mod+Shift+q kill
