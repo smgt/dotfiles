@@ -7,23 +7,23 @@ local autocmd = vim.api.nvim_create_autocmd -- Create autocommand
 -- })
 
 autocmd("BufRead", {
-	pattern = "/tmp/mutt-*",
-	command = "set tw=72",
+  pattern = "/tmp/mutt-*",
+  command = "set tw=72",
 })
 
-autocmd({"BufRead","BufNewFile"}, {
-	pattern = "{Guardfile, vagrantfile, Vagrantfile, Gemfile, Rakefile, Thorfile, config.ru}",
-	command = "set ft=ruby",
+autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "{Guardfile, vagrantfile, Vagrantfile, Gemfile, Rakefile, Thorfile, config.ru}",
+  command = "set ft=ruby",
 })
 
 autocmd("FileType", {
-	pattern = "make",
-	command = "set noexpandtab",
+  pattern = "make",
+  command = "set noexpandtab",
 })
 
-autocmd({"BufRead","BufNewFile"}, {
-	pattern = "*.cr",
-	command = "set ft=crystal",
+autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "*.cr",
+  command = "set ft=crystal",
 })
 
 autocmd({ "BufRead", "BufNewFile" }, { pattern = { "*.txt", "*.md", "gitcommit" }, command = "setlocal spell" })
@@ -31,7 +31,12 @@ autocmd({ "BufRead", "BufNewFile" }, { pattern = { "*.txt", "*.md", "gitcommit" 
 -- start git commit messages in insert mode
 augroup("bufcheck", { clear = true })
 autocmd("FileType", {
-	group = "bufcheck",
-	pattern = { "gitcommit", "gitrebase" },
-	command = "startinsert | 1",
+  group = "bufcheck",
+  pattern = { "gitcommit", "gitrebase" },
+  command = "startinsert | 1",
+})
+
+autocmd("BufWritePost", {
+  pattern = "*",
+  command = "lua require('lint').try_lint()",
 })

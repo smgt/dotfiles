@@ -38,12 +38,6 @@ return packer.startup(function(use)
   -- utils
   use("tpope/vim-surround")
   use("tpope/vim-unimpaired")
-  use({
-    "lukas-reineke/indent-blankline.nvim",
-    config = function()
-      require("ibl").setup({})
-    end,
-  })
   -- use("tpope/vim-commentary")                       -- comments
   use({
     "numToStr/Comment.nvim", --comments
@@ -172,14 +166,16 @@ return packer.startup(function(use)
     end,
   })
 
-  use("jose-elias-alvarez/null-ls.nvim") -- Linters etc
-  use({
-    "jayp0521/mason-null-ls.nvim",
-    requires = {
-      "williamboman/mason.nvim",
-      "jose-elias-alvarez/null-ls.nvim",
-    },
-  })
+  -- use("jose-elias-alvarez/null-ls.nvim") -- Linters etc
+  -- use({
+  --   "jayp0521/mason-null-ls.nvim",
+  --   requires = {
+  --     "williamboman/mason.nvim",
+  --     "jose-elias-alvarez/null-ls.nvim",
+  --   },
+  -- })
+  --
+  use("mfussenegger/nvim-lint")
 
   use({
     "nvimdev/lspsaga.nvim",
@@ -353,6 +349,15 @@ return packer.startup(function(use)
             },
           },
         },
+      })
+    end,
+  })
+  use({
+    "lukas-reineke/indent-blankline.nvim",
+    config = function()
+      require("ibl").setup({
+        debounce = 100,
+        indent = { char = "▏" },
       })
     end,
   })
