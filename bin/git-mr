@@ -58,7 +58,7 @@ if [ -z "$JIRA_ID" ];then
   MR_TITLE="$MR_TITLE_INPUT"
 else
   MR_TITLE_INPUT=$(gum input --header Title --prompt "> [$JIRA_ID] " --placeholder "Fix a bug")
-  MR_TITLE="[$JIRA_ID] $MR_TITLE_INPUT"
+  MR_TITLE="$JIRA_ID | $MR_TITLE_INPUT"
 fi
 
 MR_DRAFT=$(gum choose --header "Is it a draft?" yes no)
