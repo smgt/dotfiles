@@ -156,10 +156,10 @@ return packer.startup(function(use)
   use({
     "neovim/nvim-lspconfig",
     requires = {
-      "williamboman/mason.nvim",            -- LSP installer
-      "williamboman/mason-lspconfig.nvim",  -- LSP config support for mason, needs to be loaded before lspconfig
+      "williamboman/mason.nvim",               -- LSP installer
+      "williamboman/mason-lspconfig.nvim",     -- LSP config support for mason, needs to be loaded before lspconfig
       { "j-hui/fidget.nvim", tag = "legacy" }, -- LSP startup time status
-      "folke/neodev.nvim",                  -- LSP annotations
+      "folke/neodev.nvim",                     -- LSP annotations
     },
     config = function()
       require("fidget").setup()
@@ -176,6 +176,7 @@ return packer.startup(function(use)
   -- })
   --
   use("mfussenegger/nvim-lint")
+  use({ 'mhartington/formatter.nvim' })
 
   use({
     "nvimdev/lspsaga.nvim",

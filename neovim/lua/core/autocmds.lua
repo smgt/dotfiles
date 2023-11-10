@@ -40,3 +40,6 @@ autocmd("BufWritePost", {
   pattern = "*",
   command = "lua require('lint').try_lint()",
 })
+
+local formatGroupID = augroup("FormatAutogroup", {})
+autocmd("BufWritePost", { pattern = "*", command = "FormatWrite", group = formatGroupID })
