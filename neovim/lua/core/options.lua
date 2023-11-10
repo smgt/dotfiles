@@ -20,10 +20,15 @@ opt.title = true                   -- FIXME
 opt.formatoptions = "tcqronj"      -- FIXME
 opt.ruler = true                   -- FIXME
 opt.wrap = false                   -- FIXME
-opt.list = true                    -- FIXME
-opt.listchars.tab = ":"
-opt.listchars.trail = "▫"
-opt.listchars.eol = "↴"
+-- opt.listchars:append({ eol = "↴", trail = "▫", space = "-" })
+-- opt.listchars.eol = "↴"
+-- opt.list = true
+-- opt.list = true                    -- FIXME
+-- opt.listchars = {
+--   tab = ":",
+--   trail = "▫",
+--   eol = "↴",
+-- }
 opt.cursorline = true
 opt.autowrite = true
 opt.autowriteall = true
@@ -45,13 +50,13 @@ opt.laststatus = 3        -- Set global statusline
 opt.expandtab = true      -- Use spaces instead of tabs
 opt.shiftwidth = 2        -- Shift 2 spaces when tab
 opt.tabstop = 2           -- 1 tab == 2 spaces
-opt.smartindent = true    -- Autoindent new lines
+--opt.smartindent = true    -- Autoindent new lines
 
-opt.hidden = true         -- Enable background buffers
-opt.history = 100         -- Remember N lines in history
-opt.lazyredraw = true     -- Faster scrolling
-opt.synmaxcol = 240       -- Max column for syntax highlight
-opt.updatetime = 700      -- ms to wait for trigger an event
+opt.hidden = true     -- Enable background buffers
+opt.history = 100     -- Remember N lines in history
+opt.lazyredraw = true -- Faster scrolling
+opt.synmaxcol = 240   -- Max column for syntax highlight
+opt.updatetime = 700  -- ms to wait for trigger an event
 
 opt.shortmess:append("sI")
 
