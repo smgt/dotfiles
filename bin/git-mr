@@ -65,11 +65,17 @@ MR_DRAFT=$(gum choose --header "Is it a draft?" yes no)
 if [[ $MR_DRAFT == "yes" ]];then
   MR_TITLE="Draft: $MR_TITLE"
 fi
-MR_DESC=$(gum write --header "Description" --placeholder "Description of the MR, CTRL-D to exit")
 
-gum format "# Result"
-echo "Title: $MR_TITLE"
-echo "$MR_DESC"
+TMPFILE=$(mktemp /tmp/git-mr.XXXXXXXX.md)
+# MR_DESC=$(gum write --header "Description" --placeholder "Description of the MR, CTRL-D to exit")
+$EDITOR "$TMPFILE" < /dev/tty > /dev/tty
+MR_DESC=$(cat "$TMPFILE")
+rm "$TMPFILE"
+
+gum style --padding "1 1" --bold --underline ">> Result <<"
+echo -e "{{ Bold \"Title:\"}} $MR_TITLE\n{{ Bold \"Description:\" }}" | gum format -t template
+echo "$MR_DESC" | gum format
+
 mr_request_opts=()
 mr_request_opts+=("title=$MR_TITLE")
 mr_request_opts+=("description=$MR_DESC")
@@ -78,6 +84,7 @@ mr_request_opts+=("target_branch=$PROJECT_DEFAULT_BRANCH")
 mr_request_opts+=("remove_source_branch=yes")
 
 
+gum style --padding "1 1" --bold --underline "Select reviewers:"
 if [ -f "$HOME/.git-mr-users" ];then
   IFS=$'\n'
   for a in $(gum choose --no-limit < "$HOME/.git-mr-users");do
@@ -104,11 +111,11 @@ if gum confirm "Create Merge Request for $GIT_BRANCH onto $PROJECT_DEFAULT_BRANC
   if [ $mr_curl_exit -ne 0 ];then
     gum style --align center --border=double --padding "0 2" "Failed creating a merge request"
     echo "$mr_resp" | jq
-  else 
+  else
     mr_url=$(echo "$mr_resp" | jq -r ".web_url")
     gum style --align center --border=double --padding "0 2" "Created merge request" "$mr_url"
   fi
 else
-  gum style --border=double --padding "0 2" "Merge request cancelled"
+  gum style --border=double --border-foreground "#f00" --padding "0 2" "Merge request cancelled"
   exit 0
 fi
