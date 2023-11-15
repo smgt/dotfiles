@@ -173,6 +173,10 @@ custom_lsp_server_opts.gopls = {
   },
 }
 
+custom_lsp_server_opts.bufls = {
+  cmd = { "bufls", "serve", "--debug", "-v" },
+}
+
 custom_lsp_server_opts.yamlls = {
   settings = {
     yaml = {

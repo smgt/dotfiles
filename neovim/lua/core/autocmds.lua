@@ -38,8 +38,14 @@ autocmd("FileType", {
 
 autocmd("BufWritePost", {
   pattern = "*",
-  command = "lua require('lint').try_lint()",
+  callback = function()
+    require("lint").try_lint()
+  end,
 })
 
 local formatGroupID = augroup("FormatAutogroup", {})
-autocmd("BufWritePost", { pattern = "*", command = "FormatWrite", group = formatGroupID })
+autocmd("BufWritePost", {
+  pattern = "*",
+  command = "FormatWrite",
+  group = formatGroupID
+})

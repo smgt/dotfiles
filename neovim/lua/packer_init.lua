@@ -91,14 +91,21 @@ return packer.startup(function(use)
   -- })
 
   -- git
-  use("gregsexton/gitv")
+  -- use("gregsexton/gitv")
   use({
     "tpope/vim-fugitive",
     requires = {
       { "tpope/vim-rhubarb" },
     },
   })
+
   use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
+  use({
+    "lewis6991/gitsigns.nvim",
+    config = function()
+      require("gitsigns").setup()
+    end,
+  })
 
   -- tmux
   use("benmills/vimux")
@@ -156,10 +163,10 @@ return packer.startup(function(use)
   use({
     "neovim/nvim-lspconfig",
     requires = {
-      "williamboman/mason.nvim",               -- LSP installer
-      "williamboman/mason-lspconfig.nvim",     -- LSP config support for mason, needs to be loaded before lspconfig
+      "williamboman/mason.nvim",            -- LSP installer
+      "williamboman/mason-lspconfig.nvim",  -- LSP config support for mason, needs to be loaded before lspconfig
       { "j-hui/fidget.nvim", tag = "legacy" }, -- LSP startup time status
-      "folke/neodev.nvim",                     -- LSP annotations
+      "folke/neodev.nvim",                  -- LSP annotations
     },
     config = function()
       require("fidget").setup()
@@ -176,7 +183,7 @@ return packer.startup(function(use)
   -- })
   --
   use("mfussenegger/nvim-lint")
-  use({ 'mhartington/formatter.nvim' })
+  use({ "mhartington/formatter.nvim" })
 
   use({
     "nvimdev/lspsaga.nvim",

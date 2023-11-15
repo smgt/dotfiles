@@ -14,34 +14,41 @@ local function mason_package(name, opts)
     })
     return nil
   end
-  return {
-    exe = path.bin_prefix(name),
-    args = opts.args,
-    stdin = true,
-  }
+  return function()
+    if opts.callback then
+      opts.callback(opts)
+    end
+    return {
+      exe = path.bin_prefix(name),
+      args = opts.args,
+      stdin = true,
+    }
+  end
 end
 
 -- Provides the Format, FormatWrite, FormatLock, and FormatWriteLock commands
 require("formatter").setup({
   -- Enable or disable logging
-  logging = true,
+  logging = false,
   -- Set the log level
-  log_level = vim.log.levels.DEBUG,
+  log_level = vim.log.levels.WARN,
   -- All formatter configurations are opt-in
   filetype = {
     go = {
       mason_package("goimports"),
-      mason_package("golines"),
+      -- mason_package("golines"),
     },
     lua = {
       mason_package("stylua", {
-        args = {
-          "--search-parent-directories",
-          "--stdin-filepath",
-          util.escape_path(util.get_current_buffer_file_path()),
-          "--",
-          "-",
-        },
+        callback = function(opts)
+          opts.args = {
+            "--search-parent-directories",
+            "--stdin-filepath",
+            util.escape_path(util.get_current_buffer_file_path()),
+            "--",
+            "-",
+          }
+        end,
       }),
     },
     -- Use the special "*" filetype for defining formatter configurations on
