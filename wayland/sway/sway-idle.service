@@ -11,7 +11,7 @@ ExecStart=/usr/bin/swayidle -d -w \
             resume 'swaymsg "output * dpms on"' \
             lock 'playerctl pause;swaylock -f' \
             before-sleep 'playerctl pause;swaylock -f'
-; ExecStartPost=/usr/bin/sleep 3
+ExecStartPost=/usr/bin/sleep 3
 
 [Install]
 WantedBy=sway-session.target

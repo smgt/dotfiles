@@ -223,3 +223,6 @@ exec ~/.config/sway/session.sh --with-cleanup
 
 include ~/.config/sway/theme.conf
 include /etc/sway/config.d/*
+
+bindsym $mod+Ctrl+Shift+minus move scratchpad
+bindsym $mod+Ctrl+minus scratchpad show
