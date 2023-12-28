@@ -47,7 +47,7 @@ return packer.startup(function(use)
       })
     end,
   })
-  use("JoosepAlviste/nvim-ts-context-commentstring") -- context aware comment-string
+  use({ "JoosepAlviste/nvim-ts-context-commentstring" }) -- context aware comment-string
 
   -- https://github.com/ray-x/guihua.lua
   use({
