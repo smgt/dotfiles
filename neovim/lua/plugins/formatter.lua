@@ -9,7 +9,7 @@ local function mason_package(name, opts)
     opts = {}
   end
   if not registry.is_installed(name) then
-    require("notify")("'" + name + "' is not installed with mason", "error", {
+    require("notify")("'" .. name .. "' is not installed with mason", "error", {
       title = "Formatter",
     })
     return nil
