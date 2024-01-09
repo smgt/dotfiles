@@ -48,7 +48,10 @@ if [ -f "$HOME/.xinitrc.local" ];then
   . "$HOME/.xinitrc.local"
 fi
 
-export XDG_CURRENT_DESKTOP=gnome
+#export XDG_CURRENT_DESKTOP=gnome
+export XDG_CURRENT_DESKTOP=i3
+export XDG_SESSION_DESKTOP="${XDG_SESSION_DESKTOP:-i3}"
+export XDG_SESSION_TYPE=x11
 
 #export TERM=xterm-256color
 systemctl --user import-environment DISPLAY XDG_CURRENT_DESKTOP
@@ -66,10 +69,11 @@ type xfsettingsd > /dev/null 2>&1 && { xfsettingsd & }
 # type /usr/lib/xfce-polkit/xfce-polkit > /dev/null 2>&1 && { /usr/lib/xfce-polkit/xfce-polkit & }
 type /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 > /dev/null 2>&1 && { /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & }
 type dunst > /dev/null 2>&1 && { dunst & }
-# type flameshot > /dev/null 2>&1 && { flameshot & }
+type flameshot > /dev/null 2>&1 && { flameshot & }
 type dropbox > /dev/null 2>&1 && { dropbox & }
 type xss-lock >/dev/null 2>&1 && { xss-lock -- "$HOME/.dotfiles/bin/lock" & }
 type xssproxy > /dev/null 2>&1 && { xssproxy & }
+type blueman-manager > /dev/null 2>&1 && { blueman-manager & }
 type picom > /dev/null 2>&1 && { picom & }
 
 exec i3
