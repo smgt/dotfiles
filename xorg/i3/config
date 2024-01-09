@@ -22,11 +22,13 @@ hide_edge_borders none
 
 # Application behavior
 for_window [instance="origin.exe"] floating enable
+
 # for_window [class="zoom"] floating enable
-assign [class="firefox"] 1
-assign [class="spotify"] 9
-assign [class="slack"] 8
-assign [class="discord"] 8
+assign [class="firefox"] workspace 1
+assign [class="obsidian"] workspace 3
+assign [class="Spotify"] workspace 9
+assign [class="Slack"] workspace 8
+assign [class="discord"] workspace 8
 assign [class="zoom"] 10
 assign [title="Zoom"] 10
 assign [title="Zoom Meeting"] 10
@@ -68,6 +70,10 @@ bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
+bindsym $mod+i focus output primary
+bindsym $mod+o focus output nonprimary
+
+
 
 # alternatively, you can use the cursor keys:
 #bindsym $mod+Left focus left
@@ -137,6 +143,9 @@ bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
+
+bindsym $mod+t workspace back_and_forth
+bindsym $mod+Shift+t move container to workspace back_and_forth
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
