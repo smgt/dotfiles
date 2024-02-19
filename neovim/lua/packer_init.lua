@@ -173,17 +173,17 @@ return packer.startup(function(use)
     end,
   })
 
-  -- use("jose-elias-alvarez/null-ls.nvim") -- Linters etc
-  -- use({
-  --   "jayp0521/mason-null-ls.nvim",
-  --   requires = {
-  --     "williamboman/mason.nvim",
-  --     "jose-elias-alvarez/null-ls.nvim",
-  --   },
-  -- })
-  --
-  use("mfussenegger/nvim-lint")
-  use({ "mhartington/formatter.nvim" })
+  use("nvimtools/none-ls.nvim") -- Linters etc
+  use({
+    "jayp0521/mason-null-ls.nvim",
+    requires = {
+      "williamboman/mason.nvim",
+      "nvimtools/none-ls.nvim",
+    },
+  })
+
+  -- use("mfussenegger/nvim-lint")
+  -- use({ "mhartington/formatter.nvim" })
 
   use({
     "nvimdev/lspsaga.nvim",

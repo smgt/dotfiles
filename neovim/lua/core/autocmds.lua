@@ -36,16 +36,16 @@ autocmd("FileType", {
   command = "startinsert | 1",
 })
 
-autocmd("BufWritePost", {
-  pattern = "*",
-  callback = function()
-    require("lint").try_lint()
-  end,
-})
+-- autocmd("BufWritePost", {
+--   pattern = "*",
+--   callback = function()
+--     require("lint").try_lint()
+--   end,
+-- })
 
-local formatGroupID = augroup("FormatAutogroup", {})
-autocmd("BufWritePost", {
-  pattern = "*",
-  command = "FormatWrite",
-  group = formatGroupID
-})
+-- local formatGroupID = augroup("FormatAutogroup", {})
+-- autocmd("BufWritePost", {
+--   pattern = "*",
+--   command = "FormatWrite",
+--   group = formatGroupID
+-- })

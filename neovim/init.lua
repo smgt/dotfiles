@@ -8,9 +8,9 @@ require("core/statusline")
 require("plugins/mason")
 require("plugins/nvim-tree")
 require("plugins/cmp")
--- require("plugins/nullls")
-require("plugins/lint")
-require("plugins/formatter")
+require("plugins/nullls") -- none-ls
+--require("plugins/lint")
+--require("plugins/formatter")
 require("plugins/dap")
 require("plugins/lspconfig")
 require("plugins/lualine")
@@ -26,8 +26,9 @@ job = Job:new({
   args = { "get", "org.gnome.desktop.interface", "color-scheme" },
 })
 
-if job:sync()[1] == "'prefer-dark'" then
-  vim.opt.background = "dark"
-else
-  vim.opt.background = "light"
-end
+--
+-- if job:sync()[1] == "'prefer-dark'" then
+--   vim.opt.background = "dark"
+-- else
+--   vim.opt.background = "light"
+-- end
