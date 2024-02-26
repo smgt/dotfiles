@@ -5,7 +5,10 @@ elif [[ -f "/opt/asdf-vm/asdf.sh" ]];then
   . /opt/asdf-vm/asdf.sh
 fi
 
-command -v direnv >/dev/null 2>&1 && eval "$(direnv hook zsh)"
+# Load direnv
+# command -v direnv >/dev/null 2>&1 && eval "$(direnv hook zsh)"
+source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+
 if command -v fzf > /dev/null 2>&1; then
   #source /usr/share/fzf/key-bindings.zsh
   #source /usr/share/fzf/completion.zsh
