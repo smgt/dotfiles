@@ -220,4 +220,14 @@ local settings = font_iosevka({
   },
 })
 
+-- custom hyperlink rules
+settings.hyperlink_rules = wezterm.default_hyperlink_rules() -- insert default rules
+
+-- make task numbers clickable
+-- the first matched regex group is captured in $1.
+table.insert(settings.hyperlink_rules, {
+  regex = [[\b((?:CP|CONALL)-\d+)\b]],
+  format = "https://readly.atlassian.net/browse/$1",
+})
+
 return settings
