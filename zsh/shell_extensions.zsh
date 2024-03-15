@@ -7,9 +7,9 @@ fi
 
 # Load direnv
 # command -v direnv >/dev/null 2>&1 && eval "$(direnv hook zsh)"
-if [[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc" ]];then
-  source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
-fi
+# if [[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc" ]];then
+#   source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+# fi
 
 if command -v fzf > /dev/null 2>&1; then
   #source /usr/share/fzf/key-bindings.zsh
@@ -23,3 +23,6 @@ fi
 #   if test -f flake.nix; then nix develop . --impure; fi
 # }
 # chpwd_functions=(''${chpwd_functions[@]} "enterNixDevelopShell")
+
+# direnv hook
+eval "$(direnv hook zsh)"
