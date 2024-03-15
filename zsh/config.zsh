@@ -6,10 +6,13 @@
 
 #export LSCOLORS="exfxcxdxbxegedabagacad"
 #export CLICOLOR=true
+if [ -z $XDG_CONFIG_HOME ];then
+  XDG_CONFIG_HOME="$HOME/.config"
+fi
 
-fpath=($HOME/.zsh/functions /usr/local/share/zsh/site-functions $fpath)
+fpath=($HOME/.dotfiles/zsh/functions /usr/local/share/zsh/site-functions $fpath)
 
-autoload -U $HOME/.zsh/functions/*(:t)
+autoload -U $HOME/.dotfiles/zsh/functions/*(:t)
 
 HISTFILE=~/.zsh_history
 HISTSIZE=10000

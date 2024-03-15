@@ -2,7 +2,7 @@ source ~/.zplug/init.zsh
 
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "chrissicool/zsh-256color"
-zplug "zsh-users/zsh-autosuggestions"
+#zplug "zsh-users/zsh-autosuggestions"
 zplug "plugins/git",   from:oh-my-zsh
 
 # Install plugins if there are plugins that have not been installed
@@ -14,4 +14,4 @@ if ! zplug check --verbose; then
 fi
 
 # Then, source plugins and add commands to $PATH
-zplug load --verbose
+zplug load
