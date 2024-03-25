@@ -6,6 +6,9 @@
   email = simon@kampgate.se
 	signingkey = 86B6524CB532138F5F7AAB6A32667C2894F7AB35
 
+[push]
+  autosetupremote = true
+
 [github]
   user = smgt
 
