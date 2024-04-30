@@ -63,7 +63,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<space>rn", "<cmd>Lspsaga rename<CR>", bufopts)
   vim.keymap.set("n", "gx", "<cmd>Lspsaga code_action<CR>", bufopts)
   vim.keymap.set("n", "<space>f", function()
-    vim.lsp.buf.format({ async = true })
+    vim.lsp.buf.format({ async = true, timeout_ms = 2000 })
   end, bufopts)
 
   -- Load completion
@@ -109,7 +109,9 @@ local on_attach = function(client, bufnr)
   if client.server_capabilities.documentFormattingProvider then
     vim.api.nvim_command([[augroup Format]])
     vim.api.nvim_command([[autocmd! * <buffer>]])
-    vim.api.nvim_command([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format({async = false})]])
+    vim.api.nvim_command(
+      [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format({async = false, timeout_ms = 2000})]]
+    )
     vim.api.nvim_command([[augroup END]])
   end
 end

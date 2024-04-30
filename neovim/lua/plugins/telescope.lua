@@ -1,6 +1,6 @@
 local status, telescope = pcall(require, "telescope")
 if not status then
-	return
+  return
 end
 
 local actions = require("telescope.actions")
@@ -16,38 +16,31 @@ local actions = require("telescope.actions")
 -- table.insert(vimgrep_arguments, "!.git/*")
 
 telescope.setup({
-	defaults = {
-		layout_strategy = "vertical",
-		layout_config = { height = 0.95 },
-		-- vimgrep_arguments = vimgrep_arguments,
-		mappings = {
-			i = {
-				["<esc>"] = actions.close,
-				-- ["<c-t>"] = trouble.open_with_trouble,
-			},
-			n = {
-				-- ["<c->t"] = trouble.open_with_trouble,
-			},
-		},
-	},
-	pickers = {
-		find_files = {
-			find_command = {
-				"fd",
-				"--type",
-				"file",
-				"-I",
-				"--follow",
-				"--hidden",
-				"--exclude",
-				".git",
-				"--exclude",
-				"vendor",
-				"--exclude",
-				".terraform",
-			},
-		},
-	},
+  defaults = {
+    layout_strategy = "vertical",
+    layout_config = { height = 0.95 },
+    -- vimgrep_arguments = vimgrep_arguments,
+    mappings = {
+      i = {
+        ["<esc>"] = actions.close,
+        -- ["<c-t>"] = trouble.open_with_trouble,
+      },
+      n = {
+        -- ["<c->t"] = trouble.open_with_trouble,
+      },
+    },
+  },
+  pickers = {
+    find_files = {
+      find_command = {
+        "fd",
+        "--type",
+        "file",
+        "--follow",
+        "--hidden",
+      },
+    },
+  },
 })
 
 telescope.load_extension("fzy_native")
