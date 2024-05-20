@@ -25,6 +25,7 @@ job = Job:new({
   command = "gsettings",
   args = { "get", "org.gnome.desktop.interface", "color-scheme" },
 })
+vim.opt.background = "dark"
 
 --
 -- if job:sync()[1] == "'prefer-dark'" then
