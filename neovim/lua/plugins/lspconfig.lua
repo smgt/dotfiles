@@ -137,6 +137,9 @@ custom_lsp_server_opts.solargraph = {
 custom_lsp_server_opts.lua_ls = {
   settings = {
     Lua = {
+      hint = {
+        enable = true,
+      },
       runtime = {
         version = "LuaJIT",
       },
@@ -170,6 +173,15 @@ custom_lsp_server_opts.lua_ls = {
 custom_lsp_server_opts.gopls = {
   settings = {
     gopls = {
+      hints = {
+        rangeVariableTypes = true,
+        parameterNames = true,
+        constantValues = true,
+        assignVariableTypes = true,
+        compositeLiteralFields = true,
+        compositeLiteralTypes = true,
+        functionTypeParameters = true,
+      },
       gofumpt = true,
       buildFlags = { "-tags=integration" },
     },
