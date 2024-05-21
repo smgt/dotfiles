@@ -93,6 +93,18 @@ return packer.startup(function(use)
   -- git
   -- use("gregsexton/gitv")
   use({
+    "isabelroses/charm-freeze.nvim",
+    config = function()
+      require("charm-freeze").setup({
+        command = "freeze",
+        output = function()
+          return "/home/simon/freeze/" .. os.date("%Y-%m-%d") .. "_freeze.png"
+        end,
+        theme = "catppuccin-mocha",
+      })
+    end,
+  })
+  use({
     "tpope/vim-fugitive",
     requires = {
       { "tpope/vim-rhubarb" },
