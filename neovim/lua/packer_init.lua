@@ -38,17 +38,6 @@ return packer.startup(function(use)
   -- utils
   use("tpope/vim-surround")
   use("tpope/vim-unimpaired")
-  -- use("tpope/vim-commentary")                       -- comments
-  use({
-    "numToStr/Comment.nvim", --comments
-    config = function()
-      require("Comment").setup({
-        pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
-      })
-    end,
-  })
-  use({ "JoosepAlviste/nvim-ts-context-commentstring" }) -- context aware comment-string
-
   -- https://github.com/ray-x/guihua.lua
   use({
     "ray-x/guihua.lua",
