@@ -1,17 +1,25 @@
 #!/usr/bin/env bash
 
-case "$1" in
-    --toggle)
-        dunstctl set-paused toggle
-        ;;
-esac
+sleep_pid=0
 
-if [ "$(dunstctl is-paused)" == "true" ];then
-  echo ""
-  exit 0
-else
-  echo ""
-  exit 1
-fi
+toggle() {
+  dunstctl set-paused toggle
+  if [ "$sleep_pid" -ne 0 ]; then
+    kill "$sleep_pid" >/dev/null 2>&1
+  fi
+}
+
+trap toggle USR1
+
+while true; do
+  if [ "$(dunstctl is-paused)" == "true" ];then
+    echo ""
+  else
+    echo ""
+  fi
+  sleep 5 &
+  sleep_pid=$!
+  wait
+done
 
 # vim: set filetype=sh :
