@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+case "$1" in
+    --toggle)
+        dunstctl set-paused toggle
+        ;;
+esac
+
+if [ "$(dunstctl is-paused)" == "true" ];then
+  echo ""
+  exit 0
+else
+  echo ""
+  exit 1
+fi
+
+# vim: set filetype=sh :
