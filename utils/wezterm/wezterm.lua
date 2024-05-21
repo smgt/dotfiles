@@ -25,7 +25,7 @@ local function scheme_for_appearance(appearance)
   end
   if appearance:find("Light") then
     -- return "Catppuccin Latte"
-    return "Tokyo Night Day"
+    return "Tokyo Night Moon"
   else
     -- return "Catppuccin Frappe"
     return "Tokyo Night Moon"
