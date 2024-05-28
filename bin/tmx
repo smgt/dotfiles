@@ -1,12 +1,13 @@
 #!/bin/bash
 
 HOST=$(hostname)
+color="#babbf1"
 
-hash_string256() {
-    hash_value=$(printf "%s" "$1" | md5sum |tr -d " -"| tr "a-f" "A-F")
-    printf "ibase=16; (%s + %X) %% 100 \n" "$hash_value" "$2" | bc
-}
-export TERM=xterm-256color
+if command -v hostcolor &> /dev/null;then
+  color=$(hostcolor tmux theme --colors "#f4b8e4,#eebebe,#ca9ee6,#ea999c,#81c8be,#99d1db,#85c1dc,#8caaee,#babbf1")
+fi
+
+export TERM="xterm-256color"
 
 if [ -n "$1" ];then
   if ! tmux has-session -t "$HOST";then
@@ -17,12 +18,13 @@ if [ -n "$1" ];then
   if tmux has-session -t "$1";then
     tmux -2 attach-session -t "$1"
   else
+    tmux set -g @HOSTCOLOR "$color"
     tmux -2 new-session -s "$1"
   fi
 else
   # Create session
   tmux -2 new-session -d -s "$HOST"
-
+  tmux set -g @HOSTCOLOR "$color"
   # Attach to session
   tmux -2 attach-session -t "$HOST"
 fi
