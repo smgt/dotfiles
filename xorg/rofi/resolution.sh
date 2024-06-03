@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 options=$(autorandr --list)
 selection=$(echo -e "${options}" | rofi -dmenu -m -3)
 if [ "$selection" != "" ];then
