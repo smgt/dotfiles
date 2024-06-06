@@ -39,6 +39,17 @@ with lib; {
       "simon"
     ];
 
+    time.timeZone = "Europe/Stockholm";
+
+    i18n = {
+      defaultLocale = "en_US.UTF-8";
+      extraLocaleSettings = {
+        LC_TIME = "sv_SE.UTF-8";
+        LC_CTYPE = "en_US.UTF-8";
+      };
+    };
+
+
     environment.systemPackages = with pkgs; [
       coreutils-prefixed
       _1password
