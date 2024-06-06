@@ -20,16 +20,4 @@ require("plugins/telescope")
 require("plugins/alpha_dashboard")
 
 -- Set background based on gsettings
-local Job = require("plenary.job")
-job = Job:new({
-  command = "gsettings",
-  args = { "get", "org.gnome.desktop.interface", "color-scheme" },
-})
 vim.opt.background = "dark"
-
---
--- if job:sync()[1] == "'prefer-dark'" then
---   vim.opt.background = "dark"
--- else
---   vim.opt.background = "light"
--- end
