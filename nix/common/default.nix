@@ -79,7 +79,6 @@ with lib; {
       moreutils
       mosh
       neovim
-      nodejs_21
       pv
       pwgen
       python3

@@ -4,9 +4,6 @@
 #    (import "${home-manager}/nixos")
 #  ];
 
-    /* The home.stateVersion option does not have a default and must be set */
-    home.stateVersion = "23.11";
-
     home.sessionVariables = {
       DOTFILES = "$HOME/.dotfiles";
       GPG_TTY = "$(tty)";
@@ -31,7 +28,7 @@
     programs.git = {
       enable = true;
       userName = "Simon Gate";
-      userEmail = "simon+nixos@kampgate.se";
+      userEmail = "simon@kampgate.se";
     };
 
     programs.bat = {

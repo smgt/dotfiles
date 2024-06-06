@@ -29,5 +29,7 @@
     config.users.users.simon.openssh.authorizedKeys.keys;
   users.users.root.shell = pkgs.zsh;
 
-  environment.systemPackages = [ pkgs.git ];
+  environment.systemPackages = [
+    pkgs.git
+  ];
 }
