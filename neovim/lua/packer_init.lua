@@ -81,18 +81,18 @@ return packer.startup(function(use)
 
   -- git
   -- use("gregsexton/gitv")
-  use({
-    "isabelroses/charm-freeze.nvim",
-    config = function()
-      require("charm-freeze").setup({
-        command = "freeze",
-        output = function()
-          return "/home/simon/freeze/" .. os.date("%Y-%m-%d") .. "_freeze.png"
-        end,
-        theme = "catppuccin-mocha",
-      })
-    end,
-  })
+  -- use({
+  --   "isabelroses/charm-freeze.nvim",
+  --   config = function()
+  --     require("charm-freeze").setup({
+  --       command = "freeze",
+  --       output = function()
+  --         return "/home/simon/freeze/" .. os.date("%Y-%m-%d") .. "_freeze.png"
+  --       end,
+  --       theme = "catppuccin-mocha",
+  --     })
+  --   end,
+  -- })
   use({
     "tpope/vim-fugitive",
     requires = {
@@ -166,7 +166,7 @@ return packer.startup(function(use)
     requires = {
       "williamboman/mason.nvim",            -- LSP installer
       "williamboman/mason-lspconfig.nvim",  -- LSP config support for mason, needs to be loaded before lspconfig
-      { "j-hui/fidget.nvim", tag = "legacy" }, -- LSP startup time status
+      { "j-hui/fidget.nvim", tag = "v1.4.5" }, -- LSP startup time status
       "folke/neodev.nvim",                  -- LSP annotations
     },
     config = function()
@@ -331,6 +331,7 @@ return packer.startup(function(use)
       require("trouble").setup()
     end,
   })
+  use({ "dgagn/diagflow.nvim" })
   use("kyazdani42/nvim-web-devicons") -- Icons
   use("junegunn/vim-emoji")
   use({
