@@ -11,10 +11,13 @@
   boot.loader.grub.efiSupport = false;
   boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
 
+  # Enable ip forwarding to allow tailscale routes
+  boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
+  boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = 1;
+
   networking.hostName = "smgt-dev";
   networking.networkmanager.enable = true;
   #systemd.network.wait-online.enable = false;
-
 
   services.openssh.enable = true;
   services.tailscale.enable = true;
