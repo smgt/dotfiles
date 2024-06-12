@@ -19,11 +19,33 @@
     ];
   };
 
+  # Enable direnv and nix-direnv
+  programs.direnv.enable = true;
+  programs.direnv.nix-direnv.enable = true;
+
   programs.git = {
     enable = true;
     userName = "Simon Gate";
     userEmail = "simon@kampgate.se";
     diff-so-fancy.enable = true;
+    includes = [
+      {
+        condition = "hasconfig:remote.*.url:git@gitlab.com:readly-ab/**";
+        contents = {
+          user = {
+            email = "simon.gate@readly.com";
+          };
+        };
+      }
+    ];
+    ignores = [
+      ".direnv"
+      "tmp"
+    ];
+    extraConfig = {
+      init.defaultBranch = "main";
+      lfs.enable = true;
+    };
   };
 
   programs.bat = {

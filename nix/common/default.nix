@@ -57,7 +57,6 @@ with lib; {
       curl
       delta
       dfc
-      direnv
       dig
       fd
       file
