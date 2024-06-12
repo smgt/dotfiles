@@ -14,22 +14,9 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE4Oka+Y67A+5hCIKX3ZAuWra407WWQKocd5Djl/AD5x simon@sugarsnap"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEWR9PLHWl96IzTyEcql1WE1sd3K2gEBVaIAWBCm71E9 elvan"
     ];
-
-    # environment.variables = {
-    #   EDITOR = "nvim";
-    # };
-    # packages = with pkgs; [
-    #   nix-direnv
-    #   direnv
-    #   asdf-vm
-    # ];
   };
 
   users.users.root.openssh.authorizedKeys.keys =
     config.users.users.simon.openssh.authorizedKeys.keys;
   users.users.root.shell = pkgs.zsh;
-
-  environment.systemPackages = [
-    pkgs.git
-  ];
 }
