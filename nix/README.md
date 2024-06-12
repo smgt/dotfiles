@@ -91,7 +91,6 @@ If you are sure you only need your current generation, this will delete all old 
   $ nix-collect-garbage -d
 
 On NixOS, you can enable a service to automatically do daily garbage collection:
-Breeze-text-x-plain.png
 
 /etc/nixos/configuration.nix
 
