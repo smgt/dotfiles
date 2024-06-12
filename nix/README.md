@@ -57,3 +57,43 @@ $ nix-channel --update
 
 - https://github.com/nix-community/disko
 - https://github.com/notthebee/nix-config/tree/main
+
+# Housekeeping
+
+## Remove old generations
+
+When you make changes to your system, Nix creates a new system Generation. All of the changes to the system since the previous generation are stored there. Old generations can add up and will not be removed automatically by default. You can see your generations with:
+
+  $ nix-env --list-generations
+
+To keep just your current generation and the two older than it:
+
+  $ nix-env --delete-generations +3
+
+To remove all but your current generation:
+
+  $ nix-env --delete-generations old
+
+### Generation trimmer script
+
+For a smart interactive script which can handle all the normally available profile types across NixOS and be more conservative and safe than the built-in Nix generations deletion commands, see NixOS Generations Trimmer.
+
+## Garbage collection
+
+As you work with your system (installs, uninstalls, upgrades), files in the Nix store are not automatically removed, even when no longer needed. Nix instead has a garbage collector which must be run periodically (you could set up, e.g., a cron to do this).
+
+  $ nix-collect-garbage
+
+This is safe so long as everything you need is listed in an existing generation or garbage collector root (gcroot).
+
+If you are sure you only need your current generation, this will delete all old generations and then do garbage collection:
+
+  $ nix-collect-garbage -d
+
+On NixOS, you can enable a service to automatically do daily garbage collection:
+Breeze-text-x-plain.png
+
+/etc/nixos/configuration.nix
+
+  nix.gc.automatic = true;
+
