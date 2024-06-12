@@ -19,8 +19,16 @@
   networking.networkmanager.enable = true;
   #systemd.network.wait-online.enable = false;
 
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      PermitRootLogin = "no";
+    };
+  };
   services.tailscale.enable = true;
+
+  virtualisation.docker.enable = true;
 
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "23.11"; # Did you read the comment?
