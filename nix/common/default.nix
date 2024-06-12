@@ -10,7 +10,6 @@ with lib; {
   };
 
   config = {
-
     programs = {
       zsh = {
         enable = true;
@@ -58,6 +57,8 @@ with lib; {
       curl
       delta
       dfc
+      direnv
+      dig
       fd
       file
       fzf
@@ -79,6 +80,7 @@ with lib; {
       moreutils
       mosh
       neovim
+      nodejs_22
       pv
       pwgen
       python3
