@@ -62,6 +62,9 @@
       "*" = {
         forwardAgent = false;
       };
+      "smgt-dev" = {
+        host = "100.93.118.110";
+      };
       "logs.dev.readly.com" = {
         user = "ubuntu";
         proxyJump = "ec2-user@nat.dev.readly.com";
