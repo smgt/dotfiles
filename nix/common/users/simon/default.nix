@@ -246,5 +246,13 @@
     '';
   };
 
+  programs.go = {
+    enable = true;
+    goPrivate = [
+      "gitlab.com/readly-ab"
+      "buf.build/gen/go"
+    ];
+  };
+
   programs.home-manager.enable = true;
 }
