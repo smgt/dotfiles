@@ -6,6 +6,7 @@
       ../../common	
       ../../common/users/home-manager.nix
       /etc/nixos/hardware-configuration.nix
+      ../../modules/microsocks.nix
     ];
 
   boot.loader.grub.efiSupport = false;
