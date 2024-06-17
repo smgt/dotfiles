@@ -1,9 +1,11 @@
 { config, lib, pkgs, ... }:
-
-with lib; {
+let
+  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+in with lib; {
   imports = [
     ./users
   ];
+
 
   options.smgt = {
     gui.enable = mkEnableOption "Enable GUI programs";
@@ -78,7 +80,7 @@ with lib; {
       lz4
       moreutils
       mosh
-      neovim
+      unstable.neovim
       nodejs_22
       pv
       pwgen
@@ -92,6 +94,7 @@ with lib; {
       strace
       silver-searcher
       tcpdump
+      terraform
       tmux
       tree
       unzip

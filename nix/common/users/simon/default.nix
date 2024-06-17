@@ -1,6 +1,7 @@
 { config, pkgs, ...}:
-
-{
+let
+  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+in {
   imports = [
     ../../home-manager
   ];
@@ -145,6 +146,7 @@
 
   programs.neovim = {
     enable = true;
+    package = unstable.neovim-unwrapped;
     defaultEditor = true;
     #extraLuaConfig = lib.fileContents ../../neovim/init.lua;
     viAlias = true;
