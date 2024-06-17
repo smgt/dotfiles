@@ -18,16 +18,24 @@
 
   networking.hostName = "smgt-dev";
   networking.networkmanager.enable = true;
-  #systemd.network.wait-online.enable = false;
+
+  networking.firewall = {
+    enable = true;
+  };
 
   services.openssh = {
     enable = true;
+    openFirewall = true;
     settings = {
       PasswordAuthentication = false;
       PermitRootLogin = "no";
     };
   };
-  services.tailscale.enable = true;
+
+  services.tailscale = {
+    enable = true;
+    openFirewall = true;
+  };
 
   virtualisation.docker.enable = true;
 
