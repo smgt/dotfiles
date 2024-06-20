@@ -59,6 +59,7 @@ in with lib; {
       bash
       bat
       curl
+      charm-freeze
       delta
       dfc
       dig
@@ -97,6 +98,7 @@ in with lib; {
       silver-searcher
       tcpdump
       terraform
+      tig
       tmux
       tree
       unzip
