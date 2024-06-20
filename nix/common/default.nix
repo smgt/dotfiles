@@ -30,7 +30,7 @@ in with lib; {
           # Share history between sessions
           "APPEND_HISTORY" # adds history
           "INC_APPEND_HISTORY"
-          "SHARE_HISTORY"  # adds history incrementally and share it across sessions
+          "SHARE_HISTORY" # adds history incrementally and share it across sessions
           "HIST_REDUCE_BLANKS"
         ];
       };
@@ -39,6 +39,8 @@ in with lib; {
     nix.settings.allowed-users = [
       "simon"
     ];
+
+    nix.gc.automatic = true;
 
     time.timeZone = "Europe/Stockholm";
 
