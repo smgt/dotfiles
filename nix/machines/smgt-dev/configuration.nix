@@ -30,6 +30,7 @@
     };
   };
 
+  services.qemuGuest.enable = true;
 
   virtualisation.docker.enable = true;
 
