@@ -6,6 +6,7 @@
       ../../common
       ../../common/users/home-manager.nix
       /etc/nixos/hardware-configuration.nix
+      ../../modules/tailscale.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -15,7 +16,6 @@
   environment.variables.HOSTNAME = "leek";
 
   services.openssh.enable = true;
-  services.tailscale.enable = true;
 
   networking = {
     hostName = "leek"; # Define your hostname.
