@@ -256,5 +256,16 @@ in {
     ];
   };
 
+  programs.fd = {
+    enable = true;
+    hidden = true;
+    ignores = [
+      "vendor/"
+      ".git/"
+      "npm_modules"
+      ".terraform"
+    ];
+  };
+
   programs.home-manager.enable = true;
 }
