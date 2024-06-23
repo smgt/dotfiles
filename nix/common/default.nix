@@ -97,7 +97,6 @@ in with lib; {
       strace
       silver-searcher
       tcpdump
-      terraform
       tig
       tmux
       tree
