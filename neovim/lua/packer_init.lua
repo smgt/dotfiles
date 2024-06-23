@@ -188,38 +188,9 @@ return packer.startup(function(use)
 
   use({
     "nvimdev/lspsaga.nvim",
-    -- opt = true,
-    -- branch = "main",
-    -- event = "LspAttach",
     after = "nvim-lspconfig",
     config = function()
-      require("lspsaga").setup({
-        ui = {
-          title = true,
-          border = "rounded",
-          -- code_action = "💡 ",
-        },
-        preview = {
-          lines_below = 30,
-          lines_above = 5,
-        },
-        lightbulb = {
-          enable = true,
-        },
-        outline = {
-          win_width = 40,
-        },
-        symbol_in_winbar = {
-          enable = false,
-          separator = " ",
-          ignore_patterns = {},
-          hide_keyword = true,
-          show_file = false,
-          folder_level = 2,
-          respect_root = false,
-          color_mode = true,
-        },
-      })
+      require("lspsaga").setup()
     end,
     requires = {
       { "nvim-tree/nvim-web-devicons" },
@@ -331,7 +302,14 @@ return packer.startup(function(use)
       require("trouble").setup()
     end,
   })
-  use({ "dgagn/diagflow.nvim" })
+  use({
+    "dgagn/diagflow.nvim",
+    config = function()
+      require("diagflow").setup({
+        enable = true,
+      })
+    end,
+  })
   use("kyazdani42/nvim-web-devicons") -- Icons
   use("junegunn/vim-emoji")
   use({
