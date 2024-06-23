@@ -17,6 +17,11 @@
 
   services.openssh.enable = true;
 
+  services.logind.extraConfig = ''
+    RuntimeDirectorySize=12G
+    HandleLidSwitchDocked=ignore
+  '';
+
   networking = {
     hostName = "fennel"; # Define your hostname.
     networkmanager.enable = true; # Easiest to use and most distros use this by default.
