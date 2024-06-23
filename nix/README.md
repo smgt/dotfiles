@@ -33,7 +33,7 @@ git clone https://git.0xee.cc/smgt/dotfiles.git .dotfiles
 Link the correct machine configuration in the system.
 
 ```
-ln -s /home/simon/.dotfiles/machines/<MACHINE>/configuration.nix /etc/nixos/configuration.nix
+ln -s /home/simon/.dotfiles/nix/machines/<MACHINE>/configuration.nix /etc/nixos/configuration.nix
 ```
 
 Install the system.
@@ -49,8 +49,17 @@ nixos-install \
 https://nix-community.github.io/home-manager/#sec-install-standalone
 
 ```console
-$ nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-$ nix-channel --update
+nix-channel --add https://nixos.org/channels/nixos-unstable nixos-unstable
+nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+# or
+nix-channel --add https://github.com/nix-community/home-manager/archive/release-24.05.tar.gz home-manager
+nix-channel --update
+```
+
+# Run config
+
+```console
+nixos-rebuild switch
 ```
 
 # Investigate
