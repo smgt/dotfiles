@@ -63,6 +63,7 @@ in with lib; {
       delta
       dfc
       dig
+      eva
       fd
       file
       fzf

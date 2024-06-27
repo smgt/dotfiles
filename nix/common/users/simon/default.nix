@@ -46,6 +46,7 @@ in {
     extraConfig = {
       init.defaultBranch = "main";
       lfs.enable = true;
+      branch.sort = "-committerdate";
     };
   };
 
