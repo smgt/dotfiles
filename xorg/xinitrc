@@ -65,7 +65,7 @@ systemctl --user import-environment DISPLAY XDG_CURRENT_DESKTOP
 #exec ssh-agent i3
 #eval $(dbus-launch --sh-syntax)
 ~/.fehbg &
-type xfsettingsd > /dev/null 2>&1 && { xfsettingsd & }
+# type xfsettingsd > /dev/null 2>&1 && { xfsettingsd & }
 # type /usr/lib/xfce-polkit/xfce-polkit > /dev/null 2>&1 && { /usr/lib/xfce-polkit/xfce-polkit & }
 type /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 > /dev/null 2>&1 && { /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & }
 type dunst > /dev/null 2>&1 && { dunst & }
