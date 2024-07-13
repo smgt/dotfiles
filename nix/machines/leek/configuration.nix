@@ -26,6 +26,9 @@
     useNetworkd = true;
   };
 
+
+  virtualisation.docker.enable = true;
+
   # Select internationalisation properties.
   # console = {
   #   font = "Lat2-Terminus16";
