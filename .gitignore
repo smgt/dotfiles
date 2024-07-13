@@ -11,3 +11,4 @@ vim/plug.vim
 .vagrant
 neovim/plugin
 neovim/**/.luarc.json
+*.swp
