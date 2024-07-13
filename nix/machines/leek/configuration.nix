@@ -3,6 +3,7 @@
 {
   imports =
     [
+      /etc/nixos/secret.nix
       ../../common
       ../../common/users/home-manager.nix
       /etc/nixos/hardware-configuration.nix
@@ -17,11 +18,12 @@
 
   services.openssh.enable = true;
 
+  systemd.network.enable = true;
+
   networking = {
-    hostName = "leek"; # Define your hostname.
-    networkmanager.enable = true; # Easiest to use and most distros use this by default.
+    hostName = "leek";
     firewall.enable = false;
-    # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+    useNetworkd = true;
   };
 
   # Select internationalisation properties.
