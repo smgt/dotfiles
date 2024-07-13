@@ -134,7 +134,6 @@ in {
 
       # Open the new session in the current directory
       bind-key S command-prompt "new-session -A -c '#{pane_current_path}' -s '%%'"
-
     '';
   };
 
@@ -242,10 +241,7 @@ in {
       source "$(fzf-share)/completion.zsh"
 
       # Load local config file
-      if [[ -a ~/.localrc ]]
-      then
-        source ~/.localrc
-      fi
+      [[ -a ~/.localrc ]] && source ~/.localrc
     '';
   };
 
