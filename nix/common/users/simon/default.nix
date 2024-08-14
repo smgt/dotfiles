@@ -68,8 +68,13 @@ in {
       "*" = {
         forwardAgent = false;
       };
+      "aws-prod" = {
+        hostname = "10.10.102.214";
+        proxyJump = "ec2-user@nat.vpc.eu.readly.com";
+        user = "ubuntu";
+      };
       "smgt-dev" = {
-        host = "100.93.118.110";
+        hostname = "100.93.118.110";
       };
       "logs.dev.readly.com" = {
         user = "ubuntu";
