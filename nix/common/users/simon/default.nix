@@ -28,7 +28,8 @@ in {
     enable = true;
     userName = "Simon Gate";
     userEmail = "simon@kampgate.se";
-    diff-so-fancy.enable = true;
+    #diff-so-fancy.enable = true;
+    difftastic.enable = true;
     includes = [
       {
         condition = "hasconfig:remote.*.url:git@gitlab.com:readly-ab/**";

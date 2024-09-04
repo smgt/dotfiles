@@ -61,6 +61,7 @@ in with lib; {
       curl
       charm-freeze
       delta
+      difftastic
       dfc
       dig
       eva
@@ -71,7 +72,13 @@ in with lib; {
       gdb
       gitAndTools.gitFull
       go
+      gopls
+      gotools
+      gofumpt
+      golangci-lint
       gnumake
+      gum
+      hadolint
       htop
       iftop
       inetutils
