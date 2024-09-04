@@ -8,7 +8,7 @@ mason.setup({
     "bufls",
     "docker_compose_language_service",
     "dockerls",
-    "golangci_lint_ls",
+--    "golangci_lint_ls",
     "gopls",
     "jsonls",
     "jsonnet_ls",

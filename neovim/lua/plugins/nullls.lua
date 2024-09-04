@@ -14,16 +14,23 @@ null_ls.setup({
     null_ls.builtins.diagnostics.vint,     -- Vimscript
     null_ls.builtins.diagnostics.buf,      -- buf
     null_ls.builtins.diagnostics.write_good, -- prose
-    -- null_ls.builtins.diagnostics.golangci_lint, -- Go
+    null_ls.builtins.diagnostics.golangci_lint.with({
+      prefer_local = true
+    }), -- Go
     -- null_ls.builtins.diagnostics.ruff,         -- python
     null_ls.builtins.formatting.terraform_fmt, --terraform
-    null_ls.builtins.formatting.goimports,   -- Go
-    null_ls.builtins.formatting.gofumpt,     -- Go
+    null_ls.builtins.formatting.goimports.with({
+      prefer_local = true
+    }),   -- Go
+    null_ls.builtins.formatting.gofumpt.with({
+      prefer_local = true
+    }),     -- Go
     null_ls.builtins.code_actions.impl,      -- Go
-    null_ls.builtins.formatting.buf,
+    null_ls.builtins.formatting.buf.with({
+      prefer_local = true
+    }),
     -- null_ls.builtins.formatting.protolint, -- proto
     null_ls.builtins.formatting.stylua, -- lua
-
     -- null_ls.builtins.diagnostics.standardrb,
   },
 })
@@ -31,6 +38,6 @@ null_ls.setup({
 -- Automatically install all linters configured in null_ls
 require("mason-null-ls").setup({
   ensure_installed = nil,
-  automatic_installation = true,
+  automatic_installation = false,
   automatic_setup = false,
 })
