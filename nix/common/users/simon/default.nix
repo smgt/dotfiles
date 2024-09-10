@@ -24,6 +24,11 @@ in {
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
 
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   programs.git = {
     enable = true;
     userName = "Simon Gate";
