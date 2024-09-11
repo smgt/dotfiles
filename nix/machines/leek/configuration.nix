@@ -29,6 +29,12 @@
 
   virtualisation.docker.enable = true;
 
+  environment = {
+    systemPackages = with pkgs; [
+      docker-compose
+    ];
+  };
+
   # Select internationalisation properties.
   # console = {
   #   font = "Lat2-Terminus16";
