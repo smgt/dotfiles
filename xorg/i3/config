@@ -26,6 +26,7 @@ for_window [instance="origin.exe"] floating enable
 # for_window [class="zoom"] floating enable
 assign [class="firefox"] workspace 1
 assign [class="obsidian"] workspace 3
+assign [class="steam"] workspace 3
 assign [class="Spotify"] workspace 9
 assign [class="Slack"] workspace 8
 assign [class="discord"] workspace 8
