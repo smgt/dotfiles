@@ -55,6 +55,7 @@ in with lib; {
 
     environment.systemPackages = with pkgs; [
       coreutils-prefixed
+      asn
       _1password
       bash
       bat
