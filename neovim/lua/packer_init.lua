@@ -17,12 +17,12 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 -- Autocommand that reloads neovim whenever you save the packer_init.lua file
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost packer_init.lua source <afile> | PackerSync
-  augroup end
-]])
+-- vim.cmd([[
+--   augroup packer_user_config
+--     autocmd!
+--     autocmd BufWritePost packer_init.lua source <afile> | PackerSync
+--   augroup end
+-- ]])
 
 -- Use a protected call so we don't error out on first use
 local status_ok, packer = pcall(require, "packer")
@@ -67,37 +67,6 @@ return packer.startup(function(use)
     config = function()
       vim.notify = require("notify")
     end,
-  })
-  -- use({
-  --   "krivahtoo/silicon.nvim",
-  --   run = "./install.sh",
-  --   config = function()
-  --     require("silicon").setup({
-  --       theme = "gruvbox",
-  --       -- font = "Iosevka Term Curly=16",
-  --     })
-  --   end,
-  -- })
-
-  -- git
-  -- use("gregsexton/gitv")
-  -- use({
-  --   "isabelroses/charm-freeze.nvim",
-  --   config = function()
-  --     require("charm-freeze").setup({
-  --       command = "freeze",
-  --       output = function()
-  --         return "/home/simon/freeze/" .. os.date("%Y-%m-%d") .. "_freeze.png"
-  --       end,
-  --       theme = "catppuccin-mocha",
-  --     })
-  --   end,
-  -- })
-  use({
-    "tpope/vim-fugitive",
-    requires = {
-      { "tpope/vim-rhubarb" },
-    },
   })
 
   use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
@@ -164,8 +133,8 @@ return packer.startup(function(use)
   use({
     "neovim/nvim-lspconfig",
     requires = {
-      "williamboman/mason.nvim",            -- LSP installer
-      "williamboman/mason-lspconfig.nvim",  -- LSP config support for mason, needs to be loaded before lspconfig
+      -- "williamboman/mason.nvim",            -- LSP installer
+      -- "williamboman/mason-lspconfig.nvim",  -- LSP config support for mason, needs to be loaded before lspconfig
       { "j-hui/fidget.nvim", tag = "v1.4.5" }, -- LSP startup time status
       "folke/neodev.nvim",                  -- LSP annotations
     },
@@ -175,16 +144,13 @@ return packer.startup(function(use)
   })
 
   use("nvimtools/none-ls.nvim") -- Linters etc
-  use({
-    "jayp0521/mason-null-ls.nvim",
-    requires = {
-      "williamboman/mason.nvim",
-      "nvimtools/none-ls.nvim",
-    },
-  })
-
-  -- use("mfussenegger/nvim-lint")
-  -- use({ "mhartington/formatter.nvim" })
+  -- use({
+  --   -- "jayp0521/mason-null-ls.nvim",
+  --   requires = {
+  --     -- "williamboman/mason.nvim",
+  --     "nvimtools/none-ls.nvim",
+  --   },
+  -- })
 
   use({
     "nvimdev/lspsaga.nvim",
@@ -197,48 +163,6 @@ return packer.startup(function(use)
       { "nvim-treesitter/nvim-treesitter" },
     },
   })
-  -- use({
-  -- 	"lewis6991/hover.nvim",
-  -- 	config = function()
-  -- 		require("hover").setup({
-  -- 			init = function()
-  -- 				-- Require providers
-  -- 				require("hover.providers.lsp")
-  -- 				-- require('hover.providers.gh')
-  -- 				-- require('hover.providers.gh_user')
-  -- 				require("hover.providers.jira")
-  -- 				-- require('hover.providers.man')
-  -- 				-- require('hover.providers.dictionary')
-  -- 			end,
-  -- 			preview_opts = {
-  -- 				border = nil,
-  -- 			},
-  -- 			-- Whether the contents of a currently open hover window should be moved
-  -- 			-- to a :h preview-window when pressing the hover keymap.
-  -- 			preview_window = false,
-  -- 			title = true,
-  -- 		})
-
-  -- 		-- Setup keymaps
-  -- 		vim.keymap.set("n", "K", require("hover").hover, { desc = "hover.nvim" })
-  -- 		vim.keymap.set("n", "gK", require("hover").hover_select, { desc = "hover.nvim (select)" })
-  -- 	end,
-  -- })
-
-  -- use({
-  -- 	"zbirenbaum/copilot.lua",
-  -- 	cmd = "Copilot",
-  -- 	event = "InsertEnter",
-  -- 	config = function()
-  -- 		require("copilot").setup({})
-  -- 		-- vim.defer_fn(function()
-  -- 		-- 	require("copilot").setup({
-  -- 		-- 		suggestion = { enabled = false },
-  -- 		-- 		panel = { enabled = false },
-  -- 		-- 	})
-  -- 		-- end, 100)
-  -- 	end,
-  -- })
 
   -- auto-complete
   use({
@@ -252,6 +176,7 @@ return packer.startup(function(use)
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
       "hrsh7th/cmp-git",
+      "hrsh7th/cmp-nvim-lsp-signature-help",
       "saadparwaiz1/cmp_luasnip",
       "onsails/lspkind-nvim",
     },
@@ -261,7 +186,7 @@ return packer.startup(function(use)
   use("mfussenegger/nvim-dap")
   use("leoluz/nvim-dap-go")
   use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } })
-  use("jayp0521/mason-nvim-dap.nvim")
+  -- use("jayp0521/mason-nvim-dap.nvim")
 
   -- Eye candy
 
@@ -286,12 +211,86 @@ return packer.startup(function(use)
   -- 		})
   -- 	end,
   -- })
-  -- use({
-  -- 	"simrat39/symbols-outline.nvim",
-  -- 	config = function()
-  -- 		require("symbols-outline").setup()
-  -- 	end,
-  -- })
+  use({
+    "felpafel/inlay-hint.nvim",
+    requires = {
+      { "nvim-treesitter/nvim-treesitter" },
+    },
+    config = function()
+      require("inlay-hint").setup({
+        display_callback = function(line_hints, options, bufnr)
+          if options.virt_text_pos == "inline" then
+            local lhint = {}
+            for _, hint in pairs(line_hints) do
+              local text = ""
+              local label = hint.label
+              if type(label) == "string" then
+                text = label
+              else
+                for _, part in ipairs(label) do
+                  text = text .. part.value
+                end
+              end
+              if hint.paddingLeft then
+                text = " " .. text
+              end
+              if hint.paddingRight then
+                text = text .. " "
+              end
+              lhint[#lhint + 1] = { text = text, col = hint.position.character }
+            end
+            return lhint
+          elseif options.virt_text_pos == "eol" or options.virt_text_pos == "right_align" then
+            local k1 = {}
+            local k2 = {}
+            table.sort(line_hints, function(a, b)
+              return a.position.character < b.position.character
+            end)
+            for _, hint in pairs(line_hints) do
+              local label = hint.label
+              local kind = hint.kind
+              local node = kind == 1
+                  and vim.treesitter.get_node({
+                    bufnr = bufnr,
+                    pos = {
+                      hint.position.line,
+                      hint.position.character - 1,
+                    },
+                  })
+                  or nil
+              local node_text = node and vim.treesitter.get_node_text(node, bufnr, {}) or ""
+              local text = ""
+              if type(label) == "string" then
+                text = label
+              else
+                for _, part in ipairs(label) do
+                  text = text .. part.value
+                end
+              end
+              if kind == 1 then
+                k1[#k1 + 1] = text:gsub(":%s*", node_text .. ": x")
+              else
+                k2[#k2 + 1] = text:gsub(":$", "y")
+              end
+            end
+            local text = ""
+            if #k2 > 0 then
+              text = "<- (" .. table.concat(k2, ",") .. ")"
+            end
+            if #text > 0 then
+              text = text .. " "
+            end
+            if #k1 > 0 then
+              text = text .. "=> " .. table.concat(k1, ", ")
+            end
+
+            return text
+          end
+          return nil
+        end,
+      })
+    end,
+  })
   use({
     "folke/trouble.nvim", -- Diagnostics view
     requires = {

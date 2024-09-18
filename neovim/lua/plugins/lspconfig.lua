@@ -1,35 +1,34 @@
 -- Plugin for neovim development
 require("neodev").setup()
 
-local mason = require("mason-lspconfig")
-mason.setup({
-  ensure_installed = {
-    "bashls",
-    "bufls",
-    "docker_compose_language_service",
-    "dockerls",
---    "golangci_lint_ls",
-    "gopls",
-    "jsonls",
-    "jsonnet_ls",
-    "lua_ls",
-    "pyright",
-    "rust_analyzer",
-    "solargraph",
-    "taplo",
-    "terraformls",
-    "tflint",
-    "vimls",
-    "yamlls",
-  },
-})
+-- local mason = require("mason-lspconfig")
+-- mason.setup({
+--   ensure_installed = {
+--     "bashls",
+--     "bufls",
+--     "docker_compose_language_service",
+--     "dockerls",
+--     "golangci_lint_ls",
+--     "gopls",
+--     "jsonls",
+--     "jsonnet_ls",
+--     "pyright",
+--     "rust_analyzer",
+--     "solargraph",
+--     "taplo",
+--     "terraformls",
+--     "tflint",
+--     "vimls",
+--     "yamlls",
+--   },
+-- })
 
 local opts = { noremap = true, silent = true }
 vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
 vim.keymap.set("n", "gj", vim.diagnostic.goto_prev, opts)
 vim.keymap.set("n", "gk", vim.diagnostic.goto_next, opts)
 -- vim.keymap.set("n", "go", vim.diagnostic.setloclist, opts)
-vim.keymap.set("n", "go", "<cmd>TroubleToggle<CR>", opts)
+vim.keymap.set("n", "go", "<cmd>Trouble diagnostics toggle<CR>", opts)
 -- vim.keymap.set("n", "<A-d>", "<cmd>Lspsaga open_floaterm<CR>", { silent = true })
 -- vim.keymap.set("t", "<A-d>", [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]], { silent = true })
 
@@ -53,8 +52,11 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<Leader>o", "<cmd>Lspsaga outline<CR>", bufopts)
   -- vim.keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", bufopts)
   vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
-  -- vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", bufopts)
-  vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
+
+  -- Hover doc
+  vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", bufopts)
+  -- vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
+  --
   vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
   vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
   vim.keymap.set("n", "<space>wl", function()
@@ -121,11 +123,6 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
-local lsp_flags = {
-  -- This is the default in Nvim 0.7+
-  debounce_text_changes = 150,
-}
-
 local custom_lsp_server_opts = {}
 
 custom_lsp_server_opts.solargraph = {
@@ -135,6 +132,12 @@ custom_lsp_server_opts.solargraph = {
 }
 
 custom_lsp_server_opts.lua_ls = {
+  on_init = function(client)
+    local path = client.workspace_folders[1].name
+    if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
+      return
+    end
+  end,
   settings = {
     Lua = {
       hint = {
@@ -143,20 +146,11 @@ custom_lsp_server_opts.lua_ls = {
       runtime = {
         version = "LuaJIT",
       },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = { "vim" },
-        underline = true,
-        virtual_text = {
-          spacing = 4,
-          source = "if_many",
-          prefix = "●",
-          -- prefix = "icons",
-        },
-      },
       workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
+        checkThirdParty = false,
+        library = {
+          vim.env.VIMRUNTIME,
+        },
       },
       -- Do not send telemetry data containing a randomized but unique identifier
       telemetry = {
@@ -188,10 +182,6 @@ custom_lsp_server_opts.gopls = {
   },
 }
 
--- custom_lsp_server_opts.bufls = {
---   cmd = { "bufls", "serve", "--debug", "-v" },
--- }
-
 custom_lsp_server_opts.yamlls = {
   settings = {
     yaml = {
@@ -201,17 +191,36 @@ custom_lsp_server_opts.yamlls = {
   },
 }
 
-local base_lsp_config = {
-  on_attach = on_attach,
-  flags = lsp_flags,
-  capabilities = capabilities,
-}
+custom_lsp_server_opts.jsonls = {}
+custom_lsp_server_opts.terraformls = {}
 
-for _, server in ipairs(mason.get_installed_servers()) do
-  local lsp_opts = vim.deepcopy(base_lsp_config)
-  if custom_lsp_server_opts[server] then
-    lsp_opts = vim.tbl_deep_extend("force", lsp_opts, custom_lsp_server_opts[server])
-  end
-
-  require("lspconfig")[server].setup(lsp_opts)
+for lsp, setup in pairs(custom_lsp_server_opts) do
+  local base_config = {
+    diagnostics = {
+      -- Get the language server to recognize the `vim` global
+      underline = true,
+      update_on_insert = false,
+      virtual_text = {
+        spacing = 4,
+        source = "if_many",
+        prefix = "●",
+        -- prefix = "icons",
+      },
+      severity_sort = true,
+    },
+    inlay_hits = {
+      enabled = true,
+    },
+    document_highlight = {
+      enabeld = true,
+    },
+    on_attach = on_attach,
+    flags = {
+      -- This is the default in Nvim 0.7+
+      debounce_text_changes = 150,
+    },
+    capabilities = capabilities,
+  }
+  local lsp_opts = vim.tbl_deep_extend("force", base_config, setup)
+  require("lspconfig")[lsp].setup(lsp_opts)
 end

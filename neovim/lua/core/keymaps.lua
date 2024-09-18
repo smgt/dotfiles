@@ -45,63 +45,18 @@ vim.keymap.set("n", "<Leader>p", "<cmd>Telescope find_files<CR>", opts)
 vim.keymap.set("n", "<Leader>l", "<cmd>Telescope live_grep<CR>", opts)
 vim.keymap.set("n", "<Leader>b", "<cmd>Telescope buffers<CR>", opts)
 vim.keymap.set("n", ";;", "<cmd>Telescope help_tags<CR>", opts)
+vim.keymap.set("n", "<leader>im", "<cmd>Telescope goimpl", opts)
 
 -- Trouble
 --
-vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>", opts)
-vim.keymap.set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", opts)
-vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", opts)
-vim.keymap.set("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>", opts)
-vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", opts)
--- vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>", opts)
+vim.keymap.set("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", opts)
+vim.keymap.set("n", "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", opts)
+vim.keymap.set("n", "<leader>cs", "<cmd>Trouble symbols toggle focus=false<cr>", opts)
+vim.keymap.set("n", "<leader>cl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", opts)
 
--- Barbar
---
--- Move to previous/next
-vim.keymap.set("n", "<A-,>", "<Cmd>BufferPrevious<CR>", opts)
-vim.keymap.set("n", "<A-.>", "<Cmd>BufferNext<CR>", opts)
--- Re-order to previous/next
-vim.keymap.set("n", "<A-<>", "<Cmd>BufferMovePrevious<CR>", opts)
-vim.keymap.set("n", "<A->>", "<Cmd>BufferMoveNext<CR>", opts)
--- Goto buffer in position...
-vim.keymap.set("n", "<A-1>", "<Cmd>BufferGoto 1<CR>", opts)
-vim.keymap.set("n", "<A-2>", "<Cmd>BufferGoto 2<CR>", opts)
-vim.keymap.set("n", "<A-3>", "<Cmd>BufferGoto 3<CR>", opts)
-vim.keymap.set("n", "<A-4>", "<Cmd>BufferGoto 4<CR>", opts)
-vim.keymap.set("n", "<A-5>", "<Cmd>BufferGoto 5<CR>", opts)
-vim.keymap.set("n", "<A-6>", "<Cmd>BufferGoto 6<CR>", opts)
-vim.keymap.set("n", "<A-7>", "<Cmd>BufferGoto 7<CR>", opts)
-vim.keymap.set("n", "<A-8>", "<Cmd>BufferGoto 8<CR>", opts)
-vim.keymap.set("n", "<A-9>", "<Cmd>BufferGoto 9<CR>", opts)
-vim.keymap.set("n", "<A-0>", "<Cmd>BufferLast<CR>", opts)
--- Pin/unpin buffer
-vim.keymap.set("n", "<A-p>", "<Cmd>BufferPin<CR>", opts)
--- Close buffer
-vim.keymap.set("n", "<A-c>", "<Cmd>BufferClose<CR>", opts)
--- Wipeout buffer
---                 :BufferWipeout
--- Close commands
---                 :BufferCloseAllButCurrent
---                 :BufferCloseAllButPinned
---                 :BufferCloseAllButCurrentOrPinned
---                 :BufferCloseBuffersLeft
---                 :BufferCloseBuffersRight
--- Magic buffer-picking mode
--- vim.keymap.set('n', '<C-p>', '<Cmd>BufferPick<CR>', opts)
--- Sort automatically by...
-vim.keymap.set("n", "<Space>bb", "<Cmd>BufferOrderByBufferNumber<CR>", opts)
-vim.keymap.set("n", "<Space>bd", "<Cmd>BufferOrderByDirectory<CR>", opts)
-vim.keymap.set("n", "<Space>bl", "<Cmd>BufferOrderByLanguage<CR>", opts)
-vim.keymap.set("n", "<Space>bw", "<Cmd>BufferOrderByWindowNumber<CR>", opts)
-
-vim.keymap.set("n", "<leader>im", "<cmd>lua require'telescope'.extensions.goimpl.goimpl{}<CR>]]", opts)
 
 -- Window plugin
 vim.keymap.set("n", "<C-w>z", "<cmd>WindowsMaximize<CR>", opts)
 vim.keymap.set("n", "<C-w>_", "<cmd>WindowsMaximizeVertically<CR>", opts)
 vim.keymap.set("n", "<C-w>|", "<cmd>WindowsMaximizeHorizontally<CR>", opts)
 vim.keymap.set("n", "<C-w>=", "<cmd>WindowsEqualize<CR>", opts)
-
--- Other:
--- :BarbarEnable - enables barbar (enabled by default)
--- :BarbarDisable - very bad command, should never be used
