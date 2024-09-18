@@ -43,4 +43,5 @@
   # };
 
   system.stateVersion = "23.11";
+  home-manager.users.simon.home.stateVersion = "23.11";
 }

@@ -4,6 +4,8 @@
     <home-manager/nixos>
   ];
 
-  home-manager.useGlobalPkgs = true;
-  home-manager.users.simon = (import ./simon);
+  home-manager = {
+    useGlobalPkgs = true;
+    users.simon = import ./simon;
+  };
 }

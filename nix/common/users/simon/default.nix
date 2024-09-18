@@ -2,10 +2,6 @@
 let
   unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
 in {
-  imports = [
-    ../../home-manager
-  ];
-
   home = {
     sessionVariables = {
       DOTFILES = "$HOME/.dotfiles";
@@ -23,6 +19,7 @@ in {
       # Tooling
       unstable.entr
       unstable.buf
+      pkgs.docker-compose
       # Language servers
       unstable.yaml-language-server
       unstable.vscode-langservers-extracted
@@ -308,6 +305,10 @@ in {
       "--glob=!vendor/*"
       "--smart-case"
     ];
+  };
+
+  services = {
+    ssh-agent.enable = true;
   };
 
   programs.home-manager.enable = true;

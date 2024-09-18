@@ -26,15 +26,8 @@
     hostName = "fennel"; # Define your hostname.
     networkmanager.enable = true; # Easiest to use and most distros use this by default.
     firewall.enable = false;
-    # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   };
 
-  # Select internationalisation properties.
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkb.options in tty.
-  # };
-
   system.stateVersion = "24.05";
+  home-manager.users.simon.home.stateVersion = "24.05";
 }

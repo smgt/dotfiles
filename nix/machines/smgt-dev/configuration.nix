@@ -13,12 +13,12 @@
   boot.loader.grub.efiSupport = false;
   boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
 
-
-  networking.hostName = "smgt-dev";
-  networking.networkmanager.enable = true;
-
-  networking.firewall = {
-    enable = true;
+  networking = {
+    hostName = "smgt-dev";
+    networkmanager.enable = true;
+    firewall = {
+      enable = true;
+    };
   };
 
   services.openssh = {
@@ -36,5 +36,6 @@
 
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "23.11"; # Did you read the comment?
+  home-manager.users.simon.home.stateVersion = "23.11";
 }
 
