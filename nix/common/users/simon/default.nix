@@ -18,11 +18,40 @@ in {
       "$HOME/bin"
       "$DOTFILES/bin"
     ];
+
+    packages = [
+      # Tooling
+      unstable.entr
+      unstable.buf
+      # Language servers
+      unstable.yaml-language-server
+      unstable.vscode-langservers-extracted
+      unstable.gopls
+      unstable.terraform-ls
+      # Linters
+      unstable.hadolint
+      unstable.golangci-lint
+      unstable.checkmate
+      unstable.write-good
+      unstable.statix
+      unstable.semgrep
+      # Formatters
+      unstable.gofumpt
+      unstable.gotools
+      unstable.hclfmt
+      unstable.nixfmt-rfc-style
+      # Go
+      unstable.delve
+      unstable.impl
+    ];
   };
 
   # Enable direnv and nix-direnv
-  programs.direnv.enable = true;
-  programs.direnv.nix-direnv.enable = true;
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+    enableZshIntegration = true;
+  };
 
   programs.zoxide = {
     enable = true;
@@ -48,6 +77,9 @@ in {
     ignores = [
       ".direnv"
       "tmp"
+      ".DS_Store"
+      "*.swp"
+      ".env"
     ];
     extraConfig = {
       init.defaultBranch = "main";
@@ -175,15 +207,11 @@ in {
     enableZshIntegration = true;
   };
 
-  # xdg.configFile.zsh = {
-  #   source = ../../zsh;
-  #   recursive = true;
-  # };
-
   programs.zsh = {
     enable = true;
     # dotDir = "${config.xdg.dataHome}/zsh";
     enableCompletion = true;
+    defaultKeymap = "viins";
 
     history = {
       ignoreDups = true;
@@ -191,21 +219,21 @@ in {
       size = 10000;
     };
 
-
     zplug = {
       enable = true;
       plugins = [
         { name = "zsh-users/zsh-syntax-highlighting"; }
         { name = "chrissicool/zsh-256color"; }
+        { name = "jeffreytse/zsh-vi-mode"; }
         #{ name = "zsh-users/zsh-autosuggestions"; }
         { name = "plugins/git"; tags = ["from:oh-my-zsh"]; }
       ];
     };
 
     shellAliases = {
-      grep = "grep --color";
       dotvim = "pushd $DOTFILES && $EDITOR . && popd";
       dotcd = "cd $DOTFILES";
+      grep = "grep --color";
       "...." = "cd ../../..";
       "..." = "cd ../..";
       ".." = "cd ..";
@@ -240,16 +268,14 @@ in {
       #bindkey "^[[A" history-search-backward
       #bindkey "^[[B" history-search-forward
 
-      autoload colors && colors
-      autoload -U promptinit && promptinit
-      autoload -U compinit && compinit
+      #autoload colors && colors
+      #autoload -U promptinit && promptinit
 
       autoload -U edit-command-line
       zle -N edit-command-line
       bindkey '^X^E' edit-command-line
 
-      source "$(fzf-share)/key-bindings.zsh"
-      source "$(fzf-share)/completion.zsh"
+      autoload -U $HOME/.dotfiles/zsh/functions/*(:t)
 
       # Load local config file
       [[ -a ~/.localrc ]] && source ~/.localrc
@@ -272,6 +298,15 @@ in {
       ".git/"
       "npm_modules"
       ".terraform"
+    ];
+  };
+
+  programs.ripgrep = {
+    enable = true;
+    arguments = [
+      "--glob=!git/*"
+      "--glob=!vendor/*"
+      "--smart-case"
     ];
   };
 

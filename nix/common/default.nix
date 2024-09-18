@@ -72,13 +72,9 @@ in with lib; {
       gdb
       gitAndTools.gitFull
       go
-      gopls
       gotools
-      gofumpt
-      golangci-lint
       gnumake
       gum
-      hadolint
       htop
       iftop
       inetutils
