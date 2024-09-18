@@ -246,6 +246,15 @@ in {
 
     initExtra = ''
       source $DOTFILES/zsh/prompt.zsh
+
+      setopt NO_BG_NICE # don't nice background tasks
+      setopt NO_HUP
+      setopt NO_LIST_BEEP
+      setopt LOCAL_OPTIONS # allow functions to have local options
+      setopt LOCAL_TRAPS # allow functions to have local traps
+      setopt PROMPT_SUBST
+      setopt COMPLETE_IN_WORD
+      setopt IGNORE_EOF
       
       if type nvim > /dev/null 2>&1;then
         export NVIM_REMOTE_SOCK=~/.cache/nvim/nvim.sock
@@ -265,8 +274,8 @@ in {
       #bindkey "^[[A" history-search-backward
       #bindkey "^[[B" history-search-forward
 
-      #autoload colors && colors
-      #autoload -U promptinit && promptinit
+      autoload colors && colors
+      autoload -U promptinit && promptinit
 
       autoload -U edit-command-line
       zle -N edit-command-line
