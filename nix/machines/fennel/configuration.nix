@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
-
-{
+let
+  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+in with lib; {
   imports =
     [
       ../../common
@@ -15,17 +16,31 @@
 
   environment.variables.HOSTNAME = "fennel";
 
-  services.openssh.enable = true;
-
   services.logind.extraConfig = ''
     RuntimeDirectorySize=12G
     HandleLidSwitchDocked=ignore
   '';
 
   networking = {
-    hostName = "fennel"; # Define your hostname.
+    hostName = "fennel";
     networkmanager.enable = true; # Easiest to use and most distros use this by default.
-    firewall.enable = false;
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [ 22 80 443];
+    };
+  };
+
+  services = {
+    openssh = {
+      enable = true;
+      settings = {
+        PasswordAuthentication = false;
+      };
+      extraConfig = ''
+        Match User simon
+          PasswordAuthentication yes
+      '';
+    };
   };
 
   system.stateVersion = "24.05";
