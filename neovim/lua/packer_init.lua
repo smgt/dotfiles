@@ -133,8 +133,6 @@ return packer.startup(function(use)
   use({
     "neovim/nvim-lspconfig",
     requires = {
-      -- "williamboman/mason.nvim",            -- LSP installer
-      -- "williamboman/mason-lspconfig.nvim",  -- LSP config support for mason, needs to be loaded before lspconfig
       { "j-hui/fidget.nvim", tag = "v1.4.5" }, -- LSP startup time status
       "folke/neodev.nvim",                  -- LSP annotations
     },
@@ -144,13 +142,6 @@ return packer.startup(function(use)
   })
 
   use("nvimtools/none-ls.nvim") -- Linters etc
-  -- use({
-  --   -- "jayp0521/mason-null-ls.nvim",
-  --   requires = {
-  --     -- "williamboman/mason.nvim",
-  --     "nvimtools/none-ls.nvim",
-  --   },
-  -- })
 
   use({
     "nvimdev/lspsaga.nvim",
@@ -186,7 +177,6 @@ return packer.startup(function(use)
   use("mfussenegger/nvim-dap")
   use("leoluz/nvim-dap-go")
   use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } })
-  -- use("jayp0521/mason-nvim-dap.nvim")
 
   -- Eye candy
 

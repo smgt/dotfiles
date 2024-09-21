@@ -5,7 +5,6 @@ require("core/keymaps")
 require("core/colors")
 require("core/statusline")
 
--- require("plugins/mason")
 require("plugins/nvim-tree")
 require("plugins/cmp")
 require("plugins/nullls") -- none-ls

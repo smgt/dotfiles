@@ -1,28 +1,6 @@
 -- Plugin for neovim development
 require("neodev").setup()
 
--- local mason = require("mason-lspconfig")
--- mason.setup({
---   ensure_installed = {
---     "bashls",
---     "bufls",
---     "docker_compose_language_service",
---     "dockerls",
---     "golangci_lint_ls",
---     "gopls",
---     "jsonls",
---     "jsonnet_ls",
---     "pyright",
---     "rust_analyzer",
---     "solargraph",
---     "taplo",
---     "terraformls",
---     "tflint",
---     "vimls",
---     "yamlls",
---   },
--- })
-
 local opts = { noremap = true, silent = true }
 vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
 vim.keymap.set("n", "gj", vim.diagnostic.goto_prev, opts)
