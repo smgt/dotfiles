@@ -17,29 +17,30 @@ in {
 
     packages = [
       # Tooling
-      unstable.entr
-      unstable.buf
+      pkgs.entr
+      pkgs.buf
       pkgs.docker-compose
       # Language servers
       unstable.yaml-language-server
       unstable.vscode-langservers-extracted
-      unstable.gopls
+      pkgs.gopls
       unstable.terraform-ls
       # Linters
-      unstable.hadolint
-      unstable.golangci-lint
-      unstable.checkmate
-      unstable.write-good
-      unstable.statix
-      unstable.semgrep
+      pkgs.hadolint
+      pkgs.golangci-lint
+      pkgs.checkmate
+      pkgs.write-good
+      pkgs.statix
+      pkgs.semgrep
+      pkgs.gosec
       # Formatters
-      unstable.gofumpt
-      unstable.gotools
-      unstable.hclfmt
-      unstable.nixfmt-rfc-style
+      pkgs.gofumpt
+      pkgs.gotools
+      pkgs.hclfmt
+      pkgs.nixfmt-rfc-style
       # Go
-      unstable.delve
-      unstable.impl
+      pkgs.delve
+      pkgs.impl
     ];
   };
 
