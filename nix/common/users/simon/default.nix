@@ -24,6 +24,7 @@ in {
       unstable.yaml-language-server
       unstable.vscode-langservers-extracted
       pkgs.gopls
+      unstable.harper
       unstable.terraform-ls
       # Linters
       pkgs.hadolint
@@ -33,6 +34,7 @@ in {
       pkgs.statix
       pkgs.semgrep
       pkgs.gosec
+      pkgs.revive
       # Formatters
       pkgs.gofumpt
       pkgs.gotools
