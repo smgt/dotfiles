@@ -31,7 +31,6 @@ dashboard.section.buttons.val = {
     ':lua require"telescope.builtin".oldfiles(require("telescope.themes").get_dropdown({ previewer = false }))<CR>'
   ),
   { type = "padding", val = 1 },
-  button("M", "  Mason Package Manager", ":Mason<CR>"),
   button("cu", "󰏔  Update Plugins", ":PackerSync<CR>"),
   button("ch", "  Health Check", ':lua require"nvpunk.util.healthcheck"()<CR>'),
   { type = "padding", val = 1 },

@@ -171,6 +171,7 @@ custom_lsp_server_opts.yamlls = {
 
 custom_lsp_server_opts.jsonls = {}
 custom_lsp_server_opts.terraformls = {}
+custom_lsp_server_opts.harper_ls = {}
 
 for lsp, setup in pairs(custom_lsp_server_opts) do
   local base_config = {
