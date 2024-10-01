@@ -1,15 +1,2 @@
-git/gitignore;.gitignore
-ruby/pryrc;.pryrc
-ruby/irbrc;.irbrc
-ruby/gemrc;.gemrc
-zsh/zshrc;.zshrc
-zsh;.zsh
-tmux/tmux.conf;.tmux.conf
-ctags/ctags;.ctags
-neovim;.config/nvim/
-utils/asdf/default-gems;.default-gems
-utils/asdf/default-golang-pkgs;.default-golang-pkgs
 rainbow-painter;.config/rainbow-painter
-utils/ripgrep/ripgreprc;.ripgreprc
-utils/fd;.config/fd
 utils/zellij;.config/zellij
