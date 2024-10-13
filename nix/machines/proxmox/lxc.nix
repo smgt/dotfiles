@@ -77,5 +77,4 @@ in {
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
   system.stateVersion = "24.05";
-  home-manager.users.simon.home.stateVersion = "24.05";
 }
