@@ -7,22 +7,3 @@ I'm using zsh + tmux + neovim. They are the heavy lifters. I also use asdf to ma
 I do like browsing the web so I need firefox. That means I also use xorg with i3. I run i3 + polybar + dunst + rofi.
 
 This page is more of a documentation for me since I seem to forget all the time.
-
-## Setup
-
-The initial setup with installing all the software and configuration etc is done with ansible. Then a shell script is run that symlinks all configuration from `$HOME/.dotfiles/` to it's correct location.
-
-### Create a config
-
-Create a config file in `.config/dotfiles/` called `config.yml`.
-
-```yaml
----
-example_file: yes
-```
-
-### Run IT!
-
-```sh
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/smgt/dotfiles/ansible/bin/dotfiles)"
-```
