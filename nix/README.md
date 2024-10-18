@@ -32,8 +32,18 @@ git clone https://git.0xee.cc/smgt/dotfiles.git .dotfiles
 
 Link the correct machine configuration in the system.
 
-```
-ln -s /home/simon/.dotfiles/nix/machines/<MACHINE>/configuration.nix /etc/nixos/configuration.nix
+    ln -s /home/simon/.dotfiles/nix/machines/<MACHINE>/configuration.nix /etc/nixos/configuration.nix
+
+Add required channels.
+
+```console
+nix-channel --add https://nixos.org/channels/nixos-unstable nixos-unstable
+
+nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+# or
+nix-channel --add https://github.com/nix-community/home-manager/archive/release-24.05.tar.gz home-manager
+
+nix-channel --update
 ```
 
 Install the system.
@@ -47,14 +57,6 @@ nixos-install \
 # Install home-manager
 
 https://nix-community.github.io/home-manager/#sec-install-standalone
-
-```console
-nix-channel --add https://nixos.org/channels/nixos-unstable nixos-unstable
-nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-# or
-nix-channel --add https://github.com/nix-community/home-manager/archive/release-24.05.tar.gz home-manager
-nix-channel --update
-```
 
 # Run config
 
@@ -73,15 +75,15 @@ nixos-rebuild switch
 
 When you make changes to your system, Nix creates a new system Generation. All of the changes to the system since the previous generation are stored there. Old generations can add up and will not be removed automatically by default. You can see your generations with:
 
-  $ nix-env --list-generations
+    $ nix-env --list-generations
 
 To keep just your current generation and the two older than it:
 
-  $ nix-env --delete-generations +3
+    $ nix-env --delete-generations +3
 
 To remove all but your current generation:
 
-  $ nix-env --delete-generations old
+    $ nix-env --delete-generations old
 
 ### Generation trimmer script
 
@@ -91,17 +93,17 @@ For a smart interactive script which can handle all the normally available profi
 
 As you work with your system (installs, uninstalls, upgrades), files in the Nix store are not automatically removed, even when no longer needed. Nix instead has a garbage collector which must be run periodically (you could set up, e.g., a cron to do this).
 
-  $ nix-collect-garbage
+    $ nix-collect-garbage
 
 This is safe so long as everything you need is listed in an existing generation or garbage collector root (gcroot).
 
 If you are sure you only need your current generation, this will delete all old generations and then do garbage collection:
 
-  $ nix-collect-garbage -d
+    $ nix-collect-garbage -d
 
 On NixOS, you can enable a service to automatically do daily garbage collection:
 
-/etc/nixos/configuration.nix
+`/etc/nixos/configuration.nix`
 
-  nix.gc.automatic = true;
+    nix.gc.automatic = true;
 
