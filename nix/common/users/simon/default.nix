@@ -106,11 +106,6 @@ in {
       "*" = {
         forwardAgent = false;
       };
-      "aws-prod" = {
-        hostname = "10.10.102.214";
-        proxyJump = "ec2-user@nat.vpc.eu.readly.com";
-        user = "ubuntu";
-      };
       "smgt-dev" = {
         hostname = "100.93.118.110";
       };
