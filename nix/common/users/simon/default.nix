@@ -28,13 +28,14 @@ in {
       unstable.terraform-ls
       # Linters
       pkgs.hadolint
-      pkgs.golangci-lint
+      unstable.golangci-lint
       pkgs.checkmate
       pkgs.write-good
       pkgs.statix
       pkgs.semgrep
       pkgs.gosec
       pkgs.revive
+      pkgs.checkmate
       # Formatters
       pkgs.gofumpt
       pkgs.gotools
