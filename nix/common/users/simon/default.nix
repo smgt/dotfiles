@@ -225,8 +225,8 @@ in {
       plugins = [
         { name = "zsh-users/zsh-syntax-highlighting"; }
         { name = "chrissicool/zsh-256color"; }
-        { name = "jeffreytse/zsh-vi-mode"; }
-        #{ name = "zsh-users/zsh-autosuggestions"; }
+        #{ name = "jeffreytse/zsh-vi-mode"; }
+        { name = "zsh-users/zsh-autosuggestions"; }
         { name = "plugins/git"; tags = ["from:oh-my-zsh"]; }
       ];
     };
