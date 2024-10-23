@@ -91,6 +91,16 @@ in {
       init.defaultBranch = "main";
       lfs.enable = true;
       branch.sort = "-committerdate";
+      pull.rebase = true;
+      push.autosetupremote = true;
+      github.user = "smgt";
+      core.editor = "nvim";
+      color = {
+        ui = "auto";
+      };
+      merge = {
+        conflictstyle = "diff3";
+      };
     };
   };
 
