@@ -12,3 +12,4 @@ vim/plug.vim
 neovim/plugin
 neovim/**/.luarc.json
 *.swp
+/.direnv

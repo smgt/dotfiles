@@ -98,13 +98,12 @@ cmp.setup({
   -- },
   enabled = function()
     -- disable completion in comments
-    local context = require 'cmp.config.context'
+    local context = require("cmp.config.context")
     -- keep command mode completion enabled when cursor is in a comment
-    if vim.api.nvim_get_mode().mode == 'c' then
+    if vim.api.nvim_get_mode().mode == "c" then
       return true
     else
-      return not context.in_treesitter_capture("comment") 
-      and not context.in_syntax_group("Comment")
+      return not context.in_treesitter_capture("comment") and not context.in_syntax_group("Comment")
     end
   end,
   window = {
@@ -192,7 +191,7 @@ cmp.setup({
   },
   sources = cmp.config.sources({
     -- { name = "copilot" },
-    { name = 'nvim_lsp_signature_help' },
+    { name = "nvim_lsp_signature_help" },
     { name = "luasnip" }, -- For luasnip users.
     { name = "nvim_lsp" },
   }, {

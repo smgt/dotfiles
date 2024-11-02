@@ -28,13 +28,14 @@ in {
       unstable.terraform-ls
       # Linters
       pkgs.hadolint
-      pkgs.golangci-lint
+      unstable.golangci-lint
       pkgs.checkmate
       pkgs.write-good
       pkgs.statix
       pkgs.semgrep
       pkgs.gosec
       pkgs.revive
+      pkgs.checkmate
       # Formatters
       pkgs.gofumpt
       pkgs.gotools
@@ -51,6 +52,11 @@ in {
     enable = true;
     nix-direnv.enable = true;
     enableZshIntegration = true;
+    config = {
+      global = {
+        warn_timeout = "5m";
+      };
+    };
   };
 
   programs.zoxide = {
@@ -85,6 +91,16 @@ in {
       init.defaultBranch = "main";
       lfs.enable = true;
       branch.sort = "-committerdate";
+      pull.rebase = true;
+      push.autosetupremote = true;
+      github.user = "smgt";
+      core.editor = "nvim";
+      color = {
+        ui = "auto";
+      };
+      merge = {
+        conflictstyle = "diff3";
+      };
     };
   };
 
@@ -219,8 +235,8 @@ in {
       plugins = [
         { name = "zsh-users/zsh-syntax-highlighting"; }
         { name = "chrissicool/zsh-256color"; }
-        { name = "jeffreytse/zsh-vi-mode"; }
-        #{ name = "zsh-users/zsh-autosuggestions"; }
+        #{ name = "jeffreytse/zsh-vi-mode"; }
+        { name = "zsh-users/zsh-autosuggestions"; }
         { name = "plugins/git"; tags = ["from:oh-my-zsh"]; }
       ];
     };
