@@ -16,7 +16,14 @@
 
   environment.variables.HOSTNAME = "leek";
 
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      AllowUsers = ["simon"];
+      PermitRootLogin = "no";
+    };
+  };
 
   systemd.network.enable = true;
 
