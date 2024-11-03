@@ -26,6 +26,7 @@ in {
       pkgs.gopls
       unstable.harper
       unstable.terraform-ls
+      unstable.nil
       # Linters
       pkgs.hadolint
       unstable.golangci-lint
