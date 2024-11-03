@@ -6,7 +6,6 @@ in with lib; {
     ./users
   ];
 
-
   options.smgt = {
     gui.enable = mkEnableOption "Enable GUI programs";
   };
@@ -36,19 +35,19 @@ in with lib; {
       };
     };
 
-    nix.settings.allowed-users = [
-      "simon"
-    ];
-
-    nix.optimise = {
-      automatic = true;
-      dates = ["01:32"];
-    };
-
-    nix.gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 30d";
+    nix = {
+      settings.allowed-users = [
+        "simon"
+      ];
+      optimise = {
+        automatic = true;
+        dates = ["01:32"];
+      };
+      gc = {
+        automatic = true;
+        dates = "weekly";
+        options = "--delete-older-than 30d";
+      };
     };
 
     time.timeZone = "Europe/Stockholm";
@@ -60,7 +59,6 @@ in with lib; {
         LC_CTYPE = "en_US.UTF-8";
       };
     };
-
 
     environment.systemPackages = with pkgs; [
       coreutils-prefixed
@@ -99,6 +97,7 @@ in with lib; {
       mosh
       unstable.neovim
       nodejs_22
+      perl
       pv
       pwgen
       python3
