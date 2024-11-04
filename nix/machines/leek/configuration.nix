@@ -3,11 +3,11 @@
 {
   imports =
     [
-      /etc/nixos/secret.nix
       ../../common
       ../../common/users/home-manager.nix
       /etc/nixos/hardware-configuration.nix
       ../../modules/tailscale.nix
+      ../../modules/coredns.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
