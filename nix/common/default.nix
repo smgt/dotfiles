@@ -36,9 +36,12 @@ in with lib; {
     };
 
     nix = {
-      settings.allowed-users = [
-        "simon"
-      ];
+      settings = {
+        allowed-users = [
+          "simon"
+        ];
+        experimental-features = ["nix-command" "flakes"];
+      };
       optimise = {
         automatic = true;
         dates = ["01:32"];
