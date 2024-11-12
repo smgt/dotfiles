@@ -13,4 +13,10 @@ elif [[ "$TESTS_SKIPPED" -gt "0" ]]; then
   msg="Passed with skipped ($TESTS_SKIPPED/$TESTS_TOTAL)"
 fi
 
-notify-send -a gotestsum "$(basename $(pwd))" "$emoji $msg"
+if [ -n "${TMUX}" ];then
+  tmux display-message "$msg"
+fi
+
+if command -v notify-send 2>&1 > /dev/null;then
+  notify-send -a gotestsum "$(basename $(pwd))" "$emoji $msg"
+fi
