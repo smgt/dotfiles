@@ -1,7 +1,12 @@
-{ config, pkgs, ...}:
+{ config, pkgs, ... }:
 let
-  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
-in {
+  unstable = import <nixos-unstable> {
+    config = {
+      allowUnfree = true;
+    };
+  };
+in
+{
   home = {
     sessionVariables = {
       DOTFILES = "$HOME/.dotfiles";
@@ -238,7 +243,10 @@ in {
         { name = "chrissicool/zsh-256color"; }
         #{ name = "jeffreytse/zsh-vi-mode"; }
         #{ name = "zsh-users/zsh-autosuggestions"; }
-        { name = "plugins/git"; tags = ["from:oh-my-zsh"]; }
+        {
+          name = "plugins/git";
+          tags = [ "from:oh-my-zsh" ];
+        }
       ];
     };
 
@@ -270,7 +278,7 @@ in {
       setopt PROMPT_SUBST
       setopt COMPLETE_IN_WORD
       setopt IGNORE_EOF
-      
+
       if type nvim > /dev/null 2>&1;then
         export NVIM_REMOTE_SOCK=~/.cache/nvim/nvim.sock
         export EDITOR=nvim
