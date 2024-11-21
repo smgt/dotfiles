@@ -202,10 +202,10 @@ in
 
   xdg.enable = true;
 
-  xdg.configFile.nvim = {
-    source = ../../../../neovim;
-    recursive = true;
-  };
+  # xdg.configFile.nvim = {
+  #   source = ../../../../neovim;
+  #   recursive = true;
+  # };
 
   programs.neovim = {
     enable = true;
