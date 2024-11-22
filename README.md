@@ -7,3 +7,11 @@ I'm using zsh + tmux + neovim. They are the heavy lifters. I also use asdf to ma
 I do like browsing the web so I need firefox. That means I also use xorg with i3. I run i3 + polybar + dunst + rofi.
 
 This page is more of a documentation for me since I seem to forget all the time.
+
+# Setup
+
+## Set X11 keymaps
+
+```
+localectl --no-convert set-x11-keymap us,se grp:alt_shift_toggle
+```
