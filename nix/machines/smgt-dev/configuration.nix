@@ -1,14 +1,13 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports =
-    [
-      ../../common	
-      ../../common/users/home-manager.nix
-      /etc/nixos/hardware-configuration.nix
-      ../../modules/microsocks.nix
-      ../../modules/tailscale.nix
-    ];
+  imports = [
+    ../../common
+    ../../common/users/home-manager.nix
+    /etc/nixos/hardware-configuration.nix
+    ../../modules/microsocks.nix
+    ../../modules/tailscale.nix
+  ];
 
   boot.loader.grub.efiSupport = false;
   boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
@@ -17,20 +16,27 @@
     hostName = "smgt-dev";
     networkmanager.enable = true;
     firewall = {
+      enable = false;
+      allowedTCPPorts = [ 2222 ];
+    };
+  };
+
+  services = {
+    syncthing = {
       enable = true;
+      user = "simon";
     };
-  };
-
-  services.openssh = {
-    enable = true;
-    openFirewall = true;
-    settings = {
-      PasswordAuthentication = false;
-      PermitRootLogin = "no";
+    openssh = {
+      enable = true;
+      openFirewall = true;
+      settings = {
+        PasswordAuthentication = false;
+        PermitRootLogin = "no";
+        GatewayPorts = "yes";
+      };
     };
+    qemuGuest.enable = true;
   };
-
-  services.qemuGuest.enable = true;
 
   virtualisation.docker.enable = true;
 
@@ -38,4 +44,3 @@
   system.stateVersion = "23.11"; # Did you read the comment?
   home-manager.users.simon.home.stateVersion = "23.11";
 }
-
