@@ -17,7 +17,7 @@
   ],
   "modules-right": [
     "pulseaudio",
-    "network",
+    // "network",
     // "cpu",
     "memory",
     "temperature",
@@ -25,7 +25,7 @@
     // "keyboard-state",
     "sway/language",
     "battery",
-    "custom/unread",
+    // "custom/unread",
     // "battery#bat2",
     "idle_inhibitor",
     // "custom/screenshot",
@@ -114,7 +114,7 @@
   "clock": {
     "timezone": "Europe/Stockholm",
     "format": "{:%H:%M %Y-%m-%d W%W}",
-    "format-alt": "{:%A, %B %d, %Y (%R)}  ",
+    "format-alt": "{:%A, %B %d, %Y (%R)}  ",
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
     "calendar": {
       "mode": "year",
@@ -136,7 +136,7 @@
     "tooltip": false
   },
   "memory": {
-    "format": "{}% "
+    "format": " {}%"
   },
   "temperature": {
     // "thermal-zone": 2,
@@ -197,11 +197,11 @@
   },
   "pulseaudio": {
     // "scroll-step": 1, // %, can be a float
-    "format": "{volume}% {icon} {format_source}",
+    "format": "{icon} {volume}% {format_source}",
     "format-bluetooth": "{volume}% {icon} {format_source}",
     "format-bluetooth-muted": " {icon} {format_source}",
-    "format-muted": " {format_source}",
-    "format-source": "{volume}% ",
+    "format-muted": "{format_source}",
+    "format-source": " {volume}%",
     "format-source-muted": "",
     "format-icons": {
       "headphone": "",
@@ -243,13 +243,13 @@
     "interval": "once"
   },
   "custom/darkman": {
-    "format": " {icon} ",
+    "format": "{icon}",
     "on-click": "darkman toggle",
     "return-type": "json",
     "exec": "sleep 0.2;DM=$(darkman get | tr -d '\n'); echo '{\"alt\": \"'$DM'\", \"text\":\"darkmode\", \"tooltip\":\"'$DM'\"}'",
     "format-icons": {
-      "dark": "",
-      "light": ""
+      "dark": " dark",
+      "light": " light"
     },
     "exec-on-event": true,
     "tooltip": true,
@@ -263,7 +263,7 @@
     "interval": 60
   },
   "custom/lock": {
-    "format": "  ",
+    "format": " lock",
     "exec": "echo '\nlock screen'",
     //"exec-on-event": true,
     "on-click": "sleep 0.117;loginctl lock-session",
@@ -273,7 +273,7 @@
     "max-length": 40
   },
   "custom/sleep": {
-    "format": " 󰒲 ",
+    "format": "󰒲  sleep",
     //"exec-on-event": true,
     "on-click": "sleep 3;systemctl suspend",
     // "on-click": "notify-send dep",
@@ -282,7 +282,7 @@
     "max-length": 40
   },
   "sway/language": {
-    "format": "{}",
+    "format": " {}",
     "on-click": "swaymsg input type:keyboard xkb_switch_layout next",
     "tooltip-format": "{long}"
   },
