@@ -39,6 +39,8 @@ in with lib; {
     };
   };
 
+  virtualisation.docker.enable = true;
+
   services = {
     openssh = {
       enable = true;
@@ -61,6 +63,7 @@ in with lib; {
         reverse_proxy unix//run/forgejo/forgejo.sock
       '';
     };
+
 
     forgejo = {
       enable = true;
