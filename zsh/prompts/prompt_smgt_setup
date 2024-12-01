@@ -1,4 +1,3 @@
-# source: https://github.com/joshdick/dotfiles/blob/main/zshrc.symlink
 
 # Echoes a username/host string when connected over SSH (empty otherwise)
 ssh_info() {
@@ -12,7 +11,6 @@ ssh_info() {
 
 # Echoes information about Git repository status when inside a Git repository
 git_info() {
-
   # Exit if not inside a Git repository
   ! git rev-parse --is-inside-work-tree > /dev/null 2>&1 && return
 
@@ -62,10 +60,20 @@ git_info() {
   [[ ${#FLAGS[@]} -ne 0 ]] && GIT_INFO+=( "${(j::)FLAGS}" )
   GIT_INFO+=( "%{$fg[cyan]%}$GIT_LOCATION%{$reset_color%}" )
   echo "${(j: :)GIT_INFO}"
-
 }
+
+# Show nix symbol if we are in a nix shell
+nix_info() {
+  if [ -n $IN_NIX_SHELL ];then
+    echo "%F{#7EBAE4%}󱄅 nixsh%{$reset_color%} "
+  fi
+}
+
+setopt prompt_subst
 
 # Use ❯ as the non-root prompt character; # for root
 # Change the prompt character color if the last command had a nonzero exit code
-RPROMPT="\$(git_info)"
+RPROMPT="\$(nix_info)\$(git_info)"
 PS1="\$(ssh_info)%F{magenta}%B%~%b%u%f %(?.%F{magenta}.%F{red})%(!.#.❯)%f "
+
+# vim: filetype=sh
