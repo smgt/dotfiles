@@ -55,7 +55,7 @@ git_info() {
   fi
 
   local -a GIT_INFO
-  GIT_INFO+=( "%{$fg[cyan]%}±" )
+  GIT_INFO+=( "%F{#F1502F%} %{$reset_color%}%{$fg[cyan]%}±" )
   [[ ${#DIVERGENCES[@]} -ne 0 ]] && GIT_INFO+=( "${(j::)DIVERGENCES}" )
   [[ ${#FLAGS[@]} -ne 0 ]] && GIT_INFO+=( "${(j::)FLAGS}" )
   GIT_INFO+=( "%{$fg[cyan]%}$GIT_LOCATION%{$reset_color%}" )
@@ -64,8 +64,15 @@ git_info() {
 
 # Show nix symbol if we are in a nix shell
 nix_info() {
-  if [ -n $IN_NIX_SHELL ];then
-    echo "%F{#7EBAE4%}󱄅 nixsh%{$reset_color%} "
+  if [ -n "$IN_NIX_SHELL" ];then
+    echo "%F{#7EBAE4%}󱄅 nix%{$reset_color%} "
+  fi
+}
+
+# AWS profile
+aws_info() {
+  if [ -n "$AWS_PROFILE" ];then
+    echo "%F{#FF9900%} $AWS_PROFILE%{$reset_color%} "
   fi
 }
 
@@ -73,7 +80,7 @@ setopt prompt_subst
 
 # Use ❯ as the non-root prompt character; # for root
 # Change the prompt character color if the last command had a nonzero exit code
-RPROMPT="\$(nix_info)\$(git_info)"
+RPROMPT="\$(aws_info)\$(nix_info)\$(git_info)"
 PS1="\$(ssh_info)%F{magenta}%B%~%b%u%f %(?.%F{magenta}.%F{red})%(!.#.❯)%f "
 
 # vim: filetype=sh
