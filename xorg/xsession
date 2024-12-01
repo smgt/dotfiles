@@ -9,6 +9,6 @@ urxvtd -q -f &
 dunst &
 
 #xrandr --output HDMI-A-0 --dpi 192x192
+#wal -i "$(< "${HOME}/.cache/wal/wal")"
 #xrandr --output DP-4 --mode 3840x2160 --dpi 168
 xrdb -merge "${HOME}/.Xresources"
-wal -i "$(< "${HOME}/.cache/wal/wal")"
