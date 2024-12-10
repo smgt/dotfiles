@@ -1,25 +1,8 @@
 { config, pkgs, ... }:
-let 
-  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
-  catppuccin.url = "github:catppuccin/nix";
-    tmux-catppuccin = pkgs.tmuxPlugins.mkTmuxPlugin
-    {
-      pluginName = "tmux-catppuccin";
-      version = "unstable-2024-11-17";
-      rtpFilePath = "catppuccin.tmux";
-      postInstall = ''
-        sed -i -e 's|''${PLUGIN_DIR}/catppuccin_options_tmux.conf|'$target'/catppuccin_options_tmux.conf|g' $target/catppuccin.tmux
-        sed -i -e 's|''${PLUGIN_DIR}/catppuccin_tmux.conf|'$target'/catppuccin_tmux.conf|g' $target/catppuccin.tmux
-      '';
-      src = pkgs.fetchFromGitHub {
-        owner = "catppuccin";
-        repo = "tmux";
-        rev = "179572333b0473020e45f34fd7c1fd658b2831f4";
-        sha256 = "sha256-9+SpgO2Co38I0XnEbRd7TSYamWZNjcVPw6RWJIHM+4c=";
-      };
-    };
-
+let unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
 in {
+  imports = [ ./tmux.nix ];
+
   home = {
     sessionVariables = {
       DOTFILES = "$HOME/.dotfiles";
@@ -144,71 +127,6 @@ in {
       };
     };
 
-    tmux = {
-      enable = true;
-      keyMode = "vi";
-      baseIndex = 1;
-      mouse = false;
-      prefix = "C-a";
-      aggressiveResize = true;
-      clock24 = true;
-      plugins = with pkgs; [
-        {
-          plugin = tmux-catppuccin;
-          extraConfig = ''
-          set -g @catppuccin_flavor 'frappe'
-          set -g @catppuccin_status_left_separator ""
-          set -g "@catppuccin_host_icon" " 󰒋 "
-          set -g "@catppuccin_session_icon" "  "
-          set -g "@catppuccin_date_time_icon" " 󰃰 "
-          '';
-        }
-        tmuxPlugins.fzf-tmux-url
-        tmuxPlugins.vim-tmux-navigator
-        tmuxPlugins.sensible
-      ];
-      extraConfig = ''
-        # Allow passthrough codes for ESCAPE codes
-        set -g allow-passthrough on
-        # Set escape time to get rid of the lag in nvim when pressing ESC
-        set -sg escape-time 0
-        # Neovim
-        set-option -g focus-events on
-
-        # quick pane cycling
-        unbind ^A
-        bind ^A select-pane -t :.+
-
-        # Sexy look
-        # Add truecolor support
-        set-option -ga terminal-overrides ",*256col*:Tc,wezterm:Tc,xterm-kitty:Tc"
-
-        # Default terminal is 256 colors
-        set -g default-terminal "tmux-256color"
-        set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'  # undercurl support
-        set -as terminal-overrides ',*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'  # underscore colours - needs tmux-3.0
-
-        set -g set-titles-string '#{pane_title}'
-
-        # Set the current working directory based on the current pane's current
-        # working directory (if set; if not, use the pane's starting directory)
-        # when creating # new windows and splits.
-        bind-key c new-window -c '#{pane_current_path}'
-        bind-key '"' split-window -c '#{pane_current_path}'
-        bind-key % split-window -h -c '#{pane_current_path}'
-
-        # Open the new session in the current directory
-        bind-key S command-prompt "new-session -A -c '#{pane_current_path}' -s '%%'"
-
-        set -g status-right-length 100
-        set -g status-left-length 100
-        set -g status-left ""
-        set -g status-right "#{E:@catppuccin_status_host}"
-        set -ag status-right "#{E:@catppuccin_status_session}"
-        set -ag status-right "#{E:@catppuccin_status_date_time}"
-      '';
-    };
-
     neovim = {
       enable = true;
       package = unstable.neovim-unwrapped;
@@ -243,10 +161,15 @@ in {
         enable = true;
         plugins = [
           { name = "zsh-users/zsh-syntax-highlighting"; }
-          { name = "chrissicool/zsh-256color"; }
+          {
+            name = "chrissicool/zsh-256color";
+          }
           #{ name = "jeffreytse/zsh-vi-mode"; }
           #{ name = "zsh-users/zsh-autosuggestions"; }
-          { name = "plugins/git"; tags = [ "from:oh-my-zsh" ]; }
+          {
+            name = "plugins/git";
+            tags = [ "from:oh-my-zsh" ];
+          }
         ];
       };
 
@@ -272,8 +195,6 @@ in {
         fpath=($DOTFILES/zsh/prompts $fpath)
         autoload -Uz promptinit; promptinit
         prompt smgt
-
-        #source $DOTFILES/zsh/prompt.zsh
 
         setopt NO_BG_NICE # don't nice background tasks
         setopt NO_HUP
