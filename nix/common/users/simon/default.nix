@@ -25,6 +25,7 @@ in {
       unstable.harper
       unstable.terraform-ls
       unstable.nil
+      unstable.rust-analyzer
       # Linters
       pkgs.hadolint
       unstable.golangci-lint
@@ -35,6 +36,7 @@ in {
       pkgs.gosec
       pkgs.revive
       pkgs.checkmate
+      unstable.clippy
       # Formatters
       pkgs.gofumpt
       pkgs.gotools
