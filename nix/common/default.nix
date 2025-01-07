@@ -1,14 +1,9 @@
 { config, lib, pkgs, ... }:
-let
-  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+let unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
 in with lib; {
-  imports = [
-    ./users
-  ];
+  imports = [ ./users ];
 
-  options.smgt = {
-    gui.enable = mkEnableOption "Enable GUI programs";
-  };
+  options.smgt = { gui.enable = mkEnableOption "Enable GUI programs"; };
 
   config = {
     programs = {
@@ -44,7 +39,7 @@ in with lib; {
       };
       optimise = {
         automatic = true;
-        dates = ["01:32"];
+        dates = [ "01:32" ];
       };
       gc = {
         automatic = true;
@@ -119,6 +114,7 @@ in with lib; {
       tmux
       tree
       unzip
+      vim
       wget
       whois
       yq
@@ -126,10 +122,8 @@ in with lib; {
       zsh
     ];
 
-    nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-      "1password-cli"
-      "terraform"
-    ];
+    nixpkgs.config.allowUnfreePredicate = pkg:
+      builtins.elem (lib.getName pkg) [ "1password-cli" "terraform" ];
   };
 
 }

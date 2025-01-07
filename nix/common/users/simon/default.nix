@@ -129,19 +129,6 @@ in {
       };
     };
 
-    neovim = {
-      enable = true;
-      package = unstable.neovim-unwrapped;
-      defaultEditor = true;
-      #extraLuaConfig = lib.fileContents ../../neovim/init.lua;
-      viAlias = true;
-      vimAlias = true;
-      # plugins = [
-      #   pkgs.vimPlugins.packer-nvim
-      # ];
-      extraPackages = with pkgs; [ tree-sitter ];
-    };
-
     fzf = {
       enable = true;
       enableZshIntegration = true;
