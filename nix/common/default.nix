@@ -68,6 +68,8 @@ in with lib; {
       asn
       _1password
       bash
+      btop
+      # rocmPackages.rocm-smi # amd gpu status
       bat
       curl
       charm-freeze
