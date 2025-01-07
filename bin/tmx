@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 HOST=$(hostname)
+DEFAULT_SESSION_NAME="main"
 color="#babbf1"
 
 if command -v hostcolor &> /dev/null;then
@@ -10,8 +11,8 @@ fi
 export TERM="xterm-256color"
 
 if [ -n "$1" ];then
-  if ! tmux has-session -t "$HOST";then
-    echo "You need to start a new host session before you can attach it"
+  if ! tmux has-session -t "$DEFAULT_SESSION_NAME";then
+    echo "You need to start a new default session before you can attach it"
     exit 1
   fi
 
@@ -23,8 +24,8 @@ if [ -n "$1" ];then
   fi
 else
   # Create session
-  tmux -2 new-session -d -s "$HOST"
+  tmux -2 new-session -d -s "$DEFAULT_SESSION_NAME"
   tmux set -g @HOSTCOLOR "$color"
   # Attach to session
-  tmux -2 attach-session -t "$HOST"
+  tmux -2 attach-session -t "$DEFAULT_SESSION_NAME"
 fi
