@@ -75,5 +75,6 @@ type xss-lock >/dev/null 2>&1 && { xss-lock -- "$HOME/.dotfiles/bin/lock" & }
 type xssproxy > /dev/null 2>&1 && { xssproxy & }
 type blueman-applet > /dev/null 2>&1 && { blueman-applet & }
 type picom > /dev/null 2>&1 && { picom & }
+type udiskie > /dev/null 2>&1 && { udiskie --tray --no-automount --notify & }
 
 exec i3
