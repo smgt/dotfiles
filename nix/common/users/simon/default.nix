@@ -27,6 +27,7 @@ in {
       unstable.nil
       unstable.rust-analyzer
       # Linters
+      pkgs.nixd
       pkgs.hadolint
       unstable.golangci-lint
       pkgs.checkmate
