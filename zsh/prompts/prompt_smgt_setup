@@ -71,8 +71,9 @@ nix_info() {
 
 # AWS profile
 aws_info() {
-  if [ -n "$AWS_PROFILE" ];then
-    echo "%F{#FF9900%} $AWS_PROFILE%{$reset_color%} "
+  if [ -n "$AWS_PROFILE" ] || [ -n "$AWS_ENV" ];then
+    local prompt_aws_env=${AWS_PROFILE:-$AWS_ENV}
+    echo "%F{#FF9900%} ${prompt_aws_env}%{$reset_color%} "
   fi
 }
 
