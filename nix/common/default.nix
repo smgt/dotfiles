@@ -32,10 +32,8 @@ in with lib; {
 
     nix = {
       settings = {
-        allowed-users = [
-          "simon"
-        ];
-        experimental-features = ["nix-command" "flakes"];
+        allowed-users = [ "simon" ];
+        experimental-features = [ "nix-command" "flakes" ];
       };
       optimise = {
         automatic = true;
@@ -103,7 +101,7 @@ in with lib; {
       python3
       ripgrep
       rsync
-      ruby
+      # ruby
       rustc
       cargo
       siege
