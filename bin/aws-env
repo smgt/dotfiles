@@ -1,0 +1,117 @@
+#!/usr/bin/env bash
+# This script requires a vault for each set of aws keys. So if you have the keys
+# `dev`, `staging` and `production` you would create three new vaults in
+# 1Password and create item with the fields `access key id` and `secret access
+# key` in each vault.
+# A subshell is started with the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY is
+# started. AWS_ENV is set to the current vault you are using.
+
+set -euo pipefail  # Enable strict error handling
+
+# Default configuration
+readonly DEFAULT_VAULT="integration"
+readonly OP_ITEMS_PATH="op://"
+
+# Color output helpers
+readonly RED='\033[0;31m'
+readonly GREEN='\033[0;32m'
+readonly NC='\033[0m' # No Color
+
+# Logging functions
+log_error() {
+    echo -e "${RED}Error: $1${NC}" >&2
+}
+
+log_success() {
+    echo -e "${GREEN}$1${NC}"
+}
+
+get_op_token() {
+    local token
+    if [[ -n "${OP_AWS_ENV:-}" ]]; then
+        token=$(op signin --raw --account "$OP_AWS_ENV") || return 1
+    else
+        token=$(op signin --raw) || return 1
+    fi
+    echo "$token"
+}
+
+setup_aws_credentials() {
+    local vault="${1:-$DEFAULT_VAULT}"
+
+    export AWS_ENV="$vault"
+    export AWS_ACCESS_KEY_ID
+    export AWS_SECRET_ACCESS_KEY
+
+    AWS_ACCESS_KEY_ID=$(op read "${OP_ITEMS_PATH}${vault}/aws/access key id") || {
+        log_error "Failed to retrieve AWS access key ID"
+        return 1
+    }
+
+    AWS_SECRET_ACCESS_KEY=$(op read "${OP_ITEMS_PATH}${vault}/aws/secret access key") || {
+        log_error "Failed to retrieve AWS secret access key"
+        return 1
+    }
+}
+
+start_interactive_shell() {
+    if command -v zsh >/dev/null 2>&1; then
+        exec zsh -i
+    else
+        log_error "zsh not found, falling back to default shell"
+        exec "$SHELL" -i
+    fi
+}
+
+cleanup() {
+    # Add cleanup tasks here if needed
+    exit "${1:-0}"
+}
+
+main() {
+    local vault="$DEFAULT_VAULT"
+    local optoken=""
+
+    # Parse command line arguments
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            --vault|-v)
+                vault="$2"
+                shift 2
+                ;;
+            --help|-h)
+                echo "Usage: $(basename "$0") [--vault|-v VAULT_NAME] [--help|-h]"
+                exit 0
+                ;;
+            *)
+                log_error "Unknown option: $1"
+                exit 1
+                ;;
+        esac
+    done
+
+    # Set up trap for cleanup
+    trap 'cleanup $?' EXIT INT TERM
+
+    # Get 1Password token
+    if ! optoken=$(get_op_token); then
+        log_error "Failed to obtain 1Password token"
+        exit 1
+    fi
+
+    # Eval the token
+    # shellcheck disable=SC1090
+    eval "$optoken"
+
+    # Setup AWS credentials
+    if ! setup_aws_credentials "$vault"; then
+        log_error "Failed to setup AWS credentials"
+        exit 1
+    fi
+
+    #log_success "AWS credentials successfully configured for vault: $vault"
+    start_interactive_shell
+}
+
+# Execute main function with all arguments
+main "$@"
