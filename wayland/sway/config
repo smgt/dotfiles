@@ -215,13 +215,18 @@ exec_always ~/.config/sway/lid.sh
 
 exec wl-paste -t text --watch clipman store --no-persist
 exec blueman-applet
-exec 1password --enable-features=UseOzonePlatform --ozone-platform=wayland
+#exec 1password --enable-features=UseOzonePlatform --ozone-platform=wayland
+exec 1password
 exec dunst
-
+exec firefox
+exec wezterm
 exec ~/.config/sway/session.sh --with-cleanup
+
+output * bg ~/.config/sway/wallpaper.png tile
 
 include ~/.config/sway/theme.conf
 include /etc/sway/config.d/*
+include ~/.config/sway/config.d/*
 
 bindsym $mod+Ctrl+Shift+minus move scratchpad
 bindsym $mod+Ctrl+minus scratchpad show
