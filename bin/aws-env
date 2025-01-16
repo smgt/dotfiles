@@ -11,6 +11,10 @@ set -euo pipefail  # Enable strict error handling
 # Default configuration
 readonly DEFAULT_VAULT="integration"
 readonly OP_ITEMS_PATH="op://"
+export op_args=()
+if [[ -n "${OP_AWS_ENV:-}" ]]; then
+  op_args=("--account" "$OP_AWS_ENV")
+fi
 
 # Color output helpers
 readonly RED='\033[0;31m'
@@ -28,11 +32,7 @@ log_success() {
 
 get_op_token() {
     local token
-    if [[ -n "${OP_AWS_ENV:-}" ]]; then
-        token=$(op signin --raw --account "$OP_AWS_ENV") || return 1
-    else
-        token=$(op signin --raw) || return 1
-    fi
+    token=$(op signin --raw -f "${op_args[@]}") || return 1
     echo "$token"
 }
 
@@ -43,12 +43,12 @@ setup_aws_credentials() {
     export AWS_ACCESS_KEY_ID
     export AWS_SECRET_ACCESS_KEY
 
-    AWS_ACCESS_KEY_ID=$(op read "${OP_ITEMS_PATH}${vault}/aws/access key id") || {
+    AWS_ACCESS_KEY_ID=$(op "${op_args[@]}" read "${OP_ITEMS_PATH}${vault}/aws/access key id") || {
         log_error "Failed to retrieve AWS access key ID"
         return 1
     }
 
-    AWS_SECRET_ACCESS_KEY=$(op read "${OP_ITEMS_PATH}${vault}/aws/secret access key") || {
+    AWS_SECRET_ACCESS_KEY=$(op "${op_args[@]}" read "${OP_ITEMS_PATH}${vault}/aws/secret access key") || {
         log_error "Failed to retrieve AWS secret access key"
         return 1
     }
