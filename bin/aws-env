@@ -32,7 +32,7 @@ log_success() {
 
 get_op_token() {
     local token
-    token=$(op signin --raw -f "${op_args[@]}") || return 1
+    token=$(op signin -f "${op_args[@]}") || return 1
     echo "$token"
 }
 
