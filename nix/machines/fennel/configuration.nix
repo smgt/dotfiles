@@ -1,15 +1,13 @@
 { config, lib, pkgs, ... }:
-let
-  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+let unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
 in with lib; {
-  imports =
-    [
-      ../../common
-      ../../common/users/home-manager.nix
-      /etc/nixos/hardware-configuration.nix
-      /etc/nixos/networking.nix
-      ../../modules/tailscale.nix
-    ];
+  imports = [
+    ../../common
+    ../../common/users/home-manager.nix
+    /etc/nixos/hardware-configuration.nix
+    /etc/nixos/networking.nix
+    ../../modules/tailscale.nix
+  ];
 
   boot.tmp.cleanOnBoot = true;
   zramSwap.enable = true;
@@ -26,7 +24,7 @@ in with lib; {
     networkmanager.enable = true;
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 22 80 443];
+      allowedTCPPorts = [ 22 80 443 ];
     };
   };
 
@@ -44,9 +42,7 @@ in with lib; {
   services = {
     openssh = {
       enable = true;
-      settings = {
-        PasswordAuthentication = false;
-      };
+      settings = { PasswordAuthentication = false; };
       extraConfig = ''
         Match User simon
           PasswordAuthentication yes
@@ -56,14 +52,39 @@ in with lib; {
     caddy = {
       enable = true;
       email = "simon@kampgate.se";
-      virtualHosts."git.0xee.cc".extraConfig = ''
-        reverse_proxy unix//run/forgejo/forgejo.sock
-      '';
-      virtualHosts."0xee.cc".extraConfig = ''
-        reverse_proxy unix//run/forgejo/forgejo.sock
-      '';
-    };
+      virtualHosts = {
+        "0xee.cc" = {
+          serverAliases = [ "git.0xee.cc" ];
+          logFormat = ''
+            output file ${config.services.caddy.logDir}/0xeecc-access.log {
+              roll_size 100mb
+              roll_keep 5
+              roll_keep_for 720h
+            }
+          '';
+          extraConfig = ''
+            reverse_proxy unix//run/forgejo/forgejo.sock
+          '';
+        };
+        "smgt.me" = {
+          serverAliases = [ "www.smgt.me" "simongate.com" "www.simongate.com" ];
+          logFormat = ''
+            output file ${config.services.caddy.logDir}/smgt-access.log {
+              roll_size 100mb
+              roll_keep 5
+              roll_keep_for 720h
+            }
+          '';
+          extraConfig = ''
+            header /.well-known/webfinger Content-Type application/json
+            file_server /* {
+              root /www/smgt
+            }
+          '';
+        };
+      };
 
+    };
 
     forgejo = {
       enable = true;
@@ -78,9 +99,7 @@ in with lib; {
         name = "forgejo";
       };
       settings = {
-        default = {
-          RUN_MODE = "prod";
-        };
+        default = { RUN_MODE = "prod"; };
         server = {
           ROOT_URL = "https://0xee.cc";
           SSH_DOMAIN = "0xee.cc";
@@ -108,12 +127,8 @@ in with lib; {
           ENABLE_OPENID_SIGNIN = true;
           ENABLE_OPENID_SIGNUP = false;
         };
-        session = {
-          PROVIDER = "file";
-        };
-        webhook = {
-          ALLOWED_HOST_LIST = "ci.0xee.cc";
-        };
+        session = { PROVIDER = "file"; };
+        webhook = { ALLOWED_HOST_LIST = "ci.0xee.cc"; };
       };
     };
 
@@ -121,12 +136,10 @@ in with lib; {
       enable = true;
       package = pkgs.postgresql_16;
       ensureDatabases = [ "forgejo" ];
-      ensureUsers = [ 
-        {
-          name = "forgejo";
-          ensureDBOwnership = true;
-        }
-      ];
+      ensureUsers = [{
+        name = "forgejo";
+        ensureDBOwnership = true;
+      }];
       authentication = pkgs.lib.mkOverride 10 ''
         #type database  DBuser  auth-method
         local sameuser  all     peer       map=superuser_map
