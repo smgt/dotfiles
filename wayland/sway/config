@@ -52,9 +52,6 @@ floating_modifier $mod
 bindsym $mod+Return exec wezterm start --always-new-process
 bindsym $mod+Shift+Return exec $HOME/.config/wofi/ssh.sh
 #bindsym $mod+y exec $HOME/.dotfiles/bin/screenshot
-#exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
-#exec hash dbus-update-activation-environment 2>/dev/null && \
-#     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -220,13 +217,14 @@ exec 1password
 exec dunst
 exec firefox
 exec wezterm
-exec ~/.config/sway/session.sh --with-cleanup
 
 output * bg ~/.config/sway/wallpaper.png tile
 
 include ~/.config/sway/theme.conf
-include /etc/sway/config.d/*
 include ~/.config/sway/config.d/*
+#include /etc/sway/config.d/*
 
 bindsym $mod+Ctrl+Shift+minus move scratchpad
 bindsym $mod+Ctrl+minus scratchpad show
+
+exec ~/.config/sway/session.sh --with-cleanup
