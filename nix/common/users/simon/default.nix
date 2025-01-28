@@ -111,7 +111,7 @@ in {
       matchBlocks = {
         "*" = { forwardAgent = false; };
         "smgt-dev" = { hostname = "100.93.118.110"; };
-        "logs.dev.readly.com" = {
+        "*.dev.readly.com" = {
           user = "ubuntu";
           proxyJump = "ec2-user@nat.dev.readly.com";
         };
