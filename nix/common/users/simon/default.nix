@@ -48,6 +48,8 @@ in {
       # Go
       pkgs.delve
       pkgs.impl
+      # Other
+      unstable.asn
     ];
   };
 
