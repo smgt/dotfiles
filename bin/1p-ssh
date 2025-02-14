@@ -4,13 +4,18 @@ set -e
 
 __ScriptVersion="0.2.2"
 
-op_session_variable="OP_SESSION_${OP_ACCOUNT}"
+op_session_variable="OP_SESSION_${OP_SSH_ACCOUNT}"
 command_name=$(basename "$0")
 entry_prefix="SSHKey-"
+export op_args=()
+if [[ -n "${OP_SSH_ACCOUNT:-}" ]];then
+  op_args=("--account" "$OP_SSH_ACCOUNT")
+fi
+
 
 op_signin() {
   if [ -z "${!op_session_variable}" ];then
-    eval $(op signin --account "$OP_ACCOUNT")
+    eval $(op signin "${op_args[@]}")
   fi
 }
 
@@ -147,7 +152,7 @@ sub_load() {
   entry_title="$entry_prefix$key_hostname"
 
   op_signin
-  entry=$(op item get "$entry_title" --format json)
+  entry=$(op "${op_args[@]}" item get "$entry_title" --format json)
   key_private=$(echo "$entry" | jq -rj '.fields[] | select(.id == "private_key").value')
 
   timeout_opt=""
@@ -220,14 +225,14 @@ sub_create() {
 
   op_signin
   entry_title="$entry_prefix$key_hostname"
-  if op item get "$entry_title" &> /dev/null;then
+  if op "${op_args[@]}" item get "$entry_title" &> /dev/null;then
     error_print "A entry for a ssh key named $entry_title already exists"
     exit 1
   else
 
     TMP_FILE=$(mktemp -p "$PWD")
     jq --null-input --arg public_key "$key_public" --arg private_key "$key_private" --arg timeout "$default_timeout" "$JSON" > "$TMP_FILE"
-    op item create --title "$entry_title" --tags ssh --template "$TMP_FILE"
+    op "${op_args[@]}" item create --title "$entry_title" --tags ssh --template "$TMP_FILE"
     if [ $? ];then
       info_print "Created secure note 'SSHKey-$key_hostname' successfully"
     else
@@ -269,7 +274,7 @@ sub_export() {
 
   op_signin
   entry_title="$entry_prefix$key_hostname"
-  entry=$(op item get "$entry_title" --fields label=private_key,label=public_key --format json)
+  entry=$(op "${op_args[@]}" item get "$entry_title" --fields label=private_key,label=public_key --format json)
   echo "$entry" | jq -r '.[] | select(.id == "private_key").value' > "$private_path"
   chmod 600 "$private_path"
   echo "$entry" | jq -r '.[] | select(.id == "public_key").value' > "$private_path".pub
@@ -292,7 +297,7 @@ sub_public-key() {
   shift $((OPTIND-1))
   op_signin
   entry_title="$entry_prefix$key_hostname"
-  op item get "$entry_title" --fields label=public_key --format json | jq -rj '.value'
+  op "${op_args[@]}" item get "$entry_title" --fields label=public_key --format json | jq -rj '.value'
 }
 
 prerequisites_check op
