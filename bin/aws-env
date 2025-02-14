@@ -12,8 +12,8 @@ set -euo pipefail  # Enable strict error handling
 readonly DEFAULT_VAULT="integration"
 readonly OP_ITEMS_PATH="op://"
 export op_args=()
-if [[ -n "${OP_AWS_ENV:-}" ]]; then
-  op_args=("--account" "$OP_AWS_ENV")
+if [[ -n "${OP_AWS_ACCOUNT:-}" ]]; then
+  op_args=("--account" "$OP_AWS_ACCOUNT")
 fi
 
 # Color output helpers
