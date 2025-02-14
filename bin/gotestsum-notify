@@ -1,22 +1,28 @@
 #!/usr/bin/env bash
 
-emoji="✅"
-msg="Passed"
+img_pass="$HOME/.dotfiles/assets/cat-test-pass.svg"
+img_fail="$HOME/.dotfiles/assets/cat-test-fail.svg"
+
+export img=$img_pass
+export msg="Passed"
 
 if [[ "$TESTS_ERRORS" -gt "0" ]]; then
-  emoji="⚠️"
-  msg="Errors ($TESTS_ERRORS/$TESTS_TOTAL)"
+  img=$img_fail
+  msg="Errors ($TESTS_ERRORS / $TESTS_TOTAL)"
 elif [[ "$TESTS_FAILED" -gt "0" ]];then
-  emoji="❌"
-  msg="Failed ($TESTS_FAILED/$TESTS_TOTAL)"
+  img=$img_fail
+  msg="Failed ($TESTS_FAILED / $TESTS_TOTAL)"
 elif [[ "$TESTS_SKIPPED" -gt "0" ]]; then
-  msg="Passed with skipped ($TESTS_SKIPPED/$TESTS_TOTAL)"
+  msg="Passed with skipped ($TESTS_SKIPPED / $TESTS_TOTAL)"
 fi
+
+work_dir=$(pwd)
+base=$(basename "$work_dir")
 
 if [ -n "${TMUX}" ];then
-  tmux display-message "$msg"
+  tmux display-message "gotestsum: $base => $msg"
 fi
 
-if command -v notify-send 2>&1 > /dev/null;then
-  notify-send -a gotestsum "$(basename $(pwd))" "$emoji $msg"
+if command -v notify-send > /dev/null 2>&1 ;then
+  notify-send -a gotestsum "$base" --icon "$img" "$msg"
 fi
