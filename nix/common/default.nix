@@ -77,6 +77,7 @@ in with lib; {
       gcc
       gdb
       gitAndTools.gitFull
+      git-lfs
       go
       gotools
       gnumake

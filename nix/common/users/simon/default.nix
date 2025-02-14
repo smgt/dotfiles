@@ -18,6 +18,8 @@ in {
       pkgs.entr
       pkgs.buf
       pkgs.docker-compose
+      pkgs.tig
+      pkgs.git-lfs
       # Language servers
       unstable.yaml-language-server
       unstable.vscode-langservers-extracted
@@ -111,7 +113,7 @@ in {
       matchBlocks = {
         "*" = { forwardAgent = false; };
         "smgt-dev" = { hostname = "100.93.118.110"; };
-        "*.dev.readly.com" = {
+        "*.dev.readly.com !nat.dev.readly.com" = {
           user = "ubuntu";
           proxyJump = "ec2-user@nat.dev.readly.com";
         };
