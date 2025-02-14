@@ -2,7 +2,7 @@ local wezterm = require("wezterm")
 local act = wezterm.action
 local mux = wezterm.mux
 
-local mux_servers = { "grunte", "paprika", "sugarsnap" }
+local mux_servers = { "paprika", "sugarsnap" }
 
 -- Generate unix domain config for all mux_servers
 local function gen_unix_domains()
@@ -20,15 +20,15 @@ end
 local function scheme_for_appearance(appearance)
   wezterm.log_info(appearance)
   if appearance == nil then
-    -- return "Catppuccin Frappe"
-    return "Tokyo Night Moon"
+    return "Catppuccin Mocha"
+    -- return "Tokyo Night Moon"
   end
   if appearance:find("Light") then
-    -- return "Catppuccin Latte"
-    return "Tokyo Night Moon"
+    return "Catppuccin Latte"
+    -- return "Tokyo Night Moon"
   else
-    -- return "Catppuccin Frappe"
-    return "Tokyo Night Moon"
+    return "Catppuccin Mocha"
+    -- return "Tokyo Night Moon"
   end
 end
 
