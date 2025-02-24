@@ -6,7 +6,6 @@
     ../../common/users/home-manager.nix
     /etc/nixos/hardware-configuration.nix
     ../../modules/tailscale.nix
-    ../../modules/coredns.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -22,6 +21,14 @@
       AllowUsers = [ "simon" ];
       PermitRootLogin = "no";
     };
+  };
+
+  services.resolved = {
+    enable = true;
+    extraConfig = ''
+      DNS=10.68.14.1
+      DNSStubListener=yes
+    '';
   };
 
   systemd.network.enable = true;
@@ -52,10 +59,11 @@
     ups.datarummet = {
       driver = "usbhid-ups";
       port = "auto";
+      description = "Back-UPS BX750MI";
     };
     upsd = {
       enable = true;
-      listen = [{ address = "10.68.14.3"; }];
+      listen = [{ address = "0.0.0.0"; }];
     };
     users = {
       admin = {
