@@ -70,6 +70,7 @@ in with lib; {
       difftastic
       dfc
       dig
+      dive
       eva
       fd
       file

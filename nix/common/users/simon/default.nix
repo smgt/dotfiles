@@ -20,6 +20,7 @@ in {
       pkgs.docker-compose
       pkgs.tig
       pkgs.git-lfs
+      pkgs.dive
       # Language servers
       unstable.yaml-language-server
       unstable.vscode-langservers-extracted
