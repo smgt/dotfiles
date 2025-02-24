@@ -8,7 +8,7 @@ export msg="Passed"
 
 if [[ "$TESTS_ERRORS" -gt "0" ]]; then
   img=$img_fail
-  msg="Errors ($TESTS_ERRORS / $TESTS_TOTAL)"
+  msg="Error in code"
 elif [[ "$TESTS_FAILED" -gt "0" ]];then
   img=$img_fail
   msg="Failed ($TESTS_FAILED / $TESTS_TOTAL)"
