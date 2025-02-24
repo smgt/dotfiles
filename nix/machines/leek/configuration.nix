@@ -44,7 +44,43 @@
 
   virtualisation.docker.enable = true;
 
-  environment = { systemPackages = with pkgs; [ docker-compose ]; };
+  environment = { systemPackages = with pkgs; [ docker-compose nut ]; };
+
+  power.ups = {
+    enable = true;
+    mode = "netserver";
+    ups.datarummet = {
+      driver = "usbhid-ups";
+      port = "auto";
+    };
+    upsd = {
+      enable = true;
+      listen = [{ address = "10.68.14.3"; }];
+    };
+    users = {
+      admin = {
+        actions = [ "set" "fsd" ];
+        instcmds = [ "all" ];
+        passwordFile = "/etc/nut/admin";
+      };
+      observer = {
+        upsmon = "secondary";
+        passwordFile = "/etc/nut/observer";
+      };
+    };
+
+    upsmon = {
+      enable = true;
+      monitor.datarummet = {
+        type = "primary";
+        user = "admin";
+        passwordFile = "/etc/nut/admin";
+        powerValue = 1;
+        system = "datarummet@10.68.14.3";
+      };
+    };
+
+  };
 
   # Select internationalisation properties.
   # console = {
