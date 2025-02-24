@@ -23,7 +23,7 @@ in {
       # Language servers
       unstable.yaml-language-server
       unstable.vscode-langservers-extracted
-      pkgs.gopls
+      unstable.gopls
       unstable.harper
       unstable.terraform-ls
       unstable.nil
