@@ -21,6 +21,7 @@ in {
       pkgs.tig
       pkgs.git-lfs
       pkgs.dive
+      pkgs.passage
       # Language servers
       unstable.yaml-language-server
       unstable.vscode-langservers-extracted
