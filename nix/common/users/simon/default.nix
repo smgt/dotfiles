@@ -85,6 +85,7 @@ in {
       enable = true;
       userName = "Simon Gate";
       userEmail = "simon@kampgate.se";
+      lfs.enable = true;
       #diff-so-fancy.enable = true;
       difftastic.enable = true;
       includes = [{
@@ -102,6 +103,11 @@ in {
         core.editor = "nvim";
         color = { ui = "auto"; };
         merge = { conflictstyle = "diff3"; };
+        fetch = {
+          prune = true;
+          pruneTags = true;
+          all = true;
+        };
       };
     };
 
