@@ -8,6 +8,7 @@ in {
       DOTFILES = "$HOME/.dotfiles";
       GPG_TTY = "$(tty)";
       BAT_THEME = "ansi";
+      GOROOT = "${pkgs.go}/share/go";
       PAGER = "less -R";
     };
 
