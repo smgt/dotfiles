@@ -65,6 +65,8 @@ in {
     #   recursive = true;
     # };
 
+    btop = { enable = true; };
+
     # Enable direnv and nix-direnv
     direnv = {
       enable = true;
