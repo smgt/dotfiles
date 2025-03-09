@@ -8,7 +8,6 @@ in {
       DOTFILES = "$HOME/.dotfiles";
       GPG_TTY = "$(tty)";
       BAT_THEME = "ansi";
-      GOROOT = "${pkgs.go}/share/go";
       PAGER = "less -R";
     };
 
@@ -23,6 +22,7 @@ in {
       pkgs.git-lfs
       pkgs.dive
       pkgs.passage
+      pkgs.difftastic
       # Language servers
       unstable.yaml-language-server
       unstable.vscode-langservers-extracted
@@ -87,12 +87,17 @@ in {
       userEmail = "simon@kampgate.se";
       lfs.enable = true;
       #diff-so-fancy.enable = true;
-      difftastic.enable = true;
+      # difftastic.enable = true;
       includes = [{
         condition = "hasconfig:remote.*.url:git@gitlab.com:readly-ab/**";
         contents = { user = { email = "simon.gate@readly.com"; }; };
       }];
       ignores = [ ".direnv" "tmp" ".DS_Store" "*.swp" ".env" ];
+      aliases = {
+        dlog = "-c diff.external=difft log --ext-diff";
+        dshow = "-c diff.external=difft show --ext-diff";
+        ddiff = "-c diff.external=difft diff";
+      };
       extraConfig = {
         init.defaultBranch = "main";
         lfs.enable = true;
