@@ -255,7 +255,7 @@ in {
     fd = {
       enable = true;
       hidden = true;
-      ignores = [ "vendor/" ".git/" "npm_modules" ".terraform" ];
+      ignores = [ "vendor/" ".git/" "npm_modules" ".terraform" ".direnv" ];
     };
 
     ripgrep = {
