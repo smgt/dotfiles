@@ -92,7 +92,7 @@ in {
         condition = "hasconfig:remote.*.url:git@gitlab.com:readly-ab/**";
         contents = { user = { email = "simon.gate@readly.com"; }; };
       }];
-      ignores = [ ".direnv" "tmp" ".DS_Store" "*.swp" ".env" ];
+      ignores = [ ".direnv" "tmp" ".DS_Store" "*.swp" ".env" "coverage.out" ];
       aliases = {
         dlog = "-c diff.external=difft log --ext-diff";
         dshow = "-c diff.external=difft show --ext-diff";
