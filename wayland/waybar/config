@@ -275,7 +275,7 @@
   "custom/sleep": {
     "format": "󰒲  sleep",
     //"exec-on-event": true,
-    "on-click": "sleep 3;systemctl suspend",
+    "on-click": "sleep 3;systemctl sleep",
     // "on-click": "notify-send dep",
     "tooltip": true,
     "interval": "once",
