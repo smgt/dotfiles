@@ -8,27 +8,36 @@
 
 set -euo pipefail  # Enable strict error handling
 
+# Color output helpers
+readonly RED='\033[0;31m'
+readonly GREEN='\033[0;32m'
+readonly YELLOW='\033[0;33m'
+readonly NC='\033[0m' # No Color
+
+# Logging functions
+log_error() {
+    echo -e "${RED}ERROR: ${NC}$1" >&2
+}
+
+log_success() {
+    echo -e "${GREEN}$1${NC}"
+}
+
+log_warn() {
+  echo -e "${YELLOW}WARN: ${NC}$1" >&2
+}
+
 # Default configuration
 readonly DEFAULT_VAULT="integration"
 readonly OP_ITEMS_PATH="op://"
 export op_args=()
 if [[ -n "${OP_AWS_ACCOUNT:-}" ]]; then
   op_args=("--account" "$OP_AWS_ACCOUNT")
+else
+  log_warn "\$OP_AWS_ACCOUNT is not configured"
 fi
 
-# Color output helpers
-readonly RED='\033[0;31m'
-readonly GREEN='\033[0;32m'
-readonly NC='\033[0m' # No Color
 
-# Logging functions
-log_error() {
-    echo -e "${RED}Error: $1${NC}" >&2
-}
-
-log_success() {
-    echo -e "${GREEN}$1${NC}"
-}
 
 get_op_token() {
     local token
