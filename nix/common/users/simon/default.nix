@@ -194,6 +194,8 @@ in {
         "_" = "sudo";
         v = "$EDITOR";
         n = "$EDITOR";
+        e = "$EDITOR";
+        vim = "$EDITOR";
         ls = "ls -F --color";
         l = "ls -a --color";
         ll = "ls -lh --color";
