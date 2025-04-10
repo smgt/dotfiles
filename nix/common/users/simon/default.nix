@@ -9,6 +9,7 @@ in {
       GPG_TTY = "$(tty)";
       BAT_THEME = "ansi";
       PAGER = "less -R";
+      MANPAGER = "nvim +Man!";
     };
 
     sessionPath = [ "$HOME/bin" "$DOTFILES/bin" ];
