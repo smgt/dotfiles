@@ -89,6 +89,7 @@ button:hover {
 #custom-lock,
 #custom-sleep,
 #custom-darkman,
+#custom-screenshot,
 #custom-music,
 #custom-unread,
 #mpris,
@@ -201,7 +202,8 @@ label:focus {
 #custom-unread,
 #custom-sleep,
 #mpris,
-#custom-darkman {
+#custom-darkman,
+#custom-screenshot {
     background-color: @blue;
     padding: 0 8px;
     color: @mantle;

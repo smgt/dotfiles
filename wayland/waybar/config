@@ -28,7 +28,7 @@
     // "custom/unread",
     // "battery#bat2",
     "idle_inhibitor",
-    // "custom/screenshot",
+    "custom/screenshot",
     "custom/darkman",
     // "mpris",
     "custom/lock",
@@ -232,8 +232,8 @@
   },
   "custom/screenshot": {
     "format": "",
-    "on-click": "wayshot -s \"$(slurp -f '%x %y %w %h')\"",
-    "tooltip": "screenshot",
+    // "on-click": "wayshot -s \"$(slurp -f '%x %y %w %h')\"",
+    "on-click": "grim -g \"$(slurp)\" - | wl-copy -t image/png",
     "interval": "once"
   },
   "custom/music": {
