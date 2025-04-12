@@ -55,10 +55,10 @@ git_info() {
   fi
 
   local -a GIT_INFO
-  GIT_INFO+=( "%F{#F1502F%} %{$reset_color%}%{$fg[cyan]%}±" )
+  GIT_INFO+=( "%F{#F1502F%} %{$reset_color%}%{${fg[cyan]}%}±" )
   [[ ${#DIVERGENCES[@]} -ne 0 ]] && GIT_INFO+=( "${(j::)DIVERGENCES}" )
   [[ ${#FLAGS[@]} -ne 0 ]] && GIT_INFO+=( "${(j::)FLAGS}" )
-  GIT_INFO+=( "%{$fg[cyan]%}$GIT_LOCATION%{$reset_color%}" )
+  GIT_INFO+=( "%{${fg[cyan]}%}$GIT_LOCATION%{$reset_color%}" )
   echo "${(j: :)GIT_INFO}"
 }
 
@@ -77,11 +77,17 @@ aws_info() {
   fi
 }
 
+rprompt_prefix() {
+  if [ -n "$RPROMPT_PREFIX" ];then
+    echo "$RPROMPT_PREFIX "
+  fi
+}
+
 setopt prompt_subst
 
 # Use ❯ as the non-root prompt character; # for root
 # Change the prompt character color if the last command had a nonzero exit code
-RPROMPT="\$(aws_info)\$(nix_info)\$(git_info)"
+RPROMPT="\$(rprompt_prefix)\$(aws_info)\$(nix_info)\$(git_info)"
 PS1="\$(ssh_info)%F{magenta}%B%~%b%u%f %(?.%F{magenta}.%F{red})%(!.#.❯)%f "
 
 # vim: filetype=sh
