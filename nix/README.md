@@ -1,6 +1,15 @@
-# NixOS
+# Nix
 
-# Installation
+## Home-manager standalone
+
+```
+home-manager build --flake ~/.dotfiles/#<hostname>
+home-manager switch --flake ~/.dotfiles/#<hostname>
+```
+
+## NixOS
+
+### Installation
 
 After booting the installation media for NixOS create a root password using.
 
@@ -54,11 +63,11 @@ nixos-install \
   --no-root-passwd
 ```
 
-# Install home-manager
+### Install home-manager
 
 https://nix-community.github.io/home-manager/#sec-install-standalone
 
-# Run config
+### Run config
 
 ```console
 nixos-rebuild switch
