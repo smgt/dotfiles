@@ -36,8 +36,37 @@ in with lib; {
   };
 
   virtualisation.docker.enable = true;
+  systemd = {
+    timers = {
+      "forgejo-backup" = {
+        wantedBy = [ "timers.target" ];
+        timerConfig = {
+          OnCalendar = "daily";
+          Persistent = true;
+          Unit = "forgejo-backup";
+        };
+      };
+    };
+    services = {
+      "forgejo-backup" = {
+        serviceConfig = {
+          Type = "oneshot";
+          User = "git";
+          ExecStart = "${
+              pkgs.writeShellApplication {
+                name = "forgejo-backup";
+                runtimeInputs = [ pkgs.rsync pkgs.openssh ];
+                text =
+                  "rsync -avz --delete /var/lib/forgejo/dump/ simon@paprika.kaga.se:/forgejo";
+              }
+            }/bin/forgejo-backup";
+        };
+      };
+    };
+  };
 
   services = {
+
     logind = {
       extraConfig = ''
         RuntimeDirectorySize=12G
