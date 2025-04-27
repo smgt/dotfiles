@@ -14,24 +14,97 @@
 
   environment.variables.HOSTNAME = "leek";
 
-  services.openssh = {
-    enable = true;
-    settings = {
-      PasswordAuthentication = false;
-      AllowUsers = [ "simon" ];
-      PermitRootLogin = "no";
+  services = {
+    openssh = {
+      enable = true;
+      settings = {
+        PasswordAuthentication = false;
+        AllowUsers = [ "simon" ];
+        PermitRootLogin = "no";
+      };
+    };
+    resolved = {
+      enable = true;
+      extraConfig = ''
+        DNS=10.68.14.1
+        DNSStubListener=yes
+      '';
     };
   };
 
-  services.resolved = {
-    enable = true;
-    extraConfig = ''
-      DNS=10.68.14.1
-      DNSStubListener=yes
-    '';
+  systemd = {
+    network.enable = true;
+    timers = {
+      "homeassistant-backup" = {
+        wantedBy = [ "timers.target" ];
+        timerConfig = {
+          OnCalendar = "daily";
+          Persistent = true;
+          Unit = "homeassistant-backup";
+        };
+      };
+      "kuma-backup" = {
+        wantedBy = [ "timers.target" ];
+        timerConfig = {
+          OnCalendar = "daily";
+          Persistent = true;
+          Unit = "kuma-backup";
+        };
+      };
+      "evcc-backup" = {
+        wantedBy = [ "timers.target" ];
+        timerConfig = {
+          OnCalendar = "daily";
+          Persistent = true;
+          Unit = "evcc-backup";
+        };
+      };
+    };
+    services = {
+      "homeassistant-backup" = {
+        serviceConfig = {
+          Type = "oneshot";
+          User = "simon";
+          ExecStart = "${
+              pkgs.writeShellApplication {
+                name = "homeassistant-backup";
+                runtimeInputs = [ pkgs.rsync pkgs.openssh ];
+                text =
+                  "rsync -avz --delete /srv/homeassistant/ simon@paprika.kaga.se:/homeassistant";
+              }
+            }/bin/homeassistant-backup";
+        };
+      };
+      "kuma-backup" = {
+        serviceConfig = {
+          Type = "oneshot";
+          User = "simon";
+          ExecStart = "${
+              pkgs.writeShellApplication {
+                name = "kuma-backup";
+                runtimeInputs = [ pkgs.rsync pkgs.openssh ];
+                text =
+                  "rsync -avz --delete /srv/kuma/ simon@paprika.kaga.se:/kuma";
+              }
+            }/bin/kuma-backup";
+        };
+      };
+      "evcc-backup" = {
+        serviceConfig = {
+          Type = "oneshot";
+          User = "simon";
+          ExecStart = "${
+              pkgs.writeShellApplication {
+                name = "evcc-backup";
+                runtimeInputs = [ pkgs.rsync pkgs.openssh ];
+                text =
+                  "rsync -avz --delete /srv/evcc/ simon@paprika.kaga.se:/evcc";
+              }
+            }/bin/evcc-backup";
+        };
+      };
+    };
   };
-
-  systemd.network.enable = true;
 
   networking = {
     hostName = "leek";
