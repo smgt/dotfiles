@@ -12,12 +12,10 @@ in with lib; {
   boot.tmp.cleanOnBoot = true;
   zramSwap.enable = true;
 
-  environment.variables.HOSTNAME = "fennel";
-
-  services.logind.extraConfig = ''
-    RuntimeDirectorySize=12G
-    HandleLidSwitchDocked=ignore
-  '';
+  environment = {
+    variables.HOSTNAME = "fennel";
+    # systemPackages = with pkgs; [ forgejo-cli ];
+  };
 
   networking = {
     hostName = "fennel";
@@ -40,13 +38,16 @@ in with lib; {
   virtualisation.docker.enable = true;
 
   services = {
+    logind = {
+      extraConfig = ''
+        RuntimeDirectorySize=12G
+        HandleLidSwitchDocked=ignore
+      '';
+    };
+
     openssh = {
       enable = true;
       settings = { PasswordAuthentication = false; };
-      extraConfig = ''
-        Match User simon
-          PasswordAuthentication yes
-      '';
     };
 
     caddy = {
@@ -77,9 +78,8 @@ in with lib; {
           '';
           extraConfig = ''
             header /.well-known/webfinger Content-Type application/json
-            file_server /* {
-              root /www/smgt
-            }
+            root * /www/smgt
+            file_server
           '';
         };
       };
@@ -97,6 +97,10 @@ in with lib; {
         socket = "/run/postgresql";
         user = "forgejo";
         name = "forgejo";
+      };
+      dump = {
+        enable = true;
+        type = "tar.bz2";
       };
       settings = {
         default = { RUN_MODE = "prod"; };
@@ -128,7 +132,7 @@ in with lib; {
           ENABLE_OPENID_SIGNUP = false;
         };
         session = { PROVIDER = "file"; };
-        webhook = { ALLOWED_HOST_LIST = "ci.0xee.cc"; };
+        # webhook = { ALLOWED_HOST_LIST = "ci.0xee.cc"; };
       };
     };
 
