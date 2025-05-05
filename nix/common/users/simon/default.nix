@@ -12,7 +12,10 @@ in {
       MANPAGER = "nvim +Man!";
     };
 
-    sessionPath = [ "$HOME/bin" "$DOTFILES/bin" ];
+    sessionPath =
+      [ "$HOME/bin" "$DOTFILES/bin" "$HOME/go/bin" "$HOME/.local/bin" ];
+
+    file = { ".terraformrc".source = ../../../config/terraform/terraformrc; };
 
     packages = [
       # Tooling
