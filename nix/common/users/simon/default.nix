@@ -24,6 +24,7 @@ in {
       pkgs.dive
       pkgs.passage
       pkgs.difftastic
+      pkgs.glab
       # Language servers
       unstable.yaml-language-server
       unstable.vscode-langservers-extracted
