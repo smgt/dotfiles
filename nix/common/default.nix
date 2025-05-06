@@ -34,6 +34,11 @@ in with lib; {
       settings = {
         allowed-users = [ "simon" ];
         experimental-features = [ "nix-command" "flakes" ];
+        # Add nixcache.kampgate.dev as cache
+        substituters = [ "https://nixcache.kampgate.dev" ];
+        trusted-public-keys = [
+          "nixcache.kampgate.dev:DQXzXiOJhIGMvYliX7gYD2VcQBcq2ArakAuuWhbsLv4="
+        ];
       };
       optimise = {
         automatic = true;
@@ -44,6 +49,7 @@ in with lib; {
         dates = "weekly";
         options = "--delete-older-than 30d";
       };
+
     };
 
     time.timeZone = "Europe/Stockholm";
