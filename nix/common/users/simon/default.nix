@@ -1,5 +1,5 @@
-{ config, pkgs, ... }:
-let unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+{ config, pkgs, lib, ... }:
+let unstable = pkgs.unstable or pkgs;
 in {
   imports = [ ./tmux.nix ];
 
