@@ -59,7 +59,7 @@ in with lib; {
     environment.systemPackages = with pkgs; [
       coreutils-prefixed
       asn
-      _1password
+      _1password-cli
       bash
       btop
       # rocmPackages.rocm-smi # amd gpu status
