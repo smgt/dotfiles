@@ -37,7 +37,10 @@
       # Home manager configurations
       homeConfigurations = {
         "kale" = mkHomeConfiguration { hostname = "kale"; };
-        "sugarsnap" = mkHomeConfiguration { hostname = "sugarsnap"; };
+        "sugarsnap" = mkHomeConfiguration {
+          hostname = "sugarsnap";
+          stateVersion = "24.05";
+        };
       };
     } //
     # Per-system outputs (for development shells, etc.)
