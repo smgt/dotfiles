@@ -28,6 +28,8 @@ in {
       pkgs.passage
       pkgs.difftastic
       pkgs.glab
+      pkgs.fx
+      pkgs.jq
       # Language servers
       unstable.yaml-language-server
       unstable.vscode-langservers-extracted
