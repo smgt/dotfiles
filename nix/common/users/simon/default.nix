@@ -56,6 +56,7 @@ in {
       # Go
       pkgs.delve
       pkgs.impl
+      pkgs.govulncheck
       # Other
       unstable.asn
     ];
