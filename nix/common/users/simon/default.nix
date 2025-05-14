@@ -57,6 +57,7 @@ in {
       pkgs.delve
       pkgs.impl
       pkgs.govulncheck
+      pkgs.gomodifytags
       # Other
       unstable.asn
     ];
