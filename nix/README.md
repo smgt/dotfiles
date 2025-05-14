@@ -67,6 +67,13 @@ nixos-install \
 
 https://nix-community.github.io/home-manager/#sec-install-standalone
 
+#### Install flake
+
+```sh
+nix run home-manager/release-24.11 -- switch --flake .#<hostname>
+```
+
+
 ### Run config
 
 ```console
