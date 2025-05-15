@@ -194,8 +194,8 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id blueberry-ray
 exec --no-startup-id nm-applet
 exec --no-startup-id $HOME/.fehbg
-exec_always --no-startup-id "setxkbmap -layout us,se"
-exec_always --no-startup-id "setxkbmap -option 'grp:alt_shift_toggle'"
+#exec_always --no-startup-id "setxkbmap -layout us,se"
+#exec_always --no-startup-id "setxkbmap -option 'grp:alt_shift_toggle'"
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh &
 
 
