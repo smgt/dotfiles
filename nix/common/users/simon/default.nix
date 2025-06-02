@@ -31,17 +31,17 @@ in {
       pkgs.fx
       pkgs.jq
       # Language servers
-      unstable.yaml-language-server
-      unstable.vscode-langservers-extracted
-      unstable.gopls
-      unstable.harper
-      unstable.terraform-ls
-      unstable.nil
-      unstable.rust-analyzer
+      pkgs.yaml-language-server
+      pkgs.vscode-langservers-extracted
+      pkgs.gopls
+      pkgs.harper
+      pkgs.terraform-ls
+      pkgs.nil
+      pkgs.rust-analyzer
       # Linters
       pkgs.nixd
       pkgs.hadolint
-      unstable.golangci-lint
+      pkgs.golangci-lint
       pkgs.checkmate
       pkgs.write-good
       pkgs.statix
@@ -49,7 +49,7 @@ in {
       pkgs.gosec
       pkgs.revive
       pkgs.checkmate
-      unstable.clippy
+      pkgs.clippy
       # Formatters
       pkgs.gofumpt
       pkgs.gotools
@@ -60,8 +60,9 @@ in {
       pkgs.impl
       pkgs.govulncheck
       pkgs.gomodifytags
+      pkgs.gotestsum
       # Other
-      unstable.asn
+      pkgs.asn
     ];
   };
 
