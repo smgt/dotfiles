@@ -18,16 +18,19 @@ end
 
 -- Define themes for dark/light mode and default fallback
 local function scheme_for_appearance(appearance)
+  -- local light = "Catppuccin Latte"
+  -- local dark = "Catppuccin Mocha"
+  local light = "GruvboxLight"
+  local dark = "GruvboxDarkHard"
   wezterm.log_info(appearance)
   if appearance == nil then
-    return "Catppuccin Mocha"
-    -- return "Tokyo Night Moon"
+    return dark
   end
   if appearance:find("Light") then
-    return "Catppuccin Latte"
+    return light
     -- return "Tokyo Night Moon"
   else
-    return "Catppuccin Mocha"
+    return dark
     -- return "Tokyo Night Moon"
   end
 end
