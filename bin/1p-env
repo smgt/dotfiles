@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -euo pipefail  # Enable strict error handling
+set -euo pipefail # Enable strict error handling
 
 # Color output helpers
 readonly RED='\033[0;31m'
@@ -10,11 +10,11 @@ readonly NC='\033[0m' # No Color
 
 # Logging functions
 log_error() {
-    echo -e "${RED}ERROR: ${NC}$1" >&2
+  echo -e "${RED}ERROR: ${NC}$1" >&2
 }
 
 log_success() {
-    echo -e "${GREEN}$1${NC}"
+  echo -e "${GREEN}$1${NC}"
 }
 
 log_warn() {
@@ -22,47 +22,46 @@ log_warn() {
 }
 
 get_op_token() {
-    local token
-    token=$(op "$@" signin -f ) || return 1
-    echo "$token"
+  local token
+  token=$(op "$@" signin -f) || return 1
+  echo "$token"
 }
 
 start_interactive_shell() {
-    if command -v zsh >/dev/null 2>&1; then
-        exec zsh -i
-    else
-        log_error "zsh not found, falling back to default shell"
-        exec "$SHELL" -i
-    fi
+  if command -v zsh >/dev/null 2>&1; then
+    exec zsh -i
+  else
+    log_error "zsh not found, falling back to default shell"
+    exec "$SHELL" -i
+  fi
 }
 
 get_config_dir() {
-  if [ -z "${1:-}" ];then
+  if [ -z "${1:-}" ]; then
     log_error "pass a environment file to get_config_dir"
     exit 1
   fi
 
   local config_dir
-  if [ -n "${XDG_CONFIG_HOME:-}" ];then
+  if [ -n "${XDG_CONFIG_HOME:-}" ]; then
     config_dir="${XDG_CONFIG_HOME}/1p-env"
   fi
 
-
-  if [ -z "$config_dir" ];then
+  if [ -z "$config_dir" ]; then
     config_dir="$HOME/.1p-env"
   fi
 
-  if [ -z "$config_dir" ];then
+  if [ -z "$config_dir" ]; then
     log_error "could not find configuration directory: '$config_dir'"
     exit 1
   fi
 
-  if [ ! -d "$config_dir" ];then
+  if [ ! -d "$config_dir" ]; then
     log_error "Unknown configuration dir: '$config_dir'"
     exit 1
   fi
 
-  if [ ! -f "$config_dir/$1" ];then
+  if [ ! -f "$config_dir/$1" ]; then
     log_error "Can't find environment file '$1' in '$config_dir'"
     exit 1
   fi
@@ -80,56 +79,56 @@ function required_config_vars() {
 }
 
 cleanup() {
-    # Add cleanup tasks here if needed
-    exit "${1:-0}"
+  # Add cleanup tasks here if needed
+  exit "${1:-0}"
 }
 
 main() {
-    if [ -n "${ONEP_SCRIPT_LOADED:-}" ] && [ "$ONEP_SCRIPT_LOADED" == "true" ];then
-      log_error "Already running in a $0 subshell"
-      exit 1
-    fi
-    
-    # load script config
-    local config_path
-    config_path=$(get_config_dir "config")
-    source "$config_path"
+  if [ -n "${ONEP_SCRIPT_LOADED:-}" ] && [ "$ONEP_SCRIPT_LOADED" == "true" ]; then
+    log_error "Already running in a $0 subshell"
+    exit 1
+  fi
 
-    required_config_vars ACCOUNT DEFAULT_ENVIRONMENT
+  # load script config
+  local config_path
+  config_path=$(get_config_dir "config")
+  source "$config_path"
 
-    local env="$DEFAULT_ENVIRONMENT"
-    if [ -n "${1:-}" ];then
-      env="$1"
-    fi
+  required_config_vars ACCOUNT DEFAULT_ENVIRONMENT
 
-    # Use ~/.1p-env or ~/.config/1p-env as configuration directory
-    local env_path
-    env_path=$(get_config_dir "$env")
+  local env="$DEFAULT_ENVIRONMENT"
+  if [ -n "${1:-}" ]; then
+    env="$1"
+  fi
 
-    local op_args=()
-    if [[ -n "${ACCOUNT:-}" ]]; then
-      op_args=("--account" "$ACCOUNT")
-    fi
+  # Use ~/.1p-env or ~/.config/1p-env as configuration directory
+  local env_path
+  env_path=$(get_config_dir "$env")
 
-    # Set up trap for cleanup
-    trap 'cleanup $?' EXIT INT TERM
+  local op_args=()
+  if [[ -n "${ACCOUNT:-}" ]]; then
+    op_args=("--account" "$ACCOUNT")
+  fi
 
-    # Get 1Password token
-    local optoken=""
-    if ! optoken=$(get_op_token "${op_args[@]}"); then
-        log_error "Failed to obtain 1Password token"
-        exit 1
-    fi
+  # Set up trap for cleanup
+  trap 'cleanup $?' EXIT INT TERM
 
-    # Eval the token
-    # shellcheck disable=SC1090
-    eval "$optoken"
+  # Get 1Password token
+  local optoken=""
+  if ! optoken=$(get_op_token "${op_args[@]}"); then
+    log_error "Failed to obtain 1Password token"
+    exit 1
+  fi
 
-    # Inject the environment file into the environment
-    eval "$(op "${op_args[@]}" inject -i "$env_path")"
-    export RPROMPT_PREFIX="%F{#e34530%} ${env}%F{default}"
-    export ONEP_SCRIPT_LOADED="true"
-    start_interactive_shell
+  # Eval the token
+  # shellcheck disable=SC1090
+  eval "$optoken"
+
+  # Inject the environment file into the environment
+  eval "$(op "${op_args[@]}" inject -i "$env_path")"
+  export RPROMPT_PREFIX="%F{#e34530%} ${env}%F{default}"
+  export ONEP_SCRIPT_LOADED="true"
+  start_interactive_shell
 }
 
 # Execute main function with all arguments
