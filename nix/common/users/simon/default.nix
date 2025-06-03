@@ -213,7 +213,7 @@ in {
         la = "ls -A --color";
       };
 
-      initExtra = ''
+      initContent = ''
         # Load custom prompts
         fpath=($DOTFILES/zsh/prompts $fpath)
         autoload -Uz promptinit; promptinit

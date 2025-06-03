@@ -44,6 +44,7 @@ in {
       tmuxPlugins.fzf-tmux-url
       tmuxPlugins.vim-tmux-navigator
       tmuxPlugins.sensible
+      tmuxPlugins.gruvbox
     ];
     extraConfig = ''
 
