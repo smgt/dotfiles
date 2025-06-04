@@ -27,27 +27,26 @@ in {
     aggressiveResize = true;
     clock24 = true;
     plugins = with pkgs; [
-      {
-        plugin = tmux-catppuccin;
-        extraConfig = ''
-          set -g @catppuccin_flavor 'frappe'
-          set -g @catppuccin_window_status_style "basic"
-          set -g "@catppuccin_pane_default_text" "derp asdf"
-          set -g @catppuccin_status_left_separator ""
-          set -g "@catppuccin_host_icon" " 󰒋 "
-          set -g "@catppuccin_session_icon" "  "
-          set -g "@catppuccin_date_time_icon" " 󰃰 "
-          set -g "@catppuccin_window_text" " #(pwd=\"#{pane_current_path}\"; echo $\{pwd####*/\})"
-          set -g "@catppuccin_window_current_text" " #(pwd=\"#{pane_current_path}\"; echo $\{pwd####*/\})"
-        '';
-      }
+      # {
+      #   plugin = tmux-catppuccin;
+      #   extraConfig = ''
+      #     set -g @catppuccin_flavor 'frappe'
+      #     set -g @catppuccin_window_status_style "basic"
+      #     set -g "@catppuccin_pane_default_text" "derp asdf"
+      #     set -g @catppuccin_status_left_separator ""
+      #     set -g "@catppuccin_host_icon" " 󰒋 "
+      #     set -g "@catppuccin_session_icon" "  "
+      #     set -g "@catppuccin_date_time_icon" " 󰃰 "
+      #     set -g "@catppuccin_window_text" " #(pwd=\"#{pane_current_path}\"; echo $\{pwd####*/\})"
+      #     set -g "@catppuccin_window_current_text" " #(pwd=\"#{pane_current_path}\"; echo $\{pwd####*/\})"
+      #   '';
+      # }
       tmuxPlugins.fzf-tmux-url
       tmuxPlugins.vim-tmux-navigator
       tmuxPlugins.sensible
       tmuxPlugins.gruvbox
     ];
     extraConfig = ''
-
       # Allow passthrough codes for ESCAPE codes
       set -g allow-passthrough on
       # Set escape time to get rid of the lag in nvim when pressing ESC
