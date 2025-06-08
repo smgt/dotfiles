@@ -1,10 +1,13 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
-    ../../common
-    ../../common/users/home-manager.nix
-    /etc/nixos/hardware-configuration.nix
+    ./hardware-configuration.nix
     ../../modules/microsocks.nix
     ../../modules/tailscale.nix
   ];

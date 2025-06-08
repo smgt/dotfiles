@@ -1,9 +1,11 @@
-{ config, pkgs, lib, ... }:
-let unstable = pkgs.unstable or pkgs;
-in {
+{ inputs, ... }:
+{ config, pkgs, ... }:
+{
   imports = [ ./tmux.nix ];
 
   home = {
+    username = "simon";
+    homeDirectory = "/home/simon";
     sessionVariables = {
       DOTFILES = "$HOME/.dotfiles";
       GPG_TTY = "$(tty)";
@@ -11,58 +13,66 @@ in {
       PAGER = "less -R";
       MANPAGER = "nvim +Man!";
     };
+    stateVersion = "25.05";
 
-    sessionPath =
-      [ "$HOME/bin" "$DOTFILES/bin" "$HOME/go/bin" "$HOME/.local/bin" ];
+    sessionPath = [
+      "$HOME/bin"
+      "$DOTFILES/bin"
+      "$HOME/go/bin"
+      "$HOME/.local/bin"
+    ];
 
-    file = { ".terraformrc".source = ../../../config/terraform/terraformrc; };
+    file = {
+      ".terraformrc".source = ../../config/terraform/terraformrc;
+      ".config/zsh/prompt_smgt_setup".source = ../../../zsh/prompts/prompt_smgt_setup;
+    };
 
-    packages = [
+    packages = with pkgs; [
       # Tooling
-      pkgs.entr
-      pkgs.buf
-      pkgs.docker-compose
-      pkgs.tig
-      pkgs.git-lfs
-      pkgs.dive
-      pkgs.passage
-      pkgs.difftastic
-      pkgs.glab
-      pkgs.fx
-      pkgs.jq
+      entr
+      buf
+      docker-compose
+      tig
+      git-lfs
+      dive
+      passage
+      difftastic
+      glab
+      fx
+      jq
       # Language servers
-      pkgs.yaml-language-server
-      pkgs.vscode-langservers-extracted
-      pkgs.gopls
-      pkgs.harper
-      pkgs.terraform-ls
-      pkgs.nil
-      pkgs.rust-analyzer
+      yaml-language-server
+      vscode-langservers-extracted
+      gopls
+      harper
+      terraform-ls
+      nil
+      rust-analyzer
       # Linters
-      pkgs.nixd
-      pkgs.hadolint
-      pkgs.golangci-lint
-      pkgs.checkmate
-      pkgs.write-good
-      pkgs.statix
-      pkgs.semgrep
-      pkgs.gosec
-      pkgs.revive
-      pkgs.checkmate
-      pkgs.clippy
+      nixd
+      hadolint
+      golangci-lint
+      checkmate
+      write-good
+      statix
+      semgrep
+      gosec
+      revive
+      checkmate
+      clippy
       # Formatters
-      pkgs.gofumpt
-      pkgs.gotools
-      pkgs.hclfmt
-      pkgs.nixfmt-rfc-style
+      gofumpt
+      gotools
+      hclfmt
+      nixfmt-rfc-style
       # Go
-      pkgs.delve
-      pkgs.impl
-      pkgs.govulncheck
-      pkgs.gomodifytags
-      pkgs.gotestsum
+      delve
+      impl
+      govulncheck
+      gomodifytags
+      gotestsum
       # Other
-      pkgs.asn
+      asn
     ];
   };
 
@@ -109,14 +119,20 @@ in {
     # };
     #
 
-    btop = { enable = true; };
+    btop = {
+      enable = true;
+    };
 
     # Enable direnv and nix-direnv
     direnv = {
       enable = true;
       nix-direnv.enable = true;
       enableZshIntegration = true;
-      config = { global = { warn_timeout = "5m"; }; };
+      config = {
+        global = {
+          warn_timeout = "5m";
+        };
+      };
     };
 
     zoxide = {
@@ -132,12 +148,25 @@ in {
       lfs.enable = true;
       #diff-so-fancy.enable = true;
       # difftastic.enable = true;
-      includes = [{
-        condition = "hasconfig:remote.*.url:git@gitlab.com:readly-ab/**";
-        contents = { user = { email = "simon.gate@readly.com"; }; };
-      }];
-      ignores =
-        [ ".direnv" "tmp" ".DS_Store" "*.swp" ".env" "coverage.out" ".aider*" ];
+      includes = [
+        {
+          condition = "hasconfig:remote.*.url:git@gitlab.com:readly-ab/**";
+          contents = {
+            user = {
+              email = "simon.gate@readly.com";
+            };
+          };
+        }
+      ];
+      ignores = [
+        ".direnv"
+        "tmp"
+        ".DS_Store"
+        "*.swp"
+        ".env"
+        "coverage.out"
+        ".aider*"
+      ];
       aliases = {
         dlog = "-c diff.external=difft log --ext-diff";
         dshow = "-c diff.external=difft show --ext-diff";
@@ -151,8 +180,12 @@ in {
         push.autosetupremote = true;
         github.user = "smgt";
         core.editor = "nvim";
-        color = { ui = "auto"; };
-        merge = { conflictstyle = "diff3"; };
+        color = {
+          ui = "auto";
+        };
+        merge = {
+          conflictstyle = "diff3";
+        };
         fetch = {
           prune = true;
           pruneTags = true;
@@ -161,7 +194,9 @@ in {
       };
     };
 
-    awscli = { enable = true; };
+    awscli = {
+      enable = true;
+    };
 
     bat = {
       enable = true;
@@ -174,8 +209,12 @@ in {
     ssh = {
       enable = true;
       matchBlocks = {
-        "*" = { forwardAgent = false; };
-        "smgt-dev" = { hostname = "100.93.118.110"; };
+        "*" = {
+          forwardAgent = false;
+        };
+        "smgt-dev" = {
+          hostname = "100.93.118.110";
+        };
         "*.dev.readly.com !nat.dev.readly.com" = {
           user = "ubuntu";
           proxyJump = "ec2-user@nat.dev.readly.com";
@@ -249,7 +288,7 @@ in {
 
       initContent = ''
         # Load custom prompts
-        fpath=($DOTFILES/zsh/prompts $fpath)
+        fpath=($HOME/.config/zsh $fpath)
         autoload -Uz promptinit; promptinit
         prompt smgt
 
@@ -287,7 +326,12 @@ in {
         zle -N edit-command-line
         bindkey '^X^E' edit-command-line
 
-        autoload -U $HOME/.dotfiles/zsh/functions/*(:t)
+        # Verbose completion
+        zstyle ':completion:*' verbose yes
+        zstyle ':completion:*:descriptions' format '%B%d%b'
+        zstyle ':completion:*:messages' format '%d'
+        zstyle ':completion:*:warnings' format 'No matches for: %d'
+        zstyle ':completion:*' group-name ""
 
         # Load local config file
         [[ -a ~/.localrc ]] && source ~/.localrc
@@ -296,18 +340,31 @@ in {
 
     go = {
       enable = true;
-      goPrivate = [ "gitlab.com/readly-ab" "buf.build/gen/go" ];
+      goPrivate = [
+        "gitlab.com/readly-ab"
+        "buf.build/gen/go"
+      ];
     };
 
     fd = {
       enable = true;
       hidden = true;
-      ignores = [ "vendor/" ".git/" "npm_modules" ".terraform" ".direnv" ];
+      ignores = [
+        "vendor/"
+        ".git/"
+        "npm_modules"
+        ".terraform"
+        ".direnv"
+      ];
     };
 
     ripgrep = {
       enable = true;
-      arguments = [ "--glob=!git/*" "--glob=!vendor/*" "--smart-case" ];
+      arguments = [
+        "--glob=!git/*"
+        "--glob=!vendor/*"
+        "--smart-case"
+      ];
     };
 
     home-manager.enable = true;

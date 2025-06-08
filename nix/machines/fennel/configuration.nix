@@ -1,11 +1,14 @@
-{ config, lib, pkgs, ... }:
-let unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
-in with lib; {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib;
+{
   imports = [
-    ../../common
-    ../../common/users/home-manager.nix
-    /etc/nixos/hardware-configuration.nix
-    /etc/nixos/networking.nix
+    ./hardware-configuration.nix
+    ./networking.nix
     ../../modules/tailscale.nix
   ];
 
@@ -22,7 +25,11 @@ in with lib; {
     networkmanager.enable = true;
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 22 80 443 ];
+      allowedTCPPorts = [
+        22
+        80
+        443
+      ];
     };
   };
 
@@ -53,13 +60,15 @@ in with lib; {
           Type = "oneshot";
           User = "git";
           ExecStart = "${
-              pkgs.writeShellApplication {
-                name = "forgejo-backup";
-                runtimeInputs = [ pkgs.rsync pkgs.openssh ];
-                text =
-                  "rsync -avz --delete /var/lib/forgejo/dump/ simon@paprika.kaga.se:/forgejo";
-              }
-            }/bin/forgejo-backup";
+            pkgs.writeShellApplication {
+              name = "forgejo-backup";
+              runtimeInputs = [
+                pkgs.rsync
+                pkgs.openssh
+              ];
+              text = "rsync -avz --delete /var/lib/forgejo/dump/ simon@paprika.kaga.se:/forgejo";
+            }
+          }/bin/forgejo-backup";
         };
       };
     };
@@ -76,7 +85,9 @@ in with lib; {
 
     openssh = {
       enable = true;
-      settings = { PasswordAuthentication = false; };
+      settings = {
+        PasswordAuthentication = false;
+      };
     };
 
     caddy = {
@@ -97,7 +108,11 @@ in with lib; {
           '';
         };
         "smgt.me" = {
-          serverAliases = [ "www.smgt.me" "simongate.com" "www.simongate.com" ];
+          serverAliases = [
+            "www.smgt.me"
+            "simongate.com"
+            "www.simongate.com"
+          ];
           logFormat = ''
             output file ${config.services.caddy.logDir}/smgt-access.log {
               roll_size 100mb
@@ -117,7 +132,6 @@ in with lib; {
 
     forgejo = {
       enable = true;
-      package = unstable.forgejo;
       user = "git";
       lfs.enable = true;
       database = {
@@ -132,7 +146,9 @@ in with lib; {
         type = "tar.bz2";
       };
       settings = {
-        default = { RUN_MODE = "prod"; };
+        default = {
+          RUN_MODE = "prod";
+        };
         server = {
           ROOT_URL = "https://0xee.cc";
           SSH_DOMAIN = "0xee.cc";
@@ -160,7 +176,9 @@ in with lib; {
           ENABLE_OPENID_SIGNIN = true;
           ENABLE_OPENID_SIGNUP = false;
         };
-        session = { PROVIDER = "file"; };
+        session = {
+          PROVIDER = "file";
+        };
         # webhook = { ALLOWED_HOST_LIST = "ci.0xee.cc"; };
       };
     };
@@ -169,10 +187,12 @@ in with lib; {
       enable = true;
       package = pkgs.postgresql_16;
       ensureDatabases = [ "forgejo" ];
-      ensureUsers = [{
-        name = "forgejo";
-        ensureDBOwnership = true;
-      }];
+      ensureUsers = [
+        {
+          name = "forgejo";
+          ensureDBOwnership = true;
+        }
+      ];
       authentication = pkgs.lib.mkOverride 10 ''
         #type database  DBuser  auth-method
         local sameuser  all     peer       map=superuser_map

@@ -1,12 +1,12 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports =
-    [
-      ../../common
-      ../../common/users/home-manager.nix
-      /etc/nixos/hardware-configuration.nix
-    ];
+  imports = [ ./hardware-configuration.nix ];
 
   boot.tmp.cleanOnBoot = true;
   zramSwap.enable = true;
@@ -25,7 +25,6 @@
     networkmanager.enable = true; # Easiest to use and most distros use this by default.
     firewall.enable = false;
   };
-
 
   system.stateVersion = "24.05";
 }

@@ -1,10 +1,13 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
-    ../../common
-    ../../common/users/home-manager.nix
-    /etc/nixos/hardware-configuration.nix
+    ./hardware-configuration.nix
     ../../modules/tailscale.nix
   ];
 
@@ -66,13 +69,15 @@
           Type = "oneshot";
           User = "simon";
           ExecStart = "${
-              pkgs.writeShellApplication {
-                name = "homeassistant-backup";
-                runtimeInputs = [ pkgs.rsync pkgs.openssh ];
-                text =
-                  "rsync -avz --delete /srv/homeassistant/ simon@paprika.kaga.se:/homeassistant";
-              }
-            }/bin/homeassistant-backup";
+            pkgs.writeShellApplication {
+              name = "homeassistant-backup";
+              runtimeInputs = [
+                pkgs.rsync
+                pkgs.openssh
+              ];
+              text = "rsync -avz --delete /srv/homeassistant/ simon@paprika.kaga.se:/homeassistant";
+            }
+          }/bin/homeassistant-backup";
         };
       };
       "kuma-backup" = {
@@ -80,13 +85,15 @@
           Type = "oneshot";
           User = "simon";
           ExecStart = "${
-              pkgs.writeShellApplication {
-                name = "kuma-backup";
-                runtimeInputs = [ pkgs.rsync pkgs.openssh ];
-                text =
-                  "rsync -avz --delete /srv/kuma/ simon@paprika.kaga.se:/kuma";
-              }
-            }/bin/kuma-backup";
+            pkgs.writeShellApplication {
+              name = "kuma-backup";
+              runtimeInputs = [
+                pkgs.rsync
+                pkgs.openssh
+              ];
+              text = "rsync -avz --delete /srv/kuma/ simon@paprika.kaga.se:/kuma";
+            }
+          }/bin/kuma-backup";
         };
       };
       "evcc-backup" = {
@@ -94,13 +101,15 @@
           Type = "oneshot";
           User = "simon";
           ExecStart = "${
-              pkgs.writeShellApplication {
-                name = "evcc-backup";
-                runtimeInputs = [ pkgs.rsync pkgs.openssh ];
-                text =
-                  "rsync -avz --delete /srv/evcc/ simon@paprika.kaga.se:/evcc";
-              }
-            }/bin/evcc-backup";
+            pkgs.writeShellApplication {
+              name = "evcc-backup";
+              runtimeInputs = [
+                pkgs.rsync
+                pkgs.openssh
+              ];
+              text = "rsync -avz --delete /srv/evcc/ simon@paprika.kaga.se:/evcc";
+            }
+          }/bin/evcc-backup";
         };
       };
     };
@@ -116,15 +125,22 @@
         interface = "eno1";
       };
     };
-    interfaces.iot.ipv4.addresses = [{
-      address = "10.68.16.2";
-      prefixLength = 24;
-    }];
+    interfaces.iot.ipv4.addresses = [
+      {
+        address = "10.68.16.2";
+        prefixLength = 24;
+      }
+    ];
   };
 
   virtualisation.docker.enable = true;
 
-  environment = { systemPackages = with pkgs; [ docker-compose nut ]; };
+  environment = {
+    systemPackages = with pkgs; [
+      docker-compose
+      nut
+    ];
+  };
 
   power.ups = {
     enable = true;
@@ -136,11 +152,14 @@
     };
     upsd = {
       enable = true;
-      listen = [{ address = "0.0.0.0"; }];
+      listen = [ { address = "0.0.0.0"; } ];
     };
     users = {
       admin = {
-        actions = [ "set" "fsd" ];
+        actions = [
+          "set"
+          "fsd"
+        ];
         instcmds = [ "all" ];
         passwordFile = "/etc/nut/admin";
       };
@@ -171,5 +190,4 @@
   # };
 
   system.stateVersion = "23.11";
-  home-manager.users.simon.home.stateVersion = "23.11";
 }

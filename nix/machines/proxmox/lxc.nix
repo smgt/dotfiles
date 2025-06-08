@@ -2,15 +2,17 @@
   config,
   pkgs,
   ...
-}: let
+}:
+let
   hostname = "nixos01";
   user = "simon";
   password = "asdfasdf";
 
   timeZone = "Europe/Stockholm";
   defaultLocale = "en_US.UTF-8";
-in {
-  imports = [<nixpkgs/nixos/modules/virtualisation/lxc-container.nix>];
+in
+{
+  imports = [ <nixpkgs/nixos/modules/virtualisation/lxc-container.nix> ];
 
   networking.hostName = hostname;
 
@@ -49,18 +51,18 @@ in {
     users."${user}" = {
       isNormalUser = true;
       password = password;
-      extraGroups = ["wheel"];
+      extraGroups = [ "wheel" ];
     };
   };
 
   # Enable passwordless sudo.
   security.sudo.extraRules = [
     {
-      users = [user];
+      users = [ user ];
       commands = [
         {
           command = "ALL";
-          options = ["NOPASSWD"];
+          options = [ "NOPASSWD" ];
         }
       ];
     }
@@ -74,7 +76,10 @@ in {
     "sys-fs-fuse-connections.mount"
   ];
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   system.stateVersion = "24.05";
 }

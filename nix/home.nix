@@ -1,14 +1,18 @@
 { config, pkgs, ... }:
 let
-  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
-in {
+  unstable = import <nixos-unstable> {
+    config = {
+      allowUnfree = true;
+    };
+  };
+in
+{
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "simon";
   home.homeDirectory = "/home/simon";
 
-  imports = 
-  [
+  imports = [
     "/home/simon/.dotfiles/nix/common/users/simon"
   ];
 

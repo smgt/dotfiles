@@ -17,7 +17,8 @@ let
     };
   };
 
-in {
+in
+{
   programs.tmux = {
     enable = true;
     keyMode = "vi";
