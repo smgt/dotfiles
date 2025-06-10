@@ -1,6 +1,5 @@
 { inputs, ... }:
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   imports = [ ./tmux.nix ];
 
   home = {
@@ -15,16 +14,13 @@
     };
     stateVersion = "25.05";
 
-    sessionPath = [
-      "$HOME/bin"
-      "$DOTFILES/bin"
-      "$HOME/go/bin"
-      "$HOME/.local/bin"
-    ];
+    sessionPath =
+      [ "$HOME/bin" "$DOTFILES/bin" "$HOME/go/bin" "$HOME/.local/bin" ];
 
     file = {
       ".terraformrc".source = ../../config/terraform/terraformrc;
-      ".config/zsh/prompt_smgt_setup".source = ../../../zsh/prompts/prompt_smgt_setup;
+      ".config/zsh/prompt_smgt_setup".source =
+        ../../../zsh/prompts/prompt_smgt_setup;
     };
 
     packages = with pkgs; [
@@ -119,20 +115,14 @@
     # };
     #
 
-    btop = {
-      enable = true;
-    };
+    btop = { enable = true; };
 
     # Enable direnv and nix-direnv
     direnv = {
       enable = true;
       nix-direnv.enable = true;
       enableZshIntegration = true;
-      config = {
-        global = {
-          warn_timeout = "5m";
-        };
-      };
+      config = { global = { warn_timeout = "5m"; }; };
     };
 
     zoxide = {
@@ -148,25 +138,12 @@
       lfs.enable = true;
       #diff-so-fancy.enable = true;
       # difftastic.enable = true;
-      includes = [
-        {
-          condition = "hasconfig:remote.*.url:git@gitlab.com:readly-ab/**";
-          contents = {
-            user = {
-              email = "simon.gate@readly.com";
-            };
-          };
-        }
-      ];
-      ignores = [
-        ".direnv"
-        "tmp"
-        ".DS_Store"
-        "*.swp"
-        ".env"
-        "coverage.out"
-        ".aider*"
-      ];
+      includes = [{
+        condition = "hasconfig:remote.*.url:git@gitlab.com:readly-ab/**";
+        contents = { user = { email = "simon.gate@readly.com"; }; };
+      }];
+      ignores =
+        [ ".direnv" "tmp" ".DS_Store" "*.swp" ".env" "coverage.out" ".aider*" ];
       aliases = {
         dlog = "-c diff.external=difft log --ext-diff";
         dshow = "-c diff.external=difft show --ext-diff";
@@ -180,12 +157,8 @@
         push.autosetupremote = true;
         github.user = "smgt";
         core.editor = "nvim";
-        color = {
-          ui = "auto";
-        };
-        merge = {
-          conflictstyle = "diff3";
-        };
+        color = { ui = "auto"; };
+        merge = { conflictstyle = "diff3"; };
         fetch = {
           prune = true;
           pruneTags = true;
@@ -194,9 +167,7 @@
       };
     };
 
-    awscli = {
-      enable = true;
-    };
+    awscli = { enable = true; };
 
     bat = {
       enable = true;
@@ -209,12 +180,8 @@
     ssh = {
       enable = true;
       matchBlocks = {
-        "*" = {
-          forwardAgent = false;
-        };
-        "smgt-dev" = {
-          hostname = "100.93.118.110";
-        };
+        "*" = { forwardAgent = false; };
+        "smgt-dev" = { hostname = "100.93.118.110"; };
         "*.dev.readly.com !nat.dev.readly.com" = {
           user = "ubuntu";
           proxyJump = "ec2-user@nat.dev.readly.com";
@@ -340,31 +307,18 @@
 
     go = {
       enable = true;
-      goPrivate = [
-        "gitlab.com/readly-ab"
-        "buf.build/gen/go"
-      ];
+      goPrivate = [ "gitlab.com/readly-ab" "buf.build/gen/go" ];
     };
 
     fd = {
       enable = true;
       hidden = true;
-      ignores = [
-        "vendor/"
-        ".git/"
-        "npm_modules"
-        ".terraform"
-        ".direnv"
-      ];
+      ignores = [ "vendor/" ".git/" "npm_modules" ".terraform" ".direnv" ];
     };
 
     ripgrep = {
       enable = true;
-      arguments = [
-        "--glob=!git/*"
-        "--glob=!vendor/*"
-        "--smart-case"
-      ];
+      arguments = [ "--glob=!git/*" "--glob=!vendor/*" "--smart-case" ];
     };
 
     home-manager.enable = true;

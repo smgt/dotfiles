@@ -1,11 +1,7 @@
-{
-  nixpkgs,
-  overlays,
-  inputs,
-}:
+{ nixpkgs, overlays, inputs, }:
 
 name:
-{ system, user }:
+{ system ? "x86_64-linux", user ? "simon" }:
 
 let
   # The config files for this system.
@@ -13,8 +9,7 @@ let
   userOSConfig = ../users;
   userHMConfig = ../users/${user};
   home-manager = inputs.home-manager.nixosModules;
-in
-nixpkgs.lib.nixosSystem rec {
+in nixpkgs.lib.nixosSystem rec {
   inherit system;
 
   modules = [

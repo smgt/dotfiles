@@ -10,22 +10,11 @@
     };
   };
 
-  outputs =
-    {
-      self,
-      nixpkgs,
-      utils,
-      home-manager,
-      ...
-    }@inputs:
+  outputs = { self, nixpkgs, utils, home-manager, ... }@inputs:
     let
       overlays = [ ];
       mkHomeConfiguration =
-        {
-          hostname,
-          system ? "x86_64-linux",
-          stateVersion ? "24.11",
-        }:
+        { hostname, system ? "x86_64-linux", stateVersion ? "24.11", }:
         home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
             inherit system;
@@ -41,46 +30,33 @@
             }
           ];
         };
-      mkSystem = import ./nix/lib/mksystem.nix { inherit overlays nixpkgs inputs; };
-    in
-    {
+      mkHome =
+        import ./nix/lib/mkhome.nix { inherit nixpkgs home-manager inputs; };
+      mkSystem =
+        import ./nix/lib/mksystem.nix { inherit overlays nixpkgs inputs; };
+    in {
       # Home manager configurations
-      homeConfigurations = {
-        "kale" = mkHomeConfiguration { hostname = "kale"; };
-        "sugarsnap" = mkHomeConfiguration {
-          hostname = "sugarsnap";
-          stateVersion = "24.05";
+      homeConfigurations.kale = mkHome "kale" { stateVersion = "25.05"; };
+      homeConfigurations.sugarsnap =
+        mkHome "sugarsnap" { stateVersion = "24.05"; };
+
+      # NixOS configurations
+      nixosConfigurations.testvm = mkSystem "testvm";
+      nixosConfigurations.leek = mkSystem "leek";
+    } //
+    # Per-system outputs (for development shells, etc.)
+    utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
         };
-      };
-      nixosConfigurations.testvm = mkSystem "testvm" {
-        system = "x86_64-linux";
-        user = "simon";
-      };
-      nixosConfigurations.leek = mkSystem "leek" {
-        system = "x86_64-linux";
-        user = "simon";
-      };
-    }
-    //
-      # Per-system outputs (for development shells, etc.)
-      utils.lib.eachDefaultSystem (
-        system:
-        let
-          pkgs = import nixpkgs {
-            inherit system;
-            config.allowUnfree = true;
+      in {
+        formatter = nixpkgs.legacyPackages.${system}.nixfmt-tree;
+        devShells = {
+          default = pkgs.mkShell {
+            packages = with pkgs; [ stylua lua-language-server ];
           };
-        in
-        {
-          formatter = nixpkgs.legacyPackages.${system}.nixfmt-tree;
-          devShells = {
-            default = pkgs.mkShell {
-              packages = with pkgs; [
-                stylua
-                lua-language-server
-              ];
-            };
-          };
-        }
-      );
+        };
+      });
 }
