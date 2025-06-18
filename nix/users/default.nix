@@ -77,6 +77,7 @@ with lib;
   nix = {
     settings = {
       allowed-users = [ "simon" ];
+      trusted-users = [ "simon" ];
       experimental-features = [
         "nix-command"
         "flakes"
