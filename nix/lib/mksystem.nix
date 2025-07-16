@@ -1,4 +1,4 @@
-{ nixpkgs, overlays, inputs, }:
+{ nixpkgs, overlays, disko, inputs, }:
 
 name:
 { system ? "x86_64-linux", user ? "simon" }:
@@ -25,6 +25,7 @@ in nixpkgs.lib.nixosSystem rec {
 
     machineConfig
     userOSConfig
+    disko.nixosModules.disko
     home-manager.home-manager
     {
       home-manager = {

@@ -8,37 +8,25 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, utils, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, utils, home-manager, disko, ... }@inputs:
     let
       overlays = [ ];
-      mkHomeConfiguration =
-        { hostname, system ? "x86_64-linux", stateVersion ? "24.11", }:
-        home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            inherit system;
-            config.allowUnfree = true;
-          };
-          extraSpecialArgs = { inherit system hostname; };
-          modules = [
-            ./nix/users/simon
-            {
-              home = { inherit stateVersion; };
-              programs.home-manager.enable = true;
-              targets.genericLinux.enable = true;
-            }
-          ];
-        };
       mkHome =
         import ./nix/lib/mkhome.nix { inherit nixpkgs home-manager inputs; };
       mkSystem =
-        import ./nix/lib/mksystem.nix { inherit overlays nixpkgs inputs; };
-    in {
+        import ./nix/lib/mksystem.nix { inherit overlays nixpkgs inputs disko; };
+    in
+    {
       # Home manager configurations
       homeConfigurations.kale = mkHome "kale" { stateVersion = "25.05"; };
       homeConfigurations.sugarsnap =
-        mkHome "sugarsnap" { stateVersion = "24.05"; };
+        mkHome "sugarsnap" { stateVersion = "25.05"; };
 
       # NixOS configurations
       nixosConfigurations.testvm = mkSystem "testvm";
