@@ -36,6 +36,7 @@
       glab
       fx
       jq
+      jo
       # Language servers
       yaml-language-server
       vscode-langservers-extracted
