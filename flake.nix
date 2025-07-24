@@ -25,13 +25,13 @@
     {
       # Home manager configurations
       homeConfigurations.kale = mkHome "kale" { stateVersion = "25.05"; };
-      homeConfigurations.sugarsnap =
-        mkHome "sugarsnap" { stateVersion = "25.05"; };
+      homeConfigurations.sugarsnap = mkHome "sugarsnap" { stateVersion = "25.05"; };
 
       # NixOS configurations
       nixosConfigurations = {
-        testvm = mkSystem "testvm";
-        leek = mkSystem "leek";
+        testvm = mkSystem "testvm" {};
+        leek = mkSystem "leek" {};
+        proxmox = mkSystem "proxmox" {};
       };
     } //
     # Per-system outputs (for development shells, etc.)
