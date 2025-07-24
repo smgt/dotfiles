@@ -1,4 +1,4 @@
-{ nixpkgs, inputs, home-manager, }:
+{ nixpkgs, inputs, home-manager }:
 hostname:
 { stateVersion, system ? "x86_64-linux", user ? "simon" }:
 
