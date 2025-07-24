@@ -12,27 +12,27 @@ hostname=$(hostname)
 # merge in defaults and keymaps
 
 if [ -f $sysresources ]; then
-    xrdb -merge $sysresources
+	xrdb -merge $sysresources
 fi
 
 if [ -f $sysmodmap ]; then
-    xmodmap $sysmodmap
+	xmodmap $sysmodmap
 fi
 
 if [ -f "$userresources" ]; then
-    xrdb -merge "$userresources"
+	xrdb -merge "$userresources"
 fi
 
 if [ -f "$localresource" ]; then
-    xrdb -merge "$localresource"
+	xrdb -merge "$localresource"
 fi
 
 if [ -f "$usermodmap" ]; then
-    xmodmap "$usermodmap"
+	xmodmap "$usermodmap"
 fi
 
 if [ -f "$xbindkeys" ]; then
-  xbindkeys
+	xbindkeys
 fi
 
 # start some nice programs
@@ -44,8 +44,8 @@ fi
 #  unset f
 # fi
 
-if [ -f "$HOME/.xinitrc.local" ];then
-  . "$HOME/.xinitrc.local"
+if [ -f "$HOME/.xinitrc.local" ]; then
+	. "$HOME/.xinitrc.local"
 fi
 
 #export XDG_CURRENT_DESKTOP=gnome
@@ -67,14 +67,15 @@ systemctl --user import-environment DISPLAY XDG_CURRENT_DESKTOP
 ~/.fehbg &
 # type xfsettingsd > /dev/null 2>&1 && { xfsettingsd & }
 # type /usr/lib/xfce-polkit/xfce-polkit > /dev/null 2>&1 && { /usr/lib/xfce-polkit/xfce-polkit & }
-type /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 > /dev/null 2>&1 && { /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & }
+type /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 >/dev/null 2>&1 && { /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & }
 # type dunst > /dev/null 2>&1 && { dunst & }
-type flameshot > /dev/null 2>&1 && { flameshot & }
-type dropbox > /dev/null 2>&1 && { dropbox & }
+type flameshot >/dev/null 2>&1 && { flameshot & }
+type dropbox >/dev/null 2>&1 && { dropbox & }
 type xss-lock >/dev/null 2>&1 && { xss-lock -- "$HOME/.dotfiles/bin/lock" & }
-type xssproxy > /dev/null 2>&1 && { xssproxy & }
-type blueman-applet > /dev/null 2>&1 && { blueman-applet & }
+type xssproxy >/dev/null 2>&1 && { xssproxy & }
+type blueman-applet >/dev/null 2>&1 && { blueman-applet & }
 #type picom > /dev/null 2>&1 && { picom & }
-type udiskie > /dev/null 2>&1 && { udiskie --tray --no-automount --notify & }
+type nm-applet >/dev/null 2>&1 && { nm-applet & }
+type udiskie >/dev/null 2>&1 && { udiskie --tray --no-automount --notify & }
 
 exec i3
