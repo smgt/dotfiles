@@ -29,8 +29,10 @@
         mkHome "sugarsnap" { stateVersion = "25.05"; };
 
       # NixOS configurations
-      nixosConfigurations.testvm = mkSystem "testvm";
-      nixosConfigurations.leek = mkSystem "leek";
+      nixosConfigurations = {
+        testvm = mkSystem "testvm";
+        leek = mkSystem "leek";
+      };
     } //
     # Per-system outputs (for development shells, etc.)
     utils.lib.eachDefaultSystem (system:
