@@ -1,8 +1,8 @@
-{ nixpkgs, inputs, home-manager }:
+{ nixpkgs, inputs, home-manager, }:
 hostname:
-{ stateVersion, system ? "x86_64-linux", user ? "simon" }:
+{ stateVersion, system ? "x86_64-linux", user ? "simon", }:
 
-let userHMConfig = ../users/${user};
+let userHMConfig = ../home;
 in home-manager.lib.homeManagerConfiguration {
   pkgs = import nixpkgs {
     inherit system;

@@ -1,14 +1,15 @@
-{ nixpkgs, overlays, disko, inputs, }:
+{ nixpkgs, overlays, disko, inputs, nixos-hardware, }:
 
 name:
-{ system ? "x86_64-linux", user ? "simon" }:
+{ system ? "x86_64-linux", user ? "simon", gui ? false, extraModules ? [ ], }:
 
 let
   # The config files for this system.
   machineConfig = ../machines/${name};
-  userOSConfig = ../users;
-  userHMConfig = ../users/${user};
+  userOSConfig = ../machines;
+  userHMConfig = ../home;
   home-manager = inputs.home-manager.nixosModules;
+  extraModule = extraModules;
 in nixpkgs.lib.nixosSystem rec {
   inherit system;
 
@@ -45,5 +46,5 @@ in nixpkgs.lib.nixosSystem rec {
         currentSystemUser = user;
       };
     }
-  ];
+  ] ++ extraModule;
 }

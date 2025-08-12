@@ -1,9 +1,4 @@
-{
-  lib,
-  pkgs,
-  input,
-  ...
-}:
+{ lib, pkgs, input, ... }:
 let
   ssh_keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICvWEz/NePRXK1BTGU6zbr3ASlQTtqFwT8sEvWgj09ly kale"
@@ -14,9 +9,7 @@ let
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJTcbcxjbrvVWrnUlJSxCNT/O2Zg7HOR6Ne7RsP2PEhf tick"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPYMEc/iU8oLrAse2Z3h5Xq7eZPSalLByghFtE5ETwnI paprika"
   ];
-in
-with lib;
-{
+in with lib; {
   users = {
     users.root = {
       shell = pkgs.zsh;
@@ -32,25 +25,23 @@ with lib;
         "plugdb"
         "libvirtd"
         "dialout"
+        "networkmanager"
       ]; # Enable `sudo` for the user.
       shell = pkgs.zsh;
       openssh.authorizedKeys.keys = ssh_keys;
     };
   };
 
-  security.sudo.extraRules = [
-    {
-      users = [ "simon" ];
-      commands = [
-        {
-          command = "ALL";
-          options = [ "NOPASSWD" ];
-        }
-      ];
-    }
-  ];
+  security.sudo.extraRules = [{
+    users = [ "simon" ];
+    commands = [{
+      command = "ALL";
+      options = [ "NOPASSWD" ];
+    }];
+  }];
 
   programs = {
+    ssh.startAgent = true;
     zsh = {
       enable = true;
       setOptions = [
@@ -78,10 +69,7 @@ with lib;
     settings = {
       allowed-users = [ "simon" ];
       trusted-users = [ "simon" ];
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
+      experimental-features = [ "nix-command" "flakes" ];
       # Add nixcache.kampgate.dev as cache
       substituters = [ "https://nixcache.kampgate.dev" ];
       trusted-public-keys = [
@@ -175,11 +163,7 @@ with lib;
     zsh
   ];
 
-  nixpkgs.config.allowUnfreePredicate =
-    pkg:
-    builtins.elem (lib.getName pkg) [
-      "1password-cli"
-      "terraform"
-    ];
+  nixpkgs.config.allowUnfreePredicate = pkg:
+    builtins.elem (lib.getName pkg) [ "1password-cli" "terraform" ];
 
 }

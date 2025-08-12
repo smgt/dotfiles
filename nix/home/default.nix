@@ -18,9 +18,9 @@
       [ "$HOME/bin" "$DOTFILES/bin" "$HOME/go/bin" "$HOME/.local/bin" ];
 
     file = {
-      ".terraformrc".source = ../../config/terraform/terraformrc;
+      ".terraformrc".source = ../config/terraform/terraformrc;
       ".config/zsh/prompt_smgt_setup".source =
-        ../../../zsh/prompts/prompt_smgt_setup;
+        ../../zsh/prompts/prompt_smgt_setup;
     };
 
     packages = with pkgs; [
