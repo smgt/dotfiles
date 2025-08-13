@@ -100,6 +100,29 @@ in {
         "${mod}+Shift+u" = "move container to output right";
         "${mod}+Shift+c" = "reload";
         "${mod}+Shift+r" = "restart";
+        "${mod}+Ctrl+Shift+minus" = "move scratchpad";
+        "${mod}+Ctrl+minus" = "scratchpad show";
+      };
+      input = {
+        "type:keyboard" = {
+          xkb_layout = "us,se";
+          xkb_variant = ",nodeadkeys";
+          xkb_options = "grp:alt_shift_toggle";
+        };
+        "type:touchpad" = {
+          natural_scroll = "disabled";
+          scroll_factor = "0.6";
+        };
+      };
+      modes = {
+        resize = {
+          Return = "mode default";
+          Escape = "mode default";
+          h = "resize shrink width 10 px or 10 ppt";
+          j = "resize grow height 10 px or 10 ppt";
+          k = "resize shrink height 10 px or 10 ppt";
+          l = "resize grow width 10 px or 10 ppt";
+        };
       };
       terminal = "wezterm";
       fonts = {
@@ -107,6 +130,30 @@ in {
         size = 10.0;
       };
       bars = [{ command = "${pkgs.waybar}/bin/waybar"; }];
+      startup = [
+        {
+          command =
+            "${pkgs.sway}/bin/swaymsg workspace 3 && ${pkgs._1password-gui}/bin/1password";
+        }
+        {
+          command =
+            "${pkgs.sway}/bin/swaymsg workspace 2 && ${pkgs.wezterm}/bin/wezterm start --always-new-process";
+        }
+        {
+          command =
+            "${pkgs.sway}/bin/swaymsg workspace 1 && ${pkgs.firefox}/bin/firefox";
+        }
+      ];
+      assigns = {
+        "1" = [{ app_id = "firefox"; }];
+        "3" = [
+          # { class = "^1Password$"; }
+          { app_id = "org.pulseaudio.pavucontrol"; }
+        ];
+        "4" = [{ class = "^MongoDB Compass$"; }];
+        "8" = [ { class = "^Slack$"; } { class = "^discord$"; } ];
+        "9" = [{ class = "^Spotify$"; }];
+      };
     };
   };
 
@@ -115,6 +162,8 @@ in {
     tray = "always";
     automount = false;
   };
+
+  services.blueman-applet.enable = true;
 
   services.swayidle = let
     lockNow = "${pkgs.swaylock}/bin/swaylock -f";
@@ -167,14 +216,16 @@ in {
   };
   services.dunst = {
     enable = true;
+    iconTheme = {
+      package = pkgs.adwaita-icon-theme;
+      name = "Adwaita";
+    };
     settings = {
       global = {
         font = "IosevkaTerm Nerd Font Mono";
         markup = "yes";
-        format = ''
-          <span foreground='#949498' size='smaller'>%a</span>
-          <b>%s</b>
-          <span>%b</span>'';
+        format =
+          "<span foreground='#949498' size='smaller'>%a</span>\\n<b>%s</b>\\n<span>%b</span>";
         sort = "no";
         indicate_hidden = "yes";
         # alignment = "right";
@@ -184,7 +235,7 @@ in {
         ignore_newline = "no";
         stack_duplicates = "no";
         width = 450;
-        height = 50;
+        height = 100;
         offset = "-0+39";
         origin = "top-right";
         shrink = "no";

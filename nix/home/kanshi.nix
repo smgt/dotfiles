@@ -1,7 +1,7 @@
 { pkgs, ... }:
 let
   homeMonitor = "Dell Inc. DELL U3223QE F57H2P3";
-  workMonitor = "Dell Inc. DELL P2715Q V48W26BS986L";
+  workMonitor = "Dell Inc. DELL U2723QE BBBMCP3";
 in {
   services.kanshi = {
     enable = true;
@@ -44,13 +44,13 @@ in {
               status = "enable";
               criteria = workMonitor;
               scale = 2.0;
-              position = "0,0";
+              position = "1440,0";
               mode = "3840x2160";
             }
             {
               status = "enable";
               criteria = "eDP-1";
-              position = "1440,0";
+              position = "0,0";
               mode = "2880x1920";
             }
           ];
