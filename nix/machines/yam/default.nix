@@ -51,6 +51,22 @@
         GatewayPorts = "yes";
       };
     };
+    blueman.enable = true;
+    # syncthing = {
+    #   enable = true;
+    #   user = "simon";
+    #   extraFlags = [ "--no-default-folder" ];
+    # };
+  };
+
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+        Experimental = true; # Show battery charge of Bluetooth devices
+      };
+    };
   };
 
   virtualisation.docker.enable = true;
