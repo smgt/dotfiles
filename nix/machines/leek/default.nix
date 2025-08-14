@@ -15,7 +15,13 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  environment.variables.HOSTNAME = "leek";
+  environment = {
+    variables.HOSTNAME = "leek";
+    systemPackages = with pkgs; [
+      docker-compose
+      nut
+    ];
+  };
 
   services = {
     openssh = {
@@ -26,13 +32,47 @@
         PermitRootLogin = "no";
       };
     };
+    avahi = {
+      enable = true;
+      nssmdns4 = true;
+    };
     resolved = {
       enable = true;
+      domains = [
+        "kaga.se"
+        "zebu-yo.ts.net"
+      ];
       extraConfig = ''
-        DNS=10.68.14.1
+        # Required to make e.g. 'ping myStrom-Switch-A46FD0' work
+        ResolveUnicastSingleLabel=yes
+
         DNSStubListener=yes
       '';
     };
+  };
+
+  networking = {
+    hostName = "leek";
+    firewall.enable = false;
+    useNetworkd = true;
+
+    nameservers = [
+      "10.68.14.1"
+      "100.100.100.100"
+    ];
+
+    vlans = {
+      iot = {
+        id = 10;
+        interface = "eno1";
+      };
+    };
+    interfaces.iot.ipv4.addresses = [
+      {
+        address = "10.68.16.2";
+        prefixLength = 24;
+      }
+    ];
   };
 
   systemd = {
@@ -115,32 +155,8 @@
     };
   };
 
-  networking = {
-    hostName = "leek";
-    firewall.enable = false;
-    useNetworkd = true;
-    vlans = {
-      iot = {
-        id = 10;
-        interface = "eno1";
-      };
-    };
-    interfaces.iot.ipv4.addresses = [
-      {
-        address = "10.68.16.2";
-        prefixLength = 24;
-      }
-    ];
-  };
 
   virtualisation.docker.enable = true;
-
-  environment = {
-    systemPackages = with pkgs; [
-      docker-compose
-      nut
-    ];
-  };
 
   power.ups = {
     enable = true;
