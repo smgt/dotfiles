@@ -170,6 +170,7 @@ in {
   };
 
   services.blueman-applet.enable = true;
+  services.nm-applet.enable = true;
 
   services.swayidle = let
     lockNow = "${pkgs.swaylock}/bin/swaylock -f";
@@ -208,6 +209,7 @@ in {
       font = "sans-serif";
     };
   };
+
   systemd.user.services.swaybg = {
     Unit = {
       Description = "swaybg background service";
