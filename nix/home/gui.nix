@@ -170,7 +170,7 @@ in {
   };
 
   services.blueman-applet.enable = true;
-  services.nm-applet.enable = true;
+  services.network-manager-applet.enable = true;
 
   services.swayidle = let
     lockNow = "${pkgs.swaylock}/bin/swaylock -f";
