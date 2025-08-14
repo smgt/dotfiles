@@ -1,6 +1,7 @@
 { pkgs, ... }:
 let
   homeMonitor = "Dell Inc. DELL U3223QE F57H2P3";
+  # homeMonitor = "Unknown Unknown Unknown";
   workMonitor = "Dell Inc. DELL U2723QE BBBMCP3";
 in {
   services.kanshi = {
@@ -19,13 +20,13 @@ in {
               status = "enable";
               criteria = homeMonitor;
               scale = 2.0;
-              position = "0,0";
+              position = "1440,0";
               mode = "3840x2160";
             }
             {
               status = "enable";
               criteria = "eDP-1";
-              position = "240,1080";
+              position = "0,120";
               mode = "2880x1920";
             }
           ];
