@@ -38,6 +38,7 @@
         leek = mkSystem "leek" { };
         proxmox = mkSystem "proxmox" { };
         fennel = mkSystem "fennel" { };
+        smgt-dev = mkSystem "smgt-dev" { };
         yam = mkSystem "yam" {
           extraModules = [
             # Fixes to suspend...
