@@ -4,7 +4,7 @@
   pkgs,
   ...
 }:
-with lib;
+
 {
   imports = [
     ./hardware-configuration.nix
@@ -17,7 +17,7 @@ with lib;
 
   environment = {
     variables.HOSTNAME = "fennel";
-    # systemPackages = with pkgs; [ forgejo-cli ];
+    systemPackages = with pkgs; [ forgejo-cli ];
   };
 
   networking = {
@@ -63,10 +63,14 @@ with lib;
             pkgs.writeShellApplication {
               name = "forgejo-backup";
               runtimeInputs = [
+                pkgs.findutils
                 pkgs.rsync
                 pkgs.openssh
               ];
-              text = "rsync -avz --delete /var/lib/forgejo/dump/ simon@paprika.kaga.se:/forgejo";
+              text = ''
+              find /var/lib/forgejo/dump/ -type f -mtime +15 -exec rm -f {} +
+              rsync -avz --delete /var/lib/forgejo/dump/ simon@paprika.kaga.se:/forgejo
+              '';
             }
           }/bin/forgejo-backup";
         };
