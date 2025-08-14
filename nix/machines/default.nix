@@ -71,9 +71,13 @@ in with lib; {
       trusted-users = [ "simon" ];
       experimental-features = [ "nix-command" "flakes" ];
       # Add nixcache.kampgate.dev as cache
-      substituters = [ "https://nixcache.kampgate.dev" ];
+      substituters = [
+        "https://nixcache.kampgate.dev"
+        "https://nixpkgs-terraform.cachix.org"
+      ];
       trusted-public-keys = [
         "nixcache.kampgate.dev:DQXzXiOJhIGMvYliX7gYD2VcQBcq2ArakAuuWhbsLv4="
+        "nixpkgs-terraform.cachix.org-1:8Sit092rIdAVENA3ZVeH9hzSiqI/jng6JiCrQ1Dmusw="
       ];
     };
     optimise = {

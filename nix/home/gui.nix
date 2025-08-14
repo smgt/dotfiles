@@ -1,7 +1,13 @@
 { config, pkgs, lib, ... }:
 let mod = "Mod4";
 in {
-  imports = [ ./wezterm.nix ./waybar.nix ./kanshi.nix ./thunderbird.nix ];
+  imports = [
+    ./wezterm.nix
+    ./waybar.nix
+    ./kanshi.nix
+    ./thunderbird.nix
+    ./syncthing.nix
+  ];
   home = {
     pointerCursor = {
       name = "Adwaita";
