@@ -7,8 +7,11 @@ in {
     ./kanshi.nix
     ./thunderbird.nix
     ./syncthing.nix
+    ./dunst.nix
   ];
+
   home = {
+    # Make pointer a little bigger and set theme
     pointerCursor = {
       name = "Adwaita";
       package = pkgs.adwaita-icon-theme;
@@ -20,6 +23,8 @@ in {
       sway.enable = true;
     };
   };
+
+  # Enable say
   wayland.windowManager.sway = {
     enable = true;
     package = null;
@@ -163,43 +168,46 @@ in {
     };
   };
 
-  services.udiskie = {
-    enable = true;
-    tray = "always";
-    automount = false;
-  };
+  services = {
+    udiskie = {
+      enable = true;
+      tray = "always";
+      automount = false;
+    };
 
-  services.blueman-applet.enable = true;
-  services.network-manager-applet.enable = true;
+    blueman-applet.enable = true;
 
-  services.swayidle = let
-    lockNow = "${pkgs.swaylock}/bin/swaylock -f";
-    # suspendNow = "${config.systemd.user.systemctlPath} suspend";
-    isOnBattery = pkgs.writeShellScript "is-on-battery" ''
-      [ $(cat /sys/class/power_supply/dc-charger/online) = "0" ] || exit 1
-    '';
-  in {
-    enable = true;
-    timeouts = [
-      {
-        timeout = 5 * 60;
-        command = "${isOnBattery} && ${lockNow}";
-      }
-      {
-        timeout = 15 * 60;
-        command = "${lockNow}";
-      }
-    ];
-    events = [
-      {
-        event = "before-sleep";
-        command = "${lockNow}";
-      }
-      {
-        event = "lock";
-        command = "${lockNow}";
-      }
-    ];
+    network-manager-applet.enable = true;
+
+    swayidle = let
+      lockNow = "${pkgs.swaylock}/bin/swaylock -f";
+      # suspendNow = "${config.systemd.user.systemctlPath} suspend";
+      isOnBattery = pkgs.writeShellScript "is-on-battery" ''
+        [ $(cat /sys/class/power_supply/dc-charger/online) = "0" ] || exit 1
+      '';
+    in {
+      enable = true;
+      timeouts = [
+        {
+          timeout = 5 * 60;
+          command = "${isOnBattery} && ${lockNow}";
+        }
+        {
+          timeout = 15 * 60;
+          command = "${lockNow}";
+        }
+      ];
+      events = [
+        {
+          event = "before-sleep";
+          command = "${lockNow}";
+        }
+        {
+          event = "lock";
+          command = "${lockNow}";
+        }
+      ];
+    };
   };
 
   programs.swaylock = {
@@ -221,73 +229,5 @@ in {
       Type = "simple";
     };
     Install.WantedBy = [ "sway-session.target" ];
-  };
-  services.dunst = {
-    enable = true;
-    iconTheme = {
-      package = pkgs.adwaita-icon-theme;
-      name = "Adwaita";
-    };
-    settings = {
-      global = {
-        font = "IosevkaTerm Nerd Font Mono";
-        markup = "yes";
-        format =
-          "<span foreground='#949498' size='smaller'>%a</span>\\n<b>%s</b>\\n<span>%b</span>";
-        sort = "no";
-        indicate_hidden = "yes";
-        # alignment = "right";
-        #bounce_freq = 0;
-        show_age_threshold = -1;
-        word_wrap = "yes";
-        ignore_newline = "no";
-        stack_duplicates = "no";
-        width = 450;
-        height = 100;
-        offset = "-0+39";
-        origin = "top-right";
-        shrink = "no";
-        transparency = 0;
-        idle_threshold = 0;
-        monitor = 0;
-        follow = "none";
-        sticky_history = "yes";
-        history_length = 15;
-        show_indicators = "yes";
-        line_height = 3;
-        separator_height = 2;
-        padding = 6;
-        horizontal_padding = 6;
-        dmenu = "${pkgs.rofi}/bin/rofi -show drun:";
-        browser = "${pkgs.firefox}/bin/firefox -new-tab";
-        enable_recursive_icon_lookup = true;
-        icon_position = "left";
-        max_icon_size = 50;
-        icon_theme = "Adwaita";
-        frame_width = 2;
-        frame_color = "#8caaee";
-        separator_color = "frame";
-        highlight = "#8caaee";
-      };
-      urgency_low = {
-        background = "#303446";
-        foreground = "#c6d0f5";
-      };
-      urgency_normal = {
-        background = "#303446";
-        foreground = "#c6d0f5";
-      };
-      urgency_critical = {
-        background = "#303446";
-        foreground = "#c6d0f5";
-        frame_color = "#ef9f76";
-      };
-      # shortcuts = {
-      #   close = "ctrl+space";
-      #   close_all = "ctrl+shift+space";
-      #   history = "ctrl+grave";
-      #   context = "ctrl+shift+period";
-      # };
-    };
   };
 }
