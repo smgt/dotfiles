@@ -189,12 +189,17 @@ in {
       enable = true;
       timeouts = [
         {
-          timeout = 5 * 60;
+          timeout = 4 * 60;
           command = "${isOnBattery} && ${lockNow}";
         }
         {
-          timeout = 15 * 60;
+          timeout = 10 * 60;
           command = "${lockNow}";
+        }
+        {
+          timeout = 10 * 65;
+          command = ''swaymsg "output * dpms off"'';
+          resumeCommand = ''swaymsg "output * dpms on"'';
         }
       ];
       events = [
