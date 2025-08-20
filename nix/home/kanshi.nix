@@ -13,6 +13,8 @@ in {
           exec = [
             "${pkgs.sway}/bin/swaymsg workspace 1, move workspace to output '\"${homeMonitor}\"'"
             "${pkgs.sway}/bin/swaymsg workspace 2, move workspace to output '\"${homeMonitor}\"'"
+            "${pkgs.sway}/bin/swaymsg workspace 8, move workspace to output eDP-1"
+            "${pkgs.sway}/bin/swaymsg workspace 9, move workspace to output eDP-1"
             # "~/.config/sway/lid.sh"
           ];
           outputs = [
@@ -38,6 +40,8 @@ in {
           exec = [
             "${pkgs.sway}/bin/swaymsg workspace 1, move workspace to output '\"${workMonitor}\"'"
             "${pkgs.sway}/bin/swaymsg workspace 2, move workspace to output '\"${workMonitor}\"'"
+            "${pkgs.sway}/bin/swaymsg workspace 8, move workspace to output eDP-1"
+            "${pkgs.sway}/bin/swaymsg workspace 9, move workspace to output eDP-1"
             # "~/.config/sway/lid.sh"
           ];
           outputs = [

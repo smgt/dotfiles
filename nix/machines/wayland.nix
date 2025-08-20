@@ -96,6 +96,7 @@
     xdg-desktop-portal-wlr
     pulseaudio
     libnotify
+    ncspot
   ];
 
   # Enable the gnome-keyring secrets vault.
