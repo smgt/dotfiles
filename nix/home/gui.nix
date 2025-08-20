@@ -179,6 +179,8 @@ in {
 
     network-manager-applet.enable = true;
 
+    mpris-proxy.enable = true;
+
     swayidle = let
       lockNow = "${pkgs.swaylock}/bin/swaylock -f";
       # suspendNow = "${config.systemd.user.systemctlPath} suspend";

@@ -18,6 +18,7 @@
       [ "$HOME/bin" "$DOTFILES/bin" "$HOME/go/bin" "$HOME/.local/bin" ];
 
     file = {
+      # TODO: Create the terraform plugin directory: /home/$USER/.terraform.d/plugin-cache
       ".terraformrc".source = ../config/terraform/terraformrc;
       ".config/zsh/prompt_smgt_setup".source =
         ../../zsh/prompts/prompt_smgt_setup;
