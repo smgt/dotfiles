@@ -138,6 +138,7 @@ in with lib; {
     jq
     killall
     libgcc
+    libfido2
     lsof
     lz4
     moreutils
