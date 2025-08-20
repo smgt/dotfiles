@@ -112,6 +112,7 @@ in with lib; {
     bat
     curl
     charm-freeze
+    cachix
     delta
     difftastic
     dfc
