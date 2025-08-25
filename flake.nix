@@ -17,20 +17,35 @@
     smgtvim.url = "git+https://0xee.cc/smgt/nix-nvim";
   };
 
-  outputs = { self, nixpkgs, utils, home-manager, disko, nixos-hardware
-    , nix-flatpak, smgtvim, ... }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      utils,
+      home-manager,
+      disko,
+      nixos-hardware,
+      nix-flatpak,
+      smgtvim,
+      ...
+    }@inputs:
     let
       overlays = [ ];
-      mkHome =
-        import ./nix/lib/mkhome.nix { inherit nixpkgs home-manager inputs; };
+      mkHome = import ./nix/lib/mkhome.nix { inherit nixpkgs home-manager inputs; };
       mkSystem = import ./nix/lib/mksystem.nix {
-        inherit overlays nixpkgs inputs disko nixos-hardware;
+        inherit
+          overlays
+          nixpkgs
+          inputs
+          disko
+          nixos-hardware
+          ;
       };
-    in {
+    in
+    {
       # Home manager configurations
       homeConfigurations.kale = mkHome "kale" { stateVersion = "25.05"; };
-      homeConfigurations.sugarsnap =
-        mkHome "sugarsnap" { stateVersion = "25.05"; };
+      homeConfigurations.sugarsnap = mkHome "sugarsnap" { stateVersion = "25.05"; };
 
       # NixOS configurations
       nixosConfigurations = {
@@ -47,21 +62,28 @@
           ];
         };
       };
-    } //
-    # Per-system outputs (for development shells, etc.)
-    utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-        };
-      in {
-        formatter = nixpkgs.legacyPackages.${system}.nixfmt-tree;
-        devShells = {
-          default = pkgs.mkShell {
-            nativeBuildInputs = [ smgtvim.packages.${system}.default ];
-            packages = with pkgs; [ stylua lua-language-server ];
+    }
+    //
+      # Per-system outputs (for development shells, etc.)
+      utils.lib.eachDefaultSystem (
+        system:
+        let
+          pkgs = import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
           };
-        };
-      });
+        in
+        {
+          formatter = nixpkgs.legacyPackages.${system}.nixfmt-tree;
+          devShells = {
+            default = pkgs.mkShell {
+              nativeBuildInputs = [ smgtvim.packages.${system}.default ];
+              packages = with pkgs; [
+                stylua
+                lua-language-server
+              ];
+            };
+          };
+        }
+      );
 }
