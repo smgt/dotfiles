@@ -1,11 +1,16 @@
-{ modulesPath, config, lib, pkgs, ... }:
-
 {
+  modulesPath,
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     ./hardware-configuration.nix
     ./disk-config.nix
     ../../modules/tailscale.nix
+    ../../modules/steam.nix
     ./../wayland.nix
   ];
 
@@ -17,7 +22,9 @@
       };
       efi.canTouchEfiVariables = true;
     };
-    initrd = { systemd.enable = true; };
+    initrd = {
+      systemd.enable = true;
+    };
   };
 
   networking = {
@@ -28,7 +35,7 @@
     };
     firewall = {
       enable = false;
-      allowedTCPPorts = [ 22 ];
+      allowedTCPPorts = [22];
     };
   };
 
@@ -41,7 +48,9 @@
   };
 
   services = {
-    resolved = { enable = true; };
+    resolved = {
+      enable = true;
+    };
     fwupd.enable = true;
     avahi = {
       enable = true;
