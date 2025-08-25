@@ -1,5 +1,10 @@
-{ config, pkgs, lib, ... }:
-let mod = "Mod4";
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  swayMod = "Mod4";
 in {
   imports = [
     ./wezterm.nix
@@ -45,74 +50,72 @@ in {
         titlebar = false;
         border = 2;
       };
-      modifier = mod;
+      modifier = swayMod;
       floating = {
-        modifier = mod;
+        modifier = swayMod;
         border = 2;
       };
       keybindings = lib.mkOptionDefault {
         # "XF86MonBrightnessDown" = "exec light -G | cut -d'.' -f1 > $WOBSOCK";
         # "XF86MonBrightnessUp" = "exec light -G | cut -d'.' -f1 > $WOBSOCK";
-        XF86AudioRaiseVolume =
-          "exec 'pactl set-sink-volume @DEFAULT_SINK@ +1%'";
-        XF86AudioLowerVolume =
-          "exec 'pactl set-sink-volume @DEFAULT_SINK@ -1%'";
+        XF86AudioRaiseVolume = "exec 'pactl set-sink-volume @DEFAULT_SINK@ +1%'";
+        XF86AudioLowerVolume = "exec 'pactl set-sink-volume @DEFAULT_SINK@ -1%'";
         XF86AudioMute = "exec 'pactl set-sink-mute @DEFAULT_SINK@ toggle'";
-        "${mod}+Return" = "exec wezterm start --always-new-process";
+        "${swayMod}+Return" = "exec wezterm start --always-new-process";
         # "${mod}+Shift+Return" = "exec $HOME/.config/wofi/ssh.sh";
-        "${mod}+Shift+q" = "kill";
-        "${mod}+d" = "exec wofi --show drun --no-action";
+        "${swayMod}+Shift+q" = "kill";
+        "${swayMod}+d" = "exec wofi --show drun --no-action";
         # "${mod}+g" = "exec clipman pick -t wofi";
-        "${mod}+h" = "focus left";
-        "${mod}+j" = "focus down";
-        "${mod}+k" = "focus up";
-        "${mod}+l" = "focus right";
-        "${mod}+Shift+j" = "move left";
-        "${mod}+Shift+k" = "move down";
-        "${mod}+Shift+l" = "move up";
-        "${mod}+Shift+semicolon" = "move right";
-        "${mod}+Shift+Left" = "move left";
-        "${mod}+Shift+Down" = "move down";
-        "${mod}+Shift+Up" = "move up";
-        "${mod}+Shift+Right" = "move right";
-        "${mod}+b" = "split h";
-        "${mod}+v" = "split v";
-        "${mod}+f" = "fullscreen toggle";
-        "${mod}+s" = "layout stacking";
-        "${mod}+w" = "layout tabbed";
-        "${mod}+e" = "layout toggle split";
-        "${mod}+Shift+space" = "floating toggle";
-        "${mod}+space" = "focus mode_toggle";
-        "${mod}+a" = "focus parent";
+        "${swayMod}+h" = "focus left";
+        "${swayMod}+j" = "focus down";
+        "${swayMod}+k" = "focus up";
+        "${swayMod}+l" = "focus right";
+        "${swayMod}+Shift+j" = "move left";
+        "${swayMod}+Shift+k" = "move down";
+        "${swayMod}+Shift+l" = "move up";
+        "${swayMod}+Shift+semicolon" = "move right";
+        "${swayMod}+Shift+Left" = "move left";
+        "${swayMod}+Shift+Down" = "move down";
+        "${swayMod}+Shift+Up" = "move up";
+        "${swayMod}+Shift+Right" = "move right";
+        "${swayMod}+b" = "split h";
+        "${swayMod}+v" = "split v";
+        "${swayMod}+f" = "fullscreen toggle";
+        "${swayMod}+s" = "layout stacking";
+        "${swayMod}+w" = "layout tabbed";
+        "${swayMod}+e" = "layout toggle split";
+        "${swayMod}+Shift+space" = "floating toggle";
+        "${swayMod}+space" = "focus mode_toggle";
+        "${swayMod}+a" = "focus parent";
         #"${mod}+d" = "focus child";
-        "${mod}+1" = "workspace 1";
-        "${mod}+2" = "workspace 2";
-        "${mod}+3" = "workspace 3";
-        "${mod}+4" = "workspace 4";
-        "${mod}+5" = "workspace 5";
-        "${mod}+6" = "workspace 6";
-        "${mod}+7" = "workspace 7";
-        "${mod}+8" = "workspace 8";
-        "${mod}+9" = "workspace 9";
-        "${mod}+0" = "workspace 10";
-        "${mod}+Shift+1" = "move container to workspace 1";
-        "${mod}+Shift+2" = "move container to workspace 2";
-        "${mod}+Shift+3" = "move container to workspace 3";
-        "${mod}+Shift+4" = "move container to workspace 4";
-        "${mod}+Shift+5" = "move container to workspace 5";
-        "${mod}+Shift+6" = "move container to workspace 6";
-        "${mod}+Shift+7" = "move container to workspace 7";
-        "${mod}+Shift+8" = "move container to workspace 8";
-        "${mod}+Shift+9" = "move container to workspace 9";
-        "${mod}+Shift+0" = "move container to workspace 10";
-        "${mod}+y" = "move workspace to output left";
-        "${mod}+Shift+y" = "move container to output left";
-        "${mod}+u" = "move workspace to output right";
-        "${mod}+Shift+u" = "move container to output right";
-        "${mod}+Shift+c" = "reload";
-        "${mod}+Shift+r" = "restart";
-        "${mod}+Ctrl+Shift+minus" = "move scratchpad";
-        "${mod}+Ctrl+minus" = "scratchpad show";
+        "${swayMod}+1" = "workspace 1";
+        "${swayMod}+2" = "workspace 2";
+        "${swayMod}+3" = "workspace 3";
+        "${swayMod}+4" = "workspace 4";
+        "${swayMod}+5" = "workspace 5";
+        "${swayMod}+6" = "workspace 6";
+        "${swayMod}+7" = "workspace 7";
+        "${swayMod}+8" = "workspace 8";
+        "${swayMod}+9" = "workspace 9";
+        "${swayMod}+0" = "workspace 10";
+        "${swayMod}+Shift+1" = "move container to workspace 1";
+        "${swayMod}+Shift+2" = "move container to workspace 2";
+        "${swayMod}+Shift+3" = "move container to workspace 3";
+        "${swayMod}+Shift+4" = "move container to workspace 4";
+        "${swayMod}+Shift+5" = "move container to workspace 5";
+        "${swayMod}+Shift+6" = "move container to workspace 6";
+        "${swayMod}+Shift+7" = "move container to workspace 7";
+        "${swayMod}+Shift+8" = "move container to workspace 8";
+        "${swayMod}+Shift+9" = "move container to workspace 9";
+        "${swayMod}+Shift+0" = "move container to workspace 10";
+        "${swayMod}+y" = "move workspace to output left";
+        "${swayMod}+Shift+y" = "move container to output left";
+        "${swayMod}+u" = "move workspace to output right";
+        "${swayMod}+Shift+u" = "move container to output right";
+        "${swayMod}+Shift+c" = "reload";
+        "${swayMod}+Shift+r" = "restart";
+        "${swayMod}+Ctrl+Shift+minus" = "move scratchpad";
+        "${swayMod}+Ctrl+minus" = "scratchpad show";
       };
       input = {
         "type:keyboard" = {
@@ -137,33 +140,33 @@ in {
       };
       terminal = "wezterm";
       fonts = {
-        names = [ "IosevkaTerm Nerd Font Mono" ];
+        names = ["IosevkaTerm Nerd Font Mono"];
         size = 10.0;
       };
-      bars = [{ command = "${pkgs.waybar}/bin/waybar"; }];
+      bars = [{command = "${pkgs.waybar}/bin/waybar";}];
       startup = [
         {
-          command =
-            "${pkgs.sway}/bin/swaymsg workspace 3 && ${pkgs._1password-gui}/bin/1password";
+          command = "${pkgs.sway}/bin/swaymsg workspace 3 && ${pkgs._1password-gui}/bin/1password";
         }
         {
-          command =
-            "${pkgs.sway}/bin/swaymsg workspace 2 && ${pkgs.wezterm}/bin/wezterm start --always-new-process";
+          command = "${pkgs.sway}/bin/swaymsg workspace 2 && ${pkgs.wezterm}/bin/wezterm start --always-new-process";
         }
         {
-          command =
-            "${pkgs.sway}/bin/swaymsg workspace 1 && ${pkgs.firefox}/bin/firefox";
+          command = "${pkgs.sway}/bin/swaymsg workspace 1 && ${pkgs.firefox}/bin/firefox";
         }
       ];
       assigns = {
-        "1" = [{ app_id = "firefox"; }];
+        "1" = [{app_id = "firefox";}];
         "3" = [
           # { class = "^1Password$"; }
-          { app_id = "org.pulseaudio.pavucontrol"; }
+          {app_id = "org.pulseaudio.pavucontrol";}
         ];
-        "4" = [{ class = "^MongoDB Compass$"; }];
-        "8" = [ { class = "^Slack$"; } { class = "^discord$"; } ];
-        "9" = [{ class = "^Spotify$"; }];
+        "4" = [{class = "^MongoDB Compass$";}];
+        "8" = [
+          {class = "^Slack$";}
+          {class = "^discord$";}
+        ];
+        "9" = [{class = "^Spotify$";}];
       };
     };
   };
@@ -229,12 +232,12 @@ in {
     Unit = {
       Description = "swaybg background service";
       Documentation = "man:swaybg(1)";
-      PartOf = [ "graphical-session.target" ];
+      PartOf = ["graphical-session.target"];
     };
     Service = {
       ExecStart = "${pkgs.swaybg}/bin/swaybg -c #292c3c";
       Type = "simple";
     };
-    Install.WantedBy = [ "sway-session.target" ];
+    Install.WantedBy = ["sway-session.target"];
   };
 }
