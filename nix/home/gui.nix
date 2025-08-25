@@ -185,8 +185,8 @@ in {
     mpris-proxy.enable = true;
 
     swayidle = let
-      lockNow = "${pkgs.swaylock}/bin/swaylock -f";
-      # suspendNow = "${config.systemd.user.systemctlPath} suspend";
+      lockNow = "${pkgs.swaylock}/bin/swaylock -fF";
+      suspendNow = "${config.systemd.user.systemctlPath} suspend";
       isOnBattery = pkgs.writeShellScript "is-on-battery" ''
         [ $(cat /sys/class/power_supply/dc-charger/online) = "0" ] || exit 1
       '';
@@ -198,13 +198,17 @@ in {
           command = "${isOnBattery} && ${lockNow}";
         }
         {
-          timeout = 10 * 60;
+          timeout = 8 * 60;
           command = "${lockNow}";
         }
         {
-          timeout = 10 * 65;
-          command = ''swaymsg "output * dpms off"'';
-          resumeCommand = ''swaymsg "output * dpms on"'';
+          timeout = 10 * 60;
+          command = ''${pkgs.sway}/bin/swaymsg "output * dpms off"'';
+          resumeCommand = ''${pkgs.sway}/bin/swaymsg "output * dpms on"'';
+        }
+        {
+          timeout = 60 * 60;
+          command = "${suspendNow}";
         }
       ];
       events = [
