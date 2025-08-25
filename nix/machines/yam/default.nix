@@ -43,8 +43,9 @@
 
   systemd = {
     network.enable = true;
-    services.NetworkManager-wait-online.enable = false;
-    services.tailscaled.after = [ "systemd-networkd-wait-online.service" ];
+    network.wait-online.enable = false;
+    #services.NetworkManager-wait-online.enable = false;
+    #services.tailscaled.after = ["systemd-networkd-wait-online.service"];
   };
 
   services = {
