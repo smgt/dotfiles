@@ -9,75 +9,64 @@ home-manager switch --flake ~/.dotfiles/#<hostname>
 
 ## NixOS
 
-### Installation
+### Installation on hardware
 
-After booting the installation media for NixOS create a root password using.
-
-```
-sudo su
-passwd
-```
-
-From the host, add your ssh key and continue installation via SSH.
-
-```
-ssh-copy-id -i ~/.ssh/id_ed25519 root@<IP>
-ssh root@<IP>
-```
-
-Enable nix experimental features.
-
-```
-mkdir -p ~/.config/nix
-echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
-```
-
-Clone this repository.
-
-```
-mkdir -p /mnt/home/simon
-git clone https://git.0xee.cc/smgt/dotfiles.git .dotfiles
-```
-
-Link the correct machine configuration in the system.
-
-    ln -s /home/simon/.dotfiles/nix/machines/<MACHINE>/configuration.nix /etc/nixos/configuration.nix
-
-Add required channels.
-
-```console
-nix-channel --add https://nixos.org/channels/nixos-unstable nixos-unstable
-
-nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-# or
-nix-channel --add https://github.com/nix-community/home-manager/archive/release-24.05.tar.gz home-manager
-
-nix-channel --update
-```
-
-Install the system.
-
-```
-nixos-install \
-  --root "/mnt" \
-  --no-root-passwd
-```
-
-### Install home-manager
-
-https://nix-community.github.io/home-manager/#sec-install-standalone
-
-#### Install flake
+### Build ISO
 
 ```sh
-nix run home-manager/release-24.11 -- switch --flake .#<hostname>
+# Inside the nix/ directory
+export NIX_PATH=nixos-config=$PWD/iso.nix:nixpkgs=channel:nixos-25.05
+nix-build '<nixpkgs/nixos>' -A config.system.build.isoImage
 ```
 
+This will result in a ISO with settings from the `iso.nix` file. After the
+build is done you can write the ISO image to a USB stick or similar. The build
+command will output the Nix store path and it will also be available in
+`./result/iso/`.
 
-### Run config
+### Boot and provision
 
-```console
-nixos-rebuild switch
+Boot the ISO on the new system, find the host name and provision the device
+using
+[nixos-anywhere](https://github.com/nix-community/nixos-anywhere/blob/main/docs/quickstart.md).
+
+First create a configuration for the system in `machines/[name]/default.nix`.
+Then add the system to `flake.nix`. After that is done you can provision the device.
+We also generate the hardware configuration for the system.
+
+```sh
+# Example with disk encryption
+nix run github:nix-community/nixos-anywhere -- \
+  --flake .#[system name]\
+  --disk-encryption-keys /tmp/secret.key <(cat /secret/password) \
+  --generate-hardware-config nixos-generate-config nix/machines/[system name]/hardware-configuration.nix \
+  --target-host simon@[ip address]
+
+# Example without disk encryption
+nix run github:nix-community/nixos-anywhere -- \
+  --flake .#[system name]\
+  --generate-hardware-config nixos-generate-config nix/machines/[system name]/hardware-configuration.nix \
+  --target-host simon@[ip address]
+```
+
+Reboot the system.
+
+### Making changes to a system
+
+Update a remote system.
+
+```sh 
+nix run nixpkgs#nixos-rebuild -- \
+  --target-host simon@[hostname] \
+  --use-remote-sudo \
+  switch \
+  --flake .#[system name]
+```
+
+Update a local system
+
+```sh
+sudo nixos-rebuild switch --flake .#[systemname]
 ```
 
 # Investigate
