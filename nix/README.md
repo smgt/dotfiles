@@ -2,9 +2,9 @@
 
 ## Home-manager standalone
 
-```
-home-manager build --flake ~/.dotfiles/#<hostname>
-home-manager switch --flake ~/.dotfiles/#<hostname>
+```sh
+home-manager build --flake ~/.dotfiles/#[system name]
+home-manager switch --flake ~/.dotfiles/#[system name]
 ```
 
 ## NixOS
@@ -69,14 +69,51 @@ Update a local system
 sudo nixos-rebuild switch --flake .#[systemname]
 ```
 
-# Investigate
+## SOPS
+
+Create age identity for your system:
+
+```sh
+mkdir -p $HOME/.config/sops/age/
+read -s SSH_TO_AGE_PASSPHRASE; export SSH_TO_AGE_PASSPHRASE
+nix run nixpkgs#ssh-to-age -- \
+  -private-key \
+  -i $HOME/.ssh/id_ed25519 \
+  -o $HOME/.config/sops/age/keys.txt
+```
+
+Display system age recipient (public key) for you system:
+
+```sh
+age-keygen -y $HOME/.config/sops/age/keys.txt
+```
+
+Get target host age recipient: 
+
+```sh
+cat /etc/ssh/ssh_host_ed25519_key.pub | nix run nixpkgs#ssh-to-age
+```
+
+Configure sops:
+
+```sh
+nvim .sops.yaml
+```
+
+Edit secret file:
+
+```sh
+nix run nixpkgs#sops secrets/example.yaml
+```
+
+## Investigate
 
 - https://github.com/nix-community/disko
 - https://github.com/notthebee/nix-config/tree/main
 
-# Housekeeping
+## Housekeeping
 
-## Remove old generations
+### Remove old generations
 
 When you make changes to your system, Nix creates a new system Generation. All of the changes to the system since the previous generation are stored there. Old generations can add up and will not be removed automatically by default. You can see your generations with:
 
@@ -90,11 +127,11 @@ To remove all but your current generation:
 
     $ nix-env --delete-generations old
 
-### Generation trimmer script
+#### Generation trimmer script
 
 For a smart interactive script which can handle all the normally available profile types across NixOS and be more conservative and safe than the built-in Nix generations deletion commands, see NixOS Generations Trimmer.
 
-## Garbage collection
+### Garbage collection
 
 As you work with your system (installs, uninstalls, upgrades), files in the Nix store are not automatically removed, even when no longer needed. Nix instead has a garbage collector which must be run periodically (you could set up, e.g., a cron to do this).
 
