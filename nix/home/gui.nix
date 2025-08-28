@@ -65,7 +65,7 @@ in {
         # "${mod}+Shift+Return" = "exec $HOME/.config/wofi/ssh.sh";
         "${swayMod}+Shift+q" = "kill";
         "${swayMod}+d" = "exec wofi --show drun --no-action";
-        # "${mod}+g" = "exec clipman pick -t wofi";
+        "${swayMod}+g" = "exec clipman pick -t wofi";
         "${swayMod}+h" = "focus left";
         "${swayMod}+j" = "focus down";
         "${swayMod}+k" = "focus up";
@@ -172,6 +172,8 @@ in {
   };
 
   services = {
+    clipman.enable = true;
+
     udiskie = {
       enable = true;
       tray = "always";
