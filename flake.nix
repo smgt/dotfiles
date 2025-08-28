@@ -14,46 +14,57 @@
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     smgtvim.url = "git+https://0xee.cc/smgt/nix-nvim";
+    secrets = {
+      url = "git+ssh://git@0xee.cc/smgt/nix-secrets.git";
+      flake = false;
+    };
   };
 
-  outputs =
-    {
-      self,
-      nixpkgs,
-      utils,
-      home-manager,
-      disko,
-      nixos-hardware,
-      nix-flatpak,
-      smgtvim,
-      ...
-    }@inputs:
-    let
-      overlays = [ ];
-      mkHome = import ./nix/lib/mkhome.nix { inherit nixpkgs home-manager inputs; };
-      mkSystem = import ./nix/lib/mksystem.nix {
-        inherit
-          overlays
-          nixpkgs
-          inputs
-          disko
-          nixos-hardware
-          ;
-      };
-    in
+  outputs = {
+    self,
+    nixpkgs,
+    utils,
+    home-manager,
+    disko,
+    nixos-hardware,
+    nix-flatpak,
+    smgtvim,
+    sops-nix,
+    ...
+  } @ inputs: let
+    overlays = [];
+    mkHome = import ./nix/lib/mkhome.nix {
+      inherit
+        nixpkgs
+        home-manager
+        inputs
+        ;
+    };
+    mkSystem = import ./nix/lib/mksystem.nix {
+      inherit
+        overlays
+        nixpkgs
+        inputs
+        ;
+    };
+  in
     {
       # Home manager configurations
-      homeConfigurations.kale = mkHome "kale" { stateVersion = "25.05"; };
-      homeConfigurations.sugarsnap = mkHome "sugarsnap" { stateVersion = "25.05"; };
+      homeConfigurations.kale = mkHome "kale" {stateVersion = "25.05";};
+      homeConfigurations.sugarsnap = mkHome "sugarsnap" {stateVersion = "25.05";};
 
       # NixOS configurations
       nixosConfigurations = {
-        testvm = mkSystem "testvm" { };
-        leek = mkSystem "leek" { };
-        proxmox = mkSystem "proxmox" { };
-        fennel = mkSystem "fennel" { };
-        smgt-dev = mkSystem "smgt-dev" { };
+        testvm = mkSystem "testvm" {};
+        leek = mkSystem "leek" {};
+        proxmox = mkSystem "proxmox" {};
+        fennel = mkSystem "fennel" {};
+        smgt-dev = mkSystem "smgt-dev" {};
         yam = mkSystem "yam" {
           extraModules = [
             # Fixes to suspend...
@@ -64,26 +75,23 @@
       };
     }
     //
-      # Per-system outputs (for development shells, etc.)
-      utils.lib.eachDefaultSystem (
-        system:
-        let
-          pkgs = import nixpkgs {
-            inherit system;
-            config.allowUnfree = true;
+    # Per-system outputs (for development shells, etc.)
+    utils.lib.eachDefaultSystem (
+      system: let
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
+      in {
+        devShells = {
+          default = pkgs.mkShell {
+            nativeBuildInputs = [smgtvim.packages.${system}.default];
+            packages = with pkgs; [
+              stylua
+              lua-language-server
+            ];
           };
-        in
-        {
-          formatter = nixpkgs.legacyPackages.${system}.nixfmt-tree;
-          devShells = {
-            default = pkgs.mkShell {
-              nativeBuildInputs = [ smgtvim.packages.${system}.default ];
-              packages = with pkgs; [
-                stylua
-                lua-language-server
-              ];
-            };
-          };
-        }
-      );
+        };
+      }
+    );
 }
