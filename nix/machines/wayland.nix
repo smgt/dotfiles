@@ -133,6 +133,7 @@
         "org.signal.Signal"
         "com.github.tchx84.Flatseal"
         "io.dbeaver.DBeaverCommunity"
+        "com.yubico.yubioath"
       ];
     };
     actkbd = {

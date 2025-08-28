@@ -49,6 +49,7 @@
   };
 
   services = {
+    pcscd.enable = true;
     resolved = {
       enable = true;
     };
