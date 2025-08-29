@@ -35,11 +35,13 @@ Then add the system to `flake.nix`. After that is done you can provision the dev
 We also generate the hardware configuration for the system.
 
 ```sh
-# Example with disk encryption
+# Example with disk encryption and sops
+# --disk-encryption-keys [target host key location] [current host key location]
 nix run github:nix-community/nixos-anywhere -- \
   --flake .#[system name]\
   --disk-encryption-keys /tmp/secret.key <(cat /secret/password) \
   --generate-hardware-config nixos-generate-config nix/machines/[system name]/hardware-configuration.nix \
+  --copy-host-keys \
   --target-host simon@[ip address]
 
 # Example without disk encryption
@@ -58,7 +60,7 @@ Update a remote system.
 ```sh 
 nix run nixpkgs#nixos-rebuild -- \
   --target-host simon@[hostname] \
-  --use-remote-sudo \
+  --sudo \
   switch \
   --flake .#[system name]
 ```
