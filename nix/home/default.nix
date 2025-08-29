@@ -7,26 +7,11 @@
 in {
   imports = [./tmux.nix];
 
-  sops = {
-    age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
-    defaultSopsFile = "${secretspath}/secrets.yml";
-    secrets = {
-      "environment/GITHUB_TOKEN" = {};
-      "environment/GITLAB_TOKEN" = {};
-      "environment/GITEA_TOKEN" = {};
-      "environment/CACHIX_AUTH_TOKEN" = {};
-      "environment/OP_AWS_ACCOUNT" = {};
-      "environment/OP_SSH_ACCOUNT" = {};
-    };
-    templates."default.env".content = ''
-      export GITHUB_TOKEN="${config.sops.placeholder."environment/GITHUB_TOKEN"}"
-      export GITLAB_TOKEN="${config.sops.placeholder."environment/GITLAB_TOKEN"}"
-      export GITEA_TOKEN="${config.sops.placeholder."environment/GITEA_TOKEN"}"
-      export CACHIX_AUTH_TOKEN="${config.sops.placeholder."environment/CACHIX_AUTH_TOKEN"}"
-      export OP_AWS_ACCOUNT="${config.sops.placeholder."environment/OP_AWS_ACCOUNT"}"
-      export OP_SSH_ACCOUNT="${config.sops.placeholder."environment/OP_SSH_ACCOUNT"}"
-    '';
-  };
+  # sops = {
+  #   age.sshKeyPaths = ["${home.homeDirectory}/.ssh/id_ed25519"];
+  #   defaultSopsFile = "${secretspath}/secrets.yml";
+  # };
+  # [[ -a ${config.sops.templates."default.env".path} ]] && source ${ config.sops.templates."default.env".path }
 
   home = {
     username = "simon";
@@ -50,7 +35,9 @@ in {
     file = {
       # TODO: Create the terraform plugin directory: /home/$USER/.terraform.d/plugin-cache
       ".terraformrc".source = ../config/terraform/terraformrc;
-      ".config/zsh/prompt_smgt_setup".source = ../../zsh/prompts/prompt_smgt_setup;
+      "${config.xdg.configHome}/zsh/prompt_smgt_setup".source = ../../zsh/prompts/prompt_smgt_setup;
+      ".local/bin/1p-ssh".source = ../../bin/1p-ssh;
+      ".local/bin/1p-env".source = ../../bin/1p-env;
     };
 
     packages = with pkgs; [
@@ -284,7 +271,7 @@ in {
             name = "chrissicool/zsh-256color";
           }
           #{ name = "jeffreytse/zsh-vi-mode"; }
-          #{ name = "zsh-users/zsh-autosuggestions"; }
+          #{name = "zsh-users/zsh-autosuggestions";}
           {
             name = "plugins/git";
             tags = ["from:oh-my-zsh"];
