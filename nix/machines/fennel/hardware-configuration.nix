@@ -1,6 +1,5 @@
-{ modulesPath, ... }:
-{
-  imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
+{modulesPath, ...}: {
+  imports = [(modulesPath + "/profiles/qemu-guest.nix")];
   boot.loader.grub.device = "/dev/sda";
   boot.initrd.availableKernelModules = [
     "ata_piix"
@@ -8,10 +7,13 @@
     "xen_blkfront"
     "vmw_pvscsi"
   ];
-  boot.initrd.kernelModules = [ "nvme" ];
+  boot.initrd.kernelModules = ["nvme"];
   fileSystems."/" = {
     device = "/dev/sda1";
     fsType = "ext4";
   };
-
+  fileSystems."/nix" = {
+    device = "/dev/sdb";
+    fsType = "ext4";
+  };
 }
