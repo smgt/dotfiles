@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   imports = [
     <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix>
     <nixpkgs/nixos/modules/installer/cd-dvd/channel.nix>
@@ -10,7 +12,10 @@
     "sv_SE.UTF-8/UTF-8"
     "en_US.UTF-8/UTF-8"
   ];
+
   i18n.defaultLocale = "en_US.UTF-8";
+
+  boot.kernelParams = ["net.ifnames=0"];
 
   security.sudo.wheelNeedsPassword = false;
   users.users.simon = {
@@ -26,8 +31,8 @@
 
     isNormalUser = true;
     description = "Simon Gate";
-    extraGroups = [ "wheel" ];
-    initialPassword = "pw123";  # random for this post
+    extraGroups = ["wheel"];
+    initialPassword = "pw123"; # random for this post
     shell = pkgs.zsh;
     packages = with pkgs; [];
   };
@@ -37,7 +42,7 @@
     vim
     wget
     curl
-    rxvt-unicode  # for terminfo
+    rxvt-unicode # for terminfo
     lshw
   ];
 
