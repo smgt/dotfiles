@@ -38,7 +38,7 @@ in {
       PAGER = "less -R";
       MANPAGER = "nvim +Man!";
     };
-    stateVersion = "25.05";
+    stateVersion = pkgs.lib.mkDefault "25.05";
 
     sessionPath = [
       "$HOME/bin"
@@ -360,9 +360,7 @@ in {
 
         # Load local config file
         [[ -a ~/.localrc ]] && source ~/.localrc
-        [[ -a ${config.sops.templates."default.env".path} ]] && source ${
-          config.sops.templates."default.env".path
-        }
+        [[ -a /run/secrets/rendered/default.env ]] && source /run/secrets/rendered/default.env
       '';
     };
 
