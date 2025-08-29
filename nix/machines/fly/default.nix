@@ -11,8 +11,9 @@ in {
     (modulesPath + "/installer/scan/not-detected.nix")
     ./hardware-configuration.nix
     ./disko.nix
-    ../../modules/tailscale.nix
   ];
+
+  smgt.dev.enable = true;
 
   sops = {
     age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];

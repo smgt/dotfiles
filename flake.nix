@@ -68,7 +68,6 @@
           extraModules = [
             # Fixes to suspend...
             nixos-hardware.nixosModules.framework-amd-ai-300-series
-            nix-flatpak.nixosModules.nix-flatpak
           ];
         };
       };

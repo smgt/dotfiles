@@ -3,13 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-{
+}: {
   imports = [
     ./hardware-configuration.nix
     ./networking.nix
-    ../../modules/tailscale.nix
   ];
 
   boot.tmp.cleanOnBoot = true;
@@ -17,7 +14,10 @@
 
   environment = {
     variables.HOSTNAME = "fennel";
-    systemPackages = with pkgs; [ forgejo-cli ];
+    systemPackages = with pkgs; [
+      forgejo-cli
+      docker-compose
+    ];
   };
 
   networking = {
@@ -43,10 +43,11 @@
   };
 
   virtualisation.docker.enable = true;
+
   systemd = {
     timers = {
       "forgejo-backup" = {
-        wantedBy = [ "timers.target" ];
+        wantedBy = ["timers.target"];
         timerConfig = {
           OnCalendar = "daily";
           Persistent = true;
@@ -68,8 +69,8 @@
                 pkgs.openssh
               ];
               text = ''
-              find /var/lib/forgejo/dump/ -type f -mtime +15 -exec rm -f {} +
-              rsync -avz --delete /var/lib/forgejo/dump/ simon@paprika.kaga.se:/forgejo
+                find /var/lib/forgejo/dump/ -type f -mtime +15 -exec rm -f {} +
+                rsync -avz --delete /var/lib/forgejo/dump/ simon@paprika.kaga.se:/forgejo
               '';
             }
           }/bin/forgejo-backup";
@@ -79,7 +80,6 @@
   };
 
   services = {
-
     logind = {
       extraConfig = ''
         RuntimeDirectorySize=12G
@@ -87,19 +87,12 @@
       '';
     };
 
-    openssh = {
-      enable = true;
-      settings = {
-        PasswordAuthentication = false;
-      };
-    };
-
     caddy = {
       enable = true;
       email = "simon@kampgate.se";
       virtualHosts = {
         "0xee.cc" = {
-          serverAliases = [ "git.0xee.cc" ];
+          serverAliases = ["git.0xee.cc"];
           logFormat = ''
             output file ${config.services.caddy.logDir}/0xeecc-access.log {
               roll_size 100mb
@@ -131,7 +124,6 @@
           '';
         };
       };
-
     };
 
     forgejo = {
@@ -190,7 +182,7 @@
     postgresql = {
       enable = true;
       package = pkgs.postgresql_16;
-      ensureDatabases = [ "forgejo" ];
+      ensureDatabases = ["forgejo"];
       ensureUsers = [
         {
           name = "forgejo";

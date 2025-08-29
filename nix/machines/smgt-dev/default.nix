@@ -1,10 +1,12 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ../../modules/microsocks.nix
-    ../../modules/tailscale.nix
   ];
 
   boot.loader.grub.efiSupport = false;
@@ -15,7 +17,7 @@
     networkmanager.enable = true;
     firewall = {
       enable = false;
-      allowedTCPPorts = [ 2222 ];
+      allowedTCPPorts = [2222];
     };
   };
 
@@ -23,15 +25,6 @@
     syncthing = {
       enable = true;
       user = "simon";
-    };
-    openssh = {
-      enable = true;
-      openFirewall = true;
-      settings = {
-        PasswordAuthentication = false;
-        PermitRootLogin = "no";
-        GatewayPorts = "yes";
-      };
     };
     qemuGuest.enable = true;
   };

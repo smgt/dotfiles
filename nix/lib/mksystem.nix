@@ -5,18 +5,23 @@
 }: name: {
   system ? "x86_64-linux",
   user ? "simon",
-  gui ? false,
+  dev ? false,
+  desktop ? false,
   extraModules ? [],
 }: let
   # The config files for this system.
-  machineConfig = ../machines/${name};
   userOSConfig = ../machines;
+  machineConfig = ../machines/${name};
   userHMConfig = ../home;
-  home-manager = inputs.home-manager.nixosModules;
   extraModule = extraModules;
 in
   nixpkgs.lib.nixosSystem rec {
     inherit system;
+
+    # Pass extra args
+    specialArgs = {
+      inherit desktop dev;
+    };
 
     modules =
       [
@@ -31,10 +36,13 @@ in
         {nixpkgs.config.allowUnfree = true;}
 
         inputs.sops-nix.nixosModules.sops
+        inputs.disko.nixosModules.disko
+        inputs.home-manager.nixosModules.home-manager
+        inputs.nix-flatpak.nixosModules.nix-flatpak
+
         machineConfig
         userOSConfig
-        inputs.disko.nixosModules.disko
-        home-manager.home-manager
+
         {
           home-manager = {
             useGlobalPkgs = true;
@@ -43,6 +51,7 @@ in
             sharedModules = [
               inputs.sops-nix.homeManagerModules.sops
             ];
+            extraSpecialArgs = specialArgs;
           };
         }
 

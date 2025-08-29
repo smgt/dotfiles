@@ -1,14 +1,6 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-
-{
+{pkgs, ...}: {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/tailscale.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -24,14 +16,6 @@
   };
 
   services = {
-    openssh = {
-      enable = true;
-      settings = {
-        PasswordAuthentication = false;
-        AllowUsers = [ "simon" ];
-        PermitRootLogin = "no";
-      };
-    };
     avahi = {
       enable = true;
       nssmdns4 = true;
@@ -79,7 +63,7 @@
     network.enable = true;
     timers = {
       "homeassistant-backup" = {
-        wantedBy = [ "timers.target" ];
+        wantedBy = ["timers.target"];
         timerConfig = {
           OnCalendar = "daily";
           Persistent = true;
@@ -87,7 +71,7 @@
         };
       };
       "kuma-backup" = {
-        wantedBy = [ "timers.target" ];
+        wantedBy = ["timers.target"];
         timerConfig = {
           OnCalendar = "daily";
           Persistent = true;
@@ -95,7 +79,7 @@
         };
       };
       "evcc-backup" = {
-        wantedBy = [ "timers.target" ];
+        wantedBy = ["timers.target"];
         timerConfig = {
           OnCalendar = "daily";
           Persistent = true;
@@ -155,7 +139,6 @@
     };
   };
 
-
   virtualisation.docker.enable = true;
 
   power.ups = {
@@ -168,7 +151,7 @@
     };
     upsd = {
       enable = true;
-      listen = [ { address = "0.0.0.0"; } ];
+      listen = [{address = "0.0.0.0";}];
     };
     users = {
       admin = {
@@ -176,7 +159,7 @@
           "set"
           "fsd"
         ];
-        instcmds = [ "all" ];
+        instcmds = ["all"];
         passwordFile = "/etc/nut/admin";
       };
       observer = {
@@ -195,7 +178,6 @@
         system = "datarummet@10.68.14.3";
       };
     };
-
   };
 
   # Select internationalisation properties.

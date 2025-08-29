@@ -1,12 +1,27 @@
-{modulesPath, ...}: {
+{
+  modulesPath,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.smgt;
+in
+{
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     ./hardware-configuration.nix
     ./disk-config.nix
-    ../../modules/tailscale.nix
-    ../../modules/steam.nix
-    ./../wayland.nix
   ];
+
+  smgt = {
+    dev.enable = true;
+    desktop = {
+      enable = true;
+      steam = true;
+    };
+  };
 
   boot = {
     loader = {
@@ -29,7 +44,7 @@
     };
     firewall = {
       enable = false;
-      allowedTCPPorts = [22];
+      allowedTCPPorts = [ 22 ];
     };
   };
 
@@ -52,15 +67,6 @@
       enable = true;
       nssmdns4 = true;
     };
-    openssh = {
-      enable = true;
-      openFirewall = true;
-      settings = {
-        PasswordAuthentication = false;
-        PermitRootLogin = "no";
-        GatewayPorts = "yes";
-      };
-    };
     blueman.enable = true;
     # syncthing = {
     #   enable = true;
@@ -82,11 +88,11 @@
   virtualisation.docker.enable = true;
 
   # Include gui setup, wayland, sway, etc
-  home-manager = {
-    users.simon = ../../home/gui.nix;
-    useGlobalPkgs = true;
-    useUserPackages = true;
-  };
+  # home-manager = {
+  #   users.simon = ../../home/gui.nix;
+  #   useGlobalPkgs = true;
+  #   useUserPackages = true;
+  # };
 
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "25.11";
