@@ -2,12 +2,13 @@
   osConfig,
   lib,
   pkgs,
+  ...
 }: let
   cfg = osConfig.smgt;
 in
   with lib; {
     config = mkIf cfg.dev.enable {
-      packages = with pkgs; [
+      home.packages = with pkgs; [
         entr
         buf
         glab
