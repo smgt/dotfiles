@@ -1,11 +1,10 @@
 {
-  osConfig,
   config,
   lib,
   pkgs,
   ...
 }: let
-  cfg = osConfig.smgt;
+  cfg = config.smgt;
   swayMod = "Mod4";
 in
   with lib; {

@@ -1,10 +1,10 @@
 {
   lib,
-  osConfig,
+  config,
   pkgs,
   ...
 }: let
-  cfg = osConfig.smgt;
+  cfg = config.smgt.desktop;
 in
   with lib; {
     imports = [
@@ -16,7 +16,12 @@ in
       ./dunst.nix
       ./sway.nix
     ];
-    config = mkIf cfg.desktop.enable {
+    options.smgt.desktop.enable = mkOption {
+      default = false;
+      type = lib.types.bool;
+      description = "enable or disable";
+    };
+    config = mkIf cfg.enable {
       home = {
         # Make pointer a little bigger and set theme
         pointerCursor = {

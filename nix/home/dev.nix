@@ -1,44 +1,74 @@
 {
-  osConfig,
+  config,
   lib,
   pkgs,
   ...
 }: let
-  cfg = osConfig.smgt;
+  cfg = config.smgt.dev;
 in
   with lib; {
-    config = mkIf cfg.dev.enable {
-      home.packages = with pkgs; [
-        entr
-        buf
-        glab
-        # yaml-language-server
-        # vscode-langservers-extracted
-        # gopls
-        # harper
-        # terraform-ls
-        # nil
-        # rust-analyzer
-        # nixd
-        # hadolint
-        # golangci-lint
-        # checkmate
-        # write-good
-        # statix
-        # semgrep
-        # gosec
-        # revive
-        # checkmate
-        # clippy
-        # gofumpt
-        # gotools
-        # hclfmt
-        # nixfmt-rfc-style
-        # delve
-        # impl
-        # govulncheck
-        # gomodifytags
-        # gotestsum
-      ];
+    options.smgt.dev.enable = mkOption {
+      default = false;
+      type = lib.types.bool;
+      description = "enable or disable";
+    };
+    config = mkIf cfg.enable {
+      programs = {
+        awscli.enable = true;
+
+        go = {
+          enable = true;
+          goPrivate = [
+            "gitlab.com/readly-ab"
+            "buf.build/gen/go"
+          ];
+        };
+
+        # Enable direnv and nix-direnv
+        direnv = {
+          #enable = true;
+          nix-direnv.enable = true;
+          enableZshIntegration = true;
+          config = {
+            global = {
+              warn_timeout = "5m";
+            };
+          };
+        };
+      };
+      home = {
+        packages = with pkgs; [
+          entr
+          buf
+          glab
+          # yaml-language-server
+          # vscode-langservers-extracted
+          # gopls
+          # harper
+          # terraform-ls
+          # nil
+          # rust-analyzer
+          # nixd
+          # hadolint
+          # golangci-lint
+          # checkmate
+          # write-good
+          # statix
+          # semgrep
+          # gosec
+          # revive
+          # checkmate
+          # clippy
+          # gofumpt
+          # gotools
+          # hclfmt
+          # nixfmt-rfc-style
+          # delve
+          # impl
+          # govulncheck
+          # gomodifytags
+          # gotestsum
+        ];
+      };
     };
   }

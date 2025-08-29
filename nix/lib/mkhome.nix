@@ -7,7 +7,7 @@
   system ? "x86_64-linux",
   user ? "simon",
 }: let
-  userHMConfig = ../home;
+  userHMConfig = ../home/standalone.nix;
 in
   home-manager.lib.homeManagerConfiguration {
     pkgs = import nixpkgs {

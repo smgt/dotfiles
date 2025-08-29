@@ -7,12 +7,10 @@
   cfg = config.smgt.dev;
 in
   with lib; {
-    options.smgt = {
-      dev.enable = mkOption {
-        default = false;
-        type = types.bool;
-        description = "Enable development tools";
-      };
+    options.smgt.dev.enable = mkOption {
+      default = false;
+      type = types.bool;
+      description = "Enable development tools";
     };
     config = mkIf cfg.enable {
       environment.systemPackages = with pkgs; [

@@ -1,9 +1,9 @@
 {
-  osConfig,
+  config,
   lib,
   ...
 }: let
-  cfg = osConfig.smgt;
+  cfg = config.smgt;
 in
   with lib; {
     config = mkIf cfg.desktop.enable {

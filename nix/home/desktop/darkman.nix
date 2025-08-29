@@ -1,5 +1,5 @@
-{osConfig, ...}: let
-  cfg = osConfig.smgt.desktop;
+{config, ...}: let
+  cfg = config.smgt.desktop;
 in {
   services.darkman = {
     inherit (cfg) enable;
