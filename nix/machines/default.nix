@@ -47,17 +47,27 @@ in
         };
       };
 
-      security.sudo.extraRules = [
-        {
-          users = ["simon"];
-          commands = [
-            {
-              command = "ALL";
-              options = ["NOPASSWD"];
-            }
-          ];
-        }
-      ];
+      security = {
+        polkit = {
+          enable = true;
+          extraConfig = ''
+            polkit.addAdminRule(function(action, subject) {
+              return ["unix-group:wheel"];
+            });
+          '';
+        };
+        sudo.extraRules = [
+          {
+            users = ["simon"];
+            commands = [
+              {
+                command = "ALL";
+                options = ["NOPASSWD"];
+              }
+            ];
+          }
+        ];
+      };
 
       programs = {
         ssh = {

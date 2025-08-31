@@ -131,5 +131,16 @@ in {
       '';
     };
   };
+
+  security.polkit = {
+    extraConfig = ''
+      polkit.addRule(function(action, subject) {
+        if (subject.isInGroup("wheel")) {
+          return polkit.Result.YES;
+        }
+      });
+    '';
+  };
+
   system.stateVersion = "25.11";
 }
