@@ -31,6 +31,7 @@
         "${config.xdg.configHome}/zsh/prompt_smgt_setup".source = ../../zsh/prompts/prompt_smgt_setup;
         ".local/bin/1p-ssh".source = ../../bin/1p-ssh;
         ".local/bin/1p-env".source = ../../bin/1p-env;
+        ".local/bin/tmx".source = ../../bin/tmx;
       };
 
       packages = with pkgs; [
