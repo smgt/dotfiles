@@ -26,7 +26,7 @@ in
 
         # Enable direnv and nix-direnv
         direnv = {
-          #enable = true;
+          enable = true;
           nix-direnv.enable = true;
           enableZshIntegration = true;
           config = {
@@ -36,6 +36,7 @@ in
           };
         };
       };
+
       home = {
         packages = with pkgs; [
           entr
