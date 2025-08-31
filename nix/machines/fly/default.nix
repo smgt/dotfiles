@@ -119,6 +119,7 @@ in {
     };
     resolved = {
       enable = true;
+      fallbackDns = [];
       domains = [
         "kaga.se"
         "zebu-yo.ts.net"
