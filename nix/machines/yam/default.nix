@@ -4,11 +4,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.smgt;
-in
-{
+in {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     ./hardware-configuration.nix
@@ -44,7 +42,7 @@ in
     };
     firewall = {
       enable = false;
-      allowedTCPPorts = [ 22 ];
+      allowedTCPPorts = [22];
     };
   };
 

@@ -5,7 +5,6 @@
   ...
 }: let
   hostName = "fly";
-  secretspath = builtins.toString inputs.secrets;
 in {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -14,30 +13,6 @@ in {
   ];
 
   smgt.dev.enable = true;
-
-  sops = {
-    age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
-    defaultSopsFile = "${secretspath}/secrets.yml";
-    secrets = {
-      "environment/GITHUB_TOKEN" = {};
-      "environment/GITLAB_TOKEN" = {};
-      "environment/GITEA_TOKEN" = {};
-      "environment/CACHIX_AUTH_TOKEN" = {};
-      "environment/OP_AWS_ACCOUNT" = {};
-      "environment/OP_SSH_ACCOUNT" = {};
-    };
-    templates."default.env" = {
-      content = ''
-        export GITHUB_TOKEN="${config.sops.placeholder."environment/GITHUB_TOKEN"}"
-        export GITLAB_TOKEN="${config.sops.placeholder."environment/GITLAB_TOKEN"}"
-        export GITEA_TOKEN="${config.sops.placeholder."environment/GITEA_TOKEN"}"
-        export CACHIX_AUTH_TOKEN="${config.sops.placeholder."environment/CACHIX_AUTH_TOKEN"}"
-        export OP_AWS_ACCOUNT="${config.sops.placeholder."environment/OP_AWS_ACCOUNT"}"
-        export OP_SSH_ACCOUNT="${config.sops.placeholder."environment/OP_SSH_ACCOUNT"}"
-      '';
-      owner = config.users.users.simon.name;
-    };
-  };
 
   boot = {
     initrd = {

@@ -95,7 +95,7 @@
 
       # Load local config file
       [[ -a ~/.localrc ]] && source ~/.localrc
-      [[ -a /run/secrets/rendered/default.env ]] && source /run/secrets/rendered/default.env
+      [[ -a /run/secrets/rendered/dev.env ]] && source /run/secrets/rendered/dev.env
     '';
   };
 }
