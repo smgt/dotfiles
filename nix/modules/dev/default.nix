@@ -37,12 +37,7 @@ in
         age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
         defaultSopsFile = "${secretspath}/dev.yml";
         secrets = {
-          "environment/GITHUB_TOKEN" = {};
-          "environment/GITLAB_TOKEN" = {};
-          "environment/GITEA_TOKEN" = {};
-          "environment/CACHIX_AUTH_TOKEN" = {};
-          "environment/OP_AWS_ACCOUNT" = {};
-          "environment/OP_SSH_ACCOUNT" = {};
+          "dev" = {};
           "1penv/config" = {
             path = "${config.users.users.simon.home}/.config/1p-env/config";
             owner = config.users.users.simon.name;
@@ -53,14 +48,7 @@ in
           };
         };
         templates."dev.env" = {
-          content = ''
-            export GITHUB_TOKEN="${config.sops.placeholder."environment/GITHUB_TOKEN"}"
-            export GITLAB_TOKEN="${config.sops.placeholder."environment/GITLAB_TOKEN"}"
-            export GITEA_TOKEN="${config.sops.placeholder."environment/GITEA_TOKEN"}"
-            export CACHIX_AUTH_TOKEN="${config.sops.placeholder."environment/CACHIX_AUTH_TOKEN"}"
-            export OP_AWS_ACCOUNT="${config.sops.placeholder."environment/OP_AWS_ACCOUNT"}"
-            export OP_SSH_ACCOUNT="${config.sops.placeholder."environment/OP_SSH_ACCOUNT"}"
-          '';
+          content = config.sops.placeholder.dev;
           owner = config.users.users.simon.name;
         };
       };
