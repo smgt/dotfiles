@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   catppuccin.url = "github:catppuccin/nix";
   tmux-catppuccin = pkgs.tmuxPlugins.mkTmuxPlugin {
     pluginName = "tmux-catppuccin";
@@ -16,9 +15,7 @@ let
       sha256 = "sha256-9+SpgO2Co38I0XnEbRd7TSYamWZNjcVPw6RWJIHM+4c=";
     };
   };
-
-in
-{
+in {
   programs.tmux = {
     enable = true;
     keyMode = "vi";
@@ -28,6 +25,7 @@ in
     aggressiveResize = true;
     clock24 = true;
     plugins = with pkgs; [
+      tmuxPlugins.gruvbox
       # {
       #   plugin = tmux-catppuccin;
       #   extraConfig = ''
@@ -45,7 +43,6 @@ in
       tmuxPlugins.fzf-tmux-url
       tmuxPlugins.vim-tmux-navigator
       tmuxPlugins.sensible
-      tmuxPlugins.gruvbox
     ];
     extraConfig = ''
       # Allow passthrough codes for ESCAPE codes
@@ -76,14 +73,16 @@ in
       bind-key % split-window -h -c '#{pane_current_path}'
 
       # Open the new session in the current directory
-      bind-key S command-prompt "new-session -A -c '#{pane_current_path}' -s '%%'"
+      # bind-key S command-prompt "new-session -A -c '#{pane_current_path}' -s '%%'"
 
       set -g status-right-length 100
       set -g status-left-length 100
-      set -g status-left ""
-      set -g status-right "#{E:@catppuccin_status_host}"
-      set -ag status-right "#{E:@catppuccin_status_session}"
-      set -ag status-right "#{E:@catppuccin_status_date_time}"
+      #set -g status-left ""
+      # set -g status-right "#{E:@catppuccin_status_host}"
+      # set -ag status-right "#{E:@catppuccin_status_session}"
+      # set -ag status-right "#{E:@catppuccin_status_date_time}"
+      set -g @tmux-gruvbox-right-status-x '%Y-%m-%d' # e.g.: 30.01.2024
+      set -g @tmux-gruvbox-right-status-z '#h #{tmux_mode_indicator}'
     '';
   };
 }
