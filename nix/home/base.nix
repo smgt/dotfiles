@@ -14,6 +14,7 @@
         BAT_THEME = "ansi";
         PAGER = "less -R";
         MANPAGER = "nvim +Man!";
+        NETRC = "$HOME/.netrc";
       };
 
       stateVersion = lib.mkDefault "25.05";
