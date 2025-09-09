@@ -5,13 +5,30 @@
   ...
 }: {
   config = {
+    catppuccin = {
+      enable = true;
+      flavor = "mocha";
+      tmux = {
+        extraConfig = ''
+
+          set -g @catppuccin_window_status_style "basic"
+          # set -g "@catppuccin_pane_default_text" "derp asdf"
+          set -g @catppuccin_status_left_separator ""
+          set -g "@catppuccin_host_icon" " 󰒋 "
+          set -g "@catppuccin_session_icon" "  "
+          set -g "@catppuccin_date_time_icon" " 󰃰 "
+          set -g status-right "#{E:@catppuccin_status_host}"
+          set -ag status-right "#{E:@catppuccin_status_session}"
+          set -ag status-right "#{E:@catppuccin_status_date_time}"
+        '';
+      };
+    };
     home = {
       username = "simon";
       homeDirectory = "/home/simon";
       sessionVariables = {
         DOTFILES = "$HOME/.dotfiles";
         GPG_TTY = "$(tty)";
-        BAT_THEME = "ansi";
         PAGER = "less -R";
         MANPAGER = "nvim +Man!";
         NETRC = "$HOME/.netrc";
@@ -119,7 +136,6 @@
         enable = true;
         config = {
           pager = "less -FR";
-          theme = "ansi";
         };
       };
 

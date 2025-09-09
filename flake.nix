@@ -23,6 +23,7 @@
       url = "git+ssh://git@0xee.cc/smgt/nix-secrets.git";
       flake = false;
     };
+    catppuccin.url = "github:catppuccin/nix";
   };
 
   outputs = {
@@ -33,6 +34,7 @@
     disko,
     nixos-hardware,
     nix-flatpak,
+    catppuccin,
     smgtvim,
     sops-nix,
     ...

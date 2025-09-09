@@ -39,6 +39,7 @@ in
         inputs.disko.nixosModules.disko
         inputs.home-manager.nixosModules.home-manager
         inputs.nix-flatpak.nixosModules.nix-flatpak
+        inputs.catppuccin.nixosModules.catppuccin
 
         machineConfig
         userOSConfig
@@ -50,6 +51,7 @@ in
             users.${user} = import userHMConfig {inherit inputs;};
             sharedModules = [
               inputs.sops-nix.homeManagerModules.sops
+              inputs.catppuccin.homeModules.catppuccin
             ];
             extraSpecialArgs = specialArgs;
           };

@@ -18,6 +18,7 @@ in
     modules = [
       inputs.sops-nix.homeManagerModules.sops
       (import userHMConfig {inherit inputs;})
+      inputs.catppuccin.homeModules.catppuccin
       {
         home = {inherit stateVersion;};
         programs.home-manager.enable = true;

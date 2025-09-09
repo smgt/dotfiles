@@ -275,7 +275,7 @@ in
               format = "{icon}";
               on-click = "darkman toggle";
               return-type = "json";
-              exec = "sleep 0.2;DM=$(darkman get | tr -d '\n'); echo '{\"alt\": \"'$DM'\"; \"text\":\"darkmode\"; \"tooltip\":\"'$DM'\"}'";
+              exec = "sleep 0.2;DM=$(darkman get | tr -d '\n'); echo '{\"alt\": \"'$DM'\", \"text\":\"darkmode\", \"tooltip\":\"'$DM'\"}'";
               format-icons = {
                 dark = " dark";
                 light = " light";
@@ -329,6 +329,7 @@ in
           }
         ];
         style = ''
+          /*
           @define-color base   #303446;
           @define-color mantle #292c3c;
           @define-color crust  #232634;
@@ -359,6 +360,7 @@ in
           @define-color pink      #f4b8e4;
           @define-color flamingo  #eebebe;
           @define-color rosewater #f2d5cf;
+          */
           * {
               font-family: IosevkaTerm Nerd Font Mono, sans-serif;
               font-size: 10px;

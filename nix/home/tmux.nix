@@ -1,21 +1,4 @@
-{pkgs, ...}: let
-  catppuccin.url = "github:catppuccin/nix";
-  tmux-catppuccin = pkgs.tmuxPlugins.mkTmuxPlugin {
-    pluginName = "tmux-catppuccin";
-    version = "unstable-2024-11-17";
-    rtpFilePath = "catppuccin.tmux";
-    postInstall = ''
-      sed -i -e 's|''${PLUGIN_DIR}/catppuccin_options_tmux.conf|'$target'/catppuccin_options_tmux.conf|g' $target/catppuccin.tmux
-      sed -i -e 's|''${PLUGIN_DIR}/catppuccin_tmux.conf|'$target'/catppuccin_tmux.conf|g' $target/catppuccin.tmux
-    '';
-    src = pkgs.fetchFromGitHub {
-      owner = "catppuccin";
-      repo = "tmux";
-      rev = "179572333b0473020e45f34fd7c1fd658b2831f4";
-      sha256 = "sha256-9+SpgO2Co38I0XnEbRd7TSYamWZNjcVPw6RWJIHM+4c=";
-    };
-  };
-in {
+{pkgs, ...}: {
   programs.tmux = {
     enable = true;
     keyMode = "vi";
@@ -25,7 +8,6 @@ in {
     aggressiveResize = true;
     clock24 = true;
     plugins = with pkgs; [
-      tmuxPlugins.gruvbox
       # {
       #   plugin = tmux-catppuccin;
       #   extraConfig = ''
@@ -78,11 +60,8 @@ in {
       set -g status-right-length 100
       set -g status-left-length 100
       #set -g status-left ""
-      # set -g status-right "#{E:@catppuccin_status_host}"
-      # set -ag status-right "#{E:@catppuccin_status_session}"
-      # set -ag status-right "#{E:@catppuccin_status_date_time}"
-      set -g @tmux-gruvbox-right-status-x '%Y-%m-%d' # e.g.: 30.01.2024
-      set -g @tmux-gruvbox-right-status-z '#h #{tmux_mode_indicator}'
+      # set -g @tmux-gruvbox-right-status-x '%Y-%m-%d' # e.g.: 30.01.2024
+      # set -g @tmux-gruvbox-right-status-z '#h #{tmux_mode_indicator}'
     '';
   };
 }

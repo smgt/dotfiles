@@ -35,6 +35,44 @@ in
             modifier = swayMod;
             border = 2;
           };
+          colors = {
+            focused = {
+              background = "$base";
+              border = "$lavender";
+              childBorder = "$lavender";
+              indicator = "$rosewater";
+              text = "$text";
+            };
+            focusedInactive = {
+              background = "$base";
+              border = "$overlay0";
+              childBorder = "$overlay0";
+              indicator = "$rosewater";
+              text = "$text";
+            };
+            unfocused = {
+              background = "$base";
+              border = "$overlay0";
+              childBorder = "$overlay0";
+              indicator = "$rosewater";
+              text = "$text";
+            };
+            urgent = {
+              background = "$base";
+              border = "$peach";
+              childBorder = "$peach";
+              indicator = "$overlay0";
+              text = "$text";
+            };
+            placeholder = {
+              background = "$base";
+              border = "$overlay0";
+              childBorder = "$overlay0";
+              indicator = "$overlay0";
+              text = "$text";
+            };
+            background = "$base";
+          };
           keybindings = lib.mkOptionDefault {
             # "XF86MonBrightnessDown" = "exec light -G | cut -d'.' -f1 > $WOBSOCK";
             # "XF86MonBrightnessUp" = "exec light -G | cut -d'.' -f1 > $WOBSOCK";
