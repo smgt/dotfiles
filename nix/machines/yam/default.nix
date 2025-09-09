@@ -14,6 +14,7 @@ in {
   smgt = {
     dev = {
       enable = true;
+      vagrant = true;
     };
     desktop = {
       enable = true;
