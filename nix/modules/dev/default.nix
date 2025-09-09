@@ -14,25 +14,37 @@ in
       type = types.bool;
       description = "Enable development tools";
     };
+    options.smgt.dev.vagrant = mkOption {
+      default = false;
+      type = types.bool;
+      description = "Install vagrant";
+    };
     config = mkIf cfg.enable {
-      environment.systemPackages = with pkgs; [
-        dive
-        gcc
-        gdb
-        go
-        gotools
-        gnumake
-        gitFull
-        git-lfs
-        gotraceui
-        # libgcc
-        #nodejs_22
-        perl
-        python3
-        rustc
-        cargo
-        siege
-      ];
+      environment.systemPackages = with pkgs;
+        [
+          dive
+          gcc
+          gdb
+          go
+          gotools
+          gnumake
+          gitFull
+          git-lfs
+          gotraceui
+          # libgcc
+          #nodejs_22
+          perl
+          python3
+          rustc
+          cargo
+          siege
+        ]
+        ++ optional cfg.vagrant pkgs.vagrant;
+
+      virtualisation.virtualbox.host.enable = cfg.vagrant;
+      users.extraGroups.vboxusers.members = ["simon"];
+      boot.kernelParams = ["kvm.enable_virt_at_load=0"];
+
       sops = {
         age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
         defaultSopsFile = "${secretspath}/dev.yml";
