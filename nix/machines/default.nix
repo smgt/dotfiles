@@ -173,6 +173,7 @@ in
         moreutils
         mosh
         neovim
+        graphviz
         pv
         pwgen
         pinentry-tty
