@@ -1,8 +1,6 @@
 {
   modulesPath,
   config,
-  lib,
-  pkgs,
   ...
 }: let
   cfg = config.smgt;
@@ -14,11 +12,14 @@ in {
   ];
 
   smgt = {
-    dev.enable = true;
+    dev = {
+      enable = true;
+    };
     desktop = {
       enable = true;
       steam = true;
     };
+    yubikey.enable = true;
   };
 
   boot = {
@@ -56,7 +57,6 @@ in {
   };
 
   services = {
-    pcscd.enable = true;
     resolved = {
       enable = true;
     };

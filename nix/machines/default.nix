@@ -22,6 +22,7 @@ in
       ../modules/steam.nix
       ../modules/tailscale.nix
       ../modules/openssh.nix
+      ../modules/yubikey.nix
     ];
 
     config = {
@@ -73,6 +74,7 @@ in
         ssh = {
           enableAskPassword = true;
           startAgent = true;
+          agentTimeout = "8h";
         };
         zsh = {
           enable = true;
