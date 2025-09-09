@@ -96,6 +96,7 @@ in {
         hunspell
         hunspellDicts.sv_SE
         hunspellDicts.en_US
+        libsecret
       ];
 
       etc."greetd/environments".text = ''
