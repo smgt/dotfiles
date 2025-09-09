@@ -58,6 +58,10 @@ in
             path = "${config.users.users.simon.home}/.config/1p-env/integration";
             owner = config.users.users.simon.name;
           };
+          "1penv/production" = {
+            path = "${config.users.users.simon.home}/.config/1p-env/production";
+            owner = config.users.users.simon.name;
+          };
         };
         templates."dev.env" = {
           content = config.sops.placeholder.dev;
