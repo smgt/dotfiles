@@ -1,0 +1,100 @@
+@import "/nix/store/kzah4463gnsw0m73z47lw5bjgabg5lhc-catppuccin-waybar-0-unstable-2024-07-13/mocha.css";
+
+* {
+    font-family: IosevkaTerm, sans-serif;
+    font-size: 10px;
+    min-height: 0;
+    border: none;
+    border-radius: 0;
+}
+
+window#waybar {
+    background-color: @base;
+    border-bottom: 0.125rem solid @crust;
+    color: @text;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+#workspaces {
+  border-radius: 0em;
+  margin-left: 0.5rem;
+  padding: 0;
+}
+
+#workspaces button {
+    border-radius: 0px;
+    padding: 0 0.5rem;
+    margin: 0;
+    color: @overlay0;
+}
+
+#workspaces button:hover {
+    /* Remove strange hover effect */
+    box-shadow: inherit;
+    text-shadow: inherit;
+    background: @surface0;
+    border-radius: 0;
+}
+
+#workspaces button.focused {
+    background-color: @sky;
+    color: @crust;
+    border-radius: 0px;
+}
+
+#workspaces button.urgent {
+    background-color: @rosewater;
+}
+
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#custom-media,
+#custom-lock,
+#custom-sleep,
+#custom-darkman,
+#custom-screenshot,
+#custom-music,
+#custom-unread,
+#mpris,
+#mode,
+#idle_inhibitor,
+#scratchpad,
+#language,
+#mpd {
+    padding: 0 0.5rem;
+    color: @lavender;
+    border: 0;
+    border-radius: 0;
+}
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: #000000;
+    }
+}
+
+#battery.critical:not(.charging) {
+    background-color: @red;
+    color: @crust;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#tray {
+  padding: 0.5rem 1rem;
+}
+
+/* vim:ft=css */
