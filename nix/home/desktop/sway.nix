@@ -37,35 +37,35 @@ in
           };
           colors = {
             focused = {
-              background = "$base";
+              background = "$lavender";
               border = "$lavender";
               childBorder = "$lavender";
               indicator = "$rosewater";
-              text = "$text";
+              text = "$base";
             };
             focusedInactive = {
-              background = "$base";
-              border = "$overlay0";
-              childBorder = "$overlay0";
+              background = "$surface2";
+              border = "$surface2";
+              childBorder = "$surface2";
               indicator = "$rosewater";
-              text = "$text";
+              text = "$base";
             };
             unfocused = {
-              background = "$base";
-              border = "$overlay0";
-              childBorder = "$overlay0";
+              background = "$surface0";
+              border = "$surface0";
+              childBorder = "$surface0";
               indicator = "$rosewater";
-              text = "$text";
+              text = "$surface2";
             };
             urgent = {
-              background = "$base";
+              background = "$peach";
               border = "$peach";
               childBorder = "$peach";
               indicator = "$overlay0";
-              text = "$text";
+              text = "$base";
             };
             placeholder = {
-              background = "$base";
+              background = "$overlay0";
               border = "$overlay0";
               childBorder = "$overlay0";
               indicator = "$overlay0";

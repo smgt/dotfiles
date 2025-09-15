@@ -28,25 +28,6 @@ in
             return c
           end
 
-          -- Define themes for dark/light mode and default fallback
-          local function scheme_for_appearance(appearance)
-            -- local light = "Catppuccin Latte"
-            -- local dark = "Catppuccin Mocha"
-            local light = "GruvboxLight"
-            local dark = "GruvboxDarkHard"
-            wezterm.log_info(appearance)
-            if appearance == nil then
-              return dark
-            end
-            if appearance:find("Light") then
-              return light
-              -- return "Tokyo Night Moon"
-            else
-              return dark
-              -- return "Tokyo Night Moon"
-            end
-          end
-
           -- Action on local machine
           wezterm.on("gui-startup", function(cmd)
             local args = {}
@@ -214,18 +195,16 @@ in
             -- 	},
             -- 	-- { key = "b", mods = "LEADER|CTRL", action = act.SendString("\x01") },
             -- },
-            color_scheme_dirs = { "$HOME/.config/wezterm/colors" },
-            color_scheme = scheme_for_appearance(wezterm.gui.get_appearance()),
             force_reverse_video_cursor = true,
             warn_about_missing_glyphs = false,
             exit_behavior = "Close",
 
             enable_wayland = true,
 
-            enable_tab_bar = false,
+            enable_tab_bar = true,
             hide_tab_bar_if_only_one_tab = true,
-            -- use_fancy_tab_bar = true,
-            tab_bar_at_bottom = false,
+            use_fancy_tab_bar = false,
+            tab_bar_at_bottom = true,
             unix_domains = gen_unix_domains(),
             window_padding = {
               left = 0,
@@ -245,6 +224,7 @@ in
             format = "https://readly.atlassian.net/browse/$1",
           })
 
+          dofile(catppuccin_plugin).apply_to_config(settings)
           return settings
         '';
       };
