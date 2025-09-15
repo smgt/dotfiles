@@ -89,6 +89,7 @@ in {
         kdePackages.xdg-desktop-portal-kde
         xdg-desktop-portal-wlr
         pulseaudio
+        nautilus
         libnotify
         ncspot
         zed-editor

@@ -151,6 +151,7 @@ in
         charm-freeze
         cachix
         delta
+        feh
         difftastic
         dfc
         dig
