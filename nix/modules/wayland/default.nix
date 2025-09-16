@@ -83,6 +83,7 @@ in {
         wdisplays
         adwaita-icon-theme
         glib
+        networkmanagerapplet
         xdg-desktop-portal-gnome
         xdg-desktop-portal-gtk
         xdg-desktop-portal-hyprland
