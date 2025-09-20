@@ -80,6 +80,14 @@
   };
 
   services = {
+    openssh = {
+      settings = {
+        AllowUsers = [
+          "simon"
+          "git"
+        ];
+      };
+    };
     logind = {
       settings = {
         Login = {
