@@ -25,6 +25,12 @@ in
       ../modules/yubikey.nix
     ];
 
+    options.smgt.syncthing.enable = mkOption {
+      default = false;
+      type = lib.types.bool;
+      description = "Install syncthing";
+    };
+
     config = {
       users = {
         users.root = {

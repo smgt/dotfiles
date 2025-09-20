@@ -21,6 +21,7 @@ in {
       steam = true;
     };
     yubikey.enable = true;
+    syncthing.enable = true;
   };
 
   boot = {

@@ -17,5 +17,6 @@
   smgt = {
     desktop.enable = osConfig.smgt.desktop.enable;
     dev.enable = osConfig.smgt.dev.enable;
+    syncthing.enable = osConfig.smgt.syncthing.enable;
   };
 }
