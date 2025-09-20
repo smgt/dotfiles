@@ -36,6 +36,7 @@ in
           sway.enable = true;
         };
       };
+      programs.spotify-player.enable = true;
       services = {
         clipman.enable = true;
 
