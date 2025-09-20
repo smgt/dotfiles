@@ -20,6 +20,10 @@ in
       description = "Install vagrant";
     };
     config = mkIf cfg.enable {
+      nixpkgs.config.allowUnfreePredicate = pkg:
+        builtins.elem (lib.getName pkg) [
+          "amp-cli"
+        ];
       environment.systemPackages = with pkgs;
         [
           dive
@@ -38,6 +42,8 @@ in
           rustc
           cargo
           siege
+          aider-chat
+          amp-cli
         ]
         ++ optional cfg.vagrant pkgs.vagrant;
 
