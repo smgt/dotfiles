@@ -1,4 +1,5 @@
 {
+  vars,
   lib,
   pkgs,
   config,
@@ -143,27 +144,8 @@
 
       ssh = {
         enable = true;
-        matchBlocks = {
-          "*" = {
-            forwardAgent = false;
-          };
-          "*.dev.readly.com !nat.dev.readly.com" = {
-            user = "ubuntu";
-            proxyJump = "ec2-user@nat.dev.readly.com";
-          };
-          "10.0.* !nat.dev.readly.com" = {
-            user = "ubuntu";
-            proxyJump = "ec2-user@nat.dev.readly.com";
-          };
-          "10.10.*" = {
-            user = "ubuntu";
-            proxyJump = "ec2-user@nat.vpc.eu.readly.com";
-          };
-          "*.vpc.eu.readly.com !nat.vpc.eu.readly.com" = {
-            user = "ubuntu";
-            proxyJump = "ec2-user@nat.vpc.eu.readly.com";
-          };
-        };
+        enableDefaultConfig = false;
+        inherit (vars.ssh) matchBlocks;
       };
 
       fzf = {

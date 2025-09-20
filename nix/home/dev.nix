@@ -50,7 +50,6 @@ in
           gopls
           # yaml-language-server
           # vscode-langservers-extracted
-          # gopls
           # harper
           # terraform-ls
           # nil
