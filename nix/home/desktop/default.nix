@@ -15,6 +15,7 @@ in
       ./thunderbird.nix
       ./dunst.nix
       ./sway.nix
+      ./wofi.nix
     ];
     options.smgt.desktop.enable = mkOption {
       default = false;

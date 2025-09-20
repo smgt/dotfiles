@@ -34,7 +34,6 @@ in {
           kanshi
           slurp
           wezterm
-          wofi
           light
           pavucontrol
         ];
