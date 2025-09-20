@@ -1,4 +1,5 @@
 {
+  vars,
   config,
   lib,
   pkgs,
@@ -16,12 +17,16 @@ in
       programs = {
         awscli.enable = true;
 
+        murp = {
+          enable = true;
+          jira.ticketQuery = vars.murp.jira.ticketQuery;
+          gitlab.reviewers = vars.murp.gitlab.reviewers;
+        };
+
+        # enable go
         go = {
           enable = true;
-          goPrivate = [
-            "gitlab.com/readly-ab"
-            "buf.build/gen/go"
-          ];
+          goPrivate = vars.go.private;
         };
 
         # Enable direnv and nix-direnv
@@ -42,6 +47,7 @@ in
           entr
           buf
           glab
+          gopls
           # yaml-language-server
           # vscode-langservers-extracted
           # gopls

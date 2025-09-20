@@ -13,9 +13,11 @@ in
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
+      overlays = [inputs.murp.overlays.murp];
     };
     extraSpecialArgs = {inherit system hostname;};
     modules = [
+      inputs.murp.homeModules.murp
       inputs.sops-nix.homeManagerModules.sops
       (import userHMConfig {inherit inputs;})
       inputs.catppuccin.homeModules.catppuccin

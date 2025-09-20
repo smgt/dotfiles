@@ -10,7 +10,6 @@
       flavor = "mocha";
       tmux = {
         extraConfig = ''
-
           set -g @catppuccin_window_status_style "basic"
           # set -g "@catppuccin_pane_default_text" "derp asdf"
           set -g @catppuccin_status_left_separator ""

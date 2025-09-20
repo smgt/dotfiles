@@ -4,6 +4,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     utils.url = "github:numtide/flake-utils";
+    murp.url = "git+ssh://git@0xee.cc/smgt/murp.git";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -32,6 +34,7 @@
     utils,
     home-manager,
     disko,
+    murp,
     nixos-hardware,
     nix-flatpak,
     catppuccin,

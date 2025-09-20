@@ -14,13 +14,14 @@
   machineConfig = ../machines/${name};
   userHMConfig = ../home;
   extraModule = extraModules;
+  vars = import "${inputs.secrets}/default.nix";
 in
   nixpkgs.lib.nixosSystem rec {
     inherit system;
 
     # Pass extra args
     specialArgs = {
-      inherit desktop dev;
+      inherit desktop dev vars;
     };
 
     modules =
@@ -52,6 +53,7 @@ in
             sharedModules = [
               inputs.sops-nix.homeManagerModules.sops
               inputs.catppuccin.homeModules.catppuccin
+              inputs.murp.homeModules.murp
             ];
             extraSpecialArgs = specialArgs;
           };
@@ -61,7 +63,7 @@ in
         # better based on these values.
         {
           config._module.args = {
-            inherit inputs;
+            inherit inputs vars;
             currentSystem = system;
             currentSystemName = name;
             currentSystemUser = user;
