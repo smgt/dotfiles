@@ -81,10 +81,11 @@
 
   services = {
     logind = {
-      extraConfig = ''
-        RuntimeDirectorySize=12G
-        HandleLidSwitchDocked=ignore
-      '';
+      settings = {
+        Login = {
+          RuntimeDirectorySize = "12G";
+        };
+      };
     };
 
     caddy = {
