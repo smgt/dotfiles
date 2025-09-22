@@ -22,6 +22,7 @@ in {
     };
     yubikey.enable = true;
     syncthing.enable = true;
+    tailscale.enable = true;
   };
 
   boot = {

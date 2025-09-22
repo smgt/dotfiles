@@ -12,7 +12,12 @@ in {
     ./disko.nix
   ];
 
-  smgt.dev.enable = true;
+  smgt = {
+    dev.enable = true;
+    tailscale = {
+      enable = true;
+    };
+  };
 
   boot = {
     initrd = {

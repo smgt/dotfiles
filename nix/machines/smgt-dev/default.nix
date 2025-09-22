@@ -9,6 +9,15 @@
     ../../modules/microsocks.nix
   ];
 
+  smgt = {
+    dev.enable = true;
+    syncthing.enable = true;
+    tailscale = {
+      enable = true;
+      nodeType = "both";
+    };
+  };
+
   boot.loader.grub.efiSupport = false;
   boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
 

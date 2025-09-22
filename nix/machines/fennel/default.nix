@@ -9,6 +9,10 @@
     ./networking.nix
   ];
 
+  smgt = {
+    tailscale.enable = true;
+  };
+
   boot.tmp.cleanOnBoot = true;
   zramSwap.enable = true;
 
