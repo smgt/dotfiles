@@ -12,11 +12,14 @@
       tmux = {
         extraConfig = ''
           set -g @catppuccin_window_status_style "basic"
-          # set -g "@catppuccin_pane_default_text" "derp asdf"
+          set -g @catppuccin_window_text " #W"
+          set -g @catppuccin_window_current_text " #W"
+          # set -g @catppuccin_pane_default_text "##{b:pane_current_path}"
           set -g @catppuccin_status_left_separator ""
-          set -g "@catppuccin_host_icon" " 󰒋 "
-          set -g "@catppuccin_session_icon" "  "
-          set -g "@catppuccin_date_time_icon" " 󰃰 "
+          set -g @catppuccin_host_icon " 󰒋 "
+          set -g @catppuccin_session_icon "  "
+          set -g @catppuccin_date_time_icon " 󰃰 "
+          set -g status-left ""
           set -g status-right "#{E:@catppuccin_status_host}"
           set -ag status-right "#{E:@catppuccin_status_session}"
           set -ag status-right "#{E:@catppuccin_status_date_time}"

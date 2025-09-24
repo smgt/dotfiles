@@ -59,7 +59,7 @@
 
       set -g status-right-length 100
       set -g status-left-length 100
-      #set -g status-left ""
+      # set -g status-left ""
       # set -g @tmux-gruvbox-right-status-x '%Y-%m-%d' # e.g.: 30.01.2024
       # set -g @tmux-gruvbox-right-status-z '#h #{tmux_mode_indicator}'
     '';
