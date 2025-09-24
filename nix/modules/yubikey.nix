@@ -21,6 +21,7 @@ in
         yubikey-manager
         # We need it for ssh-agent to ask for Yubikey PIN
         x11_ssh_askpass
+        age-plugin-yubikey
       ];
     };
   }
