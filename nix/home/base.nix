@@ -35,6 +35,7 @@
         PAGER = "less -R";
         MANPAGER = "nvim +Man!";
         NETRC = "$HOME/.netrc";
+        PASSAGE_DIR = "$HOME/.passage/";
       };
 
       stateVersion = lib.mkDefault "25.05";
