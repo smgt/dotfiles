@@ -63,7 +63,7 @@ in {
         theme = "light";
         default_2fa_method = "totp";
         log = {
-          level = "debug";
+          level = "info";
         };
         server = {
           disable_healthcheck = true;
