@@ -1,12 +1,13 @@
 {
   config,
-  lib,
   pkgs,
+  vars,
   ...
 }: {
   imports = [
     ./hardware-configuration.nix
     ./networking.nix
+    ../../modules/authelia
   ];
 
   smgt = {
@@ -116,6 +117,26 @@
           extraConfig = ''
             reverse_proxy unix//run/forgejo/forgejo.sock
           '';
+        };
+        "auth.kampgate.se" = {
+          serverAliases = ["auth.kampgate.dev"];
+          extraConfig = ''
+            # trusted_proxies 0.0.0.0/0
+            reverse_proxy 127.0.0.1:9091 {
+              header_up X-Forwarded-Host {host}
+              header_up X-Forwarded-Proto {scheme}
+            }
+          '';
+        };
+        "kampgate.se" = {
+          logFormat = ''
+            output file ${config.services.caddy.logDir}/kampgate-se-access.log {
+              roll_size 100mb
+              roll_keep 5
+              roll_keep_for 720h
+            }
+          '';
+          extraConfig = vars.caddy."kampgate.se".extraConfig;
         };
         "smgt.me" = {
           serverAliases = [
