@@ -8,6 +8,7 @@
   user ? "simon",
 }: let
   userHMConfig = ../home/standalone.nix;
+  vars = import "${inputs.secrets}/default.nix";
 in
   home-manager.lib.homeManagerConfiguration {
     pkgs = import nixpkgs {
@@ -15,7 +16,7 @@ in
       config.allowUnfree = true;
       overlays = [inputs.murp.overlays.murp];
     };
-    extraSpecialArgs = {inherit system hostname;};
+    extraSpecialArgs = {inherit system hostname vars;};
     modules = [
       inputs.murp.homeModules.murp
       inputs.sops-nix.homeManagerModules.sops
