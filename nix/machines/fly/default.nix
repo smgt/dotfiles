@@ -14,6 +14,7 @@ in {
 
   smgt = {
     dev.enable = true;
+    syncthing.enable = true;
     tailscale = {
       enable = true;
     };

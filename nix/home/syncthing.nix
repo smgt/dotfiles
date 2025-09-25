@@ -14,6 +14,7 @@ in
     config = mkIf cfg.enable {
       services.syncthing = {
         inherit (cfg) enable;
+        tray.enable = config.smgt.desktop.enable;
         overrideDevices = false;
         overrideFolders = false;
       };
