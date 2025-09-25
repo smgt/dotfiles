@@ -21,7 +21,7 @@ in {
     };
     defaultTimeout = lib.mkOption {
       type = lib.types.nullOr lib.types.ints.positive;
-      default = null;
+      default = 60 * 60 * 8;
       example = 60 * 60 * 8; # 8h
       description = ''
         Set a default value for the maximum lifetime in seconds of identities added to the agent.
