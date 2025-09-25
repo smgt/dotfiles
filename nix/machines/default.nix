@@ -1,7 +1,7 @@
 {
   lib,
   pkgs,
-  input,
+  inputs,
   ...
 }: let
   ssh_keys = [
@@ -14,6 +14,7 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPYMEc/iU8oLrAse2Z3h5Xq7eZPSalLByghFtE5ETwnI paprika"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAGvbdiDZJxZWRHeel0jUQk+/AqAzeVOC8FmAUC1gJGE fly"
   ];
+  secretspath = builtins.toString inputs.secrets;
 in
   with lib; {
     imports = [
@@ -32,6 +33,10 @@ in
     };
 
     config = {
+      sops = {
+        age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+        defaultSopsFile = "${secretspath}/secrets.yml";
+      };
       users = {
         users.root = {
           shell = pkgs.zsh;

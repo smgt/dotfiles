@@ -52,21 +52,24 @@ in
       boot.kernelParams = ["kvm.enable_virt_at_load=0"];
 
       sops = {
-        age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
-        defaultSopsFile = "${secretspath}/dev.yml";
         secrets = {
-          "dev" = {};
+          "dev" = {
+            sopsFile = "${secretspath}/dev.yml";
+          };
           "1penv/config" = {
             path = "${config.users.users.simon.home}/.config/1p-env/config";
             owner = config.users.users.simon.name;
+            sopsFile = "${secretspath}/dev.yml";
           };
           "1penv/integration" = {
             path = "${config.users.users.simon.home}/.config/1p-env/integration";
             owner = config.users.users.simon.name;
+            sopsFile = "${secretspath}/dev.yml";
           };
           "1penv/production" = {
             path = "${config.users.users.simon.home}/.config/1p-env/production";
             owner = config.users.users.simon.name;
+            sopsFile = "${secretspath}/dev.yml";
           };
         };
         templates."dev.env" = {

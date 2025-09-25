@@ -4,7 +4,9 @@
   pkgs,
   lib,
   ...
-}: {
+}: let
+  secretspath = builtins.toString inputs.secrets;
+in {
   imports = [
     ./base.nix
     ./tmux.nix
@@ -14,6 +16,13 @@
     ./desktop
     ./ssh-agent.nix
   ];
+
+  sops = {
+    age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+    defaultSopsFile = "${secretspath}/secrets.yml";
+    secrets = {
+    };
+  };
 
   smgt = {
     desktop.enable = osConfig.smgt.desktop.enable;
