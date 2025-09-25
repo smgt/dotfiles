@@ -42,7 +42,9 @@ in
         # enable go
         go = {
           enable = true;
-          goPrivate = vars.go.private;
+          env = {
+            GOPRIVATE = vars.go.private;
+          };
         };
 
         # Enable direnv and nix-direnv
