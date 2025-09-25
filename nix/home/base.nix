@@ -72,7 +72,7 @@
 
     xdg.enable = true;
     services = {
-      ssh-agent.enable = true;
+      #ssh-agent.enable = true;
     };
 
     programs = {
